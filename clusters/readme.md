@@ -1,0 +1,1 @@
+To output kubeconfig & talosconfig, go inside a cluster folder and type `mise tf:output`, make sure to be inside a cluster folder

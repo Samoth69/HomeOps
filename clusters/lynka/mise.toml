@@ -1,0 +1,16 @@
+[env]
+KUBECONFIG = "{{config_root}}/kubeconfig"
+TALOSCONFIG = "{{config_root}}/talosconfig"
+
+[tasks."tf:output"]
+dir = "{{ config_root }}/tf"
+run = '''
+tofu output -raw kubeconfig > $KUBECONFIG
+tofu output -raw talosconfig > $TALOSCONFIG
+'''
+
+[tasks."tf:clean"]
+run = '''
+rm -f $KUBECONFIG
+rm -f $TALOSCONFIG
+'''
