@@ -14,7 +14,7 @@ PiHole + HomeAssistant
 
 ##### KubeLynka
 
-Schematic ID : c7b863b2ab08aa801177461d21c70d628fc70aae026ea690df38926f9f40c59c
+Schematic ID : 4717f83f4e192788abb14eac1d990eebe3e866ff866fbbbf90724c45a4b7af88
 
 ```
 customization:
@@ -27,4 +27,5 @@ customization:
         officialExtensions:
             - siderolabs/qemu-guest-agent
             - siderolabs/util-linux-tools
+    bootloader: sd-boot
 ```

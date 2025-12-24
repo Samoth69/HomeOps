@@ -19,37 +19,48 @@ resource "talos_machine_configuration_apply" "controlplane" {
   node                        = var.node_ip
   config_patches = [
     yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "LinkConfig"
+      name       = "eth0"
+      addresses  = [for k, v in var.node_network_addresses : { address = v }]
+      routes = [
+        {
+          gateway = var.node_network_routes_ipv4_gateway
+        },
+        {
+          gateway = var.node_network_routes_ipv6_gateway
+        },
+      ]
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "HostnameConfig"
+      auto       = "off"
+      hostname   = var.hostname
+    }),
+    yamlencode({
+      apiVersion  = "v1alpha1"
+      kind        = "ResolverConfig"
+      nameservers = [for k, v in var.node_network_nameservers : { address = v }]
+      searchDomains = {
+        disableDefault = true
+      }
+    }),
+    yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "TimeSyncConfig"
+      ntp = {
+        servers = ["162.159.200.1", "162.159.200.123"]
+      }
+    }),
+    yamlencode({
       machine = {
         type = "controlplane",
         install = {
-          image             = "factory.talos.dev/nocloud-installer-secureboot/c7b863b2ab08aa801177461d21c70d628fc70aae026ea690df38926f9f40c59c:v1.11.6"
+          image             = "factory.talos.dev/nocloud-installer-secureboot/4717f83f4e192788abb14eac1d990eebe3e866ff866fbbbf90724c45a4b7af88:v1.12.0"
           disk              = "/dev/sda"
           legacyBIOSSupport = false
           wipe              = true
-        },
-        network = {
-          hostname            = var.hostname
-          nameservers         = var.node_network_nameservers
-          disableSearchDomain = true
-          interfaces = [{
-            interface = "eth0"
-            addresses = var.node_network_addresses
-            dhcp      = false
-            dhcpOptions = {
-              ipv4 = false
-              ipv6 = false
-            }
-            routes = [
-              {
-                network = "0.0.0.0/0",
-                gateway = var.node_network_routes_ipv4_gateway
-              },
-              {
-                network = "::/0",
-                gateway = var.node_network_routes_ipv6_gateway
-              },
-            ]
-          }],
         },
         kubelet = {
           defaultRuntimeSeccompProfileEnabled = true
@@ -61,17 +72,63 @@ resource "talos_machine_configuration_apply" "controlplane" {
             validSubnets = var.node_kubelet_nodeip_validsubnets
           }
         }
+        udev = {
+          rules = [
+            # IO scheduler
+            # Algorithm to manage disk IO requests and balance it with other CPU loads.
+            # HDD
+            "ACTION=='add|change', KERNEL=='sd[a-z]', ATTR{queue/rotational}=='1', ATTR{queue/scheduler}='mq-deadline'",
+            # SSD
+            "ACTION=='add|change', KERNEL=='sd[a-z]', ATTR{queue/rotational}=='0', ATTR{queue/scheduler}='none'",
+            # NVMe SSD
+            "ACTION=='add|change', KERNEL=='nvme[0-9]n[0-9]', ATTR{queue/rotational}=='0', ATTR{queue/scheduler}='none'"
+          ]
+        }
         sysctls = {
+          # IPv6 requirements
           "net.ipv6.conf.default.autoconf"  = 0
           "net.ipv6.conf.default.accept_ra" = 0
           "net.ipv6.conf.all.autoconf"      = 0
           "net.ipv6.conf.all.accept_ra"     = 0
+          # Watchdog
+          "fs.inotify.max_user_watches"   = 1048576
+          "fs.inotify.max_user_instances" = 8192
         }
       }
       cluster = {
         allowSchedulingOnControlPlanes = true
+        apiServer = {
+          disablePodSecurityPolicy = true
+          admissionControl         = []
+        }
+        controllerManager = {
+          extraArgs = {
+            bind-address = "0.0.0.0"
+          }
+        }
+        coreDNS = {
+          disabled = true
+        }
+        etcd = {
+          extraArgs = {
+            listen-metrics-urls = "http://0.0.0.0:2381"
+          }
+        }
+        network = {
+          cni = {
+            name = "none"
+          }
+        }
+        proxy = {
+          disabled = true
+        }
+        scheduler = {
+          extraArgs = {
+            bind-address = "0.0.0.0"
+          }
+        }
       }
-    }),
+    })
   ]
 }
 
