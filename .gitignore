@@ -1,0 +1,6 @@
+# sops
+*.key
+.decrypted~*
+
+# python
+.pytest_cache

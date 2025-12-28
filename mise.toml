@@ -1,5 +1,9 @@
 experimental_monorepo_root = true
 
+[env]
+SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
+SOPS_CONFIG = "{{config_root}}/.sops.yaml"
+
 [settings]
 task.monorepo_depth = 3  # Only search 3 levels deep
 
@@ -9,3 +13,5 @@ task.monorepo_depth = 3  # Only search 3 levels deep
 "aqua:getsops/sops" = "latest"
 "aqua:kubernetes/kubectl" = "latest"
 "aqua:siderolabs/talos" = "latest"
+"aqua:kubernetes-sigs/kustomize" = "latest"
+"aqua:helm/helm" = "latest"

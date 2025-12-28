@@ -72,6 +72,12 @@ resource "talos_machine_configuration_apply" "controlplane" {
             validSubnets = var.node_kubelet_nodeip_validsubnets
           }
         }
+        features = {
+          hostDNS = {
+            enabled              = true
+            forwardKubeDNSToHost = false
+          }
+        }
         udev = {
           rules = [
             # IO scheduler
@@ -99,7 +105,31 @@ resource "talos_machine_configuration_apply" "controlplane" {
         allowSchedulingOnControlPlanes = true
         apiServer = {
           disablePodSecurityPolicy = true
-          admissionControl         = []
+          admissionControl = [
+            {
+              name = "PodSecurity"
+              configuration = {
+                apiVersion = "pod-security.admission.config.k8s.io/v1"
+                defaults = {
+                  audit           = "restricted"
+                  audit-version   = "latest"
+                  enforce         = "baseline"
+                  enforce-version = "latest"
+                  warn            = "restricted"
+                  warn-version    = "latest"
+                }
+                exemptions = {
+                  namespaces = [
+                    "kube-system",
+                    "system-priv"
+                  ]
+                  runtimeClasses = []
+                  usernames      = []
+                }
+                kind = "PodSecurityConfiguration"
+              }
+            }
+          ]
         }
         controllerManager = {
           extraArgs = {

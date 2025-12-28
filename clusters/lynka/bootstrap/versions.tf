@@ -1,0 +1,17 @@
+terraform {
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "3.0.1"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "3.1.1"
+    }
+  }
+}
+
+provider "kubernetes" {
+  # Configuration options
+  config_path = "../kubeconfig"
+}

@@ -8,7 +8,7 @@ If you want to build something similar, have a look at the excellent [cluster-te
 
 ### Lynka
 
-PiHole + HomeAssistant
+Single node running home critical apps : PiHole and HomeAssistant
 
 #### Nodes
 

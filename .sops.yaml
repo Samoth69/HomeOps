@@ -1,0 +1,13 @@
+keys:
+  - &lynka age10mxrc4xzc0udh8ra304ftjnc6m3x3qfe60qulu8j9eqjhrgkns9qnk50up
+
+creation_rules:
+  - path_regex: clusters/lynka/.*\.sops\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
+    key_groups:
+      - age:
+          - *lynka
+
+stores:
+  yaml:
+    indent: 2
