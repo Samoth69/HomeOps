@@ -17,6 +17,10 @@ resource "talos_machine_configuration_apply" "controlplane" {
   client_configuration        = talos_machine_secrets.this.client_configuration
   machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
   node                        = var.node_ip
+  on_destroy = {
+    graceful = false
+    reset    = true
+  }
   config_patches = [
     yamlencode({
       apiVersion = "v1alpha1"
@@ -105,31 +109,6 @@ resource "talos_machine_configuration_apply" "controlplane" {
         allowSchedulingOnControlPlanes = true
         apiServer = {
           disablePodSecurityPolicy = true
-          admissionControl = [
-            {
-              name = "PodSecurity"
-              configuration = {
-                apiVersion = "pod-security.admission.config.k8s.io/v1"
-                defaults = {
-                  audit           = "restricted"
-                  audit-version   = "latest"
-                  enforce         = "baseline"
-                  enforce-version = "latest"
-                  warn            = "restricted"
-                  warn-version    = "latest"
-                }
-                exemptions = {
-                  namespaces = [
-                    "kube-system",
-                    "system-priv"
-                  ]
-                  runtimeClasses = []
-                  usernames      = []
-                }
-                kind = "PodSecurityConfiguration"
-              }
-            }
-          ]
         }
         controllerManager = {
           extraArgs = {
