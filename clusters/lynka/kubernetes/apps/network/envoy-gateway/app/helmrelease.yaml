@@ -15,8 +15,8 @@ spec:
     podDisruptionBudget:
       minAvailable: 1
     deployment:
+      replicas: 2
       envoyGateway:
-        replicas: 2
         resources:
           requests:
             cpu: 10m
