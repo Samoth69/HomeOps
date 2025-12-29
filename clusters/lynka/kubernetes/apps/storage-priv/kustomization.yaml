@@ -6,7 +6,8 @@ namespace: storage-priv
 
 components:
   - ../../components/sops
+  - ../../components/namespace-priv
 
 resources:
   - ./namespace.yaml
-  - ./reloader/ks.yaml
+  - ./openebs/ks.yaml
