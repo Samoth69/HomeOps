@@ -28,8 +28,10 @@ spec:
       enabled: false
     gatewayAPI:
       enabled: false
+    hostFirewall:
+      enabled: true
     hubble:
-      enabled: false
+      enabled: true
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "10.1.0.0/16"
