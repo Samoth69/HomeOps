@@ -35,3 +35,8 @@ spec:
           kubernetes:
             deploy:
               type: GatewayNamespace
+    certgen:
+      job:
+        pod:
+          labels:
+            egress.samoth.eu/kube-apiserver: allow
