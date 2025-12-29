@@ -19,6 +19,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
   node                        = var.node_ip
   on_destroy = {
     graceful = false
+    reboot = true
     reset    = true
   }
   config_patches = [
