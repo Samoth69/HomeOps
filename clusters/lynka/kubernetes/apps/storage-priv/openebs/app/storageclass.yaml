@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-lvmsc
+allowVolumeExpansion: true
+parameters:
+  volgroup: "openebs-vg"
+provisioner: local.csi.openebs.io

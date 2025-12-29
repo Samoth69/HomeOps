@@ -59,6 +59,18 @@ resource "talos_machine_configuration_apply" "controlplane" {
       }
     }),
     yamlencode({
+      apiVersion = "v1alpha1"
+      kind       = "RawVolumeConfig"
+      name       = "openebs-lvm"
+      provisioning = {
+        diskSelector = {
+          match = "disk.dev_path == '/dev/sdb'"
+        }
+        minSize = "2GB"
+        grow    = true
+      }
+    }),
+    yamlencode({
       machine = {
         type = "controlplane",
         install = {
@@ -83,6 +95,54 @@ resource "talos_machine_configuration_apply" "controlplane" {
             forwardKubeDNSToHost = false
           }
         }
+        pods = [{
+          apiVersion = "v1"
+          kind       = "pod"
+          metadata = {
+            name      = "openebs-lvm-formater"
+            namespace = "kube-system"
+          }
+          spec = {
+            hostNetwork   = true
+            hostPID       = true
+            restartPolicy = "Never"
+            containers = [{
+              image = "openebs/lvm-driver"
+              name  = "mounter"
+              securityContext = {
+                privileged = true
+              }
+              volumeMounts = [{
+                mountPath = "/host"
+                name      = "host-root"
+              }]
+              command = [
+                "sh",
+                "-c",
+                <<EOF
+if pvdisplay | grep -q 'openebs-pv'; then
+  echo 'PV exist'
+else
+  echo 'PV doesnt exist, creating...'
+  pvcreate /dev/sdb1
+fi
+if vgdisplay | grep -q 'openebs-vg'; then
+  echo 'VG exist'
+else
+  echo 'VG doesnt exist, creating...'
+  vgcreate openebs-vg /dev/sdb1
+fi
+EOF
+              ]
+            }]
+            volumes = [{
+              hostPath = {
+                path = "/"
+              }
+              name = "host-root"
+            }]
+          }
+        }]
         udev = {
           rules = [
             # IO scheduler
