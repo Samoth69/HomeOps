@@ -12,3 +12,13 @@ variable "helm_coredns_path" {
   type    = string
   default = "../kubernetes/apps/kube-system/coredns/app"
 }
+
+variable "helm_flux_operator_path" {
+  type    = string
+  default = "../kubernetes/apps/flux-system/flux-operator/app"
+}
+
+variable "helm_flux_instance_path" {
+  type    = string
+  default = "../kubernetes/apps/flux-system/flux-instance/app"
+}

@@ -42,3 +42,17 @@ module "helm-coredns" {
   app_path   = var.helm_coredns_path
   namespace  = "kube-system"
 }
+
+module "helm-flux-operator" {
+  depends_on = [module.helm-coredns]
+  source     = "./helm-release"
+  app_path   = var.helm_flux_operator_path
+  namespace  = "flux-system"
+}
+
+module "helm-flux-instance" {
+  depends_on = [module.helm-flux-operator, kubernetes_secret_v1.sops-age-secret]
+  source     = "./helm-release"
+  app_path   = var.helm_flux_instance_path
+  namespace  = "flux-system"
+}

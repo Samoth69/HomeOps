@@ -8,7 +8,7 @@ spec:
   decryption:
     provider: sops
   deletionPolicy: WaitForTermination
-  interval: 1h
+  interval: 30m
   path: ./clusters/lynka/kubernetes/apps
   prune: true
   sourceRef:
