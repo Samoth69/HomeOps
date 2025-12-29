@@ -19,7 +19,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
   node                        = var.node_ip
   on_destroy = {
     graceful = false
-    reboot = true
+    reboot   = true
     reset    = true
   }
   config_patches = [
@@ -127,7 +127,9 @@ resource "talos_machine_configuration_apply" "controlplane" {
         network = {
           cni = {
             name = "none"
-          }
+          },
+          podSubnets     = var.pod_subnets
+          serviceSubnets = var.service_subnets
         }
         proxy = {
           disabled = true

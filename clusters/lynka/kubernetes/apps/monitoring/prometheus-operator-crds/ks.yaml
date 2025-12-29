@@ -6,7 +6,7 @@ metadata:
   name: prometheus-operator-crds
 spec:
   interval: 1h
-  path: ./clusters/lynka//kubernetes/apps/monitoring/prometheus-operator-crds/app
+  path: ./clusters/lynka/kubernetes/apps/monitoring/prometheus-operator-crds/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

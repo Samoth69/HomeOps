@@ -15,3 +15,9 @@ provider "kubernetes" {
   # Configuration options
   config_path = "../kubeconfig"
 }
+
+provider "helm" {
+  kubernetes = {
+    config_path = "../kubeconfig"
+  }
+}

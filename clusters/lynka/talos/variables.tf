@@ -42,3 +42,11 @@ variable "node_network_routes_ipv6_gateway" {
   description = "node ipv6 gateway"
   type        = string
 }
+
+variable "pod_subnets" {
+  type = list(string)
+}
+
+variable "service_subnets" {
+  type = list(string)
+}
