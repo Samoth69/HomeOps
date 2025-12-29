@@ -7,3 +7,8 @@ variable "helm_cilium_path" {
   type    = string
   default = "../kubernetes/apps/kube-system/cilium/app"
 }
+
+variable "helm_coredns_path" {
+  type    = string
+  default = "../kubernetes/apps/kube-system/coredns/app"
+}
