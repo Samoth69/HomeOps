@@ -9,5 +9,4 @@ components:
   - ../../components/namespace
 
 resources:
-  - ./namespace.yaml
   - ./reloader/ks.yaml

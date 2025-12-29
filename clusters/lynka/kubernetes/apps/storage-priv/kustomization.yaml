@@ -9,5 +9,4 @@ components:
   - ../../components/namespace-priv
 
 resources:
-  - ./namespace.yaml
   - ./openebs/ks.yaml
