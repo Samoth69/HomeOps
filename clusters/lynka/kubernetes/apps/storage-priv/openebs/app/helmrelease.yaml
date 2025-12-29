@@ -21,10 +21,6 @@ spec:
     lvm-localpv:
       analytics:
         enabled: false
-      crds:
-        csi:
-          volumeSnapshots:
-            enabled: true
       lvmNode:
         podLabels: &labels
           app.kubernetes.io/instance: *appname
