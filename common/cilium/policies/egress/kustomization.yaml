@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./labelled-allow-egress-cluster.yaml
+  - ./labelled-allow-egress-dns.yaml
+  - ./labelled-allow-egress-internet-cloudflare-api.yaml
+  - ./labelled-allow-egress-internet-cloudflare-doh.yaml
+  - ./labelled-allow-egress-internet-github.yaml
+  - ./labelled-allow-egress-internet-http.yaml
+  - ./labelled-allow-egress-internet.yaml
+  - ./labelled-allow-egress-kube-apiserver.yaml
+  - ./labelled-allow-egress-lan.yaml
+  - ./labelled-deny-egress.yaml
