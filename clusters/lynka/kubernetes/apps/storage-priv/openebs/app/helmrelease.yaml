@@ -24,6 +24,8 @@ spec:
       lvmNode:
         podLabels: &labels
           app.kubernetes.io/instance: *appname
+          ingress.samoth.eu/kube-apiserver: allow
+          egress.samoth.eu/kube-apiserver: allow
       lvmController:
         podLabels: *labels
     mayastor:
