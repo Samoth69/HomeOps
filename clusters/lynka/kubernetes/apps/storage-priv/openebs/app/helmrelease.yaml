@@ -3,25 +3,40 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: openebs
+  name: &appname openebs
 spec:
   chartRef:
     kind: OCIRepository
-    name: openebs
+    name: *appname
   interval: 1h
   values:
     localpv-provisioner:
-      enabled: false
+      localpv:
+        enabled: false
     zfs-localpv:
       enabled: false
+      crds:
+        zfsLocalPv:
+          enabled: false
     lvm-localpv:
       analytics:
         enabled: false
+      crds:
+        csi:
+          volumeSnapshots:
+            enabled: true
+      lvmNode:
+        podLabels: &labels
+          app.kubernetes.io/instance: *appname
+      lvmController:
+        podLabels: *labels
     mayastor:
       enabled: false
     engines:
       local:
         zfs:
+          enabled: false
+        rawfile:
           enabled: false
       replicated:
         mayastor:
