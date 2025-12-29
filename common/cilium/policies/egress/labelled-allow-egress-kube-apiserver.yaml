@@ -16,11 +16,11 @@ spec:
               protocol: TCP
             - port: "6443"
               protocol: UDP
-    - toEntities:
-        - host
-      toPorts:
-        - ports:
-            - port: "6443"
-              protocol: TCP
-            - port: "6443"
-              protocol: UDP
+    # - toEntities:
+    #     - host
+    #   toPorts:
+    #     - ports:
+    #         - port: "6443"
+    #           protocol: TCP
+    #         - port: "6443"
+    #           protocol: UDP

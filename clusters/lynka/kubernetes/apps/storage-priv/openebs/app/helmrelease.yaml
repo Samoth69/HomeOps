@@ -45,3 +45,5 @@ spec:
       enabled: false
     minio:
       enabled: false
+    preUpgradeHook:
+      podLabels: *labels
