@@ -11,6 +11,8 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: envoy
   prune: true
   sourceRef:
     kind: GitRepository
@@ -18,3 +20,5 @@ spec:
     namespace: flux-system
   targetNamespace: network
   wait: false
+  components:
+    - ../../../../components/app-network-policy

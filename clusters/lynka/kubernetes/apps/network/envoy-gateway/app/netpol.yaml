@@ -1,43 +1,44 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
 apiVersion: "cilium.io/v2"
-kind: CiliumNetworkPolicy
+kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: envoy-gateway
+  name: host-envoy-proxy-http-https
 spec:
-  endpointSelector:
+  nodeSelector:
     matchLabels:
-      app: envoy-gateway
+      node-role.kubernetes.io/control-plane: ""
   ingress:
-    - fromEndpoints:
-        - matchLabels:
-            app: envoy-proxy
-  egress:
-    - toEndpoints:
-        - matchLabels:
-            app: envoy-proxy
-      toPorts:
-        - ports:
-            - port: "18000"
-              protocol: ANY
+  - fromCIDRSet:
+      - cidrGroupRef: group-lan
+    toPorts:
+    - ports:
+      - port: "80"
+        protocol: TCP
+      - port: "80"
+        protocol: UDP
+      - port: "443"
+        protocol: TCP
+      - port: "443"
+        protocol: UDP
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: envoy-proxy
+  name: envoy-proxy-http-https
 spec:
   endpointSelector:
     matchLabels:
-      app: envoy-proxy
+      app: envoy
+      component: proxy
   ingress:
-    - fromEndpoints:
-        - matchLabels:
-            app: envoy-gateway
-  egress:
-    - toEndpoints:
-        - matchLabels:
-            app: envoy-gateway
-      toPorts:
+    - toPorts:
         - ports:
-            - port: "18000"
-              protocol: ANY
+          - port: "80"
+            protocol: TCP
+          - port: "80"
+            protocol: UDP
+          - port: "443"
+            protocol: TCP
+          - port: "443"
+            protocol: UDP
