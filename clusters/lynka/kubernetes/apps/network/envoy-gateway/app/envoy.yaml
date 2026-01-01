@@ -13,6 +13,7 @@ spec:
     kubernetes:
       envoyPDB:
         minAvailable: 1
+      # TODO figure out why envoy try to fetch a access_log schema from googleapis.com...
       envoyDeployment:
         replicas: 2
         container:
@@ -27,7 +28,6 @@ spec:
           labels:
             ingress.samoth.eu/lan: allow
       envoyService:
-        type: NodePort
         externalTrafficPolicy: Local
   shutdown:
     drainTimeout: 180s
