@@ -25,10 +25,6 @@ spec:
               memory: 1Gi
         pod:
           labels:
-            # ! used by netpol
-            app: envoy
-            component: proxy
-            
             ingress.samoth.eu/lan: allow
       envoyService:
         type: NodePort

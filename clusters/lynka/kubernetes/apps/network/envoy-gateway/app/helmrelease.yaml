@@ -23,10 +23,6 @@ spec:
             memory: 512Mi
       pod:
         labels:
-          # ! Used by netpol
-          app: envoy
-          component: gateway
-
           ingress.samoth.eu/kube-apiserver: allow
           egress.samoth.eu/kube-apiserver: allow
     config:
