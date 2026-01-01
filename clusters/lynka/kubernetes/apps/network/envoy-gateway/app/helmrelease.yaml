@@ -23,7 +23,7 @@ spec:
             memory: 512Mi
       pod:
         labels:
-          # ! This label is used by netpols
+          # ! Used by netpol
           app: *name
           ingress.samoth.eu/kube-apiserver: allow
           egress.samoth.eu/kube-apiserver: allow

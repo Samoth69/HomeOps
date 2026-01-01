@@ -25,11 +25,9 @@ spec:
               memory: 1Gi
         pod:
           labels:
+            # ! used by netpol
+            app: envoy-proxy
             ingress.samoth.eu/lan: allow
-            egress.samoth.eu/envoy-gateway-grpc: allow
-            # TODO faire des politiques plus précises en matchant les labels des pods cibles / sources
-            ingress.samoth.eu/cluster: allow
-            egress.samoth.eu/cluster: allow
       envoyService:
         type: NodePort
         externalTrafficPolicy: Local

@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./labelled-allow-egress-cluster.yaml
   - ./labelled-allow-egress-dns.yaml
-  - ./labelled-allow-egress-envoy-gateway.yaml
   - ./labelled-allow-egress-internet-cloudflare-api.yaml
   - ./labelled-allow-egress-internet-cloudflare-doh.yaml
   - ./labelled-allow-egress-internet-github.yaml
