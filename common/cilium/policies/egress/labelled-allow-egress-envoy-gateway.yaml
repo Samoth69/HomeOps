@@ -10,6 +10,7 @@ spec:
   egress:
     - toEndpoints:
         - matchLabels:
+            k8s:io.kubernetes.pod.namespace: network
             app: envoy-gateway
       toPorts:
         - ports:
