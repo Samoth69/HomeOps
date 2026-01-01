@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: labelled-allow-egress-envoy-gateway-grpc
+spec:
+  endpointSelector:
+    matchLabels:
+      egress.samoth.eu/envoy-gateway-grpc: allow
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app: envoy-gateway
+      toPorts:
+        - ports:
+            - port: "18000"
+              protocol: ANY

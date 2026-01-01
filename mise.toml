@@ -15,3 +15,5 @@ task.monorepo_depth = 3  # Only search 3 levels deep
 "aqua:siderolabs/talos" = "latest"
 "aqua:kubernetes-sigs/kustomize" = "latest"
 "aqua:helm/helm" = "latest"
+cilium-cli = "latest"
+cilium-hubble = "latest"

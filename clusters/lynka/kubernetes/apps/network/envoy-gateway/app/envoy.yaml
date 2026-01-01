@@ -26,6 +26,8 @@ spec:
         pod:
           labels:
             ingress.samoth.eu/lan: allow
+            egress.samoth.eu/envoy-gateway-grpc: allow
+            # TODO faire des politiques plus précises en matchant les labels des pods cibles / sources
             ingress.samoth.eu/cluster: allow
             egress.samoth.eu/cluster: allow
       envoyService:
