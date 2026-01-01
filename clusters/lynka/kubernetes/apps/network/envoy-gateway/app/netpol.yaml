@@ -7,11 +7,14 @@ spec:
   endpointSelector:
     matchLabels:
       app.kubernetes.io/name: gateway-helm
-  egress:
-    - toEndpoints:
-        - matchLabels:
+  ingress:
+    - fromEndpoints:
+        - matchLabels: &proxy-labels
             app.kubernetes.io/name: envoy
             app.kubernetes.io/component: proxy
+  egress:
+    - toEndpoints:
+        - matchLabels: *proxy-labels
       toPorts:
         - ports:
             - port: "18000"
@@ -27,10 +30,13 @@ spec:
     matchLabels:
       app.kubernetes.io/name: envoy
       app.kubernetes.io/component: proxy
+  ingress:
+    - fromEndpoints:
+        - matchLabels: &gateway-labels
+            app.kubernetes.io/name: gateway-helm
   egress:
     - toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: gateway-helm
+        - matchLabels: *gateway-labels
       toPorts:
         - ports:
             - port: "18000"
