@@ -29,7 +29,7 @@ spec:
             ingress.samoth.eu/lan: allow
       envoyService:
         annotations:
-          metallb.io/loadBalancerIPs: ${SECRET_LB_IP}
+          metallb.io/loadBalancerIPs: ${SECRET_LB_IPV4},${SECRET_LB_IPV6}
         externalTrafficPolicy: Local
   shutdown:
     drainTimeout: 180s
