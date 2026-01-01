@@ -26,8 +26,8 @@ spec:
         pod:
           labels:
             # ! used by netpol
-            app.kubernetes.io/instance: envoy
-            app.kubernetes.io/component: proxy
+            app: envoy
+            component: proxy
             
             ingress.samoth.eu/lan: allow
       envoyService:

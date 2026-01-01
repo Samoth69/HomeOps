@@ -1,5 +1,45 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
 apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: envoy-gateway
+spec:
+  endpointSelector:
+    matchLabels:
+      app: envoy
+      component: gateway
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app: envoy
+            component: proxy
+      toPorts:
+        - ports:
+            - port: "18000"
+              protocol: ANY
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: envoy-proxy
+spec:
+  endpointSelector:
+    matchLabels:
+      app: envoy
+      component: proxy
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app: envoy
+            component: gateway
+      toPorts:
+        - ports:
+            - port: "18000"
+              protocol: ANY
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
 kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: host-envoy-proxy-http-https
