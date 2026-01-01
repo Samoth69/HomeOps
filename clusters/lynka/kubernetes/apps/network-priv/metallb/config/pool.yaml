@@ -1,0 +1,8 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: pool
+spec:
+  addresses:
+  - ${SECRET_LB_POOL_IPV4}
+  - ${SECRET_LB_POOL_IPV6}
