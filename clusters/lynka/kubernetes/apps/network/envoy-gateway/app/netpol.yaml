@@ -29,8 +29,8 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app: envoy
-      component: proxy
+      app.kubernetes.io/instance: envoy
+      app.kubernetes.io/component: proxy
   ingress:
     - toPorts:
         - ports:

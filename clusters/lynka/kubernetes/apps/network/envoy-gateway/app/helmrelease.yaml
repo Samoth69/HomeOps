@@ -24,8 +24,8 @@ spec:
       pod:
         labels:
           # ! Used by netpol
-          app: envoy
-          component: gateway
+          app.kubernetes.io/instance: envoy
+          app.kubernetes.io/component: gateway
 
           ingress.samoth.eu/kube-apiserver: allow
           egress.samoth.eu/kube-apiserver: allow
