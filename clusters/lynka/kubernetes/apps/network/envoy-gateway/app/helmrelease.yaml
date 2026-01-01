@@ -12,22 +12,19 @@ spec:
   values:
     global:
       imageRegistry: mirror.gcr.io
-    podDisruptionBudget:
-      minAvailable: 1
     deployment:
-      replicas: 2
+      replicas: 1
       envoyGateway:
         resources:
           requests:
-            cpu: 10m
-            memory: 128Mi
+            cpu: 5m
+            memory: 48Mi
           limits:
-            memory: 1024Mi
+            memory: 512Mi
       pod:
         labels:
-          ingress.samoth.eu/lan: allow
-          ingress.samoth.eu/cluster: allow
-          egress.samoth.eu/cluster: allow
+          ingress.samoth.eu/kube-apiserver: allow
+          egress.samoth.eu/kube-apiserver: allow
     config:
       envoyGateway:
         provider:

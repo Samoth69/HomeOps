@@ -29,3 +29,17 @@ customization:
             - siderolabs/util-linux-tools
     bootloader: sd-boot
 ```
+
+## usefull commands
+
+```bash
+# test config
+flux-local test --path kubernetes/flux/cluster --enable-helm --all-namespaces -v
+# force update flux
+flux reconcile source git flux-system
+# get flux objects status
+flux get all -A --status-selector ready=false
+# hubble
+cilium hubble port-forward&
+hubble observe --verdict DROPPED -f
+```

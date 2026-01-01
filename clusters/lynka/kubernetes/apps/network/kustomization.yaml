@@ -9,4 +9,5 @@ components:
   - ../../components/namespace
 
 resources:
+  - ./certificate/ks.yaml
   - ./envoy-gateway/ks.yaml
