@@ -29,6 +29,7 @@ spec:
             ingress.samoth.eu/cluster: allow
             egress.samoth.eu/cluster: allow
       envoyService:
+        type: NodePort
         externalTrafficPolicy: Local
   shutdown:
     drainTimeout: 180s
