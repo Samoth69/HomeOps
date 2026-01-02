@@ -13,7 +13,7 @@ spec:
         - host
       toPorts:
         - ports:
-            # kubeapi
+            # kubelet metrics port
             - port: "10250"
               protocol: TCP
             - port: "10250"

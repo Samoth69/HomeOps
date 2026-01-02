@@ -33,9 +33,10 @@ spec:
                   storage: 1Gi
 
     vmalert:
-      labels:
-        ingress.samoth.eu/vmagent: allow
       spec:
+        podMetadata:
+          labels:
+            ingress.samoth.eu/vmagent: allow
         extraArgs:
           enableTCP6: "true"
 
@@ -45,9 +46,10 @@ spec:
           enableTCP6: "true"
 
     vmsingle:
-      labels:
-        ingress.samoth.eu/vmagent: allow
       spec:
+        podMetadata:
+          labels:
+            ingress.samoth.eu/vmagent: allow
         extraArgs:
           enableTCP6: "true"
         retentionPeriod: 30d
