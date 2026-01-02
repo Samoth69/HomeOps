@@ -10,6 +10,7 @@ spec:
   egress:
     - toFQDNs:
         - matchName: "grafana.com"
+        - matchName: "grafana.com.monitoring.svc.cluster.local"
       toPorts:
         - ports:
             - port: "443"
