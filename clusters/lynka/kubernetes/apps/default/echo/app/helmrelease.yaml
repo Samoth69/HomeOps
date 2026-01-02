@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -13,10 +13,11 @@ spec:
     controllers:
       echo:
         strategy: RollingUpdate
+        pod:
+          labels:
+            ingress.samoth.eu/envoy-internal: allow
         containers:
           app:
-            labels:
-              ingress.samoth.eu/envoy-internal: allow
             image:
               repository: ghcr.io/mendhak/http-https-echo
               tag: 38
