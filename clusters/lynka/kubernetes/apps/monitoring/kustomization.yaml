@@ -10,4 +10,5 @@ components:
 resources:
   - ./namespace.yaml
   - ./prometheus-operator-crds/ks.yaml
+  - ./victoria-metrics-k8s-stack/ks.yaml
   - ./victoria-metrics-operator/ks.yaml

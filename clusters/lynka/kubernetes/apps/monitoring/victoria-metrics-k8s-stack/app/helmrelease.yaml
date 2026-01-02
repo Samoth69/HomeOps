@@ -67,6 +67,7 @@ spec:
         resources:
           requests:
             cpu: 100m
+            memory: 128Mi
           limits:
             memory: 2Gi
 
@@ -92,6 +93,8 @@ spec:
       metricLabelsAllowlist:
         - pods=[*]
         - deployments=[*]
+        - statefulsets=[*]
+        - daemonsets=[*]
         - persistentvolumeclaims=[*]
       vmScrape:
         enabled: true
@@ -119,21 +122,8 @@ spec:
             matchLabels:
               dashboards: null
               grafana.internal/instance: grafana
-      dashboards:
-        node-exporter-full:
-          enabled: false
 
     additionalVictoriaMetricsMap:
-      dockerhub-rules:
-        groups:
-          - name: dockerhub
-            rules:
-              - alert: DockerhubRateLimitRisk
-                annotations:
-                  summary: Kubernetes cluster Dockerhub rate limit risk
-                expr: count(time() - container_last_seen{image=~"(docker.io).*",container!=""} < 30) > 100
-                labels:
-                  severity: critical
       oom-rules:
         groups:
           - name: oom
