@@ -22,6 +22,11 @@ spec:
               protocol: TCP
             - port: "6443"
               protocol: UDP
+            # node-exporter
+            - port: "9100"
+              protocol: TCP
+            - port: "9100"
+              protocol: UDP
             # cilium metrics
             - port: "9962"
               protocol: TCP

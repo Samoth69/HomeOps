@@ -14,10 +14,6 @@ spec:
     image:
       registry: quay.io
       repository: prometheus/node-exporter
-    podLabels:
-      ingress.samoth.eu/vmagent: allow
-      ingress.samoth.eu/kube-apiserver: allow
-      egress.samoth.eu/kube-apiserver: allow
     prometheus:
       monitor:
         enabled: true
