@@ -12,11 +12,11 @@ spec:
   values:
     controllers:
       echo:
-        labels:
-          ingress.samoth.eu/envoy-internal: allow
         strategy: RollingUpdate
         containers:
           app:
+            labels:
+              ingress.samoth.eu/envoy-internal: allow
             image:
               repository: ghcr.io/mendhak/http-https-echo
               tag: 38
