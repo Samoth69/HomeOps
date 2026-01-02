@@ -39,5 +39,5 @@ spec:
   egress:
     - toEndpoints:
         - matchLabels:
-            app.kubernetes.io/name: vmagent
+            app.kubernetes.io/name: vmsingle
             app.kubernetes.io/component: monitoring

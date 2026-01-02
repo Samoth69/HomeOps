@@ -37,6 +37,7 @@ spec:
           labels:
             ingress.samoth.eu/envoy-internal: allow
             app.kubernetes.io/managed-by: grafana-operator
+            dashboards: grafana
         spec:
           containers:
             - name: grafana
