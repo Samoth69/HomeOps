@@ -79,6 +79,12 @@ spec:
             app.kubernetes.io/component: monitoring
         - matchLabels:
             egress.samoth.eu/victoria-metrics: allow
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: vmalert
+            app.kubernetes.io/component: monitoring
+            
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
 apiVersion: cilium.io/v2
