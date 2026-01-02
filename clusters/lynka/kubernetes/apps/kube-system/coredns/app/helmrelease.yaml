@@ -21,7 +21,7 @@ spec:
       clusterIP: "10.2.0.10"
     replicaCount: 2
     customLabels:
-      ingress.samoth.eu/vmagent: allow
+      ingress.samoth.eu/cluster: allow
     servers:
       - zones:
           - zone: .
