@@ -10,6 +10,7 @@ spec:
     kind: OCIRepository
     name: *app
   values:
+    clusterDomain: "cluster.local"
     dashboard:
       enabled: true
     serviceMonitor:
