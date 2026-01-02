@@ -22,6 +22,21 @@ spec:
               protocol: TCP
             - port: "6443"
               protocol: UDP
+            # cilium metrics
+            - port: "9962"
+              protocol: TCP
+            - port: "9962"
+              protocol: UDP
+            # cilium operator metrics
+            - port: "9963"
+              protocol: TCP
+            - port: "9963"
+              protocol: UDP
+            # hubble metrics
+            - port: "9965"
+              protocol: TCP
+            - port: "9965"
+              protocol: UDP
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
 apiVersion: cilium.io/v2
