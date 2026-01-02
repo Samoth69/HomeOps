@@ -53,6 +53,11 @@ spec:
     matchLabels:
       app.kubernetes.io/name: vmalert
       app.kubernetes.io/component: monitoring
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: vmsingle
+            app.kubernetes.io/component: monitoring
   egress:
     - toEndpoints:
         - matchLabels:

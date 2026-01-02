@@ -32,6 +32,12 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+        resources:
+          requests:
+            cpu: 1m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
 
     vmalert:
       spec:
@@ -40,6 +46,12 @@ spec:
             ingress.samoth.eu/vmagent: allow
         extraArgs:
           enableTCP6: "true"
+        resources:
+          requests:
+            cpu: 1m
+            memory: 48Mi
+          limits:
+            memory: 128Mi
 
     vmagent:
       spec:
@@ -49,6 +61,12 @@ spec:
             egress.samoth.eu/kube-apiserver: allow
         extraArgs:
           enableTCP6: "true"
+        resources:
+          requests:
+            cpu: 15m
+            memory: 100Mi
+          limits:
+            memory: 2Gi
 
     vmsingle:
       spec:
@@ -66,8 +84,8 @@ spec:
               storage: 30Gi
         resources:
           requests:
-            cpu: 10m
-            memory: 128Mi
+            cpu: 50m
+            memory: 300Mi
           limits:
             memory: 2Gi
 
