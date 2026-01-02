@@ -86,3 +86,7 @@ spec:
             protocol: TCP
           - port: "443"
             protocol: UDP
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            ingress.samoth.eu/envoy-internal: allow
