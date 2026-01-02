@@ -3,9 +3,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app prometheus-operator-crds
+  name: &app grafana-operator
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
     name: *app
+  values:
+    dashboard:
+      enabled: true
+    serviceMonitor:
+      enabled: true
+    podLabels:
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
