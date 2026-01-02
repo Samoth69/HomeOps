@@ -69,3 +69,35 @@ spec:
         - matchLabels:
             app.kubernetes.io/name: vmalert
             app.kubernetes.io/component: monitoring
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: vmalert-to-vmalertmanager
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: vmalert
+      app.kubernetes.io/component: monitoring
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: vmalertmanager
+            app.kubernetes.io/component: monitoring
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: vmalertmanager-from-vmalert
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: vmalertmanager
+      app.kubernetes.io/component: monitoring
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: vmalert
+            app.kubernetes.io/component: monitoring
