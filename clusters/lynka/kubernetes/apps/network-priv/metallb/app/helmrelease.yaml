@@ -23,3 +23,5 @@ spec:
         enabled: true
         addressPoolUsage:
           enabled: true
+    speaker:
+      ignoreExcludeLB: true
