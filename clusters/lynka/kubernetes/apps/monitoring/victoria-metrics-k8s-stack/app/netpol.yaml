@@ -30,14 +30,27 @@ metadata:
   name: vmalert-to-vmsingle
 spec:
   endpointSelector:
-    matchLabels: &vmalert-labels
+    matchLabels:
       app.kubernetes.io/name: vmalert
       app.kubernetes.io/component: monitoring
-  ingress:
-    - fromEndpoints:
-        - matchLabels: *vmalert-labels
   egress:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: vmsingle
+            app.kubernetes.io/component: monitoring
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: vmsingle-from-vmalert
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: vmsingle
+      app.kubernetes.io/component: monitoring
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: vmalert
             app.kubernetes.io/component: monitoring
