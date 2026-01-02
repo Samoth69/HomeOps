@@ -72,12 +72,16 @@ spec:
     operator:
       dashboards:
         enabled: true
+      podLabels:
+        ingress.samoth.eu/vmagent: allow
       prometheus:
         enabled: true
         serviceMonitor:
           enabled: true
       replicas: 1
       rollOutPods: true
+    podLabels:
+      ingress.samoth.eu/vmagent: allow
     prometheus:
       enabled: true
       serviceMonitor:

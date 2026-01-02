@@ -15,5 +15,6 @@ spec:
     serviceMonitor:
       enabled: true
     podLabels:
+      ingress.samoth.eu/vmagent: allow
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow

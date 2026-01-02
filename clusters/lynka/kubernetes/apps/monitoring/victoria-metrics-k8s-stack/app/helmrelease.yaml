@@ -23,6 +23,8 @@ spec:
         podMetadata:
           labels:
             ingress.samoth.eu/vmagent: allow
+            ingress.samoth.eu/kube-apiserver: allow
+            egress.samoth.eu/kube-apiserver: allow
         externalURL: https://alertmanager.${SECRET_DOMAIN}
         storage:
           volumeClaimTemplate:
@@ -41,6 +43,10 @@ spec:
 
     vmagent:
       spec:
+        podMetadata:
+          labels:
+            ingress.samoth.eu/kube-apiserver: allow
+            egress.samoth.eu/kube-apiserver: allow
         extraArgs:
           enableTCP6: "true"
 
