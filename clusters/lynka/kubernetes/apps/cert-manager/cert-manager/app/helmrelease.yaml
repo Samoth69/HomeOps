@@ -19,7 +19,7 @@ spec:
       servicemonitor:
         enabled: true
     podLabels: &labels
-      ingress.samoth.eu/prometheus: allow
+      ingress.samoth.eu/vmagent: allow
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/internet: allow
