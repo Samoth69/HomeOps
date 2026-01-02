@@ -9,7 +9,7 @@ spec:
       egress.samoth.eu/internet-grafana: allow
   egress:
     - toFQDNs:
-        - matchPattern: "grafana.com"
+        - matchName: "grafana.com"
       toPorts:
         - ports:
             - port: "443"
