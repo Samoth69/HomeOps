@@ -22,6 +22,7 @@ spec:
     replicaCount: 2
     customLabels:
       ingress.samoth.eu/cluster: allow
+      ingress.samoth.eu/vmagent: allow
     servers:
       - zones:
           - zone: .
