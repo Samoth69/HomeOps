@@ -15,3 +15,5 @@ spec:
     web:
       networkPolicy:
         create: false
+    commonLabels:
+      ingress.samoth.eu/vmagent: allow
