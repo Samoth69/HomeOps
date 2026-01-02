@@ -29,7 +29,7 @@ spec:
           labels:
             ingress.samoth.eu/lan: allow
       envoyService:
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -61,6 +61,7 @@ spec:
   infrastructure:
     annotations:
       metallb.io/loadBalancerIPs: ${SECRET_LB_IPV4},${SECRET_LB_IPV6}
+      metallb.io/allow-shared-ip: shared
   listeners:
     - name: http
       protocol: HTTP
