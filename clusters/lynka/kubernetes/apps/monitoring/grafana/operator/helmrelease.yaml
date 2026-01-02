@@ -18,3 +18,4 @@ spec:
       ingress.samoth.eu/vmagent: allow
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/internet-grafana: allow
