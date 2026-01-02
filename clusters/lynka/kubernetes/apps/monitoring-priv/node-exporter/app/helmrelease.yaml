@@ -25,9 +25,6 @@ spec:
         jobLabel: app.kubernetes.io/instance
 
         relabelings:
-          - action: drop
-            source_labels: [ mountpoint ]
-            regex: "/var/lib/kubelet/pods.+"
           - action: labeldrop
             regex: (pod)
           - action: replace
