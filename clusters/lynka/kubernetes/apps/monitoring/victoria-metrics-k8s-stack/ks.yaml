@@ -3,16 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname victoria-metrics-operator
+  name: victoria-metrics-k8s-stack
 spec:
   interval: 1h
-  path: ./clusters/lynka/kubernetes/apps/monitoring/victoria-metrics-operator/app
+  path: ./clusters/lynka/kubernetes/apps/monitoring/victoria-metrics-k8s-stack/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-    substitute:
-      APP: *appname
   prune: true
   sourceRef:
     kind: GitRepository
@@ -20,8 +18,6 @@ spec:
     namespace: flux-system
   targetNamespace: monitoring
   wait: false
-  components:
-    - ../../../../components/app-network-policy
   dependsOn:
-    - name: prometheus-operator-crds
+    - name: victoria-metrics-operator
       namespace: monitoring
