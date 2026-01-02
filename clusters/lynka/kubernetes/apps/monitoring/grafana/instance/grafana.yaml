@@ -42,6 +42,7 @@ spec:
             dashboards: grafana
             egress.samoth.eu/victoria-metrics: allow
             egress.samoth.eu/alert-manager: allow
+            egress.samoth.eu/internet-grafana: allow
         spec:
           containers:
             - name: grafana
