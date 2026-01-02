@@ -12,8 +12,6 @@ spec:
   values:
     operator:
       enable_converter_ownership: true
-    serviceMonitor:
-      enabled: true
     podLabels:
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
