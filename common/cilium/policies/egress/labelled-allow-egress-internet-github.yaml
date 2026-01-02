@@ -9,11 +9,11 @@ spec:
       egress.samoth.eu/internet-github: allow
   egress:
     - toFQDNs:
-        - matchPattern: "github.com"
+        - matchName: "github.com"
         - matchPattern: "*.github.com"
         - matchPattern: "*.github.dev"
         - matchPattern: "*.github.io"
-        - matchPattern: "ghcr.io"
+        - matchName: "ghcr.io"
         - matchPattern: "*.ghcr.io"
         - matchPattern: "*.githubusercontent.com"
       toPorts:
