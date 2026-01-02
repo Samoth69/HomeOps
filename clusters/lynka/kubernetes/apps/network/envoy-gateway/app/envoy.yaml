@@ -29,8 +29,6 @@ spec:
           labels:
             ingress.samoth.eu/lan: allow
       envoyService:
-        annotations:
-          metallb.io/loadBalancerIPs: ${SECRET_LB_IPV4},${SECRET_LB_IPV6}
         externalTrafficPolicy: Local
   shutdown:
     drainTimeout: 180s
@@ -60,6 +58,9 @@ metadata:
   name: envoy-internal
 spec:
   gatewayClassName: envoy
+  infrastructure:
+    annotations:
+      metallb.io/loadBalancerIPs: ${SECRET_LB_IPV4},${SECRET_LB_IPV6}
   listeners:
     - name: http
       protocol: HTTP
