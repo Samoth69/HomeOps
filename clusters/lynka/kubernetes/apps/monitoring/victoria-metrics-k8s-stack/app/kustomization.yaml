@@ -6,3 +6,5 @@ resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
   - ./netpol.yaml
+  - ./grafanadashboard.yaml
+  - ./grafanadatasource.yaml

@@ -111,6 +111,9 @@ spec:
           instanceSelector:
             matchLabels:
               dashboards: grafana
+      dashboards:
+        node-exporter-full:
+          enabled: false
 
     additionalVictoriaMetricsMap:
       oom-rules:
