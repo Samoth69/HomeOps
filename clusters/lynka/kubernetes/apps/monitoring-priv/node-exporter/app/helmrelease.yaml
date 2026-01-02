@@ -12,7 +12,7 @@ spec:
   values:
     fullnameOverride: node-exporter
     extraArgs:
-      - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+)($|/)
+      - --collector.filesystem.mount-points-exclude=^/(etc|proc|sys|run/containerd/.+)($|/)
       - --collector.netdev.device-exclude=^(lxc.*)$
     image:
       registry: quay.io
