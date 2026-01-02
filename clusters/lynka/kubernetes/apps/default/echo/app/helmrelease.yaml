@@ -16,6 +16,7 @@ spec:
         pod:
           labels:
             ingress.samoth.eu/envoy-internal: allow
+            ingress.samoth.eu/vmagent: allow
         containers:
           app:
             image:
