@@ -9,4 +9,5 @@ resources:
   - ./labelled-allow-ingress-internet.yaml
   - ./labelled-allow-ingress-kube-apiserver.yaml
   - ./labelled-allow-ingress-lan.yaml
+  - ./labelled-allow-ingress-vmagent.yaml
   - ./labelled-deny-ingress.yaml
