@@ -20,10 +20,9 @@ spec:
       labels:
         ingress.samoth.eu/vmagent: allow
       spec:
-#        alertmanagerConfiguration:
-#          name: alertmanager
-#          global:
-#            resolveTimeout: 5m
+        podMetadata:
+          labels:
+            ingress.samoth.eu/vmagent: allow
         externalURL: https://alertmanager.${SECRET_DOMAIN}
         storage:
           volumeClaimTemplate:
