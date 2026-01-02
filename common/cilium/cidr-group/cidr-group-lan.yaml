@@ -5,4 +5,5 @@ metadata:
   name: group-lan
 spec:
   externalCIDRs:
-    - ${SECRET_CIDR_LAN}
+    - ${SECRET_CIDR_LAN_V4}
+    - ${SECRET_CIDR_LAN_V6}
