@@ -14,6 +14,10 @@ spec:
       version: 3.13.0
   interval: 1h
   values:
+    podLabels:
+      ingress.samoth.eu/vmagent: allow
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
     args:
       - --kubelet-insecure-tls
       - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname

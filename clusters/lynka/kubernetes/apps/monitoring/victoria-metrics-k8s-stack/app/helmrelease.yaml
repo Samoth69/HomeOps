@@ -17,6 +17,8 @@ spec:
       enabled: false
 
     alertmanager:
+      labels:
+        ingress.samoth.eu/vmagent: allow
       spec:
 #        alertmanagerConfiguration:
 #          name: alertmanager
@@ -31,6 +33,8 @@ spec:
                   storage: 1Gi
 
     vmalert:
+      labels:
+        ingress.samoth.eu/vmagent: allow
       spec:
         extraArgs:
           enableTCP6: "true"
