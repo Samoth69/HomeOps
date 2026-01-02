@@ -6,6 +6,7 @@ namespace: monitoring
 
 components:
   - ../../components/sops
+  - ../../components/namespace
 
 resources:
   - ./namespace.yaml
