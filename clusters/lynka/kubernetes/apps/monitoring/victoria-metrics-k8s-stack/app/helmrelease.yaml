@@ -72,23 +72,7 @@ spec:
             memory: 2Gi
 
     prometheus-node-exporter:
-      fullnameOverride: node-exporter
-      podLabels:
-        ingress.samoth.eu/vmagent: allow
-      vmScrape:
-        spec:
-          endpoints:
-            - port: metrics
-              metricRelabelConfigs:
-                - action: drop
-                  source_labels: [ mountpoint ]
-                  regex: "/var/lib/kubelet/pods.+"
-              relabelConfigs:
-                - action: replace
-                  regex: (.*)
-                  replacement: $1
-                  sourceLabels: [ "__meta_kubernetes_pod_node_name" ]
-                  targetLabel: kubernetes_node
+      enabled: false
 
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
