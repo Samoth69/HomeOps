@@ -20,6 +20,8 @@ spec:
       name: kube-dns
       clusterIP: "10.2.0.10"
     replicaCount: 2
+    customLabels:
+      ingress.samoth.eu/vmagent: allow
     servers:
       - zones:
           - zone: .

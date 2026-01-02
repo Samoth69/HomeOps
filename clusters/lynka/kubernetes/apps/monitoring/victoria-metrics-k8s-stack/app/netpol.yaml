@@ -13,4 +13,12 @@ spec:
     - toEndpoints:
         - matchLabels:
             ingress.samoth.eu/vmagent: allow
-            
+    - toEntities:
+        - host
+      toPorts:
+        - ports:
+            # kubeapi
+            - port: "6443"
+              protocol: TCP
+            - port: "6443"
+              protocol: UDP

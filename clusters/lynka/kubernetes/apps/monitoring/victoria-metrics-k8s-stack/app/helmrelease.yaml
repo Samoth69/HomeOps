@@ -73,6 +73,8 @@ spec:
 
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      podLabels:
+        ingress.samoth.eu/vmagent: allow
       vmScrape:
         spec:
           endpoints:
@@ -96,6 +98,8 @@ spec:
         - statefulsets=[*]
         - daemonsets=[*]
         - persistentvolumeclaims=[*]
+      podLabels:
+        ingress.samoth.eu/vmagent: allow
       vmScrape:
         enabled: true
         spec:
