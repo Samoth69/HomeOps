@@ -19,6 +19,14 @@ spec:
     alertmanager:
       labels:
         ingress.samoth.eu/vmagent: allow
+      route:
+        enabled: true
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        hostnames:
+          - "alertmanager.${SECRET_DOMAIN}"
       spec:
         podMetadata:
           labels:
