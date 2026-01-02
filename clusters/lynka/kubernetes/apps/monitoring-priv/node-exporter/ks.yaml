@@ -6,7 +6,7 @@ metadata:
   name: node-exporter
 spec:
   interval: 1h
-  path: ./clusters/lynka/kubernetes/apps/monitoring/node-exporter/app
+  path: ./clusters/lynka/kubernetes/apps/monitoring-priv/node-exporter/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
