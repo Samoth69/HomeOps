@@ -7,7 +7,6 @@
     ':dependencyDashboard',
     ':disableRateLimiting',
     ':semanticCommits',
-    ":dependencyDashboardApproval",
   ],
   dependencyDashboard: true,
   dependencyDashboardTitle: 'Renovate Dashboard 🤖',
