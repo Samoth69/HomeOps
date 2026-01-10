@@ -155,13 +155,7 @@ spec:
                   severity: critical
 
     kubelet:
-      enabled: false
-      # vmScrape:
-      #   kind: VMServiceScrape
-      #   spec:
-      #     service:
-      #       selector:
-      #         component: apiserver
+      enabled: true
 
     kubeApiServer:
       enabled: true
