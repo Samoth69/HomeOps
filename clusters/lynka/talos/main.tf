@@ -170,6 +170,10 @@ EOF
         allowSchedulingOnControlPlanes = true
         apiServer = {
           disablePodSecurityPolicy = true
+          extraArgs = {
+            feature-gates  = "MutatingAdmissionPolicy=true"
+            runtime-config = "admissionregistration.k8s.io/v1beta1=true"
+          }
         }
         controllerManager = {
           extraArgs = {
