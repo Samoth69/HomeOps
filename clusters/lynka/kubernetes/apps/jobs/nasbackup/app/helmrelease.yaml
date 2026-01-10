@@ -1,0 +1,75 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nasbackup
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: nasbackup
+  interval: 1h
+  values:
+    configMaps:
+      scripts:
+        data:
+          nasbackup.sh: |-
+            #!/bin/sh
+
+            restic unlock -r /mnt/dst/repo
+            restic backup -n -r /mnt/dst/repo --cleanup-cache --verbose --no-scan --exclude "#recycle" /mnt/src/Documents
+            restic forget -r /mnt/dst/repo --keep-weekly 7 --keep-monthly 6 --keep-yearly 3 --prune
+    controllers:
+      nasbackup:
+        type: cronjob
+        labels:
+          egress.samoth.eu/ds416-nfs: allow
+          egress.samoth.eu/ds418-nfs: allow
+        cronjob:
+          backoffLimit: 0
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 1
+          schedule: "0 12 * * 6"
+          timeZone: "Europe/Paris"
+          successfulJobsHistory: 1
+          suspend: false
+        pod:
+          restartPolicy: OnFailure
+        containers:
+          app:
+            image:
+              repository: ghcr.io/restic/restic
+              tag: 0.18.1
+            command:
+              - "/scripts/nasbackup.sh"
+            envFrom:
+              - secretRef:
+                  name: nasbackup-secrets
+    persistence:
+      scripts:
+        type: configMap
+        identifier: scripts
+        defaultMode: 0775
+        advancedMounts:
+          nasbackup:
+            app:
+              - path: /scripts/nas-backup.sh
+                subPath: nas-backup.sh
+      backupsource:
+        type: nfs
+        path: /volume1/Documents
+        server: ${DS418_IP}
+        advancedMounts:
+          nasbackup:
+            app:
+              - path: /mnt/src/Documents
+                readOnly: true
+      backupdestination:
+        type: nfs
+        path: /volume1/Documents
+        server: ${DS416_IP}
+        advancedMounts:
+          nasbackup:
+            app:
+              - path: /mnt/dst/repo
+                subPath: repo-Documents
