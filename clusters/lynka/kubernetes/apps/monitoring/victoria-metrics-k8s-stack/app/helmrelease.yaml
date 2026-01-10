@@ -135,6 +135,7 @@ spec:
         enabled: true
         spec:
           allowCrossNamespaceImport: true
+          folder: Kubernetes
           instanceSelector:
             matchLabels:
               dashboards: grafana
