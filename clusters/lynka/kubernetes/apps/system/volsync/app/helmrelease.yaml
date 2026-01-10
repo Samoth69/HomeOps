@@ -19,6 +19,7 @@ spec:
       disableAuth: true
     podLabels:
       ingress.samoth.eu/kube-apiserver: allow
+      ingress.samoth.eu/vmagent: allow
       egress.samoth.eu/kube-apiserver: allow
     podSecurityContext:
       runAsNonRoot: true
