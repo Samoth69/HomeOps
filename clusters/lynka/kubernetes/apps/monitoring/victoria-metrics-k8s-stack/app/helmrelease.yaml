@@ -73,7 +73,7 @@ spec:
                   storage: 1Gi
         resources:
           requests:
-            cpu: 1m
+            cpu: 10m
             memory: 32Mi
           limits:
             memory: 128Mi
@@ -87,7 +87,7 @@ spec:
           enableTCP6: "true"
         resources:
           requests:
-            cpu: 1m
+            cpu: 10m
             memory: 48Mi
           limits:
             memory: 128Mi
@@ -123,7 +123,7 @@ spec:
               storage: 30Gi
         resources:
           requests:
-            cpu: 50m
+            cpu: 80m
             memory: 300Mi
           limits:
             memory: 2Gi
