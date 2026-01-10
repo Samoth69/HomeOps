@@ -47,6 +47,16 @@ spec:
               protocol: TCP
             - port: "9965"
               protocol: UDP
+            # kubelet
+            - port: "10250"
+              protocol: TCP
+            - port: "10250"
+              protocol: UDP
+            # kube-scheduler
+            - port: "10259"
+              protocol: TCP
+            - port: "10259"
+              protocol: UDP
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
 apiVersion: cilium.io/v2
