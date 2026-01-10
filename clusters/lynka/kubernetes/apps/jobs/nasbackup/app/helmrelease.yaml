@@ -58,8 +58,8 @@ spec:
       data:
         type: nfs
         path: /volume1/Documents
-        server: ${DS418_IP}
+        server: ${SECRET_DS418_IP}
       repository:
         type: nfs
         path: /volume1/Documents
-        server: ${DS416_IP}
+        server: ${SECRET_DS416_IP}
