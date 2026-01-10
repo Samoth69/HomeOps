@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: labelled-allow-egress-internet-discord
+spec:
+  endpointSelector:
+    matchLabels:
+      egress.samoth.eu/internet-discord: allow
+  egress:
+    - toFQDNs:
+        - matchName: "discord.com"
+        - matchName: "discord.com.monitoring.svc.cluster.local"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: "TCP"
+            - port: "443"
+              protocol: "UDP"

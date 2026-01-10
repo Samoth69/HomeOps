@@ -8,6 +8,7 @@ resources:
   - ./labelled-allow-egress-dns.yaml
   - ./labelled-allow-egress-internet-cloudflare-api.yaml
   - ./labelled-allow-egress-internet-cloudflare-doh.yaml
+  - ./labelled-allow-egress-internet-discord.yaml
   - ./labelled-allow-egress-internet-github.yaml
   - ./labelled-allow-egress-internet-grafana.yaml
   - ./labelled-allow-egress-internet-http.yaml
