@@ -8,7 +8,7 @@ spec:
   paused: ${VOLSYNC_PAUSE_BACKUP:-false}
   sourcePVC: "${VOLSYNC_CLAIM:-${APP}}"
   trigger:
-    schedule: "0 * * * *"
+    schedule: "12 * * * *"
   restic:
     accessModes:
       - "${VOLSYNC_SNAP_ACCESSMODES:-ReadWriteOnce}"
