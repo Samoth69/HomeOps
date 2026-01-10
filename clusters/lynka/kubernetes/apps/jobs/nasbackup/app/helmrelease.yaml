@@ -16,9 +16,9 @@ spec:
           nasbackup.sh: |-
             #!/bin/sh
 
-            restic unlock -r /repository
-            restic backup -n -r /repository --cleanup-cache --verbose --no-scan --exclude "#recycle" /data
-            restic forget -r /repository --keep-weekly 7 --keep-monthly 6 --keep-yearly 3 --prune
+            restic unlock -r /mnt/repository
+            restic backup -n -r /mnt/repository --cleanup-cache --verbose --no-scan --exclude "#recycle" /mnt/DS418/Documents
+            restic forget -r /mnt/repository --keep-weekly 7 --keep-monthly 6 --keep-yearly 3 --prune
     controllers:
       nasbackup:
         type: cronjob
@@ -59,7 +59,16 @@ spec:
         type: nfs
         path: /volume1/Documents
         server: ${SECRET_DS418_IP}
+        advancedMounts:
+          nasbackup:
+            app:
+              - path: /mnt/DS418/Documents
+                readOnly: true
       repository:
         type: nfs
         path: /volume1/Documents
         server: ${SECRET_DS416_IP}
+        advancedMounts:
+          nasbackup:
+            app:
+              - path: /mnt/repository
