@@ -23,6 +23,8 @@ spec:
     # devices: eno+ eth+
     dashboards:
       enabled: true
+      annotations:
+        grafana_folder: Cilium
     endpointRoutes:
       enabled: true
     envoy:
