@@ -52,6 +52,11 @@ spec:
               protocol: TCP
             - port: "10250"
               protocol: UDP
+            # kube-controller-manager
+            - port: "10257"
+              protocol: TCP
+            - port: "10257"
+              protocol: UDP
             # kube-scheduler
             - port: "10259"
               protocol: TCP
