@@ -103,7 +103,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
             # permissions = "0o644"
             content     = <<EOF
 [ NFSMount_Global_Options ]
-nfsvers=4.1
+nfsvers=4
 hard=True
 noatime=True
 nconnect=16
