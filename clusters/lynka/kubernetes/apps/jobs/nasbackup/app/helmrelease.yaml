@@ -17,7 +17,7 @@ spec:
             #!/bin/sh
 
             restic unlock -r /mnt/repository
-            restic backup -n -r /mnt/repository --cleanup-cache --verbose --no-scan --exclude "#recycle" /mnt/DS418/Documents
+            restic backup -n -r /mnt/repository -g paths --cleanup-cache --verbose --no-scan --exclude "#recycle" /mnt/DS418/Documents
             restic forget -r /mnt/repository --keep-weekly 7 --keep-monthly 6 --keep-yearly 3 --prune
     controllers:
       nasbackup:
@@ -45,6 +45,12 @@ spec:
             envFrom:
               - secretRef:
                   name: nasbackup-secrets
+            resources:
+              requests:
+                cpu: 250m
+                memory: 350Mi
+              limits:
+                memory: 2048Mi
     persistence:
       scripts:
         type: configMap
