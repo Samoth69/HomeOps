@@ -72,3 +72,4 @@ spec:
           nasbackup:
             app:
               - path: /mnt/repository
+                subPath: repo-Documents
