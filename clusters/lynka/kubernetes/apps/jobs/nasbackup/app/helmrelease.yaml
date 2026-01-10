@@ -53,8 +53,8 @@ spec:
         advancedMounts:
           nasbackup:
             app:
-              - path: /scripts/nas-backup.sh
-                subPath: nas-backup.sh
+              - path: /scripts/nasbackup.sh
+                subPath: nasbackup.sh
       data:
         type: nfs
         path: /volume1/Documents
