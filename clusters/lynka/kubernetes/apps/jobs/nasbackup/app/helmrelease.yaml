@@ -59,17 +59,13 @@ spec:
         type: nfs
         path: /volume1/Documents
         server: ${DS418_IP}
-        advancedMounts:
-          nasbackup:
-            app:
-              - path: /mnt/src/Documents
-                readOnly: true
+        globalMounts:
+          - path: /mnt/src/Documents
+            readOnly: true
       backupdestination:
         type: nfs
         path: /volume1/Documents
         server: ${DS416_IP}
-        advancedMounts:
-          nasbackup:
-            app:
-              - path: /mnt/dst/repo
-                subPath: repo-Documents
+        globalMounts:
+          - path: /mnt/dst/repo
+            subPath: repo-Documents
