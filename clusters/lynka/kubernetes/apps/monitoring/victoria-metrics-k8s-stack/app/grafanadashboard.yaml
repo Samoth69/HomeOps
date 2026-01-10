@@ -133,7 +133,7 @@ spec:
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: etcd2
+  name: etcd
 spec:
   allowCrossNamespaceImport: true
   instanceSelector:

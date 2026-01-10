@@ -139,6 +139,8 @@ spec:
             matchLabels:
               dashboards: grafana
       dashboards:
+        etcd:
+          enabled: false
         node-exporter-full:
           enabled: false
 
