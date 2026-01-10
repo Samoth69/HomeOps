@@ -188,19 +188,6 @@ spec:
 
     kubeScheduler:
       enabled: true
-      endpoints:
-        # for some reason, kube-scheduler only listen on ipv6
-        - ${SECRET_NODE_IPV6}
-      service:
-        port: 10259
-        targetPort: 10259
-      vmScrape:
-        spec:
-          endpoints:
-            - port: https
-              scheme: https
-              tlsConfig:
-                insecureSkipVerify: true
 
     kubeProxy:
       enabled: false
