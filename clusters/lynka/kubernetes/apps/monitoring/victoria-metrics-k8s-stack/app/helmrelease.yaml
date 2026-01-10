@@ -195,7 +195,8 @@ spec:
     kubeScheduler:
       enabled: true
       endpoints:
-        - ${SECRET_NODE_IPV4}
+        # for some reason, kube-scheduler only listen on ipv6
+        - ${SECRET_NODE_IPV6}
       service:
         port: 10259
         targetPort: 10259
