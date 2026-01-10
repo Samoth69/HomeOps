@@ -182,28 +182,23 @@ spec:
 
     kubeEtcd:
       enabled: true
+      endpoints:
+        - ${SECRET_NODE_IPV4}
       service:
-        # selector:
-        #   component: apiserver # Selects controller node IPs
         port: 2381
         targetPort: 2381
       vmScrape:
         spec:
           endpoints:
             - scheme: http
-          selector:
-            matchLabels:
-              app: null
-              app.kubernetes.io/instance: null
-              app.kubernetes.io/name: null
-              jobLabel: null
-              component: apiserver
 
     kubeScheduler:
       enabled: true
+      endpoints:
+        - ${SECRET_NODE_IPV4}
       service:
-        selector:
-          component: apiserver # Selects controller node IPs
+        port: 10259
+        targetPort: 10259
       vmScrape:
         spec:
           endpoints:

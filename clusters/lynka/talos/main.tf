@@ -181,7 +181,7 @@ EOF
         }
         etcd = {
           extraArgs = {
-            listen-metrics-urls = "http://0.0.0.0:2381"
+            listen-metrics-urls = "http://localhost:2381"
           }
         }
         network = {
