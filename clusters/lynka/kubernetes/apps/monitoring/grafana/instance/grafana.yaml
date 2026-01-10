@@ -83,11 +83,13 @@ spec:
       template:
         metadata:
           labels:
-            ingress.samoth.eu/envoy-internal: allow
-            app.kubernetes.io/managed-by: grafana-operator
             dashboards: grafana
-            egress.samoth.eu/victoria-metrics: allow
+            app.kubernetes.io/managed-by: grafana-operator
+            ingress.samoth.eu/kube-apiserver: allow
+            ingress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/alert-manager: allow
+            egress.samoth.eu/kube-apiserver: allow
+            egress.samoth.eu/victoria-metrics: allow
             egress.samoth.eu/internet-grafana: allow
         spec:
           # The volumes for dashboards and provisioning config
