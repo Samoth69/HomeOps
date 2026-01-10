@@ -10,5 +10,4 @@ components:
 
 resources:
   - ./reloader/ks.yaml
-  - ./snapshot-controller/ks.yaml
   - ./volsync/ks.yaml

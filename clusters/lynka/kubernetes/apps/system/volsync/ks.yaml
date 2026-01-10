@@ -19,7 +19,5 @@ spec:
   wait: false
   targetNamespace: system
   dependsOn:
-    - name: snapshot-controller
-      namespace: system
     - name: openebs
       namespace: storage-priv

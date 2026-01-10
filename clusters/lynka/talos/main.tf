@@ -94,7 +94,22 @@ resource "talos_machine_configuration_apply" "controlplane" {
             enabled              = true
             forwardKubeDNSToHost = false
           }
-        }
+        },
+        files = [
+          {
+            op          = "overwrite"
+            path        = "/etc/nfsmount.conf"
+            # TODO figure out why opentofu isn't happy with this
+            # permissions = "0o644"
+            content     = <<EOF
+[ NFSMount_Global_Options ]
+nfsvers=4.1
+hard=True
+noatime=True
+nconnect=16
+EOF
+          }
+        ],
         pods = [{
           apiVersion = "v1"
           kind       = "pod"

@@ -28,6 +28,10 @@ spec:
           egress.samoth.eu/kube-apiserver: allow
       lvmController:
         podLabels: *labels
+      crds:
+        csi:
+          volumeSnapshots:
+            enabled: true
     mayastor:
       enabled: false
     engines:
