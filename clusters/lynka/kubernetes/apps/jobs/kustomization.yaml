@@ -9,4 +9,4 @@ components:
   - ../../components/namespace
 
 resources:
-  - ./grafana/ks.yaml
+  - ./nasbackup/ks.yaml
