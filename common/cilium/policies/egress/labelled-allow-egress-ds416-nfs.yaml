@@ -9,7 +9,7 @@ spec:
       egress.samoth.eu/ds416-nfs: allow
   egress:
     - toCIDR:
-        - ${SECRET_DS416_IP}
+        - ${SECRET_DS416_CIDR}
       toPorts:
         - ports:
             # nfs
