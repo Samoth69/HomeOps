@@ -16,20 +16,17 @@ spec:
           nasbackup.sh: |-
             #!/bin/sh
 
-            restic unlock -r /mnt/repository
-            restic backup -n -r /mnt/repository -g paths --cleanup-cache --verbose --no-scan --exclude "#recycle" /mnt/DS418/Documents
-            restic forget -r /mnt/repository --keep-weekly 7 --keep-monthly 6 --keep-yearly 3 --prune
+            kopia repository connect filesystem --path /mnt/repository/kopia-Documents
+            kopia cache set --content-cache-size-limit-mb 30000 --metadata-cache-size-limit-mb 20000 --cache-directory /cache
+            kopia snapshot create /mnt/DS418 --fail-fast
     controllers:
       nasbackup:
         type: cronjob
-        labels:
-          egress.samoth.eu/ds416-nfs: allow
-          egress.samoth.eu/ds418-nfs: allow
         cronjob:
           backoffLimit: 0
           concurrencyPolicy: Forbid
           failedJobsHistory: 1
-          schedule: "0 12 * * 6"
+          schedule: "0 8 * * 6"
           timeZone: "Europe/Paris"
           successfulJobsHistory: 1
           suspend: false
@@ -38,8 +35,10 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/restic/restic
-              tag: 0.18.1
+              # repository: ghcr.io/restic/restic
+              # tag: 0.18.1
+              repository: kopia/kopia
+              tag: 0.22.3
             command:
               - "/scripts/nasbackup.sh"
             envFrom:
@@ -48,9 +47,9 @@ spec:
             resources:
               requests:
                 cpu: 250m
-                memory: 350Mi
+                memory: 1024Mi
               limits:
-                memory: 2048Mi
+                memory: 4096Mi
     persistence:
       scripts:
         type: configMap
@@ -61,14 +60,26 @@ spec:
             app:
               - path: /scripts/nasbackup.sh
                 subPath: nasbackup.sh
+                readOnly: true
+      cache:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 51Gi
       data:
         type: nfs
-        path: /volume1/Documents
+        path: /volume1
         server: ${SECRET_DS418_IP}
         advancedMounts:
           nasbackup:
             app:
               - path: /mnt/DS418/Documents
+                subPath: Documents
+                readOnly: true
+              - path: /mnt/DS418/music
+                subPath: music
+                readOnly: true
+              - path: /mnt/DS418/photo
+                subPath: photo
                 readOnly: true
       repository:
         type: nfs
@@ -77,5 +88,5 @@ spec:
         advancedMounts:
           nasbackup:
             app:
-              - path: /mnt/repository
-                subPath: repo-Documents
+              - path: /mnt/repository/repo-kopia
+                subPath: repo-kopia
