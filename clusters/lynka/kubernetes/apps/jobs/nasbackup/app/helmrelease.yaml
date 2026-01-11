@@ -16,7 +16,7 @@ spec:
           nasbackup.sh: |-
             #!/bin/sh
 
-            kopia repository connect filesystem --path /mnt/repository/kopia-Documents
+            kopia repository connect filesystem --path /mnt/repository/repo-kopia
             kopia cache set --content-cache-size-limit-mb 30000 --metadata-cache-size-limit-mb 20000 --cache-directory /cache
             kopia snapshot create /mnt/DS418 --fail-fast
     controllers:
