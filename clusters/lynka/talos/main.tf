@@ -135,7 +135,7 @@ EOF
                 "sh",
                 "-c",
                 <<EOF
-if pvdisplay | grep -q 'openebs-pv'; then
+if pvdisplay | grep -q '/dev/sdb1'; then
   echo 'PV exist'
 else
   echo 'PV doesnt exist, creating...'

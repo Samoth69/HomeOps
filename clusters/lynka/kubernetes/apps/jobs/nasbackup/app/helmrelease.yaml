@@ -46,7 +46,7 @@ spec:
                   name: nasbackup-secrets
             resources:
               requests:
-                cpu: 250m
+                cpu: 500m
                 memory: 1024Mi
               limits:
                 memory: 4096Mi
