@@ -16,9 +16,9 @@ spec:
           nasbackup.sh: |-
             #!/bin/sh
 
-            kopia repository connect filesystem --path /mnt/repository/repo-kopia
-            kopia cache set --content-cache-size-limit-mb 30000 --metadata-cache-size-limit-mb 20000 --cache-directory /cache
-            kopia snapshot create /mnt/DS418 --fail-fast
+            kopia --disable-file-logging repository connect filesystem --path /mnt/repository/repo-kopia
+            kopia --disable-file-logging cache set --content-cache-size-limit-mb 30000 --metadata-cache-size-limit-mb 20000 --cache-directory /cache
+            kopia --disable-file-logging --progress snapshot create /mnt/DS418 --fail-fast
     controllers:
       nasbackup:
         type: cronjob
@@ -47,7 +47,7 @@ spec:
             resources:
               requests:
                 cpu: 500m
-                memory: 1024Mi
+                memory: 2048Mi
               limits:
                 memory: 4096Mi
     persistence:
