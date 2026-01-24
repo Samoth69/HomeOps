@@ -114,7 +114,7 @@ EOF
           apiVersion = "v1"
           kind       = "pod"
           metadata = {
-            name      = "openebs-lvm-formater"
+            name      = "openebs-lvm-formatter"
             namespace = "kube-system"
           }
           spec = {
