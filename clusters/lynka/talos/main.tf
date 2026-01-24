@@ -120,7 +120,7 @@ EOF
           spec = {
             hostNetwork   = true
             hostPID       = true
-            restartPolicy = "Never"
+            restartPolicy = "OnFailure"
             containers = [{
               image = "openebs/lvm-driver"
               name  = "mounter"
