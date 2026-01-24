@@ -128,7 +128,7 @@ EOF
                 privileged = true
               }
               volumeMounts = [{
-                mountPath = "/host"
+                mountPath = "/dev"
                 name      = "host-root"
               }]
               command = [
@@ -152,7 +152,7 @@ EOF
             }]
             volumes = [{
               hostPath = {
-                path = "/"
+                path = "/dev"
               }
               name = "host-root"
             }]
