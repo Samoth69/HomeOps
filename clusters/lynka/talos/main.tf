@@ -123,7 +123,7 @@ EOF
             restartPolicy = "OnFailure"
             containers = [{
               image = "openebs/lvm-driver"
-              name  = "mounter"
+              name  = "formatter"
               securityContext = {
                 privileged = true
               }
