@@ -1,0 +1,10 @@
+[Container]
+Image=docker.io/prometheuscommunity/smartctl-exporter
+ContainerName=smartctl-exporter-akame
+PublishPort=9633:9633
+User=root
+PodmanArgs=--privileged
+[Service]
+Restart=always
+[Install]
+WantedBy=default.target

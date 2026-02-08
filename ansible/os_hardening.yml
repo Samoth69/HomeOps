@@ -1,0 +1,21 @@
+- name: os_hardening
+  become: yes
+  hosts: all:!proxmox
+  collections:
+    - devsec.hardening
+  roles:
+    - devsec.hardening.os_hardening
+  vars:
+    os_auth_pw_max_age: 99999
+    os_auth_pw_min_age: 0
+    os_auth_pam_passwdqc_enable: false
+    os_security_kernel_enable_module_loading: false
+    os_security_auto_logout: 3600 # 1 heure
+    sysctl_overwrite:
+      # spécifique Sonarqube
+      vm.max_map_count: 262144
+      # spécifique Docker/Kubernetes
+      net.ipv4.ip_forward: 1
+      net.ipv6.conf.all.forwarding: 1
+      # à appliquer sur les systèmes sous arm
+      # vm.mmap_rnd_bits: 18

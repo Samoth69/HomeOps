@@ -1,0 +1,9 @@
+- name: restart nut
+  systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: restarted
+  with_items:
+    - nut-server
+    - nut-client
+    - nut-monitor

@@ -1,0 +1,8 @@
+- name: apt update && apt upgrade && apt autoremove
+  apt:
+    autoclean: true
+    autoremove: true
+    update_cache: true
+    cache_valid_time: 3600
+    upgrade: full
+  notify: "schedule restart"

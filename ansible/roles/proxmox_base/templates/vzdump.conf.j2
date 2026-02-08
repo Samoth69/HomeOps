@@ -1,0 +1,22 @@
+#
+# ANSIBLE MANAGED
+#
+
+# vzdump default settings
+
+#tmpdir: DIR
+#dumpdir: DIR
+#storage: STORAGE_ID
+#mode: snapshot|suspend|stop
+bwlimit: {{ bwlimit }}
+performance: max-workers={{ max_workers }}
+ionice: {{ ionice }}
+#lockwait: MINUTES
+#stopwait: MINUTES
+#stdexcludes: BOOLEAN
+#mailto: ADDRESSLIST
+#prune-backups: keep-INTERVAL=N[,...]
+#script: FILENAME
+#exclude-path: PATHLIST
+#pigz: N
+#notes-template: {{ '{{guestname}}' }}

@@ -1,0 +1,147 @@
+- name: Remove old files
+  file:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/apt/sources.list
+    - /etc/apt/sources.list.d/pve-enterprise.list.dpkg-old
+    - /etc/apt/sources.list.d/ceph.sources
+    - /etc/apt/sources.list.d/debian-non-free.list
+    - /etc/apt/sources.list.d/pve-enterprise.list
+    - /etc/apt/sources.list.d/pve-enterprise.sources
+
+- name: Set apt repos
+  deb822_repository:
+    name: "{{ item.name }}"
+    types: deb
+    uris: "{{ item.uris }}"
+    suites: "{{ item.suites }}"
+    components: "{{ item.components }}"
+    signed_by: "{{ item.signed_by }}"
+  loop:
+    - name: debian
+      uris: http://ftp.fr.debian.org/debian/
+      suites:
+        - "{{ ansible_distribution_release }}"
+      components:
+        - main
+        - contrib
+        - non-free
+        - non-free-firmware
+      signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
+    - name: debian-updates
+      uris: http://ftp.fr.debian.org/debian/
+      suites:
+        - "{{ ansible_distribution_release }}-updates"
+      components:
+        - main
+        - contrib
+      signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
+    - name: debian-security
+      uris: http://ftp.fr.debian.org/debian-security/
+      suites:
+        - "{{ ansible_distribution_release }}-security"
+      components:
+        - main
+        - contrib
+      signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
+    - name: proxmox
+      uris: http://download.proxmox.com/debian/pve/
+      suites: "{{ ansible_distribution_release }}"
+      components:
+        - pve-no-subscription
+      signed_by: /usr/share/keyrings/proxmox-archive-keyring.gpg
+
+- name: Upgrade all system packages
+  apt:
+    upgrade: full
+    update_cache: true
+
+- name: remove old kernels
+  apt:
+    name:
+      - pve-kernel-5.15
+      - pve-kernel-5.15.30-2-pve
+      - pve-kernel-5.15.102-1-pve
+      - pve-kernel-5.15.108-1-pve
+      - pve-kernel-6.2
+      - proxmox-kernel-6.2
+    state: absent
+    autoclean: true
+    autoremove: true
+
+- name: install usefull tools
+  apt:
+    update_cache: true
+    name:
+      - htop
+      - btop
+      - powertop
+      - linux-cpupower
+      - lshw
+      - lm-sensors
+      - fwupdate
+      - amd64-microcode
+      - podman
+    state: latest
+
+- name: set vzdump config
+  template:
+    src: templates/vzdump.conf.j2
+    dest: /etc/vzdump.conf
+
+- name: activation turbo boost mini PC
+  when: ansible_facts['form_factor'] == 'Mini PC'
+  become: yes
+  become_user: root
+  block:
+    - name: Mini PC only - Enabling turbo (/sys/devices/system/cpu/cpufreq/boost)
+      ignore_errors: true
+      command: sh -c "echo '1' > /sys/devices/system/cpu/cpufreq/boost"
+
+- name: "Gather installed packages"
+  package_facts:
+    manager: auto
+
+- name: "Install pve fake subscription"
+  when: "'pve-fake-subscription' not in ansible_facts.packages"
+  block:
+    - name: Get newest pve-fake-subscription release
+      uri:
+        url: https://api.github.com/repos/Jamesits/pve-fake-subscription/releases/latest
+        return_content: true
+      register: json_reponse
+
+    - name: Create tmpdir
+      tempfile:
+        state: directory
+      register: tmpdir
+
+    - name: Download pve-fake-subscription
+      get_url:
+        url: "{{ json_reponse.json.assets[0].browser_download_url }}"
+        dest: "{{ tmpdir.path }}"
+        mode: "0644"
+      register: download
+
+    - name: Install pve-fake-subscription
+      apt:
+        deb: "{{ download.dest }}"
+
+- name: Disable useless services
+  systemd:
+    name: postfix
+    state: stopped
+    enabled: false
+
+- name: install smartctl-exporter
+  copy:
+    src: files/smartctl-exporter.container
+    dest: /etc/containers/systemd/smartctl-exporter.container
+
+- name: start smartctl-exporter
+  systemd:
+    name: smartctl-exporter
+    state: started
+    daemon_reload: true
+    enabled: true

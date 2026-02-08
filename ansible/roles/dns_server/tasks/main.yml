@@ -1,0 +1,155 @@
+# ##################### Pre Deploy Checks #####################
+
+- name: check if env vars are defined
+  fail:
+    msg: INFRA_PIHOLE_PASSWORD isn't defined
+  when: "pihole_password is undefined"
+
+# ##################### Firewall #####################
+
+# - name: install needed/useful packages
+#   package:
+#     name:
+#       - ufw
+#       - net-tools
+#     state: latest
+
+# - name: config ufw - logging
+#   ufw:
+#     logging: "low"
+
+# - name: config ufw - limit ssh
+#   ufw:
+#     rule: limit
+#     port: ssh
+#     proto: tcp
+#     comment: protect ssh from crude brute force attempts
+
+# - name: config ufw - allow ports
+#   ufw:
+#     rule: allow
+#     port: "{{item.port}}"
+#     proto: "{{item.proto}}"
+#     comment: pihole server
+#   with_items:
+#     - {"port": 53, "proto": "tcp"}
+#     - {"port": 53, "proto": "udp"}
+#     - {"port": 80, "proto": "tcp"}
+#     - {"port": 80, "proto": "udp"}
+
+# - name: config ufw - enable ufw
+#   ufw:
+#     state: enabled
+#     policy: deny
+
+- name: setup firewalld
+  firewalld:
+    immediate: true
+    permanent: true
+    service: "{{item}}"
+    state: enabled
+  with_items:
+    - https
+    - http
+    - dns
+
+# ##################### docker user prep #####################
+
+- name: create docker folder for docker user
+  file:
+    path: "{{item}}"
+    owner: "{{docker_user}}"
+    group: "{{docker_user}}"
+    mode: '0755' # drwxrwxr-x
+    state: directory
+  with_items:
+    - "{{config_folder}}"
+    - "{{dnscrypt_folder}}"
+    - "{{pihole_folder}}" 
+    # - "{{pihole_pihole_folder}}" TODO: les droits de ce dossier sont changés au démarrage et l'appli et ces droits sont nécessaires au bon fonctionnement de pihole
+    - "{{pihole_dnsmasqd_folder}}"
+
+# ##################### dnscrypt #####################
+
+- name: deploy dnscrypt config
+  copy:
+    src: dnscrypt-proxy.toml
+    dest: "{{dnscrypt_config}}"
+    owner: "{{docker_user}}"
+    group: "{{docker_user}}"
+    mode: '0644'
+
+- name: deploy dnscrypt image
+  docker_container:
+    state: started
+    name: dnscrypt
+    image: gists/dnscrypt-proxy
+    restart_policy: unless-stopped
+    volumes:
+      - "{{dnscrypt_config}}:/etc/dnscrypt-proxy/dnscrypt-proxy.toml:ro"
+    published_ports:
+      - "127.0.0.1:5353:5353/udp"
+      - "127.0.0.1:5353:5353/tcp"
+      - "[::]:5353:5353/udp"
+      - "[::]:5353:5353/tcp"
+
+# ##################### pihole #####################
+
+- name: deploy pihole image
+  docker_container:
+    state: started
+    name: pihole
+    image: pihole/pihole
+    restart_policy: unless-stopped
+    network_mode: host
+    env:
+      TZ: "Europe/Paris"
+      PIHOLE_DNS_: "127.0.0.1#5353"
+      REV_SERVER: "true"
+      REV_SERVER_DOMAIN: "lan"
+      REV_SERVER_TARGET: "192.168.0.1"
+      REV_SERVER_CIDR: "192.168.0.0/16"
+      WEBTHEME: "default-dark"
+      WEBPASSWORD: "{{pihole_password}}"
+      DNSMASQ_LISTENING: "all"
+    volumes:
+      - "{{pihole_pihole_folder}}:/etc/pihole:Z"
+      - "{{pihole_dnsmasqd_folder}}:/etc/dnsmasq.d:Z"
+    capabilities:
+      - CAP_NET_BIND_SERVICE
+      - CAP_SYS_NICE
+      - CAP_CHOWN
+
+# ##################### orbital sync #####################
+
+- name: stop orbital sync image
+  docker_container:
+    state: absent
+    name: orbital_sync
+  # filtre à l'arrache pour avoir orbital seulement sur PiHoleAlpha
+  when: "'192.168.0.2' in ansible_all_ipv4_addresses"
+
+# ##################### nebula sync #####################
+
+- name: nebula orbital sync image
+  docker_container:
+    state: started
+    name: nebula_sync
+    image: ghcr.io/lovelaze/nebula-sync:latest
+    restart_policy: unless-stopped
+    env:
+      PRIMARY: 'https://192.168.0.2|{{pihole_password}}'
+      REPLICAS: 'https://192.168.0.3|{{pihole_password}}'
+      FULL_SYNC: "true"
+      RUN_GRAVITY: "false"
+      CRON: 45 0 * * *
+      TZ: Europe/Paris
+      # TODO avoir des certs HTTPS valides pour les piholes
+      CLIENT_SKIP_TLS_VERIFICATION: "true"
+      WEBHOOK_SYNC_FAILURE_URL: '{{nebula_sync_webhook}}'
+      WEBHOOK_SYNC_FAILURE_BODY: '{"content":"une erreur s''est produite lors de la synchro nebula sync des piholes"}'
+      WEBHOOK_SYNC_FAILURE_HEADERS: Content-Type:application/json
+  # filtre à l'arrache pour avoir nebula seulement sur PiHoleAlpha
+  when: "'192.168.0.2' in ansible_all_ipv4_addresses"
+
+# #####################  #####################

@@ -1,0 +1,76 @@
+#-----------------------
+# OH MY ZSH
+#-----------------------
+
+oh_my_zsh_theme: intheloop
+
+# Default plugins
+oh_my_zsh_plugins:
+  - git
+  - docker
+  - docker-compose
+
+# Whether to install by default for all specified users.
+# May be overridden by `oh_my_zsh: install:` under each user.
+oh_my_zsh_install: yes
+
+# User configuration
+# Important: oh-my-zsh is installed per user so you need to specify the users to install it for.
+users:
+  - username: thomas
+  - username: root
+
+#-----------------------
+# unattended-upgrades
+#-----------------------
+
+# chemin fichier de conf unattended upgrade
+auto_update_config_path: /etc/apt/apt.conf.d/20auto-upgrades
+
+#-----------------------
+# pihole
+#-----------------------
+pihole_base_folder: /appli/pihole
+pihole_etc_pihole_folder: "{{pihole_base_folder}}/etc-pihole"
+pihole_etc_dnsmasq_folder: "{{pihole_base_folder}}/etc-dnsmasq.d"
+pihole_dnscrypt_conf_file: "{{pihole_base_folder}}/dnscrypt-proxy.toml"
+
+pihole_pihole_image: docker.io/pihole/pihole:latest
+pihole_dnscrypt_image: docker.io/gists/dnscrypt-proxy:latest
+
+pihole_pihole_name: pihole
+pihole_dnscrypt_name: dnscrypt
+pihole_pod_name: pod-dns
+
+# nom du service pour le pod
+pihole_services_pod_name: "pod-{{pihole_pod_name}}"
+# politique de redémarrage des services
+pihole_services_restart_policy: "always"
+# chemin des différents services
+pihole_services_path: "/home/podboy/.config/systemd/user/"
+
+# port locaux utilisé entre le container et le firewall de la machine
+# par ce que un utilisateur non privilégié ne peut pas écouter sur les ports < 1024
+# (seulement par défaut, cette contrainte peut être désactivé, mais faire avec une règle de forward sur le pare-feu est plus propre)
+os_dns_port: 1153
+os_http_port: 1180
+
+#-----------------------
+# Network config
+#-----------------------
+network_conn_name: "{{ansible_default_ipv4.alias}}"
+ipv4_addresses: []
+ipv4_gateway: 192.168.0.1
+ipv4_dns:
+  - 192.168.0.2
+  - 192.168.0.3
+ipv4_domains: []
+ipv4_routes: []
+
+ipv6_addresses: []
+ipv6_gateway: fe80::2266:cfff:fe83:760a
+ipv6_dns:
+  - 2a01:e0a:5c9:f0a0::2
+  - 2a01:e0a:5c9:f0a0::3
+ipv6_domains: []
+ipv6_routes: []

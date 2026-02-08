@@ -6,6 +6,13 @@ If you want to build something similar, have a look at the excellent [cluster-te
 
 ## Clusters
 
+> Despite the folder name, a cluster can be a Kubernetes cluster or a single VM
+
+| Name        | Type       | CD Tool | OS         |
+|-------------|------------|---------|------------|
+| lynka       | Kubernetes | FluxCD  | Talos      |
+| PiHoleGamma | Docker     | doco-cd | RockyLinux |
+
 ### Lynka
 
 Single node running home critical apps : PiHole and HomeAssistant

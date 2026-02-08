@@ -1,0 +1,19 @@
+- name: install nut
+  package:
+    name: nut
+    state: latest
+
+- name: copy configs files
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/nut/{{ item }}"
+    owner: root
+    group: nut
+    mode: u=rw,g=r
+  with_items:
+    - nut.conf
+    - ups.conf
+    - upsd.conf
+    - upsd.users
+    - upsmon.conf
+  notify: restart nut

@@ -1,0 +1,11 @@
+- name: base setup
+  import_playbook: base_pb.yml
+
+- name: base ssh
+  import_playbook: base_ssh.yml
+
+- name: os hardening
+  import_playbook: os_hardening.yml
+
+- name: auto update rhel pb
+  import_playbook: auto_update_rhel_pb.yml

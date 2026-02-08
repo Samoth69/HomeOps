@@ -1,0 +1,7 @@
+---
+
+- name: install auto update FEDORA
+  hosts: fedora:rocky
+  become: yes
+  roles:
+    - auto_update_fedora

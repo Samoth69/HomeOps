@@ -1,0 +1,3 @@
+- name: schedule restart
+  shell: 
+    cmd: shutdown -r 03:{{ 60 | random }}

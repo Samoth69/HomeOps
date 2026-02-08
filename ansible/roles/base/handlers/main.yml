@@ -1,0 +1,4 @@
+- name: restart network-interface
+  command:
+    cmd: "nmcli device reapply {{network_conn_name}}"
+  register: net_restarting

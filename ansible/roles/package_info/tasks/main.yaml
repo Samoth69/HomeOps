@@ -1,0 +1,11 @@
+# - name: get packages info
+#   package_facts:
+#     manager: auto
+
+# - name: print xz version
+#   debug:
+#     msg: "xz: {{ ansible_facts.packages['xz'] }}"
+
+- name: machine uptime
+  debug:
+    msg: Uptime {{ now().replace(microsecond=0) - now().fromtimestamp(now(fmt='%s') | int - ansible_uptime_seconds) }}

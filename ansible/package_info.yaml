@@ -1,0 +1,5 @@
+- name: package info
+  become: yes
+  hosts: all
+  roles:
+    - package_info

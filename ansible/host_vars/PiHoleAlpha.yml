@@ -1,0 +1,9 @@
+ipv4_addresses:
+  - 192.168.0.2/24
+
+ipv6_addresses:
+  - fe80::2/64
+  - 2a01:e0a:5c9:f0a0::2/64
+
+hostname: "PiHoleAlpha"
+watchtower_schedule: "0 0 4 * * SAT"

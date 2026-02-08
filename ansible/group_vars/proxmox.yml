@@ -1,0 +1,14 @@
+# -------------------------------------
+# vzdump (module de sauvegarde des VMs)
+# https://pve.proxmox.com/pve-docs/vzdump.1.html#vzdump_configuration
+# -------------------------------------
+
+# limite de bande passante pour les sauvegardes
+# ko/s
+bwlimit: 0
+
+# nombre max de worker
+max_workers: 2
+
+# priorité (8 pour idle)
+ionice: 8

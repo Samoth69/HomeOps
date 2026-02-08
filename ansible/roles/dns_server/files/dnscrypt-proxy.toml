@@ -1,0 +1,97 @@
+listen_addresses = ['0.0.0.0:5353']
+
+max_clients = 5000
+
+server_names = [
+    'bortzmeyer',
+    'bortzmeyer-ipv6',
+    'circl-doh',
+    'circl-doh-ipv6',
+    'cloudflare',
+    'cloudflare-ipv6',
+    'dct-de',
+    'dct-fr',
+    'fdn',
+    'fdn-ipv6',
+    'ffmuc.net',
+    'ffmuc.net-v6',
+    'fluffycat-fr-01',
+    'ibksturm',
+    'mullvad-doh',
+    'quad9-dnscrypt-ip4-nofilter-ecs-pri',
+    'quad9-dnscrypt-ip4-nofilter-pri',
+    'quad9-dnscrypt-ip6-nofilter-ecs-pri',
+    'quad9-dnscrypt-ip6-nofilter-pri',
+    'quad9-doh-ip4-port443-nofilter-ecs-pri',
+    'quad9-doh-ip4-port443-nofilter-pri',
+    'quad9-doh-ip4-port5053-nofilter-ecs-pri',
+    'quad9-doh-ip4-port5053-nofilter-pri',
+    'quad9-doh-ip6-port443-nofilter-ecs-pri',
+    'quad9-doh-ip6-port443-nofilter-pri',
+    'quad9-doh-ip6-port5053-nofilter-ecs-pri',
+    'quad9-doh-ip6-port5053-nofilter-pri',
+    'restena-doh-ipv4',
+    'restena-doh-ipv6',
+    'scaleway-ams',
+    'scaleway-ams-ipv6',
+    'scaleway-fr',
+    'scaleway-fr-ipv6',
+    'v.dnscrypt.uk-ipv4',
+    'v.dnscrypt.uk-ipv6',
+]
+ipv4_servers = true
+ipv6_servers = true
+dnscrypt_servers = true
+doh_servers = true
+odoh_servers = false
+require_dnssec = false
+require_nolog = true
+require_nofilter = true
+
+timeout = 5000
+keepalive = 30
+cert_refresh_delay = 240
+
+bootstrap_resolvers = ['9.9.9.9:53', '1.1.1.1:53']
+ignore_system_dns = true
+netprobe_timeout = 60
+netprobe_address = '9.9.9.9:53'
+
+[broken_implementations]
+
+## Cisco servers currently cannot handle queries larger than 1472 bytes, and don't
+## truncate responses larger than questions as expected by the DNSCrypt protocol.
+## This prevents large responses from being received over UDP and over relays.
+##
+## Older versions of the `dnsdist` server software had a bug with queries larger
+## than 1500 bytes. This is fixed since `dnsdist` version 1.5.0, but
+## some server may still run an outdated version.
+##
+## The list below enables workarounds to make non-relayed usage more reliable
+## until the servers are fixed.
+
+fragments_blocked = [
+    'cisco',
+    'cisco-ipv6',
+    'cisco-familyshield',
+    'cisco-familyshield-ipv6',
+    'cleanbrowsing-adult',
+    'cleanbrowsing-adult-ipv6',
+    'cleanbrowsing-family',
+    'cleanbrowsing-family-ipv6',
+    'cleanbrowsing-security',
+    'cleanbrowsing-security-ipv6',
+]
+
+
+[sources]
+
+[sources.'public-resolvers']
+urls = [
+    'https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md',
+    'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md',
+]
+minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+cache_file = 'public-resolvers.md'
+refresh_delay = 72
+prefix = ''

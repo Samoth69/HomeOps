@@ -1,0 +1,135 @@
+- name: add epel-release if rocky linux
+  become: yes
+  package:
+    name:
+      - epel-release
+    state: latest
+  when: ansible_distribution == 'Rocky'
+
+- name: get packages info
+  package_facts:
+    manager: auto
+
+- name: set network settings if nmcli is available
+  become: yes
+  import_tasks:
+    file: network.yml
+  when: "'NetworkManager' in ansible_facts.packages"
+
+- name: install qemu-guest-agent and enable if this is a vm 
+  become: yes
+  block:
+    - name: install qemu agent
+      package:
+        name: qemu-guest-agent
+        state: latest
+    - name: start and enable qemu agent
+      systemd:
+        name: qemu-guest-agent
+        enabled: true
+        state: started
+  when: "ansible_virtualization_role == 'guest' and ansible_virtualization_type == 'kvm'"
+
+- name: check if usefull tools are installed
+  become: yes
+  package:
+    name:
+      - htop
+      - btop
+      - bmon
+      - curl
+      - nano
+      - git
+    state: latest
+
+# TODO: ajouter des paquets de débug réseau de base (dig, ip...) => https://www.tecmint.com/install-dig-and-nslookup-in-linux/
+
+- name: update ohmyzsh repo
+  become: yes
+  become_user: '{{ user.username }}'
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: ~{{ user.username }}/.oh-my-zsh
+    update: yes
+  with_items: '{{ users }}'
+  when: "((user.oh_my_zsh | default({})).install | default(oh_my_zsh_install)) | bool"
+  loop_control:
+    loop_var: user
+    label: '{{ user.username }}'
+
+- name: copy custom template for zsh
+  become: yes
+  become_user: '{{ user.username }}'
+  copy:
+    src: files/intheloop.zsh-theme
+    dest: '~{{ user.username }}/.oh-my-zsh/custom/themes/intheloop.zsh-theme'
+  with_items: '{{ users }}'
+  when: "((user.oh_my_zsh | default({})).install | default(oh_my_zsh_install)) | bool"
+  loop_control:
+    loop_var: user
+    label: '{{ user.username }}'
+
+- name: clean old template
+  become: yes
+  become_user: '{{ user.username }}'
+  file:
+    path: '~{{ user.username }}/.oh-my-zsh/custom/themes/headline.zsh-theme'
+    state: absent
+  with_items: '{{ users }}'
+  when: "((user.oh_my_zsh | default({})).install | default(oh_my_zsh_install)) | bool"
+  loop_control:
+    loop_var: user
+    label: '{{ user.username }}'
+
+# copié collé de https://github.com/gantsign/ansible-role-oh-my-zsh/blob/master/tasks/install.yml#L52
+# permet de ré-écrire le template de oh my zsh pour être 100% raccord avec ce que je veux
+- name: Ré-écriture du fichier .zshrc
+  become: yes
+  become_user: '{{ user.username }}'
+  template:
+    src: zshrc.j2
+    dest: '~{{ user.username }}/.zshrc'
+    backup: yes
+    mode: 'u=rw,go=r'
+  with_items: '{{ users }}'
+  when: "((user.oh_my_zsh | default({})).install | default(oh_my_zsh_install)) | bool"
+  loop_control:
+    loop_var: user
+    label: '{{ user.username }}'
+
+- name: Défini la bonne timezone
+  timezone:
+    name: Europe/Paris
+
+- name: Désactiver cockpit au démarrage
+  ignore_errors: true # cette étape peut planter si le service a déjà été enlevé
+  systemd:
+    state: stopped
+    enabled: false
+    name: cockpit.socket
+
+- name: Supprimer cockpit si présent
+  package:
+    name:
+      - cockpit
+      - cockpit-bridge
+      - cockpit-networkmanager
+      - cockpit-packagekit
+      - cockpit-selinux
+      - cockpit-storaged
+      - cockpit-system
+      - cockpit-ws
+    state: absent
+
+- name: Enlever cockpit du parefeu
+  firewalld:
+    service: cockpit
+    permanent: true
+    immediate: true
+    state: disabled
+  ignore_errors: true # cette étape peut planter si firewalld n'est pas présent sur la machine
+
+- name: défini le hostname de la machines
+  hostname:
+    name: "{{ hostname }}"
+  when: hostname is defined

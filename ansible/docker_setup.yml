@@ -1,0 +1,5 @@
+- name: "docker: basic setup"
+  hosts: docker
+  become: yes
+  roles:
+    - docker_setup

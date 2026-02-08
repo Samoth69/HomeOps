@@ -1,0 +1,90 @@
+# ############################ pré-requis ###############################
+# peut être nécessaire pour éviter le playbook de crash si jamais la version de nmcli ne colle pas avec la version de NetworkManager
+# ce produit généralement en cas de maj coté rocky linux
+- name: restart network manager
+  systemd:
+    name: NetworkManager
+    state: restarted
+  register: net_restarting
+
+# ############################ IPv4 ###############################
+
+- name: set IPv4 addresses and gateway if defined
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    gw4: "{{ipv4_gateway}}"
+    gw4_ignore_auto: true
+    ip4: "{{ipv4_addresses}}"
+    may_fail4: false
+    state: present
+  when: ipv4_addresses|length > 0 and ipv4_gateway
+  notify: restart network-interface
+
+- name: set IPv4 dns if defined
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    dns4: "{{ipv4_dns}}"
+    dns4_ignore_auto: true
+    state: present
+  when: ipv4_dns|length > 0
+  notify: restart network-interface
+
+- name: set IPv4 domains if defined
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    dns4_search: "{{ipv4_domains}}"
+    state: present
+  when: ipv4_domains|length > 0
+  notify: restart network-interface
+
+- name: set IPv4 routes if defined
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    routes4: "{{ipv4_routes}}"
+    state: present
+  notify: restart network-interface
+
+# ############################ IPv6 ###############################
+
+- name: set IPv6 addresses and gateway if defined
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    gw6: "{{ipv6_gateway}}"
+    gw6_ignore_auto: true
+    ip6: "{{ipv6_addresses}}"
+    state: present
+  when: ipv6_addresses|length > 0 and ipv6_gateway
+  notify: restart network-interface
+
+- name: set IPv6 dns if defined
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    dns6: "{{ipv6_dns}}"
+    dns6_ignore_auto: true
+    state: present
+  when: ipv6_dns|length > 0
+  notify: restart network-interface
+
+- name: set IPv6 domains if defined
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    dns6_search: "{{ipv6_domains}}"
+    state: present
+  when: ipv6_domains|length > 0
+  notify: restart network-interface
+
+- name: set IPv6 routes
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    routes6: "{{ipv6_routes}}"
+    state: present
+  notify: restart network-interface
+
+- name: set IPv6 routes if defined
+  nmcli:
+    conn_name: "{{network_conn_name}}"
+    routes6: "{{ipv6_routes}}"
+    state: present
+  when: ipv6_routes|length > 0
+  notify: restart network-interface
+

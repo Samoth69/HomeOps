@@ -1,0 +1,5 @@
+- name: apt update && apt upgrade
+  become: yes
+  hosts: debian
+  roles:
+    - manual_apt_upgrade

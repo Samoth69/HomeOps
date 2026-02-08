@@ -1,0 +1,10 @@
+- name: base_ssh
+  become: yes
+  hosts: all:!proxmox
+  roles:
+    - devsec.hardening.ssh_hardening
+  vars:
+    ssh_allow_tcp_forwarding: yes
+    ssh_allow_users: thomas
+    ssh_server_password_login: "{{ ( enable_password_login | default('yes') ) | bool }}"
+    sshd_authenticationmethods: publickey password

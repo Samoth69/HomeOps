@@ -1,0 +1,5 @@
+# Set maxretry to 3 by default, this should mitigate race with slow devices:
+maxretry = 3
+[ups]
+    driver = usbhid-ups
+    port = auto

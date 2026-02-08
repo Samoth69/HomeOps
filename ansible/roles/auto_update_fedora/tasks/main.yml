@@ -1,0 +1,16 @@
+- name: check if dnf-automatic is installed
+  package:
+    name:
+      - dnf-automatic
+    state: latest
+
+- name: copy config file
+  copy:
+    src: files/automatic.conf
+    dest: /etc/dnf/automatic.conf
+
+- name: enable and start dnf-automatic-install service
+  systemd:
+    state: restarted
+    enabled: yes
+    name: dnf-automatic-install.timer
