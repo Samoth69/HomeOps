@@ -1,0 +1,64 @@
+- name: set sysctl
+  sysctl:
+    name: net.ipv4.ip_unprivileged_port_start
+    value: 443
+    sysctl_file: /etc/sysctl.d/95-traefik.conf
+    reload: true
+
+- name: setup firewall
+  firewalld:
+    service: https
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+
+- name: packages
+  package:
+    name:
+      - systemd-container
+    state: latest
+
+- name: get podboy user info
+  getent:
+    database: passwd
+    key: podboy
+
+# Oui c'est un peu crad mais j'ai pas plus propre
+- name: Ensure lingering enabled
+  command:
+    cmd: loginctl enable-linger podboy
+    creates: /var/lib/systemd/linger/podboy
+  notify: reboot
+
+- name: creation des dossiers
+  file:
+    path: "{{ item }}"
+    group: podboy
+    owner: podboy
+    mode: u=rwx
+    state: directory
+  loop:
+    - "{{ postgresPath }}"
+    - "{{ podmanPath }}"
+
+- name: copy files
+  template:
+    src: "{{ item.file }}.j2"
+    dest: "{{ podmanPath }}/{{ item.file }}"
+    group: podboy
+    owner: podboy
+    mode: u=r
+  loop:
+    - file: traefik.network
+      serviceName: traefik-network
+    - file: traefik.container
+      serviceName: traefik
+    - file: postgres-forgejo.network
+      serviceName: postgres-forgejo-network
+    - file: postgres-forgejo.container
+      serviceName: postgres-forgejo
+  register: systemd_projects
+  notify:
+    - reload systemd
+    - restart systemd projects

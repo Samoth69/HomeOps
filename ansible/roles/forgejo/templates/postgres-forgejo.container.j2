@@ -1,0 +1,16 @@
+[Container]
+Image=docker.io/library/postgres:18.2
+ContainerName=postgres-forgejo
+Volume={{ postgresPath }}:/var/lib/postgresql:z
+Volume=/etc/passwd:/etc/passwd:ro
+Group={{ getent_passwd['podboy'].2 }}
+User={{ getent_passwd['podboy'].1 }}
+Environment=POSTGRES_USER=forgejo
+# IN TESTING ONLY
+Environment=POSTGRES_PASSWORD=BNZFc6A83CsrkEYu9uSe9Djaq35GCauf
+LogDriver=journald
+Network=systemd-postgres-forgejo
+[Service]
+Restart=always
+[Install]
+WantedBy=default.target

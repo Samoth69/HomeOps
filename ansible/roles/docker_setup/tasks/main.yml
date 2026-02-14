@@ -27,14 +27,6 @@
     msg: Docker engine need to be installed
   when: "'docker-ce' not in ansible_facts.packages"
 
-- name: create user podboy
-  user:
-    name: podboy
-    expires: -1
-    password_lock: yes
-    password: "!"
-    shell: /bin/bash
-
 - name: create podboy docker folder
   file:
     path: /home/podboy/docker

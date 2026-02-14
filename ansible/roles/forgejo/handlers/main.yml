@@ -1,0 +1,19 @@
+- name: reboot
+  reboot:
+
+- name: reload systemd
+  become_method: machinectl
+  become_user: podboy
+  systemd_service:
+    scope: user
+    daemon_reload: yes
+
+# https://rolflekang.com/ansible-handlers-in-loops
+- name: restart systemd projects
+  become_method: machinectl
+  become_user: podboy
+  loop: "{{ systemd_projects.results | selectattr('changed', 'equalto', true) | map(attribute='item') | map(attribute='serviceName') | list }}"
+  systemd_service:
+    scope: user
+    name: '{{ item }}'
+    state: restarted

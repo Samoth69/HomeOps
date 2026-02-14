@@ -1,0 +1,6 @@
+- name: "podman: basic setup"
+  hosts: podman
+  become: yes
+  roles:
+    - podboy_user
+    - podman_setup

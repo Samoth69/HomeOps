@@ -1,0 +1,5 @@
+- name: forgejo install & update
+  hosts: forgejo
+  become: yes
+  roles:
+    - forgejo

@@ -1,0 +1,10 @@
+ipv4_addresses:
+  - 192.168.0.34/24
+
+ipv6_addresses:
+  - 2a01:e0a:5c9:f0a0::34/64
+
+hostname: "OwnForge"
+
+podmanPath: /home/podboy/.config/containers/systemd
+postgresPath: /home/podboy/forgejo/postgres

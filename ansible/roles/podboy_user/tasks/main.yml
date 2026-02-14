@@ -1,0 +1,7 @@
+- name: create user podboy
+  user:
+    name: podboy
+    expires: -1
+    password_lock: yes
+    password: "!"
+    shell: /bin/bash
