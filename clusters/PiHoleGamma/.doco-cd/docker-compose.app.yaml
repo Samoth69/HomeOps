@@ -1,0 +1,41 @@
+---
+# This file is not managed by doco-cd because it can't manage itself
+
+configs:
+  poll-config.yml:
+    content: |
+      - url: https://github.com/Samoth69/HomeOps.git
+        interval: 3600 # every hour
+secrets:
+  sops_age_key:
+    file: /home/podboy/.sops/sops_age_key.txt
+services:
+  app:
+    configs:
+      - source: poll-config.yml
+        target: /poll-config.yml
+    container_name: doco-cd
+    environment:
+      TZ: Europe/Paris
+      LOG_LEVEL: info
+      POLL_CONFIG_FILE: /poll-config.yml
+      SOPS_AGE_KEY_FILE: /run/secrets/sops_age_key
+      DEPLOY_CONFIG_BASE_DIR: ./clusters/PiHoleGamma/
+    healthcheck:
+      test:
+        - CMD
+        - /doco-cd
+        - healthcheck
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    image: ghcr.io/kimdre/doco-cd:0.63.0
+    restart: unless-stopped
+    secrets:
+      - sops_age_key
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - data:/data
+volumes:
+  data: {}

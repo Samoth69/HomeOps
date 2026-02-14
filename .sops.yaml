@@ -1,5 +1,6 @@
 keys:
   - &lynka age10mxrc4xzc0udh8ra304ftjnc6m3x3qfe60qulu8j9eqjhrgkns9qnk50up
+  - &PiHoleGamma age1kc3djl7jwdj6mepxxq6aktkku2dx7yk8384dhhxjd3kdc4jvfu2s2asc7r
 
 creation_rules:
   - path_regex: clusters/lynka/.*\.sops\.ya?ml
@@ -7,6 +8,10 @@ creation_rules:
     key_groups:
       - age:
           - *lynka
+  - path_regex: clusters/PiHoleGamma/.*\.sops\.ya?ml
+    key_groups:
+      - age:
+          - *PiHoleGamma
 
 stores:
   yaml:
