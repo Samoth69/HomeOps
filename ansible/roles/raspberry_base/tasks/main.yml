@@ -1,0 +1,50 @@
+- name: apply config.txt
+  copy:
+    src: "boot.txt"
+    dest: "/boot/config.txt"
+  notify: restart device
+
+- name: make sudo require password
+  template:
+    src: "010_pi-nopasswd.j2"
+    dest: "/etc/sudoers.d/010_pi-nopasswd"
+  notify: restart device
+
+- name: module blacklist
+  copy:
+    src: "raspi-blacklist.conf"
+    dest: "/etc/modprobe.d/raspi-blacklist.conf"
+  notify: restart device
+
+- name: enable cgroups in cmdline
+  lineinfile:
+    path: "/boot/cmdline.txt"
+    regexp: "^"
+    line: cgroup_enable=memory cgroup_memory=1
+    state: present
+  notify: restart device
+
+- name: Flush handlers (reboot device if needed)
+  meta: flush_handlers
+
+- name: remove audio, wifi and bt crap
+  apt:
+    name:
+      - pulseaudio
+      - wpasupplicant
+      - bluez
+      - rpi-connect-lite
+    state: absent
+
+- name: apt update, upgrade & autoremove
+  apt:
+    update_cache: true
+    upgrade: yes
+    autoremove: true
+
+- name: install tools
+  apt:
+    name:
+      - htop
+      - bmon
+    state: latest

@@ -1,0 +1,5 @@
+- name: Raspberry pi Base
+  become: yes
+  hosts: raspbian
+  roles:
+    - raspberry_base
