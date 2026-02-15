@@ -41,10 +41,3 @@
     update_cache: true
     upgrade: yes
     autoremove: true
-
-- name: install tools
-  apt:
-    name:
-      - htop
-      - bmon
-    state: latest
