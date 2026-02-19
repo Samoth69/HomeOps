@@ -31,7 +31,7 @@ services:
       FTLCONF_dns_rateLimit_count: 10000
       FTLCONF_dns_rateLimit_interval: 30
     volumes:
-      - './etc-pihole:/etc/pihole'
+      - '/home/podboy/docker/pihole:/etc/pihole'
     env_file:
       - secrets.sops.env
     cap_add:
