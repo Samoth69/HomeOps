@@ -5,11 +5,6 @@ services:
     container_name: dnscrypt
     volumes:
       - "./dnscrypt-proxy.toml:/etc/dnscrypt-proxy/dnscrypt-proxy.toml:ro"
-    # ports:
-    #   - "127.0.0.1:5353:5353/udp"
-    #   - "127.0.0.1:5353:5353/tcp"
-    #   - "[::]:5353:5353/udp"
-    #   - "[::]:5353:5353/tcp"
     networks:
       pihole_net:
   pihole:
@@ -33,6 +28,8 @@ services:
       # must match name of the service above
       FTLCONF_dns_upstreams: 'dnscrypt#5353'
       FTLCONF_dns_listeningMode: 'ALL'
+      FTLCONF_dns_rateLimit_count: 10000
+      FTLCONF_dns_rateLimit_interval: 30
     volumes:
       - './etc-pihole:/etc/pihole'
     env_file:
