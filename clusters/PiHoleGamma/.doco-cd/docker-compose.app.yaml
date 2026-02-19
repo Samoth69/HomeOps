@@ -30,7 +30,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    image: ghcr.io/kimdre/doco-cd:0.65.0
+    image: ghcr.io/kimdre/doco-cd:0.64.0
     restart: unless-stopped
     secrets:
       - sops_age_key
