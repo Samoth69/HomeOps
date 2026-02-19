@@ -31,7 +31,7 @@ services:
     environment:
       TZ: "Europe/Paris"
       # must match name of the service above
-      FTLCONF_dns_upstreams: 'dnscrypt'
+      FTLCONF_dns_upstreams: 'dnscrypt#5353'
       FTLCONF_dns_listeningMode: 'ALL'
     volumes:
       - './etc-pihole:/etc/pihole'
