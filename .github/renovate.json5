@@ -16,6 +16,7 @@
   ],
   ignorePaths: [
     '**/*.sops.*',
+    'clusters/PiHoleGamma/teleinfo'
   ],
   flux: {
     managerFilePatterns: [
@@ -91,19 +92,6 @@
       ],
       matchPackageNames: [
         '/rook/',
-      ],
-      group: {
-        commitMessageTopic: '{{{groupName}}} group',
-      },
-    },
-    {
-      description: 'Woodpecker Group',
-      groupName: 'Woodpecker',
-      matchDatasources: [
-        'docker',
-      ],
-      matchPackageNames: [
-        '/woodpeckerci/',
       ],
       group: {
         commitMessageTopic: '{{{groupName}}} group',
@@ -260,6 +248,7 @@
         '!/rook\/rook-ceph/',
         '!/rook\/rook-ceph-cluster/',
         '!/ceph\/ceph/',
+        '!/cilium\/cilium/',
         '!/siderolabs\/installer/',
         '!/siderolabs\/kubelet/'
       ],

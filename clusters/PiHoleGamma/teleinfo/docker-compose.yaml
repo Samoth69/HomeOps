@@ -1,0 +1,9 @@
+services:
+  teleinfo:
+    build: ./app
+    container_name: teleinfo
+    restart: unless-stopped
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    env_file:
+      - secrets.sops.env
