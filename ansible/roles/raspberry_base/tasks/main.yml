@@ -38,8 +38,24 @@
       - rpicam-apps-lite
     state: absent
 
+- name: install ufw
+  apt:
+    name: ufw
+    state: latest
+
 - name: apt update, upgrade & autoremove
   apt:
     update_cache: true
     upgrade: yes
     autoremove: true
+
+- name: ufw - enable ssh
+  ufw:
+    rule: allow
+    port: ssh
+    proto: tcp
+
+- name: ufw - enable
+  ufw:
+    state: enabled
+    logging: 'low'

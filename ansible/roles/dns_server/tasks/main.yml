@@ -25,18 +25,6 @@
 #     proto: tcp
 #     comment: protect ssh from crude brute force attempts
 
-# - name: config ufw - allow ports
-#   ufw:
-#     rule: allow
-#     port: "{{item.port}}"
-#     proto: "{{item.proto}}"
-#     comment: pihole server
-#   with_items:
-#     - {"port": 53, "proto": "tcp"}
-#     - {"port": 53, "proto": "udp"}
-#     - {"port": 80, "proto": "tcp"}
-#     - {"port": 80, "proto": "udp"}
-
 # - name: config ufw - enable ufw
 #   ufw:
 #     state: enabled

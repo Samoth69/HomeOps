@@ -1,0 +1,12 @@
+- name: config ufw - allow ports
+  ufw:
+    rule: allow
+    port: "{{item.port}}"
+    proto: "{{item.proto}}"
+    comment: pihole
+  with_items:
+    - {"port": 53, "proto": "tcp"}
+    - {"port": 53, "proto": "udp"}
+    - {"port": 123, "proto": "udp"}
+    - {"port": 443, "proto": "tcp"}
+    - {"port": 443, "proto": "udp"}

@@ -1,0 +1,5 @@
+- name: dns_server_ufw
+  hosts: dns_server
+  become: yes
+  roles:
+    - dns_server_ufw
