@@ -10,3 +10,9 @@
     - {"port": 123, "proto": "udp"}
     - {"port": 443, "proto": "tcp"}
     - {"port": 443, "proto": "udp"}
+
+- name: copy after.rules
+  copy:
+    src: after.rules
+    dest: /etc/ufw/after.rules
+  notify: restart ufw
