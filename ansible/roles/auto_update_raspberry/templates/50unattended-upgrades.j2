@@ -1,0 +1,15 @@
+Unattended-Upgrade::Origins-Pattern {
+    "origin=Raspbian,codename=${distro_codename}-updates";
+    "origin=Raspbian,codename=${distro_codename}-proposed-updates";
+    "origin=Raspbian,codename=${distro_codename},label=Raspbian";
+    "origin=Raspbian,codename=${distro_codename},label=Raspbian-Security";
+    "origin=Raspbian,codename=${distro_codename}-security,label=Raspbian-Security";
+};
+
+Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
+Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+
+Unattended-Upgrade::Automatic-Reboot "true";
+Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
+Unattended-Upgrade::Automatic-Reboot-Time "{{ unattended_upgrade_reboot_time }}";

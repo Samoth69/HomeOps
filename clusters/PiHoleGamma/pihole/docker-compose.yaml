@@ -1,0 +1,30 @@
+services:
+  dnscrypt:
+    image: gists/dnscrypt-proxy:2.1.5
+    restart: unless-stopped
+    container_name: dnscrypt
+    volumes:
+      - "./dnscrypt-proxy.toml:/etc/dnscrypt-proxy/dnscrypt-proxy.toml:ro"
+    ports:
+      - "127.0.0.1:5353:5353/udp"
+      - "127.0.0.1:5353:5353/tcp"
+      - "[::]:5353:5353/udp"
+      - "[::]:5353:5353/tcp"
+  pihole:
+    image: pihole/pihole:2026.02.0
+    restart: unless-stopped
+    container_name: pihole
+    network_mode: host
+    environment:
+      TZ: "Europe/Paris"
+      # must match name of the service above
+      FTLCONF_dns_upstreams: 'dnscrypt'
+      FTLCONF_dns_listeningMode: 'ALL'
+    volumes:
+      - './etc-pihole:/etc/pihole'
+    env_file:
+      - secrets.sops.env
+    cap_add:
+      - CHOWN
+      - SYS_TIME
+      - SYS_NICE

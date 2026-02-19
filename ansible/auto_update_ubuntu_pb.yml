@@ -1,5 +1,0 @@
-- name: install unattended upgrade ubuntu
-  hosts: ubuntu
-  become: yes
-  roles:
-    - auto_update_ubuntu

@@ -1,4 +1,0 @@
-- name: install auto update DEBIAN
-  hosts: debian
-  roles:
-    - auto_update_debian

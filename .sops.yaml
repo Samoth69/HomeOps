@@ -8,7 +8,7 @@ creation_rules:
     key_groups:
       - age:
           - *lynka
-  - path_regex: clusters/PiHoleGamma/.*\.sops\.ya?ml
+  - path_regex: clusters/PiHoleGamma/.*\.sops\.env
     key_groups:
       - age:
           - *PiHoleGamma

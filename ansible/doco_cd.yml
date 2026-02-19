@@ -1,0 +1,5 @@
+- name: "dococd install"
+  hosts: docker
+  become: yes
+  roles:
+    - doco_cd

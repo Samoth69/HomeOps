@@ -6,3 +6,5 @@ ipv6_addresses:
 
 hostname: "PiHoleGamma"
 rpi_base_username: thomas
+dococd_folder: ../clusters/PiHoleGamma/
+unattended_upgrade_reboot_time: 05:30

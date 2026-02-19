@@ -1,0 +1,11 @@
+- name: dococd compose file copy
+  copy:
+    src: "{{dococd_folder}}/.doco-cd/docker-compose.app.yaml"
+    dest: /home/podboy/docker-compose.yaml
+    owner: podboy
+    group: podboy
+
+- name: docker compose up
+  community.docker.docker_compose_v2:
+    project_src: "/home/podboy"
+    state: present

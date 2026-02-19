@@ -1,0 +1,5 @@
+- name: install auto update raspberry
+  hosts: raspbian
+  become: yes
+  roles:
+    - auto_update_raspberry
