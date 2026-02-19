@@ -10,7 +10,8 @@ services:
   pihole:
     image: pihole/pihole:2026.02.0
     restart: unless-stopped
-    container_name: pihole
+    container_name: &host pihole
+    hostname: *host
     ports:
       # DNS Ports
       - "53:53/tcp"
