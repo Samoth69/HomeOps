@@ -17,3 +17,13 @@
     - upsd.users
     - upsmon.conf
   notify: restart nut
+
+- name: config ufw - allow ports
+  ufw:
+    rule: allow
+    port: "{{item.port}}"
+    proto: "{{item.proto}}"
+    comment: nut
+  with_items:
+    - {"port": 3493, "proto": "tcp"}
+    - {"port": 3493, "proto": "udp"}
