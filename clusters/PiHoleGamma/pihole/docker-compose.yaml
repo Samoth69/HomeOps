@@ -5,30 +5,19 @@ services:
     container_name: dnscrypt
     volumes:
       - "./dnscrypt-proxy.toml:/etc/dnscrypt-proxy/dnscrypt-proxy.toml:ro"
-    networks:
-      pihole_net:
+    ports:
+      - 127.0.0.1:5353/tcp
+      - 127.0.0.1:5353/udp
   pihole:
     image: pihole/pihole:2026.02.0
     restart: unless-stopped
     container_name: &host pihole
     hostname: *host
-    ports:
-      # DNS Ports
-      - "53:53/tcp"
-      - "53:53/udp"
-      # Default HTTP Port
-      # - "80:80/tcp"
-      # Default HTTPs Port. FTL will generate a self-signed certificate
-      - "443:443/tcp"
-      - "443:443/udp"
-      # Uncomment the line below if you are using Pi-hole as your DHCP server
-      #- "67:67/udp"
-      # Uncomment the line below if you are using Pi-hole as your NTP server
-      - "123:123/udp"
+    network_mode: host
     environment:
       TZ: "Europe/Paris"
       # must match name of the service above
-      FTLCONF_dns_upstreams: 'dnscrypt#5353'
+      FTLCONF_dns_upstreams: '127.0.0.1#5353'
       FTLCONF_dns_listeningMode: 'ALL'
       FTLCONF_dns_rateLimit_count: 10000
       FTLCONF_dns_rateLimit_interval: 30
@@ -40,7 +29,3 @@ services:
       - CHOWN
       - SYS_TIME
       - SYS_NICE
-    networks:
-      pihole_net:
-networks:
-  pihole_net:
