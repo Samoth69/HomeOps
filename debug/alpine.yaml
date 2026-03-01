@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alpine-deployment
+  labels:
+    app: alpine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alpine
+  template:
+    metadata:
+      labels:
+        app: alpine
+    spec:
+      # dnsPolicy: Default
+      containers:
+      - name: alpine
+        image: alpine
+        imagePullPolicy: Always
+        args:
+        - sleep
+        - infinity
+        # volumeMounts:
+        #   - mountPath: "/forgejo"
+        #     name: forgejo
+        resources:
+          requests:
+            cpu: 20m
+            memory: 20Mi
+          limits:
+            cpu: "1"
+            memory: 1Gi
+      # volumes:
+      #   - name: forgejo
+      #     persistentVolumeClaim:
+      #       claimName: forgejo
