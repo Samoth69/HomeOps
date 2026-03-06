@@ -1,0 +1,18 @@
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    hostname: PiHoleGamma
+    restart: unless-stopped
+    container_name: tailscale
+    environment:
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+      - TS_ROUTES=192.168.0.0/24
+    volumes:
+      - ${PWD}/tailscale/state:/var/lib/tailscale
+    env_file:
+      - secrets.sops.env
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
