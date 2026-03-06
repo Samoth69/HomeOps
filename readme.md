@@ -2,16 +2,16 @@
 
 Welcome to my home-ops monorepo featuring Kubernetes, FluxCD, Talos and Renovate among others.
 
-If you want to build something similar, have a look at the excellent [cluster-template](https://github.com/onedr0p/cluster-template)
+If you want to get started in GitOps with Kubernetes, have a look at the excellent [cluster-template](https://github.com/onedr0p/cluster-template)
 
 ## Clusters
 
-> Despite the folder name, a cluster can be a Kubernetes cluster or a single VM
+> Despite the folder name, a cluster can be a Kubernetes cluster or a single VM running docker containers
 
-| Name        | Type       | CD Tool | OS         |
-|-------------|------------|---------|------------|
-| lynka       | Kubernetes | FluxCD  | Talos      |
-| PiHoleGamma | Docker     | doco-cd | RockyLinux |
+| Name        | Type       | CD Tool | OS       |
+| ----------- | ---------- | ------- | -------- |
+| lynka       | Kubernetes | FluxCD  | Talos    |
+| PiHoleGamma | Docker     | doco-cd | Raspbian |
 
 ### Lynka
 
