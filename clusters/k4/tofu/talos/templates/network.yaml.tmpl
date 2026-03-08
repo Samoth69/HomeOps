@@ -1,0 +1,18 @@
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+%{ for ifname in ifnames ~}
+  - ${ifname}
+%{ endfor ~}
+bondMode: active-backup
+addresses:
+%{ for cidr in ip_addresses ~}
+  - address: ${cidr}
+%{ endfor ~}
+%{ for route in routes ~}
+routes:
+  - destination: ${route.destination}
+    gateway: ${route.gateway}
+%{ endfor ~}

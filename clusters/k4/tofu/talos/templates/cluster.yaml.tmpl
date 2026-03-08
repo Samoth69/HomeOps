@@ -1,0 +1,4 @@
+cluster:  
+  %{if is_controlplane ~}
+  allowSchedulingOnControlPlanes: true
+  %{ endif }
