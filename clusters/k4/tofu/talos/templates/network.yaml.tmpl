@@ -27,3 +27,8 @@ apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: ${hostname}
 auto: off
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: ${vip}
+link: bond0

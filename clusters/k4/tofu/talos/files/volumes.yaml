@@ -1,0 +1,21 @@
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: hostpath-data
+volumeType: partition
+provisioning:
+  diskSelector:
+    match: disk.model.contains("MTFDKBA960TF")
+  minSize: 200GiB
+  maxSize: 200GiB
+filesystem:
+  type: ext4
+---
+apiVersion: v1alpha1
+kind: RawVolumeConfig
+# do not put "ceph" in the name otherwise ceph isn't going to create an osd
+name: rook-data
+provisioning:
+  diskSelector:
+    match: disk.model.contains("MTFDKBA960TF")
+  minSize: 200GiB

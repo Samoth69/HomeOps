@@ -4,7 +4,8 @@ machine:
   type: ${machine_type}
   install:
     image: ${image}
-    disk: ${install_disk}
+    disk: /dev/sda
+    wipe: true
     legacyBIOSSupport: false
   files:
     - op: create

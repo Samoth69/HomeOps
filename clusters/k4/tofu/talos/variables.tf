@@ -4,7 +4,6 @@ variable "nodes" {
     hostname     = string
     machine_type = string
     image        = string
-    install_disk = string
     links        = list(string)
     ips          = list(string)
     routes = list(object({
@@ -23,8 +22,9 @@ variable "nodes" {
 
 variable "cluster" {
   type = object({
-    name           = string
-    endpoint       = string
+    name            = string
+    endpoint_ip     = string
+    endpoint_port   = number
     pod_subnets     = list(string)
     service_subnets = list(string)
   })

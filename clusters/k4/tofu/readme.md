@@ -1,5 +1,7 @@
 # Talos
 
+Heavily inspired by https://github.com/vehagn/homelab/tree/main/tofu/kubernetes
+
 ## Schematics
 
 ### Tatsumi
