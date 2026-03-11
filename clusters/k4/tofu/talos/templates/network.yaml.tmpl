@@ -4,24 +4,24 @@ kind: BondConfig
 name: bond0
 links:
 %{ for ifname in ifnames ~}
-  - ${ifname}
+  - "${ifname}"
 %{ endfor ~}
 bondMode: active-backup
 addresses:
 %{ for cidr in ip_addresses ~}
-  - address: ${cidr}
+  - address: "${cidr}"
 %{ endfor ~}
-%{ for route in routes ~}
 routes:
-  - gateway: ${route.gateway}
+%{ for route in routes ~}
+  - gateway: "${route.gateway}"
 %{ endfor ~}
 ---
 apiVersion: v1alpha1
 kind: ResolverConfig
 nameservers:
-  %{ for addr in dns ~}
-  - address: ${addr}
-  %{ endfor ~}
+%{ for addr in dns ~}
+  - address: "${addr}"
+%{ endfor ~}
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig

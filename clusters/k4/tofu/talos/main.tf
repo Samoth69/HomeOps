@@ -1,6 +1,6 @@
 locals {
   control_planes              = [for k, v in var.nodes : v if v.machine_type == "controlplane"]
-  control_plane_ips           = [for k, v in local.control_planes : v.ips[0]]
+  control_plane_ips           = [for k, v in local.control_planes : split("/", v.ips[0])[0]]
   first_control_plane_node_ip = local.control_plane_ips[0]
 }
 
@@ -31,6 +31,12 @@ resource "talos_machine_configuration_apply" "controlplane" {
   machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
   for_each                    = var.nodes
   node                        = each.key
+  endpoint                    = split("/", each.value.ips[0])[0]
+  on_destroy = {
+    graceful = false
+    reboot   = true
+    reset    = true
+  }
   config_patches = [
     templatefile("${path.module}/templates/machine.yaml.tmpl", {
       machine_type   = each.value.machine_type
@@ -42,8 +48,8 @@ resource "talos_machine_configuration_apply" "controlplane" {
       is_controlplane  = each.value.machine_type == "controlplane"
       cluster_name     = var.cluster.name
       cluster_endpoint = var.cluster.endpoint
-      pod_subnet       = var.cluster.pod_subnet
-      service_subnet   = var.cluster.service_subnet
+      pod_subnets      = var.cluster.pod_subnets
+      service_subnets  = var.cluster.service_subnets
     }),
     templatefile("${path.module}/templates/network.yaml.tmpl", {
       hostname     = each.value.hostname

@@ -11,7 +11,7 @@ variable "nodes" {
       gateway = string
     }))
     dns            = list(string)
-    kernel_modules = optional(list(string))
+    kernel_modules = list(string)
   }))
   validation {
     // @formatter:off
@@ -25,7 +25,7 @@ variable "cluster" {
   type = object({
     name           = string
     endpoint       = string
-    pod_subnet     = string
-    service_subnet = string
+    pod_subnets     = list(string)
+    service_subnets = list(string)
   })
 }

@@ -35,7 +35,7 @@ machine:
       - "ACTION=='add|change', KERNEL=='sd[a-z]', ATTR{queue/rotational}=='0', ATTR{queue/scheduler}='none'"
       # NVMe SSD
       - "ACTION=='add|change', KERNEL=='nvme[0-9]n[0-9]', ATTR{queue/rotational}=='0', ATTR{queue/scheduler}='none'"
-  sysctl:
+  sysctls:
     # IPv6 requirements
     net.ipv6.conf.default.autoconf: 0
     net.ipv6.conf.default.accept_ra: 0
@@ -44,10 +44,10 @@ machine:
     # Watchdog
     fs.inotify.max_user_watches: 1048576
     fs.inotify.max_user_instances: 8192
-  %{ if kernel_modules ~}
+%{ if length(kernel_modules) > 0 ~}
   kernel:
     modules:
-    %{ for name in kernel_modules ~}
+%{ for name in kernel_modules ~}
       - name: ${name}
-    %{ endfor ~}
-  %{ endif ~}
+%{ endfor ~}
+%{ endif ~}

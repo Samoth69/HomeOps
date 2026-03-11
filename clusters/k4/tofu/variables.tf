@@ -19,7 +19,7 @@ variable "kubernetes_cluster" {
   type = object({
     name           = string
     endpoint       = string
-    pod_subnet     = string
-    service_subnet = string
+    pod_subnets     = list(string)
+    service_subnets = list(string)
   })
 }

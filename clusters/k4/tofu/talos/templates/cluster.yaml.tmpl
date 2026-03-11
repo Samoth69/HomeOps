@@ -1,5 +1,5 @@
 cluster:  
-  %{if is_controlplane ~}
+  %{if is_controlplane }
   allowSchedulingOnControlPlanes: true
   apiServer:
     # TODO Mettre en place Kyverno ?
@@ -44,7 +44,11 @@ cluster:
   network:
     cni:
       name: none
-    podSubnets: 
-      - ${pod_subnet}
+    podSubnets:
+%{ for ip in pod_subnets ~}
+      - "${ip}"
+%{ endfor ~}
     serviceSubnets:
-      - ${service_subnet}
+%{ for ip in service_subnets ~}
+      - "${ip}"
+%{ endfor }
