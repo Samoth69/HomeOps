@@ -5,6 +5,7 @@ provider "registry.opentofu.org/siderolabs/talos" {
   version     = "0.10.1"
   constraints = "0.10.1"
   hashes = [
+    "h1:1/HTp6cDJWQJzRj8preKQvw3x/qffivOJhZx27OmAig=",
     "h1:97x1aN9Ydi+yO9IOGFed+mbjh8myBMPKQY36vLS9Sk0=",
     "zh:0fa82a384b25a58b65523e0ea4768fa1212b1f5cfc0c9379d31162454fedcc9d",
     "zh:349463cdd4cdb36e03276fdb855e687242237c7cf0bd5871aea995a83838c52e",

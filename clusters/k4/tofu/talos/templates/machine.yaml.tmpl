@@ -1,7 +1,53 @@
 ---
 version: v1alpha1
 machine:
+  type: ${machine_type}
   install:
+    image: ${image}
     disk: ${install_disk}
-  network:
-    hostname: ${hostname}
+    legacyBIOSSupport: false
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |-
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0o644
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4
+        hard=True
+        nconnect=16
+        noatime=True
+  features:
+    hostDNS:
+      enabled: true
+      forwardKubeDNSToHost: true
+  udev:
+    rules:
+      # IO scheduler
+      # Algorithm to manage disk IO requests and balance it with other CPU loads.
+      # HDD
+      - "ACTION=='add|change', KERNEL=='sd[a-z]', ATTR{queue/rotational}=='1', ATTR{queue/scheduler}='mq-deadline'"
+      # SSD
+      - "ACTION=='add|change', KERNEL=='sd[a-z]', ATTR{queue/rotational}=='0', ATTR{queue/scheduler}='none'"
+      # NVMe SSD
+      - "ACTION=='add|change', KERNEL=='nvme[0-9]n[0-9]', ATTR{queue/rotational}=='0', ATTR{queue/scheduler}='none'"
+  sysctl:
+    # IPv6 requirements
+    net.ipv6.conf.default.autoconf: 0
+    net.ipv6.conf.default.accept_ra: 0
+    net.ipv6.conf.all.autoconf: 0
+    net.ipv6.conf.all.accept_ra: 0
+    # Watchdog
+    fs.inotify.max_user_watches: 1048576
+    fs.inotify.max_user_instances: 8192
+  %{ if kernel_modules ~}
+  kernel:
+    modules:
+    %{ for name in kernel_modules ~}
+      - name: ${name}
+    %{ endfor ~}
+  %{ endif ~}

@@ -1,25 +1,17 @@
-variable "cluster_name" {
-  description = "A name to provide for the Talos cluster"
-  type        = string
-}
-
-variable "cluster_endpoint" {
-  description = "The endpoint for the Talos cluster"
-  type        = string
-}
-
 variable "nodes" {
   description = "Node config"
   type = map(object({
     hostname     = string
     machine_type = string
+    image        = string
     install_disk = string
     links        = list(string)
     ips          = list(string)
     routes = list(object({
-      destination = string
-      gateway    = string
+      gateway = string
     }))
+    dns            = list(string)
+    kernel_modules = optional(list(string))
   }))
   validation {
     // @formatter:off
@@ -27,4 +19,13 @@ variable "nodes" {
     error_message = "Node machine_type must be either 'controlplane' or 'worker'."
     // @formatter:on
   }
+}
+
+variable "cluster" {
+  type = object({
+    name           = string
+    endpoint       = string
+    pod_subnet     = string
+    service_subnet = string
+  })
 }

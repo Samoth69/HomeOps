@@ -2,10 +2,9 @@ module "talos" {
   source = "./talos"
 
   providers = {
-    talos=talos
+    talos = talos
   }
 
-  cluster_name = var.cluster_name
-  cluster_endpoint = var.cluster_endpoint
-  nodes = var.talos_node
+  cluster = var.kubernetes_cluster
+  nodes   = var.talos_nodes
 }

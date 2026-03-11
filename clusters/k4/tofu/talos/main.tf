@@ -7,21 +7,21 @@ locals {
 resource "talos_machine_secrets" "this" {}
 
 data "talos_machine_configuration" "controlplane" {
-  cluster_name     = var.cluster_name
-  cluster_endpoint = var.cluster_endpoint
+  cluster_name     = var.cluster.name
+  cluster_endpoint = var.cluster.endpoint
   machine_type     = "controlplane"
   machine_secrets  = talos_machine_secrets.this.machine_secrets
 }
 
 data "talos_machine_configuration" "worker" {
-  cluster_name     = var.cluster_name
-  cluster_endpoint = var.cluster_endpoint
+  cluster_name     = var.cluster.name
+  cluster_endpoint = var.cluster.endpoint
   machine_type     = "worker"
   machine_secrets  = talos_machine_secrets.this.machine_secrets
 }
 
 data "talos_client_configuration" "this" {
-  cluster_name         = var.cluster_name
+  cluster_name         = var.cluster.name
   client_configuration = talos_machine_secrets.this.client_configuration
   endpoints            = local.control_plane_ips
 }
@@ -33,17 +33,26 @@ resource "talos_machine_configuration_apply" "controlplane" {
   node                        = each.key
   config_patches = [
     templatefile("${path.module}/templates/machine.yaml.tmpl", {
-      hostname     = each.value.hostname
-      install_disk = each.value.install_disk
+      machine_type   = each.value.machine_type
+      image          = each.value.image
+      install_disk   = each.value.install_disk
+      kernel_modules = each.value.kernel_modules
     }),
     templatefile("${path.module}/templates/cluster.yaml.tmpl", {
-      is_controlplane = each.value.machine_type == "controlplane"
+      is_controlplane  = each.value.machine_type == "controlplane"
+      cluster_name     = var.cluster.name
+      cluster_endpoint = var.cluster.endpoint
+      pod_subnet       = var.cluster.pod_subnet
+      service_subnet   = var.cluster.service_subnet
     }),
     templatefile("${path.module}/templates/network.yaml.tmpl", {
+      hostname     = each.value.hostname
       ifnames      = each.value.links
       ip_addresses = each.value.ips
       routes       = each.value.routes
-    })
+      dns          = each.value.dns
+    }),
+    file("${path.module}/files/watchdog.yaml")
   ]
 }
 

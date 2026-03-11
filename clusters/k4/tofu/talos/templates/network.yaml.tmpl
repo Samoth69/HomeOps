@@ -13,6 +13,17 @@ addresses:
 %{ endfor ~}
 %{ for route in routes ~}
 routes:
-  - destination: ${route.destination}
-    gateway: ${route.gateway}
+  - gateway: ${route.gateway}
 %{ endfor ~}
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+nameservers:
+  %{ for addr in dns ~}
+  - address: ${addr}
+  %{ endfor ~}
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: ${hostname}
+auto: off
