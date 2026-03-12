@@ -9,7 +9,7 @@ spec:
     provider: sops
   deletionPolicy: WaitForTermination
   interval: 30m
-  path: ./clusters/lynka/kubernetes/apps
+  path: ./clusters/k4/kubernetes/apps
   prune: true
   sourceRef:
     kind: GitRepository
