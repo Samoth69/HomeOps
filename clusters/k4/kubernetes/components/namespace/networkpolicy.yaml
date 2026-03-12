@@ -27,3 +27,5 @@ spec:
         - matchPattern: "*.*.svc.cluster.local."
         - matchPattern: "*.*.*.svc.cluster.local."
         - matchPattern: "*.*.*.*.svc.cluster.local."
+        - matchPattern: "*.*.*.*.*.svc.cluster.local."
+        - matchPattern: "*.*.*.*.*.*.svc.cluster.local."
