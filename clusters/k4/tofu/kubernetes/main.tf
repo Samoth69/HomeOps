@@ -27,7 +27,7 @@ resource "kubernetes_secret_v1" "sops-age-secret" {
 }
 
 resource "kubernetes_manifest" "this" {
-  for_each = toset(["egress/labelled-allow-egress-kube-apiserver.yaml", "egress/labelled-allow-egress-internet-github.yaml"])
+  for_each = toset(["egress/labelled-allow-egress-kube-apiserver.yaml", "egress/labelled-allow-egress-internet-github.yaml", "egress/labelled-allow-egress-internet-http.yaml"])
   manifest = yamldecode(file("../../../common/cilium/policies/${each.value}"))
 }
 
