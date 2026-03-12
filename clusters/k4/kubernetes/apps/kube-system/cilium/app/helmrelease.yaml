@@ -66,6 +66,7 @@ spec:
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
       enabled: true
+    l7Proxy: true
     loadBalancer:
       algorithm: maglev
       mode: dsr
