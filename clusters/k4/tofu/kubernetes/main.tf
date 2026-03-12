@@ -26,6 +26,10 @@ resource "kubernetes_secret_v1" "sops-age-secret" {
   }
 }
 
+resource "kubernetes_manifest" "net-pol" {
+  manifest = yamldecode(file("../../../common/cilium/policies/egress/labelled-allow-egress-kube-apiserver.yaml"))
+}
+
 module "helm-prometheus-operator-crds" {
   source           = "./helm-release"
   app_path         = "../kubernetes/apps/monitoring/prometheus-operator-crds/app"
@@ -48,7 +52,7 @@ module "helm-coredns" {
 }
 
 module "helm-flux-operator" {
-  depends_on = [module.helm-coredns]
+  depends_on = [module.helm-coredns, kubernetes_manifest.net-pol]
   source     = "./helm-release"
   app_path   = "../kubernetes/apps/flux-system/flux-operator/app"
   namespace  = "flux-system"
