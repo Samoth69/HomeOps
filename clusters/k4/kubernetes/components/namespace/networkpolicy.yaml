@@ -24,4 +24,4 @@ spec:
               - matchPattern: "*"
     # Mandatory for L7 filtering to work
     - toFQDNs:
-        - matchPattern: "*.*.svc.cluster.local."
+        - matchPattern: "*.*.svc.cluster.local"
