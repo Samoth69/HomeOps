@@ -10,14 +10,3 @@ terraform {
     }
   }
 }
-
-provider "kubernetes" {
-  # Configuration options
-  config_path = "../output/kube-config.yaml"
-}
-
-provider "helm" {
-  kubernetes = {
-    config_path = "../output/kube-config.yaml"
-  }
-}

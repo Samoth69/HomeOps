@@ -56,7 +56,7 @@ resource "talos_machine_configuration_apply" "this" {
       vip          = var.cluster.endpoint_ip
     }),
     file("${path.module}/files/watchdog.yaml"),
-    # file("${path.module}/files/volumes.yaml")
+    file("${path.module}/files/volumes.yaml")
   ]
 }
 
