@@ -14,6 +14,7 @@ creation_rules:
       - age:
           - *PiHoleGamma
   - path_regex: clusters/k4/.*\.sops\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
     key_groups:
       - age:
           - *k4
