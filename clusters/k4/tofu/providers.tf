@@ -22,6 +22,6 @@ provider "kubernetes" {
 
 provider "helm" {
   kubernetes = {
-    config_path = "./output/talos-config.yaml"
+    config_path = "./output/kube-config.yaml"
   }
 }

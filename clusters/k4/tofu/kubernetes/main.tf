@@ -7,6 +7,10 @@ resource "kubernetes_namespace_v1" "flux-system-namespace" {
   metadata {
     name = "flux-system"
   }
+
+  lifecycle {
+    ignore_changes = [metadata]
+  }
 }
 
 resource "kubernetes_secret_v1" "sops-age-secret" {
