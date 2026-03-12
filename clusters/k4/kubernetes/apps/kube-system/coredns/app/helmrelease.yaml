@@ -19,10 +19,20 @@ spec:
     service:
       name: kube-dns
       clusterIP: "10.2.0.10"
-    replicaCount: 2
     customLabels:
       ingress.samoth.eu/cluster: allow
       ingress.samoth.eu/vmagent: allow
+    hpa:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 10
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 50
     servers:
       - zones:
           - zone: .
@@ -70,7 +80,7 @@ spec:
             app.kubernetes.io/instance: '{{ .Release.Name }}'
         topologyKey: kubernetes.io/hostname
         maxSkew: 1
-        whenUnsatisfiable: DoNotSchedule
+        whenUnsatisfiable: ScheduleAnyway
     tolerations:
       - key: CriticalAddonsOnly
         operator: Exists
