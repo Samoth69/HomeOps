@@ -34,11 +34,10 @@ spec:
           - # Netpols
             patch: |
               - op: add
-                path: /spec/template/metadata/labels/-
-                value: egress.samoth.eu/kube-apiserver: allow
-              - op: add
-                path: /spec/template/metadata/labels/-
-                value: egress.samoth.eu/internet-http: allow
+                path: /spec/template/metadata/labels
+                value:
+                  egress.samoth.eu/kube-apiserver: allow
+                  egress.samoth.eu/internet-http: allow
             target:
               kind: Deployment
               name: (kustomize-controller|helm-controller|source-controller|notification-controller)
