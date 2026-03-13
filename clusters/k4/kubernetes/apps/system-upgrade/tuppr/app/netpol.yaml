@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: tuppr
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: tuppr
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            component: apid
+            provider: talos.dev
