@@ -10,6 +10,8 @@ spec:
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/flux-system/flux-instance/app
   postBuild:
+    substitute:
+      INSTANCE_NAME: flux-system
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
@@ -20,3 +22,5 @@ spec:
     namespace: flux-system
   targetNamespace: flux-system
   wait: false
+  components:
+    - ../../../../components/app-network-policy
