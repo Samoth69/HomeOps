@@ -17,5 +17,6 @@ resources:
   - ./labelled-allow-egress-internet.yaml
   - ./labelled-allow-egress-kube-apiserver.yaml
   - ./labelled-allow-egress-lan.yaml
+  - ./labelled-allow-egress-talos-api.yaml
   - ./labelled-allow-egress-victoria-metrics.yaml
   - ./labelled-deny-egress.yaml

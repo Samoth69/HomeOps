@@ -31,3 +31,4 @@ spec:
     podLabels:
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/talos-api: allow
