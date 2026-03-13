@@ -2,9 +2,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: network
+
+components:
+  - ../../components/sops
+  - ../../components/namespace
+
 resources:
-  - ./host-firewall.yaml
-  - ./egress
-  - ./ingress
-  - ./l2announcementpolicy.yaml
-  - ./loadbalancerippool.yaml
+  - ./certificate/ks.yaml
+  - ./envoy-gateway/ks.yaml

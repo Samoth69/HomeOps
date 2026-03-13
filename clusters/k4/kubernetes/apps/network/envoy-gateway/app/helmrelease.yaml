@@ -1,0 +1,53 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: envoy-gateway
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: v1.7.0
+  url: oci://mirror.gcr.io/envoyproxy/gateway-helm
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name envoy-gateway
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: *name
+  interval: 1h
+  values:
+    global:
+      imageRegistry: mirror.gcr.io
+    deployment:
+      replicas: 1
+      envoyGateway:
+        resources:
+          requests:
+            cpu: 5m
+            memory: 48Mi
+          limits:
+            memory: 512Mi
+      pod:
+        labels:
+          ingress.samoth.eu/kube-apiserver: allow
+          egress.samoth.eu/kube-apiserver: allow
+    config:
+      envoyGateway:
+        provider:
+          type: Kubernetes
+          kubernetes:
+            deploy:
+              type: GatewayNamespace
+    certgen:
+      job:
+        pod:
+          labels:
+            egress.samoth.eu/kube-apiserver: allow
