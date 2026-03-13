@@ -35,6 +35,7 @@ resource "kubernetes_manifest" "net-pols" {
     "../kubernetes/apps/kube-system/cilium/policies/host-firewall.yaml"
   ])
   manifest = yamldecode(file(each.value))
+  computed_fields = ["metadata"]
 }
 
 module "helm-prometheus-operator-crds" {
