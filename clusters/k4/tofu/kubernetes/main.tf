@@ -27,8 +27,14 @@ resource "kubernetes_secret_v1" "sops-age-secret" {
 }
 
 resource "kubernetes_manifest" "net-pols" {
-  for_each = toset(["egress/labelled-allow-egress-kube-apiserver.yaml", "egress/labelled-allow-egress-internet-github.yaml", "egress/labelled-allow-egress-internet-http.yaml"])
-  manifest = yamldecode(file("../../../common/cilium/policies/${each.value}"))
+  for_each = toset([
+    "../kubernetes/apps/flux-system/flux-instance/app/netpol.yaml",
+    "../kubernetes/apps/kube-system/cilium/policies/egress/labelled-allow-egress-kube-apiserver.yaml",
+    "../kubernetes/apps/kube-system/cilium/policies/egress/labelled-allow-egress-internet-github.yaml",
+    "../kubernetes/apps/kube-system/cilium/policies/egress/labelled-allow-egress-internet-http.yaml",
+    "../kubernetes/apps/kube-system/cilium/policies/host-firewall.yaml"
+  ])
+  manifest = yamldecode(file(each.value))
 }
 
 module "helm-prometheus-operator-crds" {
@@ -59,12 +65,8 @@ module "helm-flux-operator" {
   namespace  = "flux-system"
 }
 
-resource "kubernetes_manifest" "flux-instance-net-pols" {
-  manifest = yamldecode(file("../kubernetes/apps/flux-system/flux-instance/app/netpol.yaml"))
-}
-
 module "helm-flux-instance" {
-  depends_on = [module.helm-flux-operator, kubernetes_secret_v1.sops-age-secret, kubernetes_manifest.flux-instance-net-pols]
+  depends_on = [module.helm-flux-operator, kubernetes_secret_v1.sops-age-secret]
   source     = "./helm-release"
   app_path   = "../kubernetes/apps/flux-system/flux-instance/app"
   namespace  = "flux-system"

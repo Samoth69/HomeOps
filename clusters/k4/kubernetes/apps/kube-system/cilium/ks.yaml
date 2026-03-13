@@ -26,7 +26,7 @@ metadata:
   name: cilium-cidr-group
 spec:
   interval: 1h
-  path: ./common/cilium/cidr-group
+  path: ./clusters/k4/kubernetes/apps/kube-system/cilium/cidr-group
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -48,7 +48,7 @@ metadata:
   name: cilium-policies
 spec:
   interval: 1h
-  path: ./common/cilium/policies
+  path: ./clusters/k4/kubernetes/apps/kube-system/cilium/policies
   postBuild:
     substituteFrom:
       - name: cluster-secrets
