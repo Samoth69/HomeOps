@@ -10,5 +10,6 @@ spec:
   egress:
     - toEndpoints:
         - matchLabels:
+            k8s:io.kubernetes.pod.namespace: default
             component: apid
             provider: talos.dev
