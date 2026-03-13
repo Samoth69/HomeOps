@@ -16,3 +16,21 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/part-of: flux
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: "ANY"
+          rules:
+            dns:
+              - matchPattern: "*"
+    # Mandatory for L7 filtering to work
+    - toFQDNs:
+        - matchPattern: "*.*.svc.cluster.local."
+        - matchPattern: "*.*.*.svc.cluster.local."
+        - matchPattern: "*.*.*.*.svc.cluster.local."
+        - matchPattern: "*.*.*.*.*.svc.cluster.local."
+        - matchPattern: "*.*.*.*.*.*.svc.cluster.local."
