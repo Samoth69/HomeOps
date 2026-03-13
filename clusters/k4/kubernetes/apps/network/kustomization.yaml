@@ -11,3 +11,4 @@ components:
 resources:
   - ./certificate/ks.yaml
   - ./envoy-gateway/ks.yaml
+  - ./ingress/ks.yaml
