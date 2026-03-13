@@ -2,7 +2,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: flux-instance-network-policy
+  name: flux-instance
   namespace: flux-system
 spec:
   endpointSelector:
