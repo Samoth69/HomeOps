@@ -6,7 +6,7 @@ metadata:
   name: tuppr
 spec:
   interval: 1h
-  path: ./clusters/k4/kubernetes/apps/system/tuppr/app
+  path: ./clusters/k4/kubernetes/apps/system-upgrade/tuppr/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -16,7 +16,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: system
+  targetNamespace: system-upgrade
   wait: false
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
@@ -28,7 +28,7 @@ spec:
   dependsOn:
     - name: tuppr
   interval: 1h
-  path: ./clusters/k4/kubernetes/apps/system/tuppr/upgrades
+  path: ./clusters/k4/kubernetes/apps/system-upgrade/tuppr/upgrades
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -38,5 +38,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: system
+  targetNamespace: system-upgrade
   wait: false
