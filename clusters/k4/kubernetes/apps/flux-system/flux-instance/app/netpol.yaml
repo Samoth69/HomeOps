@@ -2,17 +2,16 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: ${APP}-default-network-policy
+  name: flux-instance-network-policy
 spec:
-  description: "Allow the app to communicate with itself"
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+      app.kubernetes.io/part-of: flux
   ingress:
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+            app.kubernetes.io/part-of: flux
   egress:
     - toEndpoints:
         - matchLabels:
-            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+            app.kubernetes.io/part-of: flux
