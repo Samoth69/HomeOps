@@ -130,13 +130,13 @@ spec:
         useAllNodes: false
         useAllDevices: false
         nodes:
-          - name: "fern-akame"
+          - name: "tatsumi"
             devices:
               - name: "/dev/disk/by-partlabel/r-rook-data"
-          - name: "fern-felix"
+          - name: "lynka"
             devices:
               - name: "/dev/disk/by-partlabel/r-rook-data"
-          - name: "fern-nagumo"
+          - name: "enigma"
             devices:
               - name: "/dev/disk/by-partlabel/r-rook-data"
     cephBlockPools:
