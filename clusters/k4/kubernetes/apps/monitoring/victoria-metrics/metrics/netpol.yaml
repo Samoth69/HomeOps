@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: vmks
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: vmks
+  egress:
+    - toEntities:
+        - remote-node
+        - host
+      toPorts:
+        - ports:
+            # etcd
+            - port: "2381"
+              protocol: TCP
+            - port: "2381"
+              protocol: UDP
+            # kubeapi
+            - port: "6443"
+              protocol: TCP
+            - port: "6443"
+              protocol: UDP
+            # node-exporter
+            - port: "9100"
+              protocol: TCP
+            - port: "9100"
+              protocol: UDP
+            # cilium metrics
+            - port: "9962"
+              protocol: TCP
+            - port: "9962"
+              protocol: UDP
+            # cilium operator metrics
+            - port: "9963"
+              protocol: TCP
+            - port: "9963"
+              protocol: UDP
+            # hubble metrics
+            - port: "9965"
+              protocol: TCP
+            - port: "9965"
+              protocol: UDP
+            # kubelet
+            - port: "10250"
+              protocol: TCP
+            - port: "10250"
+              protocol: UDP
+            # kube-controller-manager
+            - port: "10257"
+              protocol: TCP
+            - port: "10257"
+              protocol: UDP
+            # kube-scheduler
+            - port: "10259"
+              protocol: TCP
+            - port: "10259"
+              protocol: UDP
