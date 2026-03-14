@@ -26,6 +26,8 @@ spec:
   values:
     admin:
       existingSecret: grafana-admin-secret
+    labels:
+      egress.samoth.eu/internet-grafana: allow
     annotations:
       configmap.reloader.stakater.com/reload: grafana
       secret.reloader.stakater.com/reload: grafana-admin-secret
