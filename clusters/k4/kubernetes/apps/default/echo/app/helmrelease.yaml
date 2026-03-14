@@ -70,6 +70,7 @@ spec:
         runAsGroup: 65534
     service:
       app:
+        ipFamilyPolicy: RequireDualStack
         ports:
           http:
             port: *port
