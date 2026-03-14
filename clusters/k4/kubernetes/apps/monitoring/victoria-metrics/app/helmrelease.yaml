@@ -31,3 +31,6 @@ spec:
   values:
     operator:
       enable_converter_ownership: true
+    podLabels:
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
