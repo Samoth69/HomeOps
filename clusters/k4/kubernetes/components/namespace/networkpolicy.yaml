@@ -29,7 +29,3 @@ spec:
               - matchPattern: "*"
     - toFQDNs:
         - matchPattern: "*.*.svc.cluster.local."
-        - matchPattern: "*.*.*.svc.cluster.local."
-        - matchPattern: "*.*.*.*.svc.cluster.local."
-        - matchPattern: "*.*.*.*.*.svc.cluster.local."
-        - matchPattern: "*.*.*.*.*.*.svc.cluster.local."
