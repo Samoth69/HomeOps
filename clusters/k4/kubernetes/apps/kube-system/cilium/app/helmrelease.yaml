@@ -12,7 +12,7 @@ spec:
   values:
     autoDirectNodeRoutes: true
     bpf:
-      masquerade: true
+      # masquerade: true
       # Ref: https://github.com/siderolabs/talos/issues/10002
       hostLegacyRouting: true
       tproxy: true # L7 netpols stuff
@@ -84,7 +84,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      replicas: 1
+      replicas: 2
       rollOutPods: true
     prometheus:
       enabled: true
