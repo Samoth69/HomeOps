@@ -10,9 +10,7 @@ spec:
   egress:
     - toFQDNs:
         - matchName: "grafana.com"
-        - matchName: "grafana.com.monitoring.svc.cluster.local"
         - matchName: "storage.googleapis.com"
-        - matchName: "storage.googleapis.com.monitoring.svc.cluster.local"
       toPorts:
         - ports:
             - port: "443"

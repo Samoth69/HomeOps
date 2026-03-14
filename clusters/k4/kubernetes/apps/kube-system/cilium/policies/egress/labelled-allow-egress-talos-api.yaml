@@ -9,7 +9,8 @@ spec:
       egress.samoth.eu/talos-api: allow
   egress:
     - toEntities:
-      - kube-apiserver
+      - host
+      - remote-node
       toPorts:
         - ports:
             - port: "50000"
