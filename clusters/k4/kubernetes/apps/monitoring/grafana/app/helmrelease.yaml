@@ -82,13 +82,8 @@ spec:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/20842/revisions/3/download
         node-exporter-full:
-          datasource:
-            - name: DS_PROMETHEUS
-              value: VictoriaMetrics
-          url: https://grafana.com/api/dashboards/1860/revisions/42/download
-        prometheus:
           datasource: VictoriaMetrics
-          url: https://grafana.com/api/dashboards/19105/revisions/8/download
+          url: https://grafana.com/api/dashboards/1860/revisions/42/download
         smartctl-exporter:
           datasource:
             - name: DS_PROMETHEUS
@@ -133,19 +128,11 @@ spec:
         kubernetes-volumes:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/11454/revisions/14/download
-      unpoller:
-        unifi-insights:
-          datasource: VictoriaMetrics
-          url: https://grafana.com/api/dashboards/11315/revisions/9/download
-        unifi-network-sites:
-          datasource: VictoriaMetrics
-          url: https://grafana.com/api/dashboards/11311/revisions/5/download
-        unifi-usw:
-          datasource: VictoriaMetrics
-          url: https://grafana.com/api/dashboards/11312/revisions/9/download
-        unifi-uap:
-          datasource: VictoriaMetrics
-          url: https://grafana.com/api/dashboards/11314/revisions/10/download
+        etcd 2:
+          url: https://grafana.com/api/dashboards/22236/revisions/4/download
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
 
     datasources:
       datasources.yaml:
