@@ -33,6 +33,7 @@ spec:
         image:
           registry: quay.io/
         basePath: &hostPath /var/mnt/hostpath-data
+        replicas: 2
         podLabels:
           ingress.samoth.eu/kube-apiserver: allow
           egress.samoth.eu/kube-apiserver: allow
