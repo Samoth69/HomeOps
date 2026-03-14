@@ -1,0 +1,234 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.m00nlit.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: vm-k8s-stack
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.72.4
+  url: oci://ghcr.io/victoriametrics/helm-charts/victoria-metrics-k8s-stack
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app vmks
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: vm-k8s-stack
+  values:
+    nameOverride: *app
+
+    victoria-metrics-operator:
+      enabled: false
+
+    grafana:
+      enabled: false
+
+    alertmanager:
+      labels:
+        egress.samoth.eu/internet-discord: allow
+      route:
+        enabled: true
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        hostnames:
+          - "alertmanager.${SECRET_DOMAIN}"
+      config:
+        route:
+          group_by: ["alertname", "job"]
+          group_interval: 10m
+          group_wait: 1m
+          receiver: webhook
+          repeat_interval: 12h
+          routes:
+            - receiver: "null"
+              matchers:
+                - name: alertname
+                  value: InfoInhibitor|Watchdog|CPUThrottlingHigh
+                  matchType: =~
+            - receiver: webhook
+              matchers:
+                - severity=~"warning|critical"
+        inhibit_rules:
+          - source_matchers:
+              - severity = "critical"
+            target_matchers:
+              - severity = "warning"
+            equal: ["alertname", "namespace"]
+        receivers:
+          - name: "null"
+          - name: webhook
+            discordConfigs:
+              - apiURL:
+                  name: discord-webhook-secret
+                  key: url
+      spec:
+        podMetadata:
+          labels:
+            ingress.samoth.eu/envoy-internal: allow
+            ingress.samoth.eu/kube-apiserver: allow
+            egress.samoth.eu/kube-apiserver: allow
+        externalURL: https://alertmanager.${SECRET_DOMAIN}
+        storage:
+          volumeClaimTemplate:
+            spec:
+              resources:
+                requests:
+                  storage: 1Gi
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
+
+    vmalert:
+      spec:
+        extraArgs:
+          enableTCP6: "true"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 48Mi
+          limits:
+            memory: 128Mi
+
+    vmagent:
+      spec:
+        podMetadata:
+          labels:
+            ingress.samoth.eu/kube-apiserver: allow
+            egress.samoth.eu/kube-apiserver: allow
+        extraArgs:
+          enableTCP6: "true"
+        configReloaderExtraArgs:
+          enableTCP6: "true"
+        resources:
+          requests:
+            cpu: 15m
+            memory: 100Mi
+          limits:
+            memory: 2Gi
+
+    vmsingle:
+      spec:
+        extraArgs:
+          enableTCP6: "true"
+        replicaCount: 1
+        retentionPeriod: 30d
+        storage:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 30Gi
+        useDefaultResources: false
+        useStrictSecurity: true
+        resources:
+          requests:
+            cpu: 80m
+            memory: 300Mi
+          limits:
+            memory: 2Gi
+
+    prometheus-node-exporter:
+      enabled: false
+
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[*]
+        - deployments=[*]
+        - statefulsets=[*]
+        - daemonsets=[*]
+        - persistentvolumeclaims=[*]
+      podLabels:
+        ingress.samoth.eu/vmagent: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/kube-apiserver: allow
+      vmScrape:
+        enabled: true
+        spec:
+          endpoints:
+            - port: http
+              honorLabels: true
+              metricRelabelConfigs:
+                - action: labeldrop
+                  regex: (uid|container_id|image_id)
+              relabelConfigs:
+                - action: replace
+                  regex: (.*)
+                  replacement: $1
+                  sourceLabels: [ "__meta_kubernetes_pod_node_name" ]
+                  targetLabel: kubernetes_node
+
+    defaultDashboards:
+      enabled: true
+
+    additionalVictoriaMetricsMap:
+      oom-rules:
+        groups:
+          - name: oom
+            rules:
+              - alert: OomKilled
+                annotations:
+                  summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                labels:
+                  severity: critical
+
+    kubelet:
+      enabled: true
+
+    kubeApiServer:
+      enabled: true
+
+    kubeControllerManager:
+      enabled: true
+      vmScrape:
+        spec:
+          endpoints:
+            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+              port: http-metrics
+              scheme: https
+              tlsConfig:
+                insecureSkipVerify: true
+
+    kubeEtcd:
+      enabled: true
+      endpoints:
+        - ${SECRET_NODE_IPV4}
+      service:
+        port: 2381
+        targetPort: 2381
+      vmScrape:
+        spec:
+          endpoints:
+            - scheme: http
+
+    kubeScheduler:
+      enabled: true
+      vmScrape:
+        spec:
+          endpoints:
+            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+              port: http-metrics
+              scheme: https
+              tlsConfig:
+                insecureSkipVerify: true
+
+    kubeProxy:
+      enabled: false
+
+    coreDns:
+      enabled: true
