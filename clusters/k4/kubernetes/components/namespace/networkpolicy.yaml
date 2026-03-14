@@ -10,10 +10,12 @@ spec:
       {}
   ingress:
     - fromEndpoints:
-        - {}
+        - matchLabels:
+            {}
   egress:
     - toEndpoints:
-        - {}
+        - matchLabels:
+            {}
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
