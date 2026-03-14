@@ -4,7 +4,7 @@ kind: CiliumNetworkPolicy
 metadata:
   name: allow-kubeapi
 spec:
-  description: "Allow pod inside this namespace to talk to each others, deny external (outside of namespace) trafic"
+  description: "Allow kubeapi for storage namespace since most pod use it"
   endpointSelector:
     matchLabels:
       {}
@@ -14,9 +14,3 @@ spec:
   egress:
     - toEntities:
         - kube-apiserver
-      toPorts:
-        - ports:
-            - port: "443"
-              protocol: TCP
-            - port: "443"
-              protocol: UDP
