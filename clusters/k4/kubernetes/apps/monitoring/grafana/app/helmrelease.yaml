@@ -75,75 +75,75 @@ spec:
     dashboards:
       default:
         blackbox-exporter:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/7587/revisions/3/download
         cert-manager:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/20842/revisions/3/download
         node-exporter-full:
           datasource:
             - name: DS_PROMETHEUS
-              value: Prometheus
+              value: VictoriaMetrics
           url: https://grafana.com/api/dashboards/1860/revisions/42/download
         prometheus:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/19105/revisions/8/download
         smartctl-exporter:
           datasource:
             - name: DS_PROMETHEUS
-              value: Prometheus
+              value: VictoriaMetrics
           url: https://grafana.com/api/dashboards/22604/revisions/2/download
         volsync:
           datasource:
             - name: DS_PROMETHEUS
-              value: Prometheus
+              value: VictoriaMetrics
             - name: VAR_REPLICATIONDESTNAME
               value: ".*-bootstrap"
           url: https://grafana.com/api/dashboards/21356/revisions/3/download
       ceph:
         ceph-cluster:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/2842/revisions/18/download
         ceph-osd:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/5336/revisions/9/download
         ceph-pools:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/5342/revisions/9/download
       kubernetes:
         kubernetes-api-server:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/15761/revisions/20/download
         kubernetes-coredns:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/15762/revisions/22/download
         kubernetes-global:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/15757/revisions/43/download
         kubernetes-namespaces:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/15758/revisions/44/download
         kubernetes-nodes:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/15759/revisions/40/download
         kubernetes-pods:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/15760/revisions/37/download
         kubernetes-volumes:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/11454/revisions/14/download
       unpoller:
         unifi-insights:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/11315/revisions/9/download
         unifi-network-sites:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/11311/revisions/5/download
         unifi-usw:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/11312/revisions/9/download
         unifi-uap:
-          datasource: Prometheus
+          datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/11314/revisions/10/download
 
     datasources:
@@ -151,20 +151,20 @@ spec:
         apiVersion: 1
         datasources:
           - access: proxy
-            name: Prometheus
+            name: VictoriaMetrics
             type: prometheus
-            url: http://prometheus-operated.observability.svc.cluster.local:9090
+            url: http://vmsingle-vmks.monitoring.svc.cluster.local:8428
             isDefault: true
             jsonData:
               prometheusType: Prometheus
           - name: VictoriaLogs
             type: victoriametrics-logs-datasource
             access: proxy
-            url: http://victoria-logs-server.observability.svc.cluster.local:9428
+            url: http://victoria-logs-server.monitoring.svc.cluster.local:9428
           - name: Alertmanager
             type: alertmanager
             access: proxy
-            url: http://alertmanager-operated.observability.svc.cluster.local:9093
+            url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
 
