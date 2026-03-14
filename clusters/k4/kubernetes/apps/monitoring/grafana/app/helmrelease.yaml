@@ -132,7 +132,7 @@ spec:
           url: https://grafana.com/api/dashboards/22236/revisions/4/download
           datasource:
             - name: DS_PROMETHEUS
-              value: Prometheus
+              value: VictoriaMetrics
 
     datasources:
       datasources.yaml:
