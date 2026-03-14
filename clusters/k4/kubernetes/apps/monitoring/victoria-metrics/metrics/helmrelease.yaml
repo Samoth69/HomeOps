@@ -70,7 +70,7 @@ spec:
           - name: webhook
             discordConfigs:
               - apiURL:
-                  name: discord-webhook-secret
+                  name: alertmanager-webhook
                   key: url
       spec:
         podMetadata:
@@ -207,7 +207,9 @@ spec:
     kubeEtcd:
       enabled: true
       endpoints:
-        - ${SECRET_NODE_IPV4}
+        - ${SECRET_NODE_IP_TATSUMI}
+        - ${SECRET_NODE_IP_LYNKA}
+        - ${SECRET_NODE_IP_ENIGMA}
       service:
         port: 2381
         targetPort: 2381
