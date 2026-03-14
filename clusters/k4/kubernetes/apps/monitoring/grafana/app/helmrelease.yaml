@@ -27,6 +27,7 @@ spec:
     admin:
       existingSecret: grafana-admin-secret
     podLabels:
+      ingress.samoth.eu/envoy-internal: allow
       egress.samoth.eu/internet-http: allow
       # sidecar need kubeapi to gather dashboards
       ingress.samoth.eu/kube-apiserver: allow

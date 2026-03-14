@@ -39,4 +39,6 @@ spec:
     commonLabels:
       helm.toolkit.fluxcd.io/name: spegel
       helm.toolkit.fluxcd.io/namespace: kube-system
+    podLabels:
+      ingress.samoth.eu/vmagent: allow
 
