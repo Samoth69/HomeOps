@@ -27,7 +27,3 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-    # - toFQDNs:
-    #     - matchPattern: "*.*.svc.cluster.local."
-    #     - matchPattern: "*.*.*.svc.cluster.local."
-    #     - matchPattern: "*.*.*.*.svc.cluster.local."

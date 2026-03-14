@@ -10,7 +10,7 @@ spec:
       trustedCIDRs:
         # pods CIDR
         - 10.1.0.0/16
-        - fd00:1::/64
+        - fd00:1::/56
   connection:
     bufferLimit: 4Mi
     maxAcceptPerSocketEvent: 0
