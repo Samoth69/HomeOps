@@ -5,7 +5,7 @@ namespace: flux-system
 
 components:
   - ../../components/sops
-  - ../../components/namespace-isolated
+  - ../../components/namespace
 
 resources:
   - ./flux-instance/ks.yaml
