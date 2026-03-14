@@ -8,6 +8,8 @@ machine:
     wipe: true
     legacyBIOSSupport: false
   files:
+    - op: remove
+      path: /cluster/apiServer/admissionControl
     - op: create
       path: /etc/cri/conf.d/20-customization.part
       content: |-
