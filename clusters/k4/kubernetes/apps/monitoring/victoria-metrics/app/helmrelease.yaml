@@ -31,5 +31,3 @@ spec:
   values:
     operator:
       enable_converter_ownership: true
-    serviceMonitor:
-      enabled: true
