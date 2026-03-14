@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./alertmanager-webhook.sops.yaml
   - ./scrapeconfigs
+  - ./netpol.yaml

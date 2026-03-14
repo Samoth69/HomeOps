@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: vmks-metrics
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: vmks
+      app.kubernetes.io/name: vmsingle
+  egress:
+    - toCIDR:
+        - 192.168.0.5/32
+      toPorts:
+        - ports:
+            - port: "9633"
+              protocol: TCP
