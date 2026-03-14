@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: alpine
+        egress.samoth.eu/internet-github: allow
     spec:
       # dnsPolicy: Default
       containers:
