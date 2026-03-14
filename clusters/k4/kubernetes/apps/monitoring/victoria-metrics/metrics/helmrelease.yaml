@@ -109,6 +109,7 @@ spec:
           labels:
             ingress.samoth.eu/kube-apiserver: allow
             egress.samoth.eu/kube-apiserver: allow
+            egress.samoth.eu/cluster: allow
         extraArgs:
           enableTCP6: "true"
         configReloaderExtraArgs:
