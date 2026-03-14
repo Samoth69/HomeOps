@@ -18,7 +18,10 @@ spec:
       create: true
     service:
       name: kube-dns
-      clusterIP: "10.2.0.10"
+      clusterIPs:
+        - 10.2.0.10
+        - fd00:2::a
+      ipFamilyPolicy: RequireDualStack
     customLabels:
       ingress.samoth.eu/cluster: allow
       ingress.samoth.eu/vmagent: allow
