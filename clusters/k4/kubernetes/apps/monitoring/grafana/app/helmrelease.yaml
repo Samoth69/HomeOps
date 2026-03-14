@@ -28,6 +28,9 @@ spec:
       existingSecret: grafana-admin-secret
     podLabels:
       egress.samoth.eu/internet-http: allow
+      # sidecar need kubeapi to gather dashboards
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
     annotations:
       configmap.reloader.stakater.com/reload: grafana
       secret.reloader.stakater.com/reload: grafana-admin-secret
