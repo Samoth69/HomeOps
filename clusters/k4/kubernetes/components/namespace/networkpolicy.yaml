@@ -4,13 +4,16 @@ kind: CiliumNetworkPolicy
 metadata:
   name: namespace-network-policy
 spec:
-  description: "Allow nothing in ingress and allow only dns in egress for the namespace where this object is created"
+  description: "Allow pod inside this namespace to talk to each others, deny external (outside of namespace) trafic"
   endpointSelector:
     matchLabels:
       {}
   ingress:
-    - {}
+    - fromEndpoints:
+        - matchLabels: {}
   egress:
+    - toEndpoints:
+        - matchLabels: {}
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system

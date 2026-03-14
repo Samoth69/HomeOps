@@ -6,7 +6,7 @@ namespace: network
 
 components:
   - ../../components/sops
-  - ../../components/namespace
+  - ../../components/namespace-isolated
 
 resources:
   - ./certificate/ks.yaml

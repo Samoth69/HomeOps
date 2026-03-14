@@ -6,7 +6,7 @@ namespace: cert-manager
 
 components:
   - ../../components/sops
-  - ../../components/namespace
+  - ../../components/namespace-isolated
 
 resources:
   - ./cert-manager/ks.yaml
