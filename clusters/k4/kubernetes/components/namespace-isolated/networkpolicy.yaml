@@ -2,7 +2,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: namespace-network-policy
+  name: namespace-isolated-network-policy
 spec:
   description: "Allow nothing in ingress and allow only dns in egress for the namespace where this object is created"
   endpointSelector:
