@@ -1,0 +1,190 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: fluent
+spec:
+  interval: 1h
+  url: https://fluent.github.io/helm-charts
+  timeout: 3m
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: fluent-bit
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: fluent-bit
+      version: 0.55.0
+      sourceRef:
+        kind: HelmRepository
+        name: fluent
+  values:
+    hostNetwork: true
+    env:
+      - name: NODENAME
+        valueFrom:
+          fieldRef:
+            fieldPath: spec.nodeName
+
+    securityContext:
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000
+
+    extraPorts:
+      - port: 12345
+        containerPort: 12345
+        protocol: TCP
+        name: talos
+      - port: 12346
+        containerPort: 12346
+        protocol: TCP
+        name: kernel
+
+    config:
+      service: |-
+        [SERVICE]
+          daemon off
+          flush {{ .Values.flush }}
+          log_level {{ .Values.logLevel }}
+          parsers_file /fluent-bit/etc/parsers.conf
+          parsers_file /fluent-bit/etc/conf/custom_parsers.conf
+          http_server on
+          http_listen 0.0.0.0
+          http_port {{ .Values.metricsPort }}
+          health_check on
+
+      inputs: |-
+        [INPUT]
+          Name tcp
+          Listen 0.0.0.0
+          Port 12345
+          Format json
+          Tag talos.*
+
+        [INPUT]
+          Name tcp
+          Listen 0.0.0.0
+          Port 12346
+          Format json
+          Tag kernel.*
+
+        [INPUT]
+          name tail
+          alias kubernetes
+          path /var/log/containers/*.log
+          parser containerd
+          tag kubernetes.*
+          skip_empty_lines on
+          skip_long_lines on
+
+      filters: |-
+        # Kubernetes
+        [FILTER]
+          name kubernetes
+          match kubernetes.*
+          kube_url https://192.168.0.43:6443
+          kube_tag_prefix kubernetes.var.log.containers.
+          merge_log on
+          k8s-logging.parser on
+          k8s-logging.exclude off
+          labels on
+          annotations off
+          Buffer_Size 64KB
+
+        [FILTER]
+          name nest
+          match kubernetes.*
+          operation lift
+          nested_under kubernetes
+          add_prefix k_
+
+        [FILTER]
+          name nest
+          match kubernetes.*
+          operation lift
+          nested_under k_labels
+          add_prefix k_labels_
+
+        [FILTER]
+          name modify
+          match kubernetes.*
+          rename k_labels_app.kubernetes.io/name app
+          rename k_labels_app app
+          rename k_labels_k8s-app app
+
+        [FILTER]
+          name grep
+          match kubernetes.*
+          logical_op or
+          exclude log ^.+GET (\/\S+)?\/healthz?.+$
+          exclude log ^.+\/metrics.+$
+          exclude log ^system:0$
+          exclude log ^.+kube-probe\/\d+\.\d+["']$
+
+        # Talos
+        [FILTER]
+          name modify
+          match talos.*
+          add k_host ${NODENAME}
+          rename msg log
+          rename talos-service app
+          rename talos-level level
+          rename talos-time date
+
+        # Kernel
+        [FILTER]
+          name modify
+          match kernel.*
+          add k_host ${NODENAME}
+          add app kernel
+          rename msg log
+          rename talos-level level
+          rename talos-time date
+
+      customParsers: |-
+        [PARSER]
+          name containerd
+          format regex
+          regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<log>.*)$
+          time_key time
+          time_format %Y-%m-%dT%H:%M:%S.%L%z
+
+      outputs: |-
+        [OUTPUT]
+          Name http
+          Match *
+          host victoria-logs.fern.samoth.eu
+          port 443
+          tls on
+          uri /insert/jsonline?_stream_fields=stream,k_namespace_name,k_pod_name,app&_msg_field=log&_time_field=date
+          format json_lines
+          json_date_format iso8601
+          compress gzip
+          log_response_payload false
+    serviceMonitor:
+      enabled: true
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Observability
+    logLevel: warn
+    tolerations:
+      - operator: Exists
+        effect: NoSchedule
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 16Mi
