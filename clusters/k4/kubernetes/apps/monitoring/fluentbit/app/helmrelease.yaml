@@ -174,10 +174,11 @@ spec:
           log_response_payload false
     serviceMonitor:
       enabled: true
+    podLabels:
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
     dashboards:
       enabled: true
-      annotations:
-        grafana_folder: Observability
     logLevel: warn
     tolerations:
       - operator: Exists
