@@ -18,4 +18,4 @@ spec:
     commonLabels:
       ingress.samoth.eu/vmagent: allow
       egress.samoth.eu/kube-apiserver: allow
-      egress.samoth.eu/internet-github: allow
+      egress.samoth.eu/internet-http: allow
