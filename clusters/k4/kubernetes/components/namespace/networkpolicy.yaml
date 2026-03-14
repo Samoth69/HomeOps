@@ -16,17 +16,6 @@ spec:
     - toEndpoints:
         - matchLabels:
             {}
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
-apiVersion: "cilium.io/v2"
-kind: CiliumNetworkPolicy
-metadata:
-  name: allow-dns
-spec:
-  endpointSelector:
-    matchLabels:
-      {}
-  egress:
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
@@ -38,7 +27,6 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-    # Mandatory for L7 filtering to work
     # - toFQDNs:
     #     - matchPattern: "*.*.svc.cluster.local."
     #     - matchPattern: "*.*.*.svc.cluster.local."
