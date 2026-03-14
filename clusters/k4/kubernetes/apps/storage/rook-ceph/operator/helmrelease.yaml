@@ -175,9 +175,6 @@ spec:
     enableDiscoveryDaemon: true
     image:
       repository: ghcr.io/rook/ceph
-    operatorPodLabels:
-      ingress.samoth.eu/kube-apiserver: allow
-      egress.samoth.eu/kube-apiserver: allow
     monitoring:
       enabled: true
     resources:

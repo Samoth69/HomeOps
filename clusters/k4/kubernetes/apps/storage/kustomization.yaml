@@ -9,5 +9,6 @@ components:
   - ../../components/namespace
 
 resources:
+  - ./netpol.yaml
   - ./openebs/ks.yaml
   - ./rook-ceph/ks.yaml
