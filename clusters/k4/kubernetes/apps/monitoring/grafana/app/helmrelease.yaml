@@ -26,7 +26,7 @@ spec:
   values:
     admin:
       existingSecret: grafana-admin-secret
-    labels:
+    podLabels:
       egress.samoth.eu/internet-grafana: allow
     annotations:
       configmap.reloader.stakater.com/reload: grafana
