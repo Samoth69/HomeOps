@@ -38,13 +38,14 @@ spec:
           disabled: true
     toolbox:
       enabled: true
+    cephImage:
+      # There is a known issue with ceph tentacles and read affinity enabled
+      # Make sure this is fixed before updating https://github.com/rook/rook/issues/16839
+      repository: quay.io/ceph/ceph
+      tag: v19.2.3
     cephClusterSpec:
       # skipUpgradeChecks: true
       removeOSDsIfOutAndSafeToRemove: true
-      cephVersion:
-        # There is a known issue with ceph tentacles and read affinity enabled
-        # Make sure this is fixed before updating https://github.com/rook/rook/issues/16839
-        image: quay.io/ceph/ceph:v19.2.3
       dashboard:
         ssl: false
       logCollector:
