@@ -76,6 +76,7 @@ spec:
                 subPath: nasbackup.sh
                 readOnly: true
       cache:
+        enabled: true
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 51Gi
