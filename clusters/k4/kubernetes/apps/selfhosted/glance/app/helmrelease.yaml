@@ -101,7 +101,7 @@ spec:
           http:
             port: 8080
     route:
-      app:
+      glance:
         hostnames: ["glance.${SECRET_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
@@ -109,7 +109,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: app
+              - identifier: glance
                 port: *port
     persistence:
       config-file:
