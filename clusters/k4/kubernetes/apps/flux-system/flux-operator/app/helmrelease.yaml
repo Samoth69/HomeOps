@@ -17,5 +17,6 @@ spec:
         create: false
     commonLabels:
       ingress.samoth.eu/vmagent: allow
+      ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/internet-http: allow
