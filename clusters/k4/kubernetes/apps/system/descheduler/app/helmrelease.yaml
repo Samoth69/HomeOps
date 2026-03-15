@@ -26,6 +26,10 @@ spec:
   values:
     replicas: 1
     kind: Deployment
+    podLabels:
+      ingress.samoth.eu/vmagent: allow
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
     resources:
       requests:
         cpu: 1m
