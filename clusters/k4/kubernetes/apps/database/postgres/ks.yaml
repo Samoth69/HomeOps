@@ -12,7 +12,6 @@ spec:
   inputStrategy:
     name: Permute
   inputs:
-    - superRole: superuser
     - role: pooler-rw
   inputsFrom:
     - apiVersion: fluxcd.controlplane.io/v1
@@ -61,6 +60,10 @@ spec:
             spec:
               managed:
                 roles:
+                  - name: superuser
+                    ensure: present
+                    login: true
+                    superuser: true
                   <<- $roleNames := list >>
                   <<- range $k, $in := inputs >>
                   <<-   if kindIs "map" $in >>
