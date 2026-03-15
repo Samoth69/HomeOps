@@ -1,0 +1,106 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: nasbackup
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nasbackup
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: nasbackup
+  interval: 1h
+  values:
+    configMaps:
+      scripts:
+        data:
+          nasbackup.sh: |-
+            #!/bin/sh
+
+            kopia --disable-file-logging repository connect filesystem --path /mnt/repository/repo-kopia
+            kopia --disable-file-logging cache set --content-cache-size-limit-mb 30000 --metadata-cache-size-limit-mb 20000 --cache-directory /cache
+            kopia --disable-file-logging --progress snapshot create /mnt/DS418 --fail-fast
+    controllers:
+      nasbackup:
+        type: cronjob
+        cronjob:
+          backoffLimit: 0
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 1
+          schedule: "0 8 * * 6"
+          timeZone: "Europe/Paris"
+          successfulJobsHistory: 1
+          suspend: false
+        pod:
+          restartPolicy: OnFailure
+        containers:
+          app:
+            image:
+              # repository: ghcr.io/restic/restic
+              # tag: 0.18.1
+              repository: kopia/kopia
+              tag: 0.22.3
+            command:
+              - "/scripts/nasbackup.sh"
+            envFrom:
+              - secretRef:
+                  name: nasbackup-secrets
+            resources:
+              requests:
+                cpu: 500m
+                memory: 2048Mi
+              limits:
+                memory: 4096Mi
+    persistence:
+      scripts:
+        type: configMap
+        identifier: scripts
+        defaultMode: 0775
+        advancedMounts:
+          nasbackup:
+            app:
+              - path: /scripts/nasbackup.sh
+                subPath: nasbackup.sh
+                readOnly: true
+      cache:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 51Gi
+      data:
+        type: nfs
+        path: /volume1
+        server: ${SECRET_DS418_IP}
+        advancedMounts:
+          nasbackup:
+            app:
+              - path: /mnt/DS418/Documents
+                subPath: Documents
+                readOnly: true
+              - path: /mnt/DS418/music
+                subPath: music
+                readOnly: true
+              - path: /mnt/DS418/photo
+                subPath: photo
+                readOnly: true
+      repository:
+        type: nfs
+        path: /volume1/Documents
+        server: ${SECRET_DS416_IP}
+        advancedMounts:
+          nasbackup:
+            app:
+              - path: /mnt/repository/repo-kopia
+                subPath: repo-kopia
