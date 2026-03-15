@@ -23,11 +23,11 @@ spec:
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: required
 
-  bootstrap:
-    recovery:
-      source: &src source
-      recoveryTarget:
-        targetTLI: "1"
+  # bootstrap:
+  #   recovery:
+  #     source: &src source
+  #     recoveryTarget:
+  #       targetTLI: "1"
 
   plugins:
     - name: &plugin barman-cloud.cloudnative-pg.io
@@ -36,7 +36,7 @@ spec:
         barmanObjectName: &store garage-store
 
   externalClusters:
-    - name: *src
+    - name: source
       plugin:
         name: *plugin
         parameters:
