@@ -47,10 +47,3 @@ spec:
 
   monitoring:
     enablePodMonitor: true
-
-  managed:
-    roles:
-      - name: superuser
-        ensure: present
-        login: true
-        superuser: true
