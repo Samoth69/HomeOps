@@ -3,7 +3,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: &name postgres
+  name: postgres
+  labels:
+    ingress.samoth.eu/vmagent: allow
+    ingress.samoth.eu/kube-apiserver: allow
+    egress.samoth.eu/kube-apiserver: allow
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: enabled
     kustomize.toolkit.fluxcd.io/prune: disabled
