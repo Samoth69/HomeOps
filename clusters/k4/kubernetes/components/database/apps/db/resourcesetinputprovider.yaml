@@ -13,3 +13,4 @@ spec:
   type: Static
   defaultValues:
     role: ${OWNER}
+    superuser: false

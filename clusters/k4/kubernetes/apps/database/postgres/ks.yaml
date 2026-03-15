@@ -12,7 +12,10 @@ spec:
   inputStrategy:
     name: Permute
   inputs:
+    - role: superuser
+      superuser: true
     - role: pooler-rw
+      superuser: false
   inputsFrom:
     - apiVersion: fluxcd.controlplane.io/v1
       kind: ResourceSetInputProvider
@@ -77,7 +80,7 @@ spec:
                         "name" $r
                         "ensure" "present"
                         "login" true
-                        "superuser" false
+                        "superuser" ((index inputs $r).superuser | default false)
                       )) >>
                   <<- end >>
 
