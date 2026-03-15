@@ -18,7 +18,7 @@ spec:
     - toEntities:
         - kube-apiserver
     - toCIDR:
-        - ${SECRET_GARAGE_IP}
+        - ${SECRET_GARAGE_IP}/32
       toPorts:
         - ports:
             - port: "3900"
