@@ -10,6 +10,7 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring
             app.kubernetes.io/name: vmagent
             app.kubernetes.io/component: monitoring
     - fromEntities:
