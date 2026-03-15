@@ -47,3 +47,14 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
+  postgresql:
+    pg_hba:
+      - hostssl all all all scram-sha-256
+
+  managed:
+    roles:
+      - name: app
+        ensure: absent
+    services:
+      disabledDefaultServices: ["ro", "r"]

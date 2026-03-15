@@ -78,6 +78,9 @@ spec:
                         "ensure" "present"
                         "login" true
                         "superuser" false
+                        "passwordSecret" (dict
+                          "name": "postgres-$r"
+                        )
                       )) >>
                   <<- end >>
 

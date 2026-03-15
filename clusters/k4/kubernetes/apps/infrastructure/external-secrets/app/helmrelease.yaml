@@ -1,0 +1,64 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: external-secrets
+spec:
+  interval: 1h
+  url: https://charts.external-secrets.io
+  timeout: 3m
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-secrets
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: external-secrets
+      version: 2.1.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: external-secrets
+  values:
+    global:
+      podLabels:
+        ingress.samoth.eu/vmagent: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/kube-apiserver: allow
+    image:
+      repository: ghcr.io/external-secrets/external-secrets
+    installCRDs: true
+    extendedMetricLabels: true
+    log:
+      level: info
+      timeEncoding: iso8601
+    serviceMonitor:
+      enabled: true
+      interval: 1m
+    certController:
+      image:
+        repository: ghcr.io/external-secrets/external-secrets
+      serviceMonitor:
+        enabled: true
+        interval: 1m
+      log:
+        level: info
+        timeEncoding: iso8601
+    webhook:
+      image:
+        repository: ghcr.io/external-secrets/external-secrets
+      serviceMonitor:
+        enabled: true
+        interval: 1m
+      log:
+        level: info
+        timeEncoding: iso8601
+    grafanaDashboard:
+      enabled: true
+      annotations:
+        grafana_folder: Externa Secrets
