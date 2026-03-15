@@ -9,4 +9,4 @@ components:
   - ../../components/namespace-isolated
 
 resources:
-  - ./nasbackup/ks.yaml
+  - ./glance/ks.yaml
