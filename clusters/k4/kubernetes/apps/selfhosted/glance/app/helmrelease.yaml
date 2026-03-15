@@ -28,9 +28,6 @@ spec:
       glance:
         annotations:
           reloader.stakater.com/auto: "true"
-        labels:
-          ingress.samoth.eu/envoy-internal: allow
-          egress.samoth.eu/internet-http: allow
         containers:
           glance:
             image:
@@ -84,10 +81,10 @@ spec:
                     port: 8080
     defaultPodOptions:
       labels:
-        ingress.samoth.eu/internal-ingress: allow
+        ingress.samoth.eu/envoy-internal: allow
         ingress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/dns: allow
-        egress.samoth.eu/internal-ingress: allow
+        egress.samoth.eu/envoy-internal: allow
         egress.samoth.eu/internet-http: allow
         egress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/lan: allow
