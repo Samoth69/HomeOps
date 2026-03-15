@@ -8,8 +8,18 @@ spec:
     matchLabels:
       cnpg.io/cluster: postgres
   ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: vmagent
+            app.kubernetes.io/component: monitoring
     - fromEntities:
         - kube-apiserver
   egress:
     - toEntities:
         - kube-apiserver
+    - toCIDR:
+        - ${SECRET_GARAGE_IP}
+      toPorts:
+        - ports:
+            - port: "3900"
+              protocol: TCP
