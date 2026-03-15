@@ -13,6 +13,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-system$
+    namespace: flux-system
   targetNamespace: selfhosted
   wait: false
