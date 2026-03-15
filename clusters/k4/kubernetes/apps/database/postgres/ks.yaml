@@ -60,10 +60,6 @@ spec:
             spec:
               managed:
                 roles:
-                - name: superuser
-                  ensure: present
-                  login: true
-                  superuser: true
                   <<- $roleNames := list >>
                   <<- range $k, $in := inputs >>
                   <<-   if kindIs "map" $in >>
