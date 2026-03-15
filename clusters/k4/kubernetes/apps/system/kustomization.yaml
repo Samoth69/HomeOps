@@ -9,5 +9,8 @@ components:
   - ../../components/namespace
 
 resources:
+  - ./descheduler/ks.yaml
+  - ./generic-device-plugin/ks.yaml
+  - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
   - ./volsync/ks.yaml
