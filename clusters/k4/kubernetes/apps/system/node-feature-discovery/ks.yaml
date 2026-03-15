@@ -6,7 +6,7 @@ metadata:
   name: node-feature-discovery
 spec:
   interval: 1h
-  path: ./clusters/k4/kubernetes/apps/system-priv/node-feature-discovery/app
+  path: ./clusters/k4/kubernetes/apps/system/node-feature-discovery/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

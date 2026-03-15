@@ -65,6 +65,7 @@ spec:
                   pods: 40
                 evictableNamespaces:
                   exclude: &excludedNamespaces
+                    - database
                     - storage
             - name: RemoveFailedPods
               args:
