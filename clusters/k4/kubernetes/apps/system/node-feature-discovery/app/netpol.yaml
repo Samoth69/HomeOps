@@ -5,11 +5,15 @@ metadata:
   name: node-feature-discovery
 spec:
   endpointSelector:
-    matchLabels:
+    matchLabels: &labels
       app.kubernetes.io/instance: node-feature-discovery
   ingress:
     - fromEntities:
         - kube-apiserver
+    - fromEndpoints:
+        - matchLabels: *labels
   egress:
     - toEntities:
         - kube-apiserver
+    - toEndpoints:
+      - matchLabels: *labels
