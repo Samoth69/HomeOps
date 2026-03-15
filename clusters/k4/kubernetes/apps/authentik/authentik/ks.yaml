@@ -28,3 +28,5 @@ spec:
     namespace: flux-system
   targetNamespace: authentik
   wait: false
+  components:
+    - ../../../../components/database

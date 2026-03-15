@@ -10,7 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: &app ${APP}
   dependsOn:
-    - name: postgres-cnpg
+    - name: cnpg
+      namespace: database
+    - name: plugin-barman-cloud
       namespace: database
   interval: 1h
   path: ./clusters/k4/kubernetes/components/database/apps/db
