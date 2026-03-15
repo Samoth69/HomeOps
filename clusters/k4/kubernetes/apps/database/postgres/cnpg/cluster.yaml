@@ -1,0 +1,47 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: &name postgres
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  instances: 3
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie@sha256:e4f9958296aac318d23c12e5f97369b47a925ee6f26eef4e2064affceb2ddf36
+
+  storage:
+    # openebs-hostpath doesn't support volume expansion
+    resizeInUseVolumes: false
+    storageClass: openebs-hostpath
+    size: 20G
+
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+
+  bootstrap:
+    recovery:
+      source: &src source
+      recoveryTarget:
+        targetTLI: "1"
+
+  plugins:
+    - name: &plugin barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: &store garage-store
+
+  externalClusters:
+    - name: *src
+      plugin:
+        name: *plugin
+        parameters:
+          barmanObjectName: *store
+          serverName: postgres
+
+  monitoring:
+    enablePodMonitor: true

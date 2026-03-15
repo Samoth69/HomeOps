@@ -45,14 +45,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
-          # ipv6-proxy:
-          #   image:
-          #     repository: ghcr.io/nginx/nginx-unprivileged
-          #     tag: 1.29.5-alpine
-          #   securityContext:
-          #     allowPrivilegeEscalation: false
-          #     readOnlyRootFilesystem: true
-          #     capabilities: {drop: ["ALL"]}
           k8s-extension:
             image:
               repository: ghcr.io/lukasdietrich/glance-k8s/glance-k8s
@@ -118,15 +110,6 @@ spec:
               - identifier: glance
                 port: *port
     persistence:
-      tmp:
-        type: emptyDir
-      nginx-config-file:
-        type: configMap
-        name: nginx-configmap
-        globalMounts:
-          - path: /etc/nginx/conf.d/nginx.conf
-            subPath: nginx.conf
-            readOnly: true
       config-file:
         type: configMap
         name: glance-configmap

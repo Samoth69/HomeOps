@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/barmancloud.cnpg.io/objectstore_v1.json
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: garage-store
+spec:
+  retentionPolicy: "30d"
+  configuration:
+    destinationPath: "s3://k4-cnpg"
+    endpointURL: ${SECRET_GARAGE_WEBAPI}
+    s3Credentials:
+      accessKeyId:
+        name: k4-cnpg
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: k4-cnpg
+        key: ACCESS_SECRET_KEY
+    wal:
+      compression: zstd
+      maxParallel: 4
+    data:
+      compression: gzip
