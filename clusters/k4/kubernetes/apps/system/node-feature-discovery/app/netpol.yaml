@@ -12,16 +12,6 @@ spec:
         - kube-apiserver
     - fromEndpoints:
         - matchLabels: *labels
-    # VMAgent
-    - fromEndpoints:
-        - matchLabels:
-            k8s:io.kubernetes.pod.namespace: monitoring
-            app.kubernetes.io/name: vmagent
-            app.kubernetes.io/component: monitoring
-      toPorts:
-        - ports:
-            - port: "8080"
-              protocol: TCP
   egress:
     - toEntities:
         - kube-apiserver
