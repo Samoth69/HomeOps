@@ -23,3 +23,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: *app
+  values:
+    podLabels:
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
