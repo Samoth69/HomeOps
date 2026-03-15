@@ -100,15 +100,17 @@ spec:
         ports:
           http:
             port: 8080
-    ingress:
-      qui:
-        hosts:
-          - host: glance.fern.samoth.eu
-            paths:
-              - path: /
-                service:
-                  identifier: *app
-                  port: *port
+    route:
+      app:
+        hostnames: ["glance.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config-file:
         type: configMap
