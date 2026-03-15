@@ -13,7 +13,7 @@ spec:
     - name: postgres-cnpg
       namespace: database
   interval: 1h
-  path: ./clusters/k4/kubernetes/components/database/app
+  path: ./clusters/k4/kubernetes/components/database/apps/db
   postBuild:
     substitute:
       APP: *app
