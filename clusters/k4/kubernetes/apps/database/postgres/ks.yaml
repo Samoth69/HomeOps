@@ -8,6 +8,11 @@ spec:
   dependsOn:
     - name: cnpg
     - name: plugin-barman-cloud
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: postgres
+      namespace: database
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/database/postgres/cnpg
   postBuild:
