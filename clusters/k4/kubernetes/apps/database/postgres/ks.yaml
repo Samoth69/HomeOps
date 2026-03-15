@@ -24,6 +24,7 @@ spec:
     kind: Kustomization
     metadata:
       name: postgres-cnpg
+      namespace: &namespace database
     spec:
       dependsOn:
         - name: cnpg
