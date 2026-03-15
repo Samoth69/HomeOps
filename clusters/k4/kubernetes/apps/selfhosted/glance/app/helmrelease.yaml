@@ -91,6 +91,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       glance:
+        ipFamilyPolicy: RequireDualStack
         controller: *app
         ports:
           http:
