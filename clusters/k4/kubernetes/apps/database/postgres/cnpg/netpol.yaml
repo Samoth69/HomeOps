@@ -8,6 +8,10 @@ spec:
     matchLabels:
       cnpg.io/cluster: postgres
   ingress:
+    # KubeApi
+    - fromEntities:
+        - kube-apiserver
+    # VMAgent
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: monitoring
@@ -17,14 +21,33 @@ spec:
         - ports:
             - port: "9187"
               protocol: TCP
-    - fromEntities:
-        - kube-apiserver
   egress:
+    # KubeApi
     - toEntities:
         - kube-apiserver
+    # Garage
     - toCIDR:
         - ${SECRET_GARAGE_IP}/32
       toPorts:
         - ports:
             - port: "3900"
+              protocol: TCP
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: postgres-cnpg-pooler-rw
+spec:
+  endpointSelector:
+    matchLabels:
+      cnpg.io/cluster: postgres
+      cnpg.io/poolerName: pooler-rw
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            egress.samoth.eu/postgres-cnpg: allow
+      toPorts:
+        - ports:
+            - port: "5432"
               protocol: TCP
