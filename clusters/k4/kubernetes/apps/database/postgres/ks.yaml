@@ -78,7 +78,6 @@ spec:
                         "ensure" "present"
                         "login" true
                         "superuser" false
-                        "disablePassword" true
                       )) >>
                   <<- end >>
 
