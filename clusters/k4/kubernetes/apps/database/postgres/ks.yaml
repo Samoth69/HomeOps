@@ -26,6 +26,8 @@ spec:
       name: postgres-cnpg
       namespace: &namespace database
     spec:
+      decryption:
+        provider: sops
       dependsOn:
         - name: cnpg
         - name: plugin-barman-cloud
