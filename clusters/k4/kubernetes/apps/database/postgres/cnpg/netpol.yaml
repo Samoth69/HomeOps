@@ -42,7 +42,7 @@ spec:
   endpointSelector:
     matchLabels:
       cnpg.io/cluster: postgres
-      cnpg.io/poolerName: pooler-rw
+      cnpg.io/podRole: pooler
   ingress:
     - fromEndpoints:
         - matchLabels:
