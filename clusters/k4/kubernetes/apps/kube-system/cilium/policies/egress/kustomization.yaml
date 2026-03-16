@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./labelled-allow-egress-alert-manager.yaml
   - ./labelled-allow-egress-cluster.yaml
+  - ./labelled-allow-egress-database.yaml
   - ./labelled-allow-egress-dns.yaml
   - ./labelled-allow-egress-ds416-nfs.yaml
   - ./labelled-allow-egress-ds418-nfs.yaml

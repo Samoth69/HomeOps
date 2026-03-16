@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/postgresql.cnpg.io/pooler_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: pooler-ro
+spec:
+  cluster:
+    name: postgres
+
+  template:
+    metadata:
+      labels:
+        ingress.samoth.eu/vmagent: allow
+
+  instances: 3
+  type: ro
+  pgbouncer:
+    poolMode: session
+    parameters:
+      max_client_conn: "1000"
+      default_pool_size: "10"
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/monitoring.coreos.com/podmonitor_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: &name pooler-ro
+spec:
+  selector:
+    matchLabels:
+      cnpg.io/poolerName: *name
+  podMetricsEndpoints:
+    - port: metrics
