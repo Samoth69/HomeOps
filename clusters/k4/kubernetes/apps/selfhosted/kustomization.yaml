@@ -8,5 +8,5 @@ components:
   - ../../components/sops
   - ../../components/namespace-isolated
 
-resources:
-  - ./glance/ks.yaml
+resources: []
+  # - ./glance/ks.yaml
