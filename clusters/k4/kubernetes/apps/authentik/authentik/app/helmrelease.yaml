@@ -37,7 +37,7 @@ spec:
     
     authentik:
       postgresql:
-        host: pooler-transaction-rw.database.svc.
+        host: pooler-transaction-rw.database.svc.cluster.local.
         name: "authentik"
         port: 5432
 
