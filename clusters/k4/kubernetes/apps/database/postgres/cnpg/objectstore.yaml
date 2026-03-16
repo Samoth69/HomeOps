@@ -17,7 +17,7 @@ spec:
         name: k4-cnpg
         key: ACCESS_SECRET_KEY
       region:
-        name: garage
+        name: k4-cnpg
         key: REGION
     wal:
       compression: zstd
