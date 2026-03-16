@@ -27,6 +27,8 @@ spec:
     global:
       podLabels:
         egress.samoth.eu/database: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/kube-apiserver: allow
       env:
         - name: AUTHENTIK_POSTGRESQL__DISABLE_SERVER_SIDE_CURSORS
           value: "true"
