@@ -6,7 +6,7 @@ resources:
   - ./cluster.yaml
   - ./netpol.yaml
   - ./objectstore.yaml
-  - ./pooler-ro.yaml
-  - ./pooler-rw.yaml
+  - ./pooler-session-rw.yaml
+  - ./pooler-transaction-rw.yaml
   - ./scheduledbackup.yaml
   - ./secret.sops.yaml

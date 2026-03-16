@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
 metadata:
-  name: pooler-ro
+  name: pooler-session-rw
 spec:
   cluster:
     name: postgres
@@ -14,7 +14,7 @@ spec:
         ingress.samoth.eu/vmagent: allow
 
   instances: 3
-  type: ro
+  type: rw
   pgbouncer:
     poolMode: session
     parameters:
@@ -25,7 +25,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: &name pooler-ro
+  name: &name pooler-session-rw
 spec:
   selector:
     matchLabels:
