@@ -46,7 +46,7 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            egress.samoth.eu/postgres-cnpg: allow
+            egress.samoth.eu/database: allow
       toPorts:
         - ports:
             - port: "5432"
