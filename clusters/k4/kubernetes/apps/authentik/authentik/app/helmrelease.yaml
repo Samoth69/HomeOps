@@ -26,6 +26,7 @@ spec:
   values:
     global:
       podLabels:
+        ingress.samoth.eu/envoy-internal: allow
         egress.samoth.eu/database: allow
         ingress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/kube-apiserver: allow
