@@ -10,3 +10,4 @@ components:
 
 resources:
   - ./external-secrets/ks.yaml
+  - ./reflector/ks.yaml
