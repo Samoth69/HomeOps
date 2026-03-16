@@ -81,7 +81,7 @@ spec:
                         "login" true
                         "superuser" false
                         "passwordSecret" (dict
-                          "name": "postgres-$r"
+                          "name" "postgres-$r"
                         )
                       )) >>
                   <<- end >>
