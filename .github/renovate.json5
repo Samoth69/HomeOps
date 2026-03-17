@@ -257,7 +257,7 @@
         'patch',
       ],
       automerge: true,
-      automergeType: 'branch',
+      automergeType: 'pr',
       minimumReleaseAge: "3 days",
       minimumReleaseAgeBehaviour: "timestamp-optional"
     },
