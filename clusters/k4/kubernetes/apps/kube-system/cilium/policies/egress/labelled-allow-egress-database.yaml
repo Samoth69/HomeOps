@@ -7,12 +7,15 @@ spec:
   endpointSelector:
     matchLabels:
       egress.samoth.eu/database: allow
-  egress:
-    - toEndpoints:
+  ingress:
+    # TODO figure out why the pooler want to connect to client ??
+    - fromEndpoints: &labels
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: database
             cnpg.io/cluster: postgres
             cnpg.io/podRole: pooler
+  egress:
+    - toEndpoints: *labels
       toPorts:
         - ports:
             - port: "5432"
