@@ -63,7 +63,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/kubernetes
+              path: /var/lib/grafana/dashboards/Kubernetes
 
     dashboards:
       default:
