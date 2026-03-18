@@ -67,11 +67,11 @@ spec:
             equal: ["alertname", "namespace"]
         receivers:
           - name: "null"
-          - name: webhook
-            discordConfigs:
-              - apiURL:
-                  name: alertmanager-webhook
-                  key: url
+          # - name: webhook
+          #   discordConfigs:
+          #     - apiURL:
+          #         name: alertmanager-webhook
+          #         key: url
       spec:
         podMetadata:
           labels:
