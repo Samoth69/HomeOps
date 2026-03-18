@@ -11,12 +11,14 @@ spec:
   interval: 1h
   values:
     autoDirectNodeRoutes: true
+    bandwidthManager:
+      enabled: true
+      bbr: true
     bpf:
-      # Ref: https://github.com/siderolabs/talos/issues/10002
-      hostLegacyRouting: true
-      tproxy: true # L7 netpols stuff
-      preallocateMaps: true # reduce latency, increased memory usage
-      policyMapMax: 40960 # 2.5x default, Increase Cilium map sizes due to amount of netpols and identities, when BPF map pressure hits 100 endpoint creation starts failing, max dynamic size ratio doesn't increase this
+      datapathMode: netkit
+      masquerade: true
+      preallocateMaps: true
+    bpfClockProbe: true
     cgroup:
       automount:
         enabled: false
