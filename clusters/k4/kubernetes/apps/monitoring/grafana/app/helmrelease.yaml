@@ -63,7 +63,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/Kubernetes
+              path: /var/lib/grafana/dashboards/kubernetes
 
     dashboards:
       default:
@@ -95,7 +95,7 @@ spec:
         ceph-pools:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/5342/revisions/9/download
-      Kubernetes:
+      kubernetes:
         kubernetes-api-server:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/15761/revisions/20/download
