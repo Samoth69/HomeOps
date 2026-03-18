@@ -16,7 +16,10 @@ spec:
       bbr: true
     bpf:
       datapathMode: netkit
+      distributedLRU:
+        enabled: true
       masquerade: true
+      policyMapMax: 40960
       preallocateMaps: true
     bpfClockProbe: true
     cgroup:
@@ -92,7 +95,8 @@ spec:
       serviceMonitor:
         enabled: true
         trustCRDsExist: true
-    rollOutCiliumPods: true
+    # TODO revert
+    rollOutCiliumPods: false
     routingMode: native
     securityContext:
       capabilities:
