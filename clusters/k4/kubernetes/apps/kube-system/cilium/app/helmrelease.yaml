@@ -15,7 +15,6 @@ spec:
       enabled: true
       bbr: true
     bpf:
-      datapathMode: netkit
       distributedLRU:
         enabled: true
       policyMapMax: 40960
