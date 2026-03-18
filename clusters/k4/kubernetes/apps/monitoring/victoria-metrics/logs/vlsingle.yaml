@@ -9,7 +9,7 @@ spec:
     enableTCP6: "true"
   retentionPeriod: 30d
   retentionMaxDiskSpaceUsageBytes: 20GB
-  managedMetadata:
+  podMetadata:
     labels:
       ingress.samoth.eu/envoy-internal: allow
   storage:
