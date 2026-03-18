@@ -55,15 +55,15 @@ spec:
   - fromCIDRSet:
       - cidrGroupRef: group-lan
     toPorts:
-    - ports:
-      - port: "80"
-        protocol: TCP
-      - port: "80"
-        protocol: UDP
-      - port: "443"
-        protocol: TCP
-      - port: "443"
-        protocol: UDP
+      - ports:
+        - port: "80"
+          protocol: TCP
+        - port: "80"
+          protocol: UDP
+        - port: "443"
+          protocol: TCP
+        - port: "443"
+          protocol: UDP
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
 apiVersion: "cilium.io/v2"
