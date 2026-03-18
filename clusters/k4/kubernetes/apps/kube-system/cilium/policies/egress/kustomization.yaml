@@ -9,6 +9,7 @@ resources:
   - ./labelled-allow-egress-dns.yaml
   - ./labelled-allow-egress-ds416-nfs.yaml
   - ./labelled-allow-egress-ds418-nfs.yaml
+  - ./labelled-allow-egress-envoy-internal.yaml
   - ./labelled-allow-egress-internet-cloudflare-api.yaml
   - ./labelled-allow-egress-internet-cloudflare-doh.yaml
   - ./labelled-allow-egress-internet-discord.yaml

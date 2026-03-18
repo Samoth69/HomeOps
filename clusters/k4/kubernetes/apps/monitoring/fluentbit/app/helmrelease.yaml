@@ -177,6 +177,7 @@ spec:
     podLabels:
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/envoy-internal: allow
     dashboards:
       enabled: true
     logLevel: warn

@@ -6,10 +6,6 @@ metadata:
 spec:
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/monitoring/fluentbit/app
-  # postBuild:
-  #   substituteFrom:
-  #     - name: cluster-secrets
-  #       kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository
