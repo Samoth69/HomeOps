@@ -14,8 +14,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: fluent-bit
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
+  # annotations:
+  #   kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   interval: 30m
   chart:
