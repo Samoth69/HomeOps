@@ -18,7 +18,6 @@ spec:
       datapathMode: netkit
       distributedLRU:
         enabled: true
-      masquerade: true
       policyMapMax: 40960
       preallocateMaps: true
     bpfClockProbe: true
