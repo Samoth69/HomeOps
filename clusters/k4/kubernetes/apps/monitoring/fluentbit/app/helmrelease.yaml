@@ -164,7 +164,7 @@ spec:
         [OUTPUT]
           Name http
           Match *
-          host victoria-logs.fern.samoth.eu
+          host victoria-logs.${SECRET_DOMAIN}
           port 443
           tls on
           uri /insert/jsonline?_stream_fields=stream,k_namespace_name,k_pod_name,app&_msg_field=log&_time_field=date
