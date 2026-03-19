@@ -6,8 +6,10 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: tuppr
+      {}
   egress:
+    - toEntities:
+        - kube-apiserver
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: default
