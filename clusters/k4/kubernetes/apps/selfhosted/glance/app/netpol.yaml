@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: glance
+spec:
+  description: "Allow communications to itself"
+  endpointSelector: &labels
+    matchLabels:
+      app.kubernetes.io/instance: glance
+      app.kubernetes.io/name: glance
+  ingress:
+    - fromEndpoints:
+        - *labels
+  egress:
+    - toEndpoints:
+        - *labels
