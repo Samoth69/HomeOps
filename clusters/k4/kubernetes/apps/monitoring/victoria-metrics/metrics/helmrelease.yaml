@@ -181,7 +181,7 @@ spec:
     defaultDashboards:
       enabled: true
       annotations:
-        grafana_folder: kubernetes
+        grafana_folder: Kubernetes
 
     additionalVictoriaMetricsMap:
       oom-rules:
