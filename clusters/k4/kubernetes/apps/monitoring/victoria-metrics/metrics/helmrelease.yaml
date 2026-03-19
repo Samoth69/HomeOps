@@ -175,8 +175,6 @@ spec:
                   replacement: $1
                   sourceLabels: [ "__meta_kubernetes_pod_node_name" ]
                   targetLabel: kubernetes_node
-                - action: labeldrop
-                  regex: ((extensions_talos|feature_node).*)
 
     defaultDashboards:
       enabled: true
@@ -197,6 +195,15 @@ spec:
 
     kubelet:
       enabled: true
+      vmScrape:
+        enabled: true
+        spec:
+          endpoints:
+            - port: http
+              honorLabels: true
+              metricRelabelConfigs:
+                - action: labeldrop
+                  regex: ((extensions_talos|feature_node).*)
 
     kubeApiServer:
       enabled: true
