@@ -7,19 +7,19 @@ metadata:
 spec:
   kubernetes:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-    version: v1.35.2
+    version: v1.35.3
   # TODO à remettre
-  # healthChecks:
+  healthChecks:
   #   - apiVersion: volsync.backube/v1alpha1
   #     kind: ReplicationSource
   #     expr: |-
   #       status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
-  #   - apiVersion: ceph.rook.io/v1
-  #     kind: CephCluster
-  #     expr: |-
-  #       status.ceph.health in ['HEALTH_OK']
-  maintenance:
-    windows:
-      - start: "0 4 * * *"
-        duration: "1h"
-        timezone: "Europe/Paris"
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      expr: |-
+        status.ceph.health in ['HEALTH_OK']
+  # maintenance:
+  #   windows:
+  #     - start: "0 4 * * *"
+  #       duration: "1h"
+  #       timezone: "Europe/Paris"
