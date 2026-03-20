@@ -10,6 +10,8 @@ spec:
   egress:
     - toEntities:
         - kube-apiserver
+    - toCIDR:
+      - ${SECRET_TALOS_VIP_IPV4}/32
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: default
