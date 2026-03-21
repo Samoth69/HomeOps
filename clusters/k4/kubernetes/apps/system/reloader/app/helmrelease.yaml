@@ -26,8 +26,11 @@ spec:
   values:
     fullnameOverride: reloader
     reloader:
+      enableHA: true
       readOnlyRootFileSystem: true
+      ignoreCronJobs: true
       deployment:
+        replicas: 2
         labels:
           ingress.samoth.eu/kube-apiserver: allow
           egress.samoth.eu/kube-apiserver: allow
