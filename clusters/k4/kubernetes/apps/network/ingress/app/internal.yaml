@@ -27,3 +27,16 @@ spec:
         certificateRefs:
           - kind: Secret
             name: "${SECRET_DOMAIN//./-}-tls"
+    - name: postgres
+      protocol: TCP
+      port: 5432
+      allowedRoutes:
+        kinds:
+          - group: gateway.networking.k8s.io
+            kind: TCPRoute
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: postgres
+            

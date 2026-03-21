@@ -30,6 +30,8 @@ spec:
         egress.samoth.eu/database: allow
         ingress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/kube-apiserver: allow
+      podAnnotations:
+        reloader.stakater.com/auto: "true"
       env:
         - name: AUTHENTIK_POSTGRESQL__DISABLE_SERVER_SIDE_CURSORS
           value: "true"
