@@ -24,7 +24,6 @@ spec:
     kind: OCIRepository
     name: snapshot-controller
   values:
-    installCRDs: false
     controller:
       replicaCount: 1
       serviceMonitor:
