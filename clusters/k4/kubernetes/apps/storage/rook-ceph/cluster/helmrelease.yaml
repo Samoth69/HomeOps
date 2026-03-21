@@ -71,9 +71,9 @@ spec:
         mon:
           # https://docs.ceph.com/en/latest/rados/operations/health-checks/#mon-disk-low
           mon_data_avail_warn: "15" # orig: 30
-      csi:
-        readAffinity:
-          enabled: true
+      # csi:
+      #   readAffinity:
+      #     enabled: true
       network:
         provider: host
         connections:
