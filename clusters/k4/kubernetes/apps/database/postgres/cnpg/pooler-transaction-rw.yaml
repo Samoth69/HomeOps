@@ -11,6 +11,7 @@ spec:
   template:
     metadata:
       labels:
+        ingress.samoth.eu/envoy-internal: allow
         ingress.samoth.eu/vmagent: allow
 
   instances: 3

@@ -10,3 +10,4 @@ resources:
   - ./pooler-transaction-rw.yaml
   - ./scheduledbackup.yaml
   - ./secret.sops.yaml
+  - ./tcproute.yaml
