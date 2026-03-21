@@ -64,6 +64,8 @@ spec:
           protocol: TCP
         - port: "443"
           protocol: UDP
+        - port: "5432"
+          protocol: TCP
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
 apiVersion: "cilium.io/v2"
