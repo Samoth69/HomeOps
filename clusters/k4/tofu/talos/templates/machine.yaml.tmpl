@@ -32,6 +32,20 @@ machine:
       allowedRoles:
         - os:admin
       enabled: true
+  kubelet:
+    extraConfig:
+      serializeImagePulls: false
+      maxPods: 150
+      featureGates:
+        UserNamespacesSupport: true
+    nodeIP:
+      validSubnets:
+%{ for ip in ip_addresses_v4 ~}
+        - "${ip}/32"
+%{ endfor ~}
+%{ for ip in ip_addresses_v6 ~}
+        - "${ip}/128"
+%{ endfor ~}
   udev:
     rules:
       # IO scheduler
@@ -51,6 +65,10 @@ machine:
     # Watchdog
     fs.inotify.max_user_watches: 1048576
     fs.inotify.max_user_instances: 8192
+    net.ipv4.neigh.default.gc_thresh1: "4096"  # Prevent ARP cache overflows
+    net.ipv4.neigh.default.gc_thresh2: "8192"  # Prevent ARP cache overflows
+    net.ipv4.neigh.default.gc_thresh3: "16384" # Prevent ARP cache overflows
+    net.ipv4.tcp_slow_start_after_idle: "0"    # Preserve congestion window after idle
 %{ if length(kernel_modules) > 0 ~}
   kernel:
     modules:

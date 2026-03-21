@@ -17,6 +17,13 @@ cluster:
   etcd:
     extraArgs:
       listen-metrics-urls: "http://0.0.0.0:2381"
+    advertisedSubnets:
+%{ for ip in ip_addresses_v4 ~}
+      - "${ip}/32"
+%{ endfor ~}
+%{ for ip in ip_addresses_v6 ~}
+      - "${ip}/128"
+%{ endfor ~}
   proxy:
     disabled: true
   scheduler:
