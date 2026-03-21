@@ -1,12 +1,17 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrepository-source-v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
-  name: backube
+  name: volsync
 spec:
-  interval: 1h
-  url: https://backube.github.io/helm-charts
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.18.5
+  url: oci://ghcr.io/home-operations/charts-mirror/volsync-perfectra1n
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -14,26 +19,32 @@ kind: HelmRelease
 metadata:
   name: volsync
 spec:
+  chartRef:
+    kind: OCIRepository
+    name: volsync
   interval: 1h
-  chart:
-    spec:
-      chart: volsync
-      version: 0.15.0
-      sourceRef:
-        kind: HelmRepository
-        name: backube
   values:
+    fullnameOverride: volsync # Required for volsync-perfectra1n fork
+    image: &image
+      repository: ghcr.io/perfectra1n/volsync
+      tag: v0.17.11
+    kopia: *image
+    rclone: *image
+    restic: *image
+    rsync: *image
+    rsync-tls: *image
+    syncthing: *image
     manageCRDs: true
     metrics:
       disableAuth: true
-    podLabels:
-      ingress.samoth.eu/kube-apiserver: allow
-      ingress.samoth.eu/vmagent: allow
-      egress.samoth.eu/kube-apiserver: allow
     podSecurityContext:
       runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 1000
+    podLabels:
+      ingress.samoth.eu/kube-apiserver: allow
+      ingress.samoth.eu/vmagent: allow
+      egress.samoth.eu/kube-apiserver: allow
     resources:
       limits:
         memory: 1Gi

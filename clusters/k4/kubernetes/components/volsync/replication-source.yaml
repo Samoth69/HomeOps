@@ -1,30 +1,44 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/volsync.backube/replicationsource_v1alpha1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: ${APP}
 spec:
-  paused: ${VOLSYNC_PAUSE_BACKUP:-false}
-  sourcePVC: "${VOLSYNC_CLAIM:-${APP}}"
+  sourcePVC: ${APP}
   trigger:
-    schedule: "12 * * * *"
-  restic:
+    schedule: 0 */12 * * *
+  kopia:
     accessModes:
-      - "${VOLSYNC_SNAP_ACCESSMODES:-ReadWriteOnce}"
-    cacheAccessModes:
-      - "${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"
-    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-openebs-lvmsc}"
-    copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
+      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce} # Use ReadOnlyMany for CephFS
+    compression: zstd-fastest
+    copyMethod: Snapshot
+    moverAffinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - tatsumi
+            weight: 1
+    moverPodLabels:
+      egress.samoth.eu/truenas-nfs: allow
     moverSecurityContext:
-      runAsUser: ${APP_UID:-2000}
-      runAsGroup: ${APP_GID:-2000}
-      fsGroup: ${APP_GID:-2000}
-    pruneIntervalDays: 7
-    repository: ${APP}-volsync
+      runAsUser: ${VOLSYNC_PUID:=1000}
+      runAsGroup: ${VOLSYNC_PGID:=1000}
+      fsGroup: ${VOLSYNC_PGID:=1000}
+    moverVolumes:
+      - mountPath: repository
+        volumeSource:
+          nfs:
+            path: /mnt/ThePool/Documents/Sauvegardes/Kubernetes/K4/Volsync
+            server: ${SECRET_TRUENAS_IP}
+    parallelism: 2
+    repository: ${APP}-volsync-secret
     retain:
       hourly: 24
       daily: 7
-    storageClassName: "${VOLSYNC_STORAGECLASS:-openebs-lvmsc}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-openebs-lvmsc-snapclass}"
+    storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
