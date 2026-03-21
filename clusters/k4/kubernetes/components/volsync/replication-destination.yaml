@@ -42,7 +42,7 @@ spec:
         volumeSource:
           nfs:
             path: /mnt/ThePool/Documents/Sauvegardes/Kubernetes/K4/Volsync
-            server: 192.168.0.22
+            server: ${SECRET_TRUENAS_IP}
     repository: ${APP}-volsync-secret
     sourceIdentity:
       sourceName: ${APP}
