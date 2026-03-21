@@ -28,8 +28,8 @@ spec:
         pod:
           labels:
             ingress.samoth.eu/lan: allow
-      envoyService:
-        externalTrafficPolicy: Cluster
+      # envoyService:
+      #   externalTrafficPolicy: Cluster
   shutdown:
     drainTimeout: 180s
   telemetry:
