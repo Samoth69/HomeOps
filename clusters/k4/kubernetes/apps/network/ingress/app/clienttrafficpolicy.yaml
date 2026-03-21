@@ -11,20 +11,9 @@ spec:
         # pods CIDR
         - 10.1.0.0/16
         - fd00:1::/56
-  connection:
-    bufferLimit: 4Mi
-    maxAcceptPerSocketEvent: 0
-  http2:
-    initialStreamWindowSize: 512Ki
-    initialConnectionWindowSize: 8Mi
-    onInvalidMessage: TerminateStream
   http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive: {}
-  timeout:
-    http:
-      requestReceivedTimeout: 0s
   tls:
     minVersion: "1.3"

@@ -6,10 +6,6 @@ metadata:
   name: envoy-internal
 spec:
   gatewayClassName: envoy
-  infrastructure:
-    annotations:
-      metallb.io/loadBalancerIPs: ${SECRET_LB_IPV4},${SECRET_LB_IPV6}
-      metallb.io/allow-shared-ip: shared
   listeners:
     - name: http
       protocol: HTTP
@@ -32,8 +28,7 @@ spec:
       port: 5432
       allowedRoutes:
         kinds:
-          - group: gateway.networking.k8s.io
-            kind: TCPRoute
+          - kind: TCPRoute
         namespaces:
           from: Selector
           selector:
