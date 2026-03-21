@@ -41,7 +41,7 @@ spec:
       - mountPath: repository
         volumeSource:
           nfs:
-            path: /mnt/ThePool/Documents/Sauvegardes/Kubernetes/K4/Volsync/repository
+            path: /mnt/ThePool/Apps/K4-Volsync
             server: ${SECRET_TRUENAS_IP}
     repository: ${APP}-volsync-secret
     sourceIdentity:
