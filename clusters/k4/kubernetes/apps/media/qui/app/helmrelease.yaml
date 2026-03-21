@@ -38,7 +38,7 @@ spec:
               QUI__LOG_LEVEL: INFO
 
               QUI__OIDC_ENABLED: "true"
-              QUI__OIDC_ISSUER: https://authentik.${SECRET_DOMAIN}/application/o/qui/.well-known/openid-configuration
+              QUI__OIDC_ISSUER: https://authentik.${SECRET_DOMAIN}/application/o/${APP}
               QUI__OIDC_CLIENT_ID:
                 valueFrom:
                   secretKeyRef:
@@ -80,7 +80,8 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
       labels:
-        ingress.samoth.eu/envoy-internal: allow  
+        ingress.samoth.eu/envoy-internal: allow
+        egress.samoth.eu/envoy-internal: allow
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
