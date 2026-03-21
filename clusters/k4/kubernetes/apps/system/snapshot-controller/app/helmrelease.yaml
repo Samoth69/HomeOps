@@ -25,12 +25,12 @@ spec:
     name: snapshot-controller
   values:
     controller:
-      replicaCount: 1
+      replicaCount: 2
       serviceMonitor:
         create: true
-      podLabels: &labels
+      podLabels:
         ingress.samoth.eu/kube-apiserver: allow
         ingress.samoth.eu/vmagent: allow
         egress.samoth.eu/kube-apiserver: allow
     webhook:
-      podLabels: *labels
+      enabled: false
