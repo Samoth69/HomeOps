@@ -38,5 +38,5 @@ spec:
           from: Selector
           selector:
             matchLabels:
-              kubernetes.io/metadata.name: postgres
+              kubernetes.io/metadata.name: database
             
