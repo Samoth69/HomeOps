@@ -8,14 +8,16 @@ spec:
   compressor:
     - type: Brotli
       brotli: {}
+      minContentLength: 1024
     - type: Gzip
       gzip: {}
+      minContentLength: 1024
     - type: Zstd
       zstd: {}
+      minContentLength: 1024
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive: {}
   timeout:
     http:
       requestTimeout: 120s

@@ -11,7 +11,7 @@ spec:
         # pods CIDR
         - 10.1.0.0/16
         - fd00:1::/56
-  http3: {}
+  # http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
