@@ -6,7 +6,7 @@ metadata:
   name: postgres
 spec:
   parentRefs:
-    - name: internal
+    - name: envoy-internal
       namespace: network
       sectionName: postgres
   rules:
