@@ -127,7 +127,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             egress.samoth.eu/envoy-internal: allow
-      toPorts: &ports
+      toPorts:
         - ports:
             - port: "22"
               protocol: TCP
@@ -139,4 +139,3 @@ spec:
     - toEndpoints:
         - matchLabels:
             ingress.samoth.eu/envoy-internal: allow
-      toPorts: *ports
