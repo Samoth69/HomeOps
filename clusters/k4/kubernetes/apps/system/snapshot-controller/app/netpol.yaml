@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: snapshot-controller
+spec:
+  endpointSelector:
+    matchLabels: &labels
+      app.kubernetes.io/instance: snapshot-controller
+  ingress:
+    - fromEntities:
+        - kube-apiserver
+    - fromEndpoints:
+        - matchLabels: *labels
+  egress:
+    - toEntities:
+        - kube-apiserver
+    - toEndpoints:
+      - matchLabels: *labels
