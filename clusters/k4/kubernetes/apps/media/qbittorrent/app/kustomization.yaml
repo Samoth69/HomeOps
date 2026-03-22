@@ -8,6 +8,6 @@ configMapGenerator:
     files:
       - ./config/Corefile
 configurations:
-  - kustomizeconfig.yaml
+  - ./config/kustomizeconfig.yaml
 generatorOptions:
   disableNameSuffixHash: true
