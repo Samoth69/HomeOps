@@ -1,0 +1,46 @@
+.:53 {
+    bind 127.0.0.2
+    errors
+    health :8081 {
+        lameduck 5s
+    }
+    log {
+        class error
+    }
+    forward . 127.0.0.1:5301 127.0.0.1:5302
+    reload
+}
+
+.:5301 {
+    forward . tls://1.1.1.1 tls://1.0.0.1 {
+        tls_servername tls.cloudflare-dns.com
+        policy sequential
+        health_check 5s
+    }
+    errors
+    log {
+        class error
+    }
+    cache 30
+}
+
+.:5302 {
+    forward . tls://9.9.9.9 {
+       tls_servername dns.quad9.net
+       health_check 5s
+    }
+    errors
+    log {
+        class error
+    }
+    cache 30
+}
+
+cluster.local:53 {
+    bind 127.0.0.2
+    errors
+    log {
+        class error
+    }
+    forward . 10.2.0.10
+}

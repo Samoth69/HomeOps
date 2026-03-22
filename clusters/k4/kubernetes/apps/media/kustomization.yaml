@@ -9,4 +9,5 @@ components:
   - ../../components/namespace
 
 resources:
+  - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
