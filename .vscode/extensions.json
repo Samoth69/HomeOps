@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "tamasfe.even-better-toml",
+        "redhat.vscode-yaml",
+        "samuelcolvin.jinjahtml",
+        "bluebrown.yamlfmt",
+        "nefrob.vscode-just-syntax",
+    ]
+}

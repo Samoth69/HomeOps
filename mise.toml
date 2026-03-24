@@ -3,6 +3,7 @@ experimental_monorepo_root = true
 [env]
 SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
 SOPS_CONFIG = "{{config_root}}/.sops.yaml"
+MINIJINJA_CONFIG_FILE = "{{config_root}}/.minijinja.toml"
 
 [settings]
 task.monorepo_depth = 3  # Only search 3 levels deep
@@ -15,5 +16,6 @@ task.monorepo_depth = 3  # Only search 3 levels deep
 "aqua:siderolabs/talos" = "latest"
 "aqua:kubernetes-sigs/kustomize" = "latest"
 "aqua:helm/helm" = "latest"
+"aqua:google/yamlfmt" = "latest"
 cilium-cli = "latest"
 cilium-hubble = "latest"

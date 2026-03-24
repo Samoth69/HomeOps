@@ -1,0 +1,23 @@
+---
+machine:
+  type: controlplane
+  install:
+    image: factory.talos.dev/metal-installer-secureboot/dd92fd7b6a91fc082cf020e90b1551053de8d3809a6233bd427eb3b7b0f0c8b6:v1.12.6
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - enp2s0
+bondMode: active-backup
+addresses:
+  - address: {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV4 }}/24
+  - address: {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV6 }}/64
+routes:
+  - gateway: "192.168.0.1"
+  - gateway: "fe80::2266:cfff:fe83:760a"
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: enigma
+auto: off

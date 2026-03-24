@@ -1,0 +1,230 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.10/website/content/v1.10/schemas/config.schema.json
+version: v1alpha1
+machine:
+  ca:
+    crt: {{ ENV.TALSECRET_CERTS_OS_CRT }}
+    {% if ENV.IS_CONTROLPLANE %}
+    key: {{ ENV.TALSECRET_CERTS_OS_KEY }}
+    {% endif %}
+  features:
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    hostDNS:
+      enabled: true
+      forwardKubeDNSToHost: true
+    kubePrism:
+      enabled: false
+    {% if ENV.IS_CONTROLPLANE %}
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles:
+        - os:admin
+      allowedKubernetesNamespaces:
+        - system-upgrade
+    {% endif %}
+    rbac: true
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |-
+        [plugins]
+          [plugins."io.containerd.grpc.v1.cri"]
+            enable_unprivileged_ports = true
+            enable_unprivileged_icmp = true
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0o644
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.1
+        hard=True
+        nconnect=16
+        noatime=True
+        rsize=1048576
+        wsize=1048576
+  install:
+    image: placeholder
+    disk: /dev/sda
+    wipe: true
+    legacyBIOSSupport: false
+  kubelet:
+    defaultRuntimeSeccompProfileEnabled: true
+    disableManifestsDirectory: true
+    extraConfig:
+      featureGates:
+        UserNamespacesSupport: true
+      maxPods: 150
+      serializeImagePulls: false
+    image: ghcr.io/siderolabs/kubelet:v1.35.3
+    nodeIP:
+      validSubnets:
+        - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV4 }}/32
+        - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV6 }}/128
+        - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV4 }}/32
+        - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV6 }}/128
+        - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV4 }}/32
+        - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV6 }}/128
+  udev:
+    rules:
+      # IO scheduler
+      # Algorithm to manage disk IO requests and balance it with other CPU loads.
+      # HDD
+      - "ACTION=='add|change', KERNEL=='sd[a-z]', ATTR{queue/rotational}=='1', ATTR{queue/scheduler}='mq-deadline'"
+      # SSD
+      - "ACTION=='add|change', KERNEL=='sd[a-z]', ATTR{queue/rotational}=='0', ATTR{queue/scheduler}='none'"
+      # NVMe SSD
+      - "ACTION=='add|change', KERNEL=='nvme[0-9]n[0-9]', ATTR{queue/rotational}=='0', ATTR{queue/scheduler}='none'"
+  sysctls:
+    # IPv6 requirements (because we don't want SLAAC to assign ips to our nodes)
+    net.ipv6.conf.default.autoconf: 0
+    net.ipv6.conf.default.accept_ra: 0
+    net.ipv6.conf.all.autoconf: 0
+    net.ipv6.conf.all.accept_ra: 0
+    # System requirements
+    fs.inotify.max_user_instances: "8192"
+    fs.inotify.max_user_watches: "1048576"
+    net.core.default_qdisc: fq
+    net.core.rmem_max: "67108864"
+    net.core.wmem_max: "67108864"
+    # Improve network performance
+    net.ipv4.neigh.default.gc_thresh1: "4096"
+    net.ipv4.neigh.default.gc_thresh2: "8192"
+    net.ipv4.neigh.default.gc_thresh3: "16384"
+    net.ipv4.ping_group_range: 0 2147483647
+    net.ipv4.tcp_congestion_control: bbr
+    net.ipv4.tcp_fastopen: "3"
+    net.ipv4.tcp_mtu_probing: "1"
+    net.ipv4.tcp_notsent_lowat: "131072"
+    net.ipv4.tcp_rmem: 4096 87380 33554432
+    net.ipv4.tcp_slow_start_after_idle: "0"
+    net.ipv4.tcp_window_scaling: "1"
+    net.ipv4.tcp_wmem: 4096 65536 33554432
+    sunrpc.tcp_max_slot_table_entries: "128"
+    sunrpc.tcp_slot_table_entries: "128"
+  token: {{ ENV.TALSECRET_SECRETS_BOOTSTRAPTOKEN }}
+cluster:
+  {% if ENV.IS_CONTROLPLANE %}
+  aggregatorCA:
+    crt: {{ ENV.TALSECRET_CERTS_K8SAGGREGATOR_CRT }}
+    key: {{ ENV.TALSECRET_CERTS_K8SAGGREGATOR_KEY }}
+  allowSchedulingOnControlPlanes: true
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:v1.35.3
+    disablePodSecurityPolicy: true
+    extraArgs:
+      enable-aggregator-routing: "true"
+      feature-gates: MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1beta1=true
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:v1.35.3
+    extraArgs:
+      bind-address: 0.0.0.0
+  coreDNS:
+    disabled: true
+  etcd:
+    advertisedSubnets:
+      - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV4 }}/32
+      - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV6 }}/128
+      - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV4 }}/32
+      - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV6 }}/128
+      - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV4 }}/32
+      - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV6 }}/128
+    ca:
+      crt: {{ ENV.TALSECRET_CERTS_ETCD_CRT }}
+      key: {{ ENV.TALSECRET_CERTS_ETCD_KEY }}
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+  proxy:
+    disabled: true
+    image: registry.k8s.io/kube-proxy:v1.35.3
+  scheduler:
+    config:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: KubeSchedulerConfiguration
+      profiles:
+        - pluginConfig:
+            - args:
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+                defaultingType: List
+              name: PodTopologySpread
+          plugins:
+            score:
+              disabled:
+                - name: ImageLocality
+          schedulerName: default-scheduler
+    extraArgs:
+      bind-address: 0.0.0.0
+    image: registry.k8s.io/kube-scheduler:v1.35.3
+  secretboxEncryptionSecret: {{ ENV.TALSECRET_SECRETS_SECRETBOXENCRYPTIONSECRET }}
+  serviceAccount:
+    key: {{ ENV.TALSECRET_CERTS_K8SSERVICEACCOUNT_KEY }}
+  {% endif %}
+  ca:
+    crt: {{ ENV.TALSECRET_CERTS_K8S_CRT }}
+    {% if ENV.IS_CONTROLPLANE %}
+    key: {{ ENV.TALSECRET_CERTS_K8S_KEY }}
+    {% endif %}
+  controlPlane:
+    endpoint: https://192.168.0.35:6443
+  clusterName: k4
+  discovery:
+    enabled: true
+    registries:
+      kubernetes: { disabled: true }
+      service: { disabled: false }
+  id: {{ ENV.TALSECRET_CLUSTER_ID }}
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets:
+      - 10.1.0.0/16
+      - fd00:1::/56
+    serviceSubnets:
+      - 10.2.0.0/16
+      - fd00:2::/56
+  secret: {{ ENV.TALSECRET_CLUSTER_SECRET }}
+  token: {{ ENV.TALSECRET_SECRETS_BOOTSTRAPTOKEN }}
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+nameservers:
+  - address: "192.168.0.2"
+  - address: "192.168.0.3"
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 192.168.0.35
+link: bond0
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: hostpath-data
+volumeType: partition
+provisioning:
+  diskSelector:
+    match: disk.model.contains("MTFDKBA960TF")
+  minSize: 200GiB
+  maxSize: 200GiB
+filesystem:
+  type: ext4
+---
+apiVersion: v1alpha1
+kind: RawVolumeConfig
+# do not put "ceph" in the name otherwise ceph isn't going to create an osd
+name: rook-data
+provisioning:
+  diskSelector:
+    match: disk.model.contains("MTFDKBA960TF")
+  minSize: 200GiB

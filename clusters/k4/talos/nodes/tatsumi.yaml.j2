@@ -1,0 +1,26 @@
+---
+machine:
+  type: controlplane
+  install:
+    image: factory.talos.dev/nocloud-installer-secureboot/c35c07b8adb1b04b999c6fc285924a378ad0be5915b5523a2e2ef2b99e500815:v1.12.6
+  kernel:
+    modules:
+      - name: btrfs
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - eth0
+bondMode: active-backup
+addresses:
+  - address: {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV4 }}/24
+  - address: {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV6 }}/64
+routes:
+  - gateway: "192.168.0.1"
+  - gateway: "fe80::2266:cfff:fe83:760a"
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: tatsumi
+auto: off

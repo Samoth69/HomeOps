@@ -1,0 +1,23 @@
+---
+machine:
+  type: controlplane
+  install:
+    image: factory.talos.dev/metal-installer-secureboot/b84e1e3216cac01a1d1333e9a6c60b6ff5f3520dc1b4284d4532af86eadda828:v1.12.6
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - enp2s0f0
+bondMode: active-backup
+addresses:
+  - address: {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV4 }}/24
+  - address: {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV6 }}/64
+routes:
+  - gateway: "192.168.0.1"
+  - gateway: "fe80::2266:cfff:fe83:760a"
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: lynka
+auto: off

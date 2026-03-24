@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: qbittorrent
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: qbittorrent
+  egress:
+    # DNS over TLS
+    - toCIDR:
+        - "1.1.1.1/32"
+        - "1.0.0.1/32"
+        - "9.9.9.9/32"
+      toPorts:
+        - ports:
+            - port: "853"
+              protocol: TCP
+            - port: "853"
+              protocol: UDP
+    # ProtonVPN
+    - toCIDR:
+        - "${WIREGUARD_ENDPOINT_IP}/32"
+      toPorts:
+        - ports:
+            - port: "51820"
+              protocol: UDP

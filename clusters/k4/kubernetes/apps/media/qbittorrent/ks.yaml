@@ -11,14 +11,17 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+      # Needed for netpol
+      - name: qbittorrent-secret
+        kind: Secret
     substitute:
       APP: *app
   prune: true
-  # healthChecks:
-  #   - apiVersion: helm.toolkit.fluxcd.io/v2
-  #     kind: HelmRelease
-  #     name: *app
-  #     namespace: media
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: media
   sourceRef:
     kind: GitRepository
     name: flux-system
