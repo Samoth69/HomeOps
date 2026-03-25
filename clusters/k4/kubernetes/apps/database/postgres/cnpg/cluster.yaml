@@ -38,7 +38,7 @@ spec:
         barmanObjectName: &store garage-store
 
   externalClusters:
-    - name: source
+    - name: *src
       plugin:
         name: *plugin
         parameters:
