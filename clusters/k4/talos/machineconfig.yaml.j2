@@ -118,7 +118,7 @@ cluster:
     image: registry.k8s.io/kube-controller-manager:v1.35.3
     extraArgs:
       bind-address: 0.0.0.0
-      node-cidr-mask-size-ipv6: "104"
+      node-cidr-mask-size-ipv6: "112"
   coreDNS:
     disabled: true
   etcd:
@@ -182,10 +182,10 @@ cluster:
     dnsDomain: cluster.local
     podSubnets:
       - 10.1.0.0/16
-      - fd00:1::/112
+      - fd00:1::/104
     serviceSubnets:
       - 10.2.0.0/16
-      - fd00:2::/112
+      - fd00:2::/104
   secret: {{ ENV.TALSECRET_CLUSTER_SECRET }}
   token: {{ ENV.TALSECRET_SECRETS_BOOTSTRAPTOKEN }}
 ---
