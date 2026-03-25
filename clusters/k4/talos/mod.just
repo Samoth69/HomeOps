@@ -1,10 +1,10 @@
+set positional-arguments := true
 set quiet := true
 set shell := ['zsh', '-cu']
 
 talos_dir := source_directory()
-controller := `talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1`
-# nodes := `talosctl config info -o yaml | yq -e '.nodes | join (",")'`
-nodes := ""
+controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
+nodes := `talosctl config info -o yaml | yq -e '.nodes | join (",")'`
 
 [private]
 default:
@@ -28,7 +28,7 @@ gen-schematic-id:
 [doc('Render Talos config for a node')]
 render-config node:
     export IS_CONTROLPLANE="$(just clusters k4 talos machine-controller {{ node }})"; \
-    sops decrypt talsecrets.sops.yaml | yq '.. | select((tag == "!!map" or tag == "!!seq") | not) | "TALSECRET_" + (path | join("_") | upcase) + "=" + .' | while read p; do \
+    sops decrypt "{{ talos_dir }}/talsecrets.sops.yaml" | yq '.. | select((tag == "!!map" or tag == "!!seq") | not) | "TALSECRET_" + (path | join("_") | upcase) + "=" + .' | while read p; do \
       export $p; \
     done; \
     talosctl machineconfig patch <(just template "{{ talos_dir }}/machineconfig.yaml.j2") \
@@ -46,7 +46,8 @@ reset-node node mode="reboot":
 
 [doc('Reset all nodes in the cluster')]
 reset-cluster mode="reboot":
-    just clusters k4 talos reset-node {{ nodes }} {{ mode }};\
+    gum confirm "Reset cluster ?" && \
+      just clusters k4 talos reset-node {{ nodes }} {{ mode }};
 
 [doc('Upgrade Kubernetes version on the cluster')]
 upgrade-k8s version:

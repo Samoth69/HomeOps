@@ -28,10 +28,6 @@ machine:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
       content: |-
-        [plugins]
-          [plugins."io.containerd.grpc.v1.cri"]
-            enable_unprivileged_ports = true
-            enable_unprivileged_icmp = true
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
     - op: overwrite
@@ -122,6 +118,7 @@ cluster:
     image: registry.k8s.io/kube-controller-manager:v1.35.3
     extraArgs:
       bind-address: 0.0.0.0
+      node-cidr-mask-size-ipv6: "104"
   coreDNS:
     disabled: true
   etcd:
@@ -185,10 +182,10 @@ cluster:
     dnsDomain: cluster.local
     podSubnets:
       - 10.1.0.0/16
-      - fd00:1::/56
+      - fd00:1::/112
     serviceSubnets:
       - 10.2.0.0/16
-      - fd00:2::/56
+      - fd00:2::/112
   secret: {{ ENV.TALSECRET_CLUSTER_SECRET }}
   token: {{ ENV.TALSECRET_SECRETS_BOOTSTRAPTOKEN }}
 ---

@@ -1,11 +1,11 @@
+set positional-arguments := true
 set quiet := true
 set shell := ['zsh', '-cu']
 
 kubernetes_dir := source_directory() + '/../kubernetes'
 bootstrap_dir := source_directory()
-controller := `talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1`
-# nodes := `talosctl config info -o yaml | yq -e '.nodes | join (",")'`
-nodes := ""
+controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
+nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
 
 
 [private]
@@ -15,7 +15,7 @@ default: talos kubernetes (kubeconfig "node") wait namespaces resources crds app
 talos:
     just log info "Running stage..." "stage" "$0"
     for n in {{ nodes }}; do \
-      if ! op=$(just clusters k4 talos::apply-node "$n" --insecure 2>&1); then \
+      if ! op=$(just clusters k4 talos apply-node "$n" --insecure 2>&1); then \
         if [[ "$op" == *"certificate required"* ]]; then \
           just log info "Talos already configured, skipping apply of config" "stage" "$0" "node" "$n"; \
           continue; \

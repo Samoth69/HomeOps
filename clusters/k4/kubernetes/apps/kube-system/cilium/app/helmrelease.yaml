@@ -39,7 +39,7 @@ spec:
     hostFirewall:
       enabled: true
     hubble:
-      enabled: true
+      # enabled: true
       metrics:
         enabled:
           - dns:query;ignoreAAAA;sourceContext=workload|pod|dns|ip
@@ -54,7 +54,7 @@ spec:
           annotations:
             grafana_folder: Cilium
       relay:
-        enabled: true
+        # enabled: true
         rollOutPods: true
         prometheus:
           serviceMonitor:
@@ -62,7 +62,7 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "10.1.0.0/16"
-    ipv6NativeRoutingCIDR: "fd00:1::/56"
+    ipv6NativeRoutingCIDR: "fd00:1::/112"
     ipv6:
       enabled: true
     k8sServiceHost: localhost
