@@ -47,7 +47,7 @@ kubeconfig lb="cilium":
 [doc('Wait for nodes to be not-ready')]
 wait:
     just log info "Running stage..." "stage" "$0"
-    talosctl health -n "{{ controller }}"
+    # talosctl health -n "{{ controller }}"
     if ! kubectl wait nodes --for=condition=Ready=True --all --timeout=10s &>/dev/null; then \
       until kubectl wait nodes --for=condition=Ready=False --all --timeout=10s &>/dev/null; do \
         just log info "Nodes not available, waiting for nodes to be available. Retrying in 5 seconds..." "stage" "$0"; \
@@ -69,9 +69,7 @@ resources:
     just log info "Running stage..." "stage" "$0"
     if ! sops decrypt "{{ bootstrap_dir }}/sops-age.sops.yaml" | kubectl apply --server-side -f -; then \
       just log fatal "Failed to apply resources" "stage" "$0"; \
-    fi; \
-    kubectl -n kube-system apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/ingress/*.yaml"
-    kubectl -n kube-system apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/egress/*.yaml"
+    fi;
 
 [doc('Apply Helmfile CRDs')]
 crds:
@@ -85,4 +83,9 @@ apps:
     just log info "Running stage..." "stage" "$0"
     if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes; then \
       just log fatal "Failed to sync helmfile" "stage" "$0"; \
-    fi
+    fi;
+
+[doc('Apply Helmfile Apps')]
+resources-late:
+    kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/ingress/*.yaml" || true
+    kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/egress/*.yaml" || true
