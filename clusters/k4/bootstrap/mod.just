@@ -47,6 +47,7 @@ kubeconfig lb="cilium":
 [doc('Wait for nodes to be not-ready')]
 wait:
     just log info "Running stage..." "stage" "$0"
+    talosctl health -n "{{ controller }}"
     if ! kubectl wait nodes --for=condition=Ready=True --all --timeout=10s &>/dev/null; then \
       until kubectl wait nodes --for=condition=Ready=False --all --timeout=10s &>/dev/null; do \
         just log info "Nodes not available, waiting for nodes to be available. Retrying in 5 seconds..." "stage" "$0"; \
