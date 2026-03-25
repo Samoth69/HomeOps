@@ -10,12 +10,9 @@ spec:
   egress:
     - toEntities:
       - kube-apiserver
-      toPorts: &ports
+      toPorts:
         - ports:
             - port: "6443"
               protocol: TCP
             - port: "6443"
               protocol: UDP
-    - toCIDR:
-      - ${SECRET_TALOS_VIP_IPV4}/32
-      toPorts: *ports

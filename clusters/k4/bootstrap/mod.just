@@ -69,7 +69,9 @@ resources:
     just log info "Running stage..." "stage" "$0"
     if ! sops decrypt "{{ bootstrap_dir }}/sops-age.sops.yaml" | kubectl apply --server-side -f -; then \
       just log fatal "Failed to apply resources" "stage" "$0"; \
-    fi;
+    fi; \
+    kubectl -n kube-system apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/ingress/*.yaml"
+    kubectl -n kube-system apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/egress/*.yaml"
 
 [doc('Apply Helmfile CRDs')]
 crds:
