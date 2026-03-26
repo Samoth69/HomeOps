@@ -5,6 +5,9 @@ kind: Kustomization
 metadata:
   name: &app kyverno
 spec:
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/kyverno/kyverno/app
   prune: true

@@ -30,6 +30,8 @@ spec:
         registry: ghcr.io
     admissionController:
       replicas: 3
+      certManager:
+        enabled: true
       priorityClassName: &priorityClass system-cluster-critical
       podLabels: &labels
         ingress.samoth.eu/vmagent: allow
@@ -62,6 +64,8 @@ spec:
           memory: 512Mi
     cleanupController:
       replicas: 2
+      certManager:
+        enabled: true
       priorityClassName: *priorityClass
       podLabels: *labels
       podDisruptionBudget:
