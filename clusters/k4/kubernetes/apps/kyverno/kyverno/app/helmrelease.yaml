@@ -1,0 +1,92 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kyverno
+spec:
+  interval: 1h
+  url: https://kyverno.github.io/kyverno/
+  timeout: 3m
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kyverno
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: kyverno
+      version: 3.7.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+  values:
+    global:
+      image:
+        registry: ghcr.io
+    admissionController:
+      replicas: 3
+      priorityClassName: &priorityClass system-cluster-critical
+      podLabels: &labels
+        ingress.samoth.eu/vmagent: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/kube-apiserver: allow
+      podDisruptionBudget:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+      container:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 128Mi
+          limits:
+            memory: 1024Mi
+    backgroundController:
+      replicas: 2
+      priorityClassName: *priorityClass
+      podLabels: *labels
+      podDisruptionBudget:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 512Mi
+    cleanupController:
+      replicas: 2
+      priorityClassName: *priorityClass
+      podLabels: *labels
+      podDisruptionBudget:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 512Mi
+    reportsController:
+      replicas: 2
+      priorityClassName: *priorityClass
+      podLabels: *labels
+      podDisruptionBudget:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 512Mi
+    grafana:
+      enabled: true
