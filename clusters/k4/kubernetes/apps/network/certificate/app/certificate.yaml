@@ -7,9 +7,14 @@ spec:
   secretName: "${SECRET_DOMAIN//./-}-tls"
   issuerRef:
     kind: Issuer
+    # TODO passer sur le profile shortlived
     name: letsencrypt-prod
   commonName: "${SECRET_DOMAIN}"
   dnsNames:
     - "${SECRET_DOMAIN}"
     - "*.${SECRET_DOMAIN}"
   renewBefore: 720h #30d
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
