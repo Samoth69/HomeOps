@@ -25,7 +25,7 @@ spec:
         kind: HelmRepository
         name: policy-reporter
   values:
-    podLabels:
+    podLabels: &labels
       ingress.samoth.eu/envoy-internal: allow
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
@@ -38,3 +38,4 @@ spec:
           namespace: network
     ui:
       enabled: true
+      podLabels: *labels
