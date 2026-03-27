@@ -39,3 +39,5 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
+    periodicSync:
+      enabled: true
