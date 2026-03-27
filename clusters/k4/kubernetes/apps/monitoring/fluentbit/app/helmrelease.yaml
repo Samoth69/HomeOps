@@ -178,7 +178,7 @@ spec:
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/envoy-internal: allow
-      kyverno.samoth.eu/baseline: allow-hostns-hostpath
+      kyverno.samoth.eu/baseline: allow-hostns-hostpath-hostport
     dashboards:
       enabled: true
     logLevel: warn

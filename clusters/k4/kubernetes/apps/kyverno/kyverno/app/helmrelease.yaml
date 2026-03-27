@@ -32,7 +32,7 @@ spec:
       replicas: 3
       certManager:
         enabled: true
-      priorityClassName: &priorityClass system-cluster-critical
+      priorityClassName: system-cluster-critical
       podLabels: &labels
         ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/kube-apiserver: allow
@@ -49,11 +49,8 @@ spec:
           limits:
             memory: 1024Mi
     backgroundController:
-      replicas: 2
-      priorityClassName: *priorityClass
+      replicas: 1
       podLabels: *labels
-      podDisruptionBudget:
-        enabled: true
       serviceMonitor:
         enabled: true
       resources:
@@ -63,13 +60,10 @@ spec:
         limits:
           memory: 512Mi
     cleanupController:
-      replicas: 2
+      replicas: 1
       certManager:
         enabled: true
-      priorityClassName: *priorityClass
       podLabels: *labels
-      podDisruptionBudget:
-        enabled: true
       serviceMonitor:
         enabled: true
       resources:
@@ -79,11 +73,8 @@ spec:
         limits:
           memory: 512Mi
     reportsController:
-      replicas: 2
-      priorityClassName: *priorityClass
+      replicas: 1
       podLabels: *labels
-      podDisruptionBudget:
-        enabled: true
       serviceMonitor:
         enabled: true
       resources:

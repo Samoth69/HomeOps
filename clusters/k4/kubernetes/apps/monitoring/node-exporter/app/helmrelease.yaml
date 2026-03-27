@@ -35,7 +35,7 @@ spec:
       repository: prometheus/node-exporter
 
     podLabels:
-      kyverno.samoth.eu/baseline: allow-hostns-hostpath
+      kyverno.samoth.eu/baseline: allow-hostns-hostpath-hostport
 
     prometheus:
       monitor:

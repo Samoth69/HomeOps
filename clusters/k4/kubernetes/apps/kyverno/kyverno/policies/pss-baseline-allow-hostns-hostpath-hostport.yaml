@@ -2,7 +2,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: pss-baseline-allow-hostns-hostpath
+  name: pss-baseline-allow-hostns-hostpath-hostport
   annotations:
     policies.kyverno.io/title: Baseline Pod Security Standards
     policies.kyverno.io/category: Pod Security, EKS Best Practices
@@ -32,7 +32,7 @@ spec:
                 - UPDATE
               selector:
                 matchLabels:
-                  kyverno.samoth.eu/baseline: allow-hostns-hostpath
+                  kyverno.samoth.eu/baseline: allow-hostns-hostpath-hostport
           - resources:
               kinds:
                 - Pod
@@ -40,7 +40,7 @@ spec:
                 - CREATE
                 - UPDATE
               annotations:
-                kyverno.samoth.eu/baseline: allow-hostns-hostpath
+                kyverno.samoth.eu/baseline: allow-hostns-hostpath-hostport
       validate:
         podSecurity:
           level: baseline
@@ -48,3 +48,4 @@ spec:
           exclude:
             - controlName: HostPath Volumes
             - controlName: Host Namespaces
+            - controlName: Host Ports
