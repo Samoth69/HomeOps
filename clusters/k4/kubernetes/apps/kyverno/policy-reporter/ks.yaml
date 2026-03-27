@@ -10,6 +10,10 @@ spec:
       namespace: kyverno
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/kyverno/policy-reporter/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2

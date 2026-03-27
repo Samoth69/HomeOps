@@ -10,6 +10,10 @@ spec:
       namespace: cert-manager
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/kyverno/kyverno/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
@@ -33,6 +37,10 @@ spec:
     - name: kyverno
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/kyverno/kyverno/policies
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository
