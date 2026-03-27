@@ -37,14 +37,14 @@ spec:
           - resources:
               namespaces:
                 - kube-system
-          - resources:
-              selector:
-                matchLabels:
-                  kyverno.samoth.eu/baseline: allow-*
-          - resources:
-              selector:
-                matchLabels:
-                  kyverno.samoth.eu/restricted: disable
+          # - resources:
+          #     selector:
+          #       matchLabels:
+          #         kyverno.samoth.eu/baseline: allow-*
+          # - resources:
+          #     selector:
+          #       matchLabels:
+          #         kyverno.samoth.eu/restricted: disable
       validate:
         podSecurity:
           level: restricted
