@@ -94,3 +94,6 @@ spec:
           memory: 512Mi
     grafana:
       enabled: true
+    crds:
+      migration:
+        podLabels: *labels
