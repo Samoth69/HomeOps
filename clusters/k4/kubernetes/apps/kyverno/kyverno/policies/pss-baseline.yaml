@@ -2,7 +2,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: podsecurity-subrule-baseline
+  name: pss-baseline
   annotations:
     policies.kyverno.io/title: Baseline Pod Security Standards
     policies.kyverno.io/category: Pod Security, EKS Best Practices
@@ -21,13 +21,25 @@ spec:
   background: true
   validationFailureAction: Audit
   rules:
-  - name: baseline
-    match:
-      any:
-      - resources:
-          kinds:
-          - Pod
-    validate:
-      podSecurity:
-        level: baseline
-        version: latest
+    - name: baseline
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              operations:
+                - CREATE
+                - UPDATE
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - kube-system
+          - resources:
+              selector:
+                matchLabels:
+                  kyverno.samoth.eu/baseline: allow-*
+      validate:
+        podSecurity:
+          level: baseline
+          version: latest

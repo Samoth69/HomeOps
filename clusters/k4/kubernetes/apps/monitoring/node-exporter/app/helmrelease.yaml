@@ -34,6 +34,9 @@ spec:
       registry: quay.io
       repository: prometheus/node-exporter
 
+    podLabels:
+      kyverno.samoth.eu/baseline: allow-hostns-hostpath
+
     prometheus:
       monitor:
         enabled: true
