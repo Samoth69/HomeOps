@@ -30,6 +30,19 @@ spec:
               operations:
                 - CREATE
                 - UPDATE
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - kube-system
+          - resources:
+              selector:
+                matchLabels:
+                  kyverno.samoth.eu/baseline: allow-*
+          - resources:
+              selector:
+                matchLabels:
+                  kyverno.samoth.eu/restricted: disable
       validate:
         podSecurity:
           level: restricted
