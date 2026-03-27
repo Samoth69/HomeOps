@@ -26,6 +26,8 @@ spec:
   values:
     defaultPodOptions:
       priorityClassName: system-node-critical
+      labels:
+        kyverno.samoth.eu/baseline: allow-hostpath
 
     controllers:
       generic-device-plugin:

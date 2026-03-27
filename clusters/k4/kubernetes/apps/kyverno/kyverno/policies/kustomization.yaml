@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./pss-baseline-allow-hostns-hostpath-hostport.yaml
   - ./pss-baseline-allow-hostpath-privileged.yaml
+  - ./pss-baseline-allow-hostpath.yaml
   - ./pss-baseline.yaml
   - ./pss-restricted.yaml
   - ./require-pod-probes.yaml
