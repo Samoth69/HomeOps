@@ -27,12 +27,12 @@ spec:
   values:
     podLabels:
       ingress.samoth.eu/envoy-internal: allow
+    httproute:
+      enabled: true
+      hostnames:
+        - kyverno.${SECRET_DOMAIN}
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
     ui:
       enabled: true
-      ingress:
-        enabled: true
-        hosts:
-          - host: kyverno-ui.k4.samoth.eu
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
