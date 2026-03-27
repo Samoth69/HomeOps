@@ -11,6 +11,8 @@ metadata:
     policies.kyverno.io/minversion: 1.8.0
     kyverno.io/kubernetes-version: "1.24"
     policies.kyverno.io/subject: Pod
+    # TODO remove this later
+    policies.kyverno.io/scored: "false"
     policies.kyverno.io/description: >-
       The restricted profile of the Pod Security Standards, which is inclusive of
       the baseline profile, is a collection of all the most common configurations
