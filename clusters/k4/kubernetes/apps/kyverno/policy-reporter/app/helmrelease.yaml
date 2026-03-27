@@ -27,6 +27,8 @@ spec:
   values:
     podLabels:
       ingress.samoth.eu/envoy-internal: allow
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
     httproute:
       enabled: true
       hostnames:
