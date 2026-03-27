@@ -29,13 +29,13 @@ spec:
       ingress.samoth.eu/envoy-internal: allow
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
-    httproute:
-      enabled: true
-      hostnames:
-        - kyverno.${SECRET_DOMAIN}
-      parentRefs:
-        - name: envoy-internal
-          namespace: network
     ui:
       enabled: true
       podLabels: *labels
+      httproute:
+        enabled: true
+        hostnames:
+          - kyverno.${SECRET_DOMAIN}
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
