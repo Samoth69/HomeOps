@@ -45,7 +45,7 @@ spec:
           targetLabel: instance
 
     podAnnotations:
-      kyverno.samoth.eu/baseline: allow-hostns-hostpath-hostport
+      kyverno.samoth.eu/baseline: allow-hostpath-privileged
 
     prometheusRules:
       enabled: false
