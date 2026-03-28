@@ -101,7 +101,7 @@ spec:
     
     service:
       app:
-        controller: prowlarr
+        controller: sonarr
         ipFamilyPolicy: RequireDualStack
         ports:
           http:
