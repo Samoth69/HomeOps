@@ -106,6 +106,9 @@ spec:
 
     vmagent:
       spec:
+        additionalScrapeConfigs:
+          - action: labeldrop
+            regex: ((extensions_talos|feature_node).*)
         podMetadata:
           labels:
             ingress.samoth.eu/kube-apiserver: allow
@@ -201,9 +204,6 @@ spec:
           endpoints:
             - port: http
               honorLabels: true
-              metricRelabelConfigs:
-                - action: labeldrop
-                  regex: ((extensions_talos|feature_node).*)
 
     kubeApiServer:
       enabled: true
