@@ -36,6 +36,7 @@ spec:
             ingress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/database: allow
+            egress.samoth.eu/internet-http: allow
           securityContext:
             runAsUser: 2000
             runAsGroup: 2000
