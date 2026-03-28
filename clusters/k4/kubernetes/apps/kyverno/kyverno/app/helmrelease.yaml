@@ -33,6 +33,13 @@ spec:
       certManager:
         enabled: true
       priorityClassName: system-cluster-critical
+      topologySpreadConstraints:
+        - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: admission-controller
+          topologyKey: kubernetes.io/hostname
+          maxSkew: 2
+          whenUnsatisfiable: DoNotSchedule
       podLabels: &labels
         ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/kube-apiserver: allow
