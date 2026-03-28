@@ -19,7 +19,7 @@ spec:
               protocol: TCP
             - port: "853"
               protocol: UDP
-    # ProtonVPN
+    # VPN
     - toCIDR:
         - "${WIREGUARD_ENDPOINT_IP}/32"
       toPorts:
