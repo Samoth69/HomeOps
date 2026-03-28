@@ -1,5 +1,10 @@
 experimental_monorepo_root = true
 
+[monorepo]
+config_roots = [
+    "clusters/k4"
+]
+
 [env]
 SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
 SOPS_CONFIG = "{{config_root}}/.sops.yaml"
