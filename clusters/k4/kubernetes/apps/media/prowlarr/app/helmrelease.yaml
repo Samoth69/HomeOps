@@ -91,9 +91,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 128Mi
+                memory: 384Mi
               limits:
-                memory: 512Mi
+                memory: 2048Mi
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
@@ -118,6 +118,6 @@ spec:
 
     persistence:
       config:
-        type: emptyDir
+        existingClaim: "{{ .Release.Name }}"
       tmp:
         type: emptyDir

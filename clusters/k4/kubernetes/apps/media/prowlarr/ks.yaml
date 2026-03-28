@@ -30,3 +30,4 @@ spec:
   wait: false
   components:
     - ../../../../components/database
+    - ../../../../components/volsync
