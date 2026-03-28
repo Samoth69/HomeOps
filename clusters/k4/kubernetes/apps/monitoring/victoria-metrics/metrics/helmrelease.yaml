@@ -106,9 +106,10 @@ spec:
 
     vmagent:
       spec:
-        globalScrapeMetricRelabelConfigs:
+        globalScrapeMetricRelabelConfigs: &relabel-config
           - action: labeldrop
             regex: ((?:extensions_talos|feature_node).*)
+        inlineRelabelConfig: *relabel-config
         podMetadata:
           labels:
             ingress.samoth.eu/kube-apiserver: allow
