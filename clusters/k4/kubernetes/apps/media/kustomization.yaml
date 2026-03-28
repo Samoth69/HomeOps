@@ -6,8 +6,9 @@ namespace: media
 
 components:
   - ../../components/sops
-  - ../../components/namespace
+  - ../../components/namespace-isolated
 
 resources:
+  - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
