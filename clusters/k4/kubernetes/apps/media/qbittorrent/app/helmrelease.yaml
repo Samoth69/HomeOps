@@ -67,6 +67,7 @@ spec:
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.41.1
+            restartPolicy: Always
             env:
               DOT: "off"
               DNS_ADDRESS: "127.0.0.2"
@@ -76,12 +77,25 @@ spec:
               VPN_INTERFACE: wg0
               WIREGUARD_ADDRESSES: 10.2.0.2/32
               VPN_PORT_FORWARDING: on
-              FIREWALL_INPUT_PORTS: 8080
-              FIREWALL_OUTBOUND_SUBNETS: 10.1.0.0/16,10.2.0.0/16,fd00:1::/112,fd00:2::/112 # Allow access to k8s subnets
+              FIREWALL_INPUT_PORTS: "8080,9999" # webui, healthcheck
+              FIREWALL_OUTBOUND_SUBNETS: 10.1.0.0/16,10.2.0.0/16,fd00:1::/112 #,fd00:2::/112 # Allow access to k8s subnets
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
-            restartPolicy: Always
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec: &probeSpec
+                  exec:
+                    command: ["/gluetun-entrypoint", "healthcheck"]
+              readiness: *probe
+              startup:
+                <<: *probe
+                spec:
+                  <<: *probeSpec
+                  failureThreshold: 30
+                  periodSeconds: 5
             securityContext:
               capabilities:
                 add:
