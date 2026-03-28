@@ -26,7 +26,7 @@ spec:
   values:
     controllers:
       prowlarr:
-        type: statefulset
+        strategy: Recreate
 
         annotations:
           reloader.stakater.com/auto: "true"
