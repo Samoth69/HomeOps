@@ -18,6 +18,7 @@ spec:
       masquerade: true
       distributedLRU:
         enabled: true
+      hostLegacyRouting: true
       policyMapMax: 40960
       preallocateMaps: true
     bpfClockProbe: true
