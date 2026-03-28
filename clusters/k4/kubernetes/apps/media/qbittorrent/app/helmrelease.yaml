@@ -77,7 +77,7 @@ spec:
               WIREGUARD_ADDRESSES: 10.2.0.2/32
               VPN_PORT_FORWARDING: on
               FIREWALL_INPUT_PORTS: 8080
-              FIREWALL_OUTBOUND_SUBNETS: 10.1.0.0/16,10.2.0.0/16,fd00:1::/56,fd00:2::/56 # Allow access to k8s subnets
+              FIREWALL_OUTBOUND_SUBNETS: 10.1.0.0/16,10.2.0.0/16,fd00:1::/112,fd00:2::/112 # Allow access to k8s subnets
             envFrom:
               - secretRef:
                   name: qbittorrent-secret

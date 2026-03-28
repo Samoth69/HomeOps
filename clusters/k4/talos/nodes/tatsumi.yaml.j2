@@ -6,6 +6,34 @@ machine:
   kernel:
     modules:
       - name: btrfs
+  pods:
+    - apiVersion: v1
+      kind: Pod
+      metadata:
+        name: media-mounter
+        namespace: kube-system
+      spec:
+        containers:
+            - command:
+                - sh
+                - -c
+                - |
+                  mkdir -p /host/var/mnt/hdd1
+                  mount -N1 -o autodefrag,compress-force=zstd:9,noatime /dev/disk/by-partuuid/a4ba9dde-ccc6-0a4b-bc1d-ae88dd925b3d /var/mnt/hdd1
+              image: debian:trixie-slim
+              name: mounter
+              securityContext:
+                privileged: true
+              volumeMounts:
+                - mountPath: /host
+                  name: host-root
+        hostNetwork: true
+        hostPID: true
+        restartPolicy: OnFailure
+        volumes:
+            - hostPath:
+                path: /
+              name: host-root
 ---
 apiVersion: v1alpha1
 kind: BondConfig
