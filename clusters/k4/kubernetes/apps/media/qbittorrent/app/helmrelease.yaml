@@ -90,7 +90,7 @@ spec:
               # readOnlyRootFilesystem: true
             resources:
               requests:
-                cpu: 1m
+                cpu: 10m
                 memory: 64Mi
               limits:
                 memory: 512Mi
@@ -156,6 +156,7 @@ spec:
       qbittorrent:
         forceRename: qbittorrent
         primary: true
+        ipFamilyPolicy: RequireDualStack
         ports:
           http:
             port: *webui-port
