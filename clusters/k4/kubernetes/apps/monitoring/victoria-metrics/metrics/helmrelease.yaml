@@ -106,7 +106,7 @@ spec:
 
     vmagent:
       spec:
-        additionalScrapeConfigs:
+        globalScrapeMetricRelabelConfigs:
           - action: labeldrop
             regex: ((extensions_talos|feature_node).*)
         podMetadata:
