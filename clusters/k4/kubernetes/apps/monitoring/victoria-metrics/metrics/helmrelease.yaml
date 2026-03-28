@@ -108,7 +108,7 @@ spec:
       spec:
         globalScrapeMetricRelabelConfigs:
           - action: labeldrop
-            regex: ((extensions_talos|feature_node).*)
+            regex: (extensions_talos|feature_node).*
         podMetadata:
           labels:
             ingress.samoth.eu/kube-apiserver: allow
