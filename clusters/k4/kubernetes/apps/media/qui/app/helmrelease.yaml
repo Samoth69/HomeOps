@@ -83,6 +83,7 @@ spec:
       labels:
         ingress.samoth.eu/envoy-internal: allow
         egress.samoth.eu/envoy-internal: allow
+        egress.samoth.eu/internet-http: allow
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
