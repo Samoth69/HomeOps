@@ -77,7 +77,7 @@ spec:
               PORT_FORWARD_ONLY: on
               VPN_PORT_FORWARDING: on
               FIREWALL_INPUT_PORTS: "8080,9999" # webui, healthcheck
-              FIREWALL_OUTBOUND_SUBNETS: 10.48.0.0/16,10.69.0.0/16,fd00:48::/112,fd00:69::/112 # Allow access to k8s subnets
+              FIREWALL_OUTBOUND_SUBNETS: 10.48.0.0/16,10.69.0.0/16,fd00:48::/112 #,fd00:69::/112 # Allow access to k8s subnets
             envFrom:
               - secretRef:
                   name: qbittorrent-secret
