@@ -15,10 +15,15 @@ spec:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
             k8s-app: kube-dns
-      toPorts:
+      toPorts: &port
         - ports:
             - port: "53"
               protocol: "ANY"
           rules:
             dns:
               - matchPattern: "*"
+    # TODO figure out why Cilium doesn't always map kube-dns properly
+    - toCIDR:
+        - fd00:2::a/128
+        - 10.2.0.10/32
+      toPorts: *port
