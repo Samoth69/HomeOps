@@ -141,10 +141,11 @@ spec:
                 memory: 2048Mi
               limits:
                 memory: 8192Mi
+          # TODO cette image n'est plus maintenu, trouver une alternative un jour
           port-forward:
             image:
               repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
-              tag: 0.0.4
+              tag: 0.0.4@sha256:14ce24f2e054abf06f695f35c8c33612e49d6d0fe80a33896403d85b09a9d329
             env:
               GLUETUN_CONTROL_SERVER_HOST: localhost
               GLUETUN_CONTROL_SERVER_PORT: 8000
@@ -210,4 +211,14 @@ spec:
             coredns:
               - path: /etc/coredns/Corefile
                 subPath: Corefile
+                readOnly: true
+      qbt-port-sync:
+        type: configMap
+        name: qbt-port-sync-script
+        defaultMode: 0555
+        advancedMounts:
+          qbittorrent:
+            port-forward:
+              - path: /app/script.sh
+                subPath: script.sh
                 readOnly: true

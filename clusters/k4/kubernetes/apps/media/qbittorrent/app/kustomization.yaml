@@ -11,6 +11,9 @@ configMapGenerator:
   - name: qbittorrent-coredns
     files:
       - ./config/Corefile
+  - name: qbt-port-sync-script
+    files:
+      - ./config/script.sh
 configurations:
   - ./config/kustomizeconfig.yaml
 generatorOptions:
