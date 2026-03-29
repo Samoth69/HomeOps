@@ -89,3 +89,4 @@ apps:
 resources-late:
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/ingress/*.yaml" || true
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/egress/*.yaml" || true
+    kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/flux-system/flux-instance/app/netpol.yaml" || true
