@@ -32,7 +32,7 @@ spec:
           backoffLimit: 0
           concurrencyPolicy: Forbid
           failedJobsHistory: 1
-          successfulJobsHistory: 0
+          successfulJobsHistory: 1
 
         pod:
           labels:
@@ -55,7 +55,7 @@ spec:
               SONARR_ANIME_API_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: sonarr-secret
+                    name: sonarr-anime-secret
                     key: api-key
             resources:
               requests:
