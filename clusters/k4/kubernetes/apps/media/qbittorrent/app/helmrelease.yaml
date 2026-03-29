@@ -74,7 +74,7 @@ spec:
               HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
-              WIREGUARD_ADDRESSES: 10.2.0.2/32
+              PORT_FORWARD_ONLY: on
               VPN_PORT_FORWARDING: on
               FIREWALL_INPUT_PORTS: "8080,9999" # webui, healthcheck
               FIREWALL_OUTBOUND_SUBNETS: 10.1.0.0/16,10.2.0.0/16,fd00:1::/112 #,fd00:2::/112 # Allow access to k8s subnets

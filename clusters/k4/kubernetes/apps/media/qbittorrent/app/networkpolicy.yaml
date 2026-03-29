@@ -20,8 +20,8 @@ spec:
             - port: "853"
               protocol: UDP
     # VPN
-    - toCIDR:
-        - "${WIREGUARD_ENDPOINT_IP}/32"
+    - toEntities:
+        - world
       toPorts:
         - ports:
             - port: "51820"
