@@ -9,8 +9,8 @@ spec:
     xForwardedFor:
       trustedCIDRs:
         # pods CIDR
-        - 10.1.0.0/16
-        - fd00:1::/56
+        - 10.48.0.0/16
+        - fd00:48::/56
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
