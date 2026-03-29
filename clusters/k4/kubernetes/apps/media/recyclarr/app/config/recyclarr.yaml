@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/refs/tags/v8.0.0/schemas/config-schema.json
 sonarr:
   anime:
-    base_url: https://sonarr-anime.k4.samoth.eu
+    base_url: https://sonarr-anime.${SECRET_DOMAIN}
     api_key: !env_var SONARR_ANIME_API_KEY
     delete_old_custom_formats: true
     quality_definition:
