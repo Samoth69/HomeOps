@@ -21,3 +21,7 @@ sync-hr ns name:
 [doc('Sync single Flux Kustomizations')]
 sync-ks ns name:
     kubectl -n "{{ ns }}" annotate --field-manager flux-client-side-apply --overwrite ks "{{ name }}" reconcile.fluxcd.io/requestedAt="$(date +%s)"; \
+
+[doc('Browse a PVC')]
+browse-pvc namespace claim:
+    kubectl browse-pvc -n {{ namespace }} -i mirror.gcr.io/alpine:latest {{ claim }}
