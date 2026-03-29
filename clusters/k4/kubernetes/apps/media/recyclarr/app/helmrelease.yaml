@@ -54,6 +54,7 @@ spec:
               - sync
               - --log
               - debug
+              - -p
             env:
               RECYCLARR_DATA_DIR: /tmp
               SONARR_ANIME_API_KEY:
@@ -66,7 +67,7 @@ spec:
                 cpu: 5m
                 memory: 36Mi
               limits:
-                memory: 128Mi
+                memory: 512Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
