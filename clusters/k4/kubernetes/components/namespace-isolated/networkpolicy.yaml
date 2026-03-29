@@ -22,8 +22,8 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-    # TODO figure out why Cilium doesn't always map kube-dns properly
-    - toCIDR:
-        - fd00:69::a/128
-        - 10.69.0.10/32
-      toPorts: *port
+    # # TODO figure out why Cilium doesn't always map kube-dns properly
+    # - toCIDR:
+    #     - fd00:69::a/128
+    #     - 10.69.0.10/32
+    #   toPorts: *port

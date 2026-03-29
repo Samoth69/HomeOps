@@ -78,6 +78,8 @@ spec:
               capabilities: {drop: ["ALL"]}
     
     defaultPodOptions:
+      nodeSelector:
+        kubernetes.io/hostname: tatsumi
       annotations:
         reloader.stakater.com/auto: "true"
       labels:
@@ -108,3 +110,14 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      hdd1:
+        enabled: true
+        type: hostPath
+        hostPath: /var/mnt/hdd1
+        hostPathType: Directory
+        advancedMounts:
+          qui:
+            app:
+              - path: /var/mnt/hdd1
+                readOnly: true
+              
