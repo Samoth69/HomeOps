@@ -51,11 +51,7 @@ spec:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 8.5.1
             args:
-              - list
-              - naming
-              - sonarr
-              - --log
-              - debug
+              - sync
             env:
               RECYCLARR_DATA_DIR: /tmp
               SONARR_ANIME_API_KEY:
