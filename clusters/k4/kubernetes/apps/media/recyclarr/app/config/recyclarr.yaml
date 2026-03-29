@@ -12,11 +12,6 @@ sonarr:
       - trash_id: 20e0fc959f1f1704bed501f23bdae76f  # [Anime] Remux-1080p
         reset_unmatched_scores:
           enabled: true
-      - trash_id: 2c29a39a4fdfd6d258799bc4c09731b9 # VFF
-      - trash_id: 7ae924ee9b2f39df3283c6c0beb8a2aa # VOF
-      - trash_id: b6816a0e1d4b64bf3550ad3b74b009b6 # VFI
-      - trash_id: 34789ec3caa819f087e23bbf9999daf7 # VF2
-      - trash_id: 07a32f77690263bb9fda1842db7e273f # VOSTFR
 
     custom_format_groups:
       ################################################################################
@@ -58,3 +53,5 @@ sonarr:
         #     - fe4062eac43d4ea75955f8ae48adcf1e  # STRP
         #     - c30d2958827d1867c73318a5a2957eb1  # RED
         #     - 3ac5d84fce98bab1b531393e9c82f467  # QIBI
+        - trash_id: 2c29a39a4fdfd6d258799bc4c09731b9 # VFF
+        - trash_id: 07a32f77690263bb9fda1842db7e273f # VOSTFR
