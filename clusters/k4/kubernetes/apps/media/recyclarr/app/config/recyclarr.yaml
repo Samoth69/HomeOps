@@ -4,14 +4,14 @@ sonarr:
   anime:
     base_url: https://sonarr-anime.${SECRET_DOMAIN}
     api_key: !env_var SONARR_ANIME_API_KEY
-    delete_old_custom_formats: true
-    quality_definition:
-      type: anime
+    # delete_old_custom_formats: true
+    # quality_definition:
+    #   type: anime
 
-    quality_profiles:
-      - trash_id: 20e0fc959f1f1704bed501f23bdae76f  # [Anime] Remux-1080p
-        reset_unmatched_scores:
-          enabled: true
+    # quality_profiles:
+    #   - trash_id: 20e0fc959f1f1704bed501f23bdae76f  # [Anime] Remux-1080p
+    #     reset_unmatched_scores:
+    #       enabled: true
 
     # custom_format_groups:
     #   ################################################################################
