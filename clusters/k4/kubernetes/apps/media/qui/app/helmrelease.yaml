@@ -38,7 +38,7 @@ spec:
               QUI__LOG_LEVEL: INFO
 
               QUI__OIDC_ENABLED: "true"
-              QUI__OIDC_ISSUER: https://authentik.${SECRET_DOMAIN}/application/o/${APP}
+              QUI__OIDC_ISSUER: https://authentik.${SECRET_DOMAIN}/application/o/${APP}/
               QUI__OIDC_CLIENT_ID:
                 valueFrom:
                   secretKeyRef:
