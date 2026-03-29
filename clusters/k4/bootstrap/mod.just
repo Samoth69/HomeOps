@@ -9,7 +9,7 @@ nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
 
 
 [private]
-default: talos kubernetes (kubeconfig "node") wait namespaces resources crds apps kubeconfig
+default: talos kubernetes (kubeconfig "node") wait namespaces resources crds resources-late apps kubeconfig
 
 [doc('Install Talos')]
 talos:
