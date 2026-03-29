@@ -28,8 +28,6 @@ spec:
   bootstrap:
     recovery:
       source: &src source
-      recoveryTarget:
-        targetTLI: "1"
 
   plugins:
     - name: &plugin barman-cloud.cloudnative-pg.io
