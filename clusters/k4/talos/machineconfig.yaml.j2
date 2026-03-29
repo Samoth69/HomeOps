@@ -181,11 +181,11 @@ cluster:
       name: none
     dnsDomain: cluster.local
     podSubnets:
-      - 10.1.0.0/16
-      - fd00:1::/104
+      - 10.48.0.0/16
+      - fd00:48::/104
     serviceSubnets:
-      - 10.2.0.0/16
-      - fd00:2::/104
+      - 10.69.0.0/16
+      - fd00:69::/104
   secret: {{ ENV.TALSECRET_CLUSTER_SECRET }}
   token: {{ ENV.TALSECRET_SECRETS_BOOTSTRAPTOKEN }}
 ---

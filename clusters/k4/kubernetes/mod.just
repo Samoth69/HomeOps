@@ -25,3 +25,17 @@ sync-ks ns name:
 [doc('Browse a PVC')]
 browse-pvc namespace claim:
     kubectl browse-pvc -n {{ namespace }} -i mirror.gcr.io/alpine:latest {{ claim }}
+
+[doc('Snapshot all VolSync ReplicationSource')]
+snapshot ns name:
+    kubectl -n "{{ ns }}" patch replicationsources "{{ name }}" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'; \
+
+[doc('Snapshot all VolSync ReplicationSources')]
+snapshot-all:
+    kubectl get replicationsources --no-headers -A | while read -r ns name _; do \
+      just clusters k4 kubernetes snapshot "$ns" "$name"; \
+    done
+
+[doc('Create a backup of the database')]
+backup-database:
+    kubectl cnpg backup -n database postgres --method=plugin --plugin-name=barman-cloud.cloudnative-pg.io
