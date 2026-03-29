@@ -8,6 +8,8 @@ spec:
   dependsOn:
     - name: postgres-cnpg
       namespace: database
+    - name: rook-ceph-cluster
+      namespace: storage
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/media/prowlarr/app
   postBuild:

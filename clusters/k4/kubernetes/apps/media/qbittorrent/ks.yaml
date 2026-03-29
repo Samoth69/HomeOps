@@ -23,6 +23,8 @@ metadata:
 spec:
   dependsOn:
     - name: qbittorrent-secrets
+    - name: rook-ceph-cluster
+      namespace: storage
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/media/qbittorrent/app
   postBuild:
