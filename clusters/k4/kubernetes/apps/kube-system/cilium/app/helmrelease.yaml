@@ -62,8 +62,8 @@ spec:
             enabled: true
     ipam:
       mode: kubernetes
-    ipv4NativeRoutingCIDR: "10.48.0.0/16"
-    ipv6NativeRoutingCIDR: "fd00:48::/104"
+    ipv4NativeRoutingCIDR: "10.1.0.0/16"
+    ipv6NativeRoutingCIDR: "fd00:1::/104"
     ipv6:
       enabled: true
     k8sServiceHost: localhost
