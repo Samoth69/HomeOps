@@ -8,6 +8,7 @@ services:
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
       - TS_ROUTES=192.168.0.0/24
+      - TS_EXTRA_ARGS=--advertise-exit-node
     volumes:
       - ${PWD}/tailscale/state:/var/lib/tailscale
     env_file:

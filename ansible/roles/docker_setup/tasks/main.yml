@@ -29,6 +29,12 @@
         update_cache: true
   when: ansible_distribution == 'Debian'
 
+- name: add needed sysctls
+  copy:
+    src: 80-docker.conf
+    dest: /etc/sysctl.d/80-docker.conf
+  notify: reload sysctl
+
 - name: install docker engine
   package:
     name:
@@ -79,10 +85,3 @@
     name:
       - python3
       - python3-pip
-
-# - name: adding requests
-#   pip:
-#     name:
-#       # TODO fix this when this is fixed https://github.com/docker/docker-py/issues/3113
-#       - requests<2.2.29
-#     state: present

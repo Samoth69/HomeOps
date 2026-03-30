@@ -2,3 +2,6 @@
   systemd:
     name: docker
     state: restarted
+
+- name: reload sysctl
+  shell: sysctl -p --system
