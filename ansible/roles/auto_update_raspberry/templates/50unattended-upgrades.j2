@@ -1,12 +1,5 @@
 Unattended-Upgrade::Origins-Pattern {
-    "origin=Raspbian,codename=${distro_codename}-updates";
-    "origin=Raspbian,codename=${distro_codename}-proposed-updates";
-    "origin=Raspbian,codename=${distro_codename},label=Raspbian";
-    "origin=Raspbian,codename=${distro_codename},label=Raspbian-Security";
-    "origin=Raspbian,codename=${distro_codename}-security,label=Raspbian-Security";
-    "origin=Debian,codename=${distro_codename},label=Debian";
-    "origin=Debian,codename=${distro_codename},label=Debian-Security";
-    "origin=Docker,codename=${distro_codename},label=Docker CE";
+    "origin=*";
 };
 
 Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
