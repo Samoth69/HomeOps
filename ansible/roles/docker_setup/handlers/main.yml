@@ -3,5 +3,10 @@
     name: docker
     state: restarted
 
+- name: restart ufw
+  systemd:
+    name: ufw
+    state: restarted
+
 - name: reload sysctl
   shell: sysctl -p --system

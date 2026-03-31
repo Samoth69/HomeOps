@@ -49,6 +49,13 @@
   package_facts:
     manager: auto
 
+- name: config ufw
+  copy:
+    src: ufw.conf
+    dest: /etc/default/ufw
+  when: "'ufw' in ansible_facts.packages"
+  notify: restart ufw
+
 - name: fail if docker isn't installed
   fail:
     msg: Docker engine need to be installed
