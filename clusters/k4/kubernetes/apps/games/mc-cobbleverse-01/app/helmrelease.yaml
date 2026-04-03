@@ -40,6 +40,9 @@ spec:
               - containerPort: *port
                 protocol: UDP
                 name: gameport-udp
+              - containerPort: &voicechat 24454
+                protocol: UDP
+                name: voicechat
             env:
               # Fondamentaux
               EULA: true
@@ -110,6 +113,10 @@ spec:
             enabled: true
             protocol: UDP
             port: *port
+          voicechat:
+            enabled: true
+            protocol: UDP
+            port: *voicechat
     persistence:
       tmp:
         type: emptyDir
