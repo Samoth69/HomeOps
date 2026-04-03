@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: games
+
+components:
+  - ../../components/sops
+  - ../../components/namespace-isolated
+
+resources:
+  - ./mc-cobbleverse-01/ks.yaml
+  - ./openssh-server/ks.yaml
