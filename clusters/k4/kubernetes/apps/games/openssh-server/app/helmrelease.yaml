@@ -63,7 +63,7 @@ spec:
         controller: openssh
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/sharing-key: minecraft
+          lbipam.cilium.io/sharing-key: games
           lbipam.cilium.io/ips: "${SECRET_LB2_IPV4}"
         ports:
           ssh:
