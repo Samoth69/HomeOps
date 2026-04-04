@@ -121,10 +121,10 @@ spec:
           enableTCP6: "true"
         resources:
           requests:
-            cpu: 15m
-            memory: 100Mi
+            cpu: 200m
+            memory: 200Mi
           limits:
-            memory: 2Gi
+            memory: 1Gi
 
     vmsingle:
       spec:
@@ -142,10 +142,10 @@ spec:
         useStrictSecurity: true
         resources:
           requests:
-            cpu: 80m
-            memory: 300Mi
+            cpu: 200m
+            memory: 1Gi
           limits:
-            memory: 2Gi
+            memory: 3Gi
 
     prometheus-node-exporter:
       enabled: false
