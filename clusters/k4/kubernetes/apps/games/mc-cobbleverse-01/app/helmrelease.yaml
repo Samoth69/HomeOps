@@ -56,7 +56,7 @@ spec:
               USE_AIKAR_FLAGS: true
 
               # Server.properties
-              DIFFICULTY: normal
+              DIFFICULTY: hard
               VIEW_DISTANCE: 12
               MOTD: ${APP}
               PVP: true
