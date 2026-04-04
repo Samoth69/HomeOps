@@ -32,7 +32,7 @@ spec:
           app:
             image: 
               repository: ghcr.io/itzg/minecraft-server
-              tag: java21
+              tag: java25
             ports:
               - containerPort: &port 25567
                 protocol: TCP
