@@ -26,8 +26,6 @@ spec:
   values:
     controllers:
       karma:
-        replicas: 2
-        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -45,6 +43,8 @@ spec:
               limits:
                 memory: 500Mi
     defaultPodOptions:
+      labels:
+        ingress.samoth.eu/envoy-internal: allow
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
