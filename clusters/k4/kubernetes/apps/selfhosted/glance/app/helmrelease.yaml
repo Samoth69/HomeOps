@@ -100,7 +100,7 @@ spec:
             port: 8080
     route:
       glance:
-        hostnames: ["glance.${SECRET_DOMAIN}"]
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: network

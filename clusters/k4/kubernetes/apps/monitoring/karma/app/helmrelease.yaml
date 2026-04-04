@@ -1,0 +1,80 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  values:
+    controllers:
+      karma:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/prymitive/karma
+              tag: v0.128
+            env:
+              ALERTMANAGER_URI: http://vmalertmanager-vmks.monitoring.svc.cluster.local:9093
+              LISTEN_PORT: &port 80
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 100
+        fsGroupChangePolicy: OnRootMismatch
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: "{{ .Release.Name }}"
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      app:
+        serviceName: "{{ .Release.Name }}"
+        endpoints:
+          - port: *port
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-interal
+            namespace: network
+            sectionName: https
