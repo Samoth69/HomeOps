@@ -34,25 +34,20 @@ spec:
               repository: ghcr.io/itzg/minecraft-server
               tag: java21
             ports:
-              - containerPort: &port 25566
+              - containerPort: &port 25567
                 protocol: TCP
                 name: gameport-tcp
               - containerPort: *port
                 protocol: UDP
                 name: gameport-udp
-              - containerPort: &voicechat 24454
-                protocol: UDP
-                name: voicechat
             env:
               # Fondamentaux
               EULA: true
               TYPE: FABRIC
-              VERSION: 1.21.1
-              FABRIC_VERSION: 0.18.4
               SERVER_PORT: *port
 
               # Performance
-              MEMORY: 8192M
+              MEMORY: 3072M
               USE_AIKAR_FLAGS: true
 
               # Server.properties
@@ -71,8 +66,8 @@ spec:
               ENABLE_WHITELIST: true
 
               # Droits
-              OPS: Samoth69
-              WHITELIST: Samoth69
+              OPS: Samoth69,glmart
+              WHITELIST: Samoth69,glmart
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -80,9 +75,9 @@ spec:
             resources:
               requests:
                 cpu: 300m
-                memory: 10Gi
+                memory: 4Gi
               limits:
-                memory: 16Gi
+                memory: 8Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow
@@ -113,10 +108,6 @@ spec:
             enabled: true
             protocol: UDP
             port: *port
-          voicechat:
-            enabled: true
-            protocol: UDP
-            port: *voicechat
     persistence:
       tmp:
         type: emptyDir

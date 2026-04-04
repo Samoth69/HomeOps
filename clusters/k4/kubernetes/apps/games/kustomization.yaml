@@ -10,4 +10,5 @@ components:
 
 resources:
   - ./mc-cobbleverse-01/ks.yaml
+  - ./mc-glmart-01/ks.yaml
   - ./openssh-server/ks.yaml
