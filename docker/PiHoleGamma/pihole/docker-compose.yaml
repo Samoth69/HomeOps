@@ -9,7 +9,7 @@ services:
       - 127.0.0.1:5300:5353/tcp
       - 127.0.0.1:5300:5353/udp
   pihole:
-    image: pihole/pihole:2026.02.0
+    image: ghcr.io/pihole/pihole:2026.02.0
     restart: unless-stopped
     container_name: &host pihole
     hostname: *host
