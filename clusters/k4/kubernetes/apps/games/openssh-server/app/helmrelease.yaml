@@ -74,3 +74,5 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       mc-cobbleverse-01:
         existingClaim: mc-cobbleverse-01
+      mc-glmart-01:
+        existingClaim: mc-glmart-01
