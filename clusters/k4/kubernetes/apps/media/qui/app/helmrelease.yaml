@@ -119,5 +119,3 @@ spec:
           qui:
             app:
               - path: /var/mnt/hdd1
-                readOnly: true
-              
