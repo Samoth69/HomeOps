@@ -5,7 +5,7 @@ ipv4_addresses:
 ipv6_addresses:
   - 2a01:e0a:5c9:f0a0::3/64
 
-hostname: "PiHoleEpsilon"
+hostname: "PiHoleDelta"
 rpi_base_username: thomas
-dococd_folder: ../docker/PiHoleEpsilon/
+dococd_folder: ../docker/PiHoleDelta/
 unattended_upgrade_reboot_time: 06:30

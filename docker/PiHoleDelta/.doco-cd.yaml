@@ -1,4 +1,5 @@
 ---
+name: home-ops
 working_dir: ./docker/PiHoleDelta
 auto_discover: true
 auto_discover_opts:
