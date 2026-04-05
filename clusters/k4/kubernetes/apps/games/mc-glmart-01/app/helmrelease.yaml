@@ -32,7 +32,7 @@ spec:
           app:
             image: 
               repository: ghcr.io/itzg/minecraft-server
-              tag: java25
+              tag: java21
             ports:
               - containerPort: &port 25567
                 protocol: TCP
@@ -43,16 +43,18 @@ spec:
             env:
               # Fondamentaux
               EULA: true
-              TYPE: FABRIC
+              TYPE: NEOFORGE
+              VERSION: 1.21.1
+              NEOFORGE_VERSION: 21.1.221
               SERVER_PORT: *port
 
               # Performance
-              MEMORY: 3072M
+              MEMORY: 6144M
               USE_AIKAR_FLAGS: true
 
               # Server.properties
               DIFFICULTY: normal
-              VIEW_DISTANCE: 12
+              VIEW_DISTANCE: 10
               MOTD: ${APP}
               PVP: true
               MAX_WORLD_SIZE: 10000000
@@ -75,9 +77,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 4Gi
-              limits:
                 memory: 8Gi
+              limits:
+                memory: 12Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow
