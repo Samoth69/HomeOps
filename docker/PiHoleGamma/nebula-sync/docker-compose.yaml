@@ -1,0 +1,13 @@
+services:
+  nebula-sync:
+    image: ghcr.io/lovelaze/nebula-sync:v0.11.1
+    restart: unless-stopped
+    container_name: nebula-sync
+    environment:
+    - FULL_SYNC=true
+    - RUN_GRAVITY=true
+    - CRON=0 * * * *
+    - TZ=Europe/Paris
+    - CLIENT_SKIP_TLS_VERIFICATION=true
+    env_file:
+      - secrets.sops.env
