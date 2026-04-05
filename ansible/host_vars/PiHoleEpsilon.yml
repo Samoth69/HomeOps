@@ -1,0 +1,11 @@
+ipv4_addresses:
+  - 192.168.0.3/24
+
+ipv6_addresses:
+  - fe80::3/64
+  - 2a01:e0a:5c9:f0a0::3/64
+
+hostname: "PiHoleEpsilon"
+rpi_base_username: thomas
+dococd_folder: ../docker/PiHoleEpsilon/
+unattended_upgrade_reboot_time: 06:30

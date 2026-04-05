@@ -16,6 +16,7 @@
     gw4_ignore_auto: true
     ip4: "{{ipv4_addresses}}"
     may_fail4: false
+    type: ethernet
     state: present
   when: ipv4_addresses|length > 0 and ipv4_gateway
   notify: restart network-interface
@@ -52,6 +53,7 @@
     gw6: "{{ipv6_gateway}}"
     gw6_ignore_auto: true
     ip6: "{{ipv6_addresses}}"
+    type: ethernet
     state: present
   when: ipv6_addresses|length > 0 and ipv6_gateway
   notify: restart network-interface

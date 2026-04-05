@@ -2,6 +2,7 @@ keys:
   - &lynka age10mxrc4xzc0udh8ra304ftjnc6m3x3qfe60qulu8j9eqjhrgkns9qnk50up
   - &PiHoleGamma age1kc3djl7jwdj6mepxxq6aktkku2dx7yk8384dhhxjd3kdc4jvfu2s2asc7r
   - &k4 age1emjn2wlxmsgdeu04uwgvlp4s8a8uwtcyg9g89v550z4zjt7jy3gqu6vw93
+  - &PiHoleDelta age16lkpwvzmlrs7d05s5n6t3v9v7ptg3aqs5rksxwr8mrv53agad92seqjq7r
 
 creation_rules:
   - path_regex: clusters/lynka/.*\.sops\.ya?ml
@@ -9,10 +10,6 @@ creation_rules:
     key_groups:
       - age:
           - *lynka
-  - path_regex: clusters/PiHoleGamma/.*\.sops\.env
-    key_groups:
-      - age:
-          - *PiHoleGamma
   - path_regex: clusters/k4/(bootstrap|kubernetes)/.*\.sops\.ya?ml
     encrypted_regex: "^(data|stringData)$"
     key_groups:
@@ -22,6 +19,14 @@ creation_rules:
     key_groups:
       - age:
           - *k4
+  - path_regex: docker/PiHoleGamma/.*\.sops\.env
+    key_groups:
+      - age:
+          - *PiHoleGamma
+  - path_regex: docker/PiHoleDelta/.*\.sops\.env
+    key_groups:
+      - age:
+          - *PiHoleDelta
 
 stores:
   yaml:

@@ -1,4 +1,4 @@
 - name: restart network-interface
   command:
-    cmd: "nmcli device reapply {{network_conn_name}}"
+    cmd: "nmcli device reapply {{ansible_default_ipv4.alias}}"
   register: net_restarting
