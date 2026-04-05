@@ -20,7 +20,7 @@ services:
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml
       SOPS_AGE_KEY_FILE: /run/secrets/sops_age_key
-      DEPLOY_CONFIG_BASE_DIR: ./clusters/PiHoleGamma/
+      DEPLOY_CONFIG_BASE_DIR: ./docker/PiHoleGamma/
     healthcheck:
       test:
         - CMD
