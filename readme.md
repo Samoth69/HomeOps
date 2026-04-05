@@ -6,36 +6,19 @@ If you want to get started in GitOps with Kubernetes, have a look at the excelle
 
 ## Clusters
 
-> Despite the folder name, a cluster can be a Kubernetes cluster or a single VM running docker containers
+### k4
 
-| Name        | Type       | CD Tool | OS       |
-| ----------- | ---------- | ------- | -------- |
-| lynka       | Kubernetes | FluxCD  | Talos    |
-| PiHoleGamma | Docker     | doco-cd | Raspbian |
+Main cluster
 
-### Lynka
+## Docker
 
-Single node running home critical apps : PiHole and HomeAssistant
+### PiHoleGamma
 
-#### Nodes
+Main DNS Server, also running tailscale and other stuff
 
-##### KubeLynka
+### PiHoleDelta
 
-Schematic ID : 4717f83f4e192788abb14eac1d990eebe3e866ff866fbbbf90724c45a4b7af88
-
-```
-customization:
-    extraKernelArgs:
-        - sysctl.net.ipv6.conf.default.autoconf=0
-        - sysctl.net.ipv6.conf.default.accept_ra=0
-        - sysctl.net.ipv6.conf.all.autoconf=0
-        - sysctl.net.ipv6.conf.all.accept_ra=0
-    systemExtensions:
-        officialExtensions:
-            - siderolabs/qemu-guest-agent
-            - siderolabs/util-linux-tools
-    bootloader: sd-boot
-```
+Backup DNS Server, automatically mirrored from PiHoleGamma with nebula-sync.
 
 ## usefull commands
 
