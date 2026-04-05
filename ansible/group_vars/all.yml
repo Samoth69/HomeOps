@@ -21,34 +21,6 @@ users:
   - username: root
 
 #-----------------------
-# pihole
-#-----------------------
-pihole_base_folder: /appli/pihole
-pihole_etc_pihole_folder: "{{pihole_base_folder}}/etc-pihole"
-pihole_etc_dnsmasq_folder: "{{pihole_base_folder}}/etc-dnsmasq.d"
-pihole_dnscrypt_conf_file: "{{pihole_base_folder}}/dnscrypt-proxy.toml"
-
-pihole_pihole_image: docker.io/pihole/pihole:latest
-pihole_dnscrypt_image: docker.io/gists/dnscrypt-proxy:latest
-
-pihole_pihole_name: pihole
-pihole_dnscrypt_name: dnscrypt
-pihole_pod_name: pod-dns
-
-# nom du service pour le pod
-pihole_services_pod_name: "pod-{{pihole_pod_name}}"
-# politique de redémarrage des services
-pihole_services_restart_policy: "always"
-# chemin des différents services
-pihole_services_path: "/home/podboy/.config/systemd/user/"
-
-# port locaux utilisé entre le container et le firewall de la machine
-# par ce que un utilisateur non privilégié ne peut pas écouter sur les ports < 1024
-# (seulement par défaut, cette contrainte peut être désactivé, mais faire avec une règle de forward sur le pare-feu est plus propre)
-os_dns_port: 1153
-os_http_port: 1180
-
-#-----------------------
 # Network config
 #-----------------------
 network_conn_name: "{{ansible_default_ipv4.alias}}"
