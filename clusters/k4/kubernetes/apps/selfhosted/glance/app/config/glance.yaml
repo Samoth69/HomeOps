@@ -85,7 +85,7 @@ pages:
               - title: PiholeGamma
                 url: https://192.168.0.2/admin
                 allow-insecure: true
-              - title: PiholeEpsilon
+              - title: PiholeDelta
                 url: https://192.168.0.3/admin
                 allow-insecure: true
               - title: Home Assistant
