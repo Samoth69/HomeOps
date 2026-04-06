@@ -33,7 +33,17 @@ spec:
       - --kubelet-use-node-status-port
       - --metric-resolution=10s
       - --kubelet-request-timeout=2s
+    replicas: 2
+    podDisruptionBudget:
+      enabled: true
+      minAvailable: 1
     metrics:
       enabled: true
     serviceMonitor:
       enabled: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 512Mi
