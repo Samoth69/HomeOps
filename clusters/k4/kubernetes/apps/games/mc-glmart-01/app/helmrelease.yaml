@@ -61,6 +61,7 @@ spec:
               ENABLE_COMMAND_BLOCK: true
               MAX_BUILD_HEIGHT: ""
               MAX_TICK_TIME: 0
+              # TODO revert this
               SYNC_CHUNK_WRITES: true
               ENFORCE_WHITELIST: true
               SPAWN_PROTECTION: 0
