@@ -66,7 +66,7 @@ spec:
       app:
         serviceName: "{{ .Release.Name }}"
         endpoints:
-          - port: *port
+          - port: "80"
             scheme: http
             path: /metrics
             interval: 1m
