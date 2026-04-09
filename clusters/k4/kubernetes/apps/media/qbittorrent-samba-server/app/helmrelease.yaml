@@ -1,0 +1,96 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    controllers:
+      qui:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/crazy-max/samba
+              tag: 4.22.8
+            env:
+              TZ: Europe/Paris
+              SAMBA_HOSTS_ALLOW: ${SECRET_CIDR_LAN_V4}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+    
+    defaultPodOptions:
+      nodeSelector:
+        kubernetes.io/hostname: tatsumi
+      annotations:
+        reloader.stakater.com/auto: "true"
+      labels:
+        ingress.samoth.eu/lan: allow
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "${SECRET_LB3_IPV4}"
+          lbipam.cilium.io/sharing-key: "media"
+        ports:
+          samba:
+            enabled: true
+            port: 445
+            targetPort: 445
+          samba-udp:
+            enabled: true
+            protocol: UDP
+            port: 445
+            targetPort: 445
+
+    persistence:
+      config:
+        enabled: true
+        type: secret
+        name: samba-secret
+        globalMounts:
+          - path: /data/config.yml
+            subPath: samba.yaml
+            readOnly: true
+      hdd1:
+        enabled: true
+        type: hostPath
+        hostPath: /var/mnt/hdd1
+        hostPathType: Directory
+        advancedMounts:
+          qui:
+            app:
+              - path: /var/mnt/hdd1

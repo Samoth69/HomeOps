@@ -11,3 +11,5 @@ spec:
     - cidr: "${SECRET_LB_POOL_IPV6}"
     - cidr: "${SECRET_LB2_POOL_IPV4}"
     - cidr: "${SECRET_LB2_POOL_IPV6}"
+    - cidr: "${SECRET_LB3_POOL_IPV4}"
+    - cidr: "${SECRET_LB3_POOL_IPV6}"
