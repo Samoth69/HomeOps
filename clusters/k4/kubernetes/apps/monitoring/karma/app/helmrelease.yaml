@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/prymitive/karma
-              tag: v0.128
+              tag: v0.129
             env:
               ALERTMANAGER_URI: http://vmalertmanager-vmks.monitoring.svc.cluster.local:9093
               LISTEN_PORT: &port 80
