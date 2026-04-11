@@ -9,22 +9,23 @@ sonarr:
       type: anime
 
     quality_profiles:
-      - trash_id: 4c48f506c1116a3a57ae33f12346bd15  # [French MULTi.VO] HD Bluray + WEB (1080p)
+      - trash_id: &qp1 4c48f506c1116a3a57ae33f12346bd15  # [French MULTi.VO] HD Bluray + WEB (1080p)
         reset_unmatched_scores:
           enabled: true
-      - trash_id: b34c968f58433a38e0e690d42a1dc37e  # [French VOSTFR] HD Bluray + WEB (1080p)
+      - trash_id: &qp2 b34c968f58433a38e0e690d42a1dc37e  # [French VOSTFR] HD Bluray + WEB (1080p)
         reset_unmatched_scores:
           enabled: true
 
+    custom_formats:
+      - trash_ids:
+          - c9eafd50846d299b862ca9bb6ea91950 # x265
+        assign_scores_to:
+          - trash_id: *qp1
+            score: 100
+          - trash_id: *qp2
+            score: 100
+    
     custom_format_groups:
-      add:
-        - trash_id: 4c48f506c1116a3a57ae33f12346bd15  # [French MULTi.VO] HD Bluray + WEB (1080p)
-          exclude:
-            - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
-          select:
-            - c9eafd50846d299b862ca9bb6ea91950  # x265
-        - trash_id: b34c968f58433a38e0e690d42a1dc37e  # [French VOSTFR] HD Bluray + WEB (1080p)
-          exclude:
-            - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
-          select:
-            - c9eafd50846d299b862ca9bb6ea91950  # x265
+      skip:
+        # We do not want x265 to be tanked in formats
+        - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
