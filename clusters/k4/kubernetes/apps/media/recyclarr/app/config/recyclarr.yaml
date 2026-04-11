@@ -53,5 +53,5 @@ sonarr:
         #     - fe4062eac43d4ea75955f8ae48adcf1e  # STRP
         #     - c30d2958827d1867c73318a5a2957eb1  # RED
         #     - 3ac5d84fce98bab1b531393e9c82f467  # QIBI
-        - trash_id: 2c29a39a4fdfd6d258799bc4c09731b9 # VFF
-        - trash_id: 07a32f77690263bb9fda1842db7e273f # VOSTFR
+        # - trash_id: 2c29a39a4fdfd6d258799bc4c09731b9 # VFF
+        # - trash_id: 07a32f77690263bb9fda1842db7e273f # VOSTFR
