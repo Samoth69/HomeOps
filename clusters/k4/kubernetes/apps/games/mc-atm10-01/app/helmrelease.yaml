@@ -55,7 +55,9 @@ spec:
               # Server.properties
               DIFFICULTY: normal
               VIEW_DISTANCE: 12
-              MOTD: Serveur Arctyx ma gueule !\n(c'est Serenz qui m'a dit de mettre ça)
+              MOTD: |
+                Serveur Arctyx ma gueule !
+                (c'est Serenz qui m'a dit de mettre ça)
               PVP: true
               MAX_WORLD_SIZE: 10000000
               ENABLE_COMMAND_BLOCK: true
