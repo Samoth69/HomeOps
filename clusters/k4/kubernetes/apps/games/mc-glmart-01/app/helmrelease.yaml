@@ -28,6 +28,8 @@ spec:
       app:
         strategy: Recreate
         revisionHistoryLimit: 2
+        # TODO à purger
+        replicas: 0
         containers:
           app:
             image: 
