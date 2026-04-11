@@ -22,7 +22,7 @@ customization:
 
 ## Lynka
 
-Schematic ID : 607ceea426d4d52b09ad1f681a99cea86a78747086cf91e03564e742ee711f09
+Schematic ID : 1451b597beb63e3da7d2d9db18e702501f53b71ebd46ac65c299142b3adebe7a
 
 ```yaml
 customization:
@@ -32,6 +32,7 @@ customization:
         - sysctl.net.ipv6.conf.all.autoconf=0
         - sysctl.net.ipv6.conf.all.accept_ra=0
         - tsc=nowatchdog
+        - cpufreq.default_governor=performance
     systemExtensions:
         officialExtensions:
             - siderolabs/amd-ucode
@@ -43,7 +44,7 @@ customization:
 
 ## Enigma
 
-Schematic ID : a6fbe9f8c137852433e00b22a3a54dbfb2ffc27bea528715d6d057c431bf4de9
+Schematic ID : eba40428eb923227b9b8bdafd86a217ee34e1e1b42307432ee261fb0767547cb
 
 ```yaml
 customization:
@@ -53,6 +54,7 @@ customization:
         - sysctl.net.ipv6.conf.all.autoconf=0
         - sysctl.net.ipv6.conf.all.accept_ra=0
         - tsc=nowatchdog
+        - cpufreq.default_governor=performance
     systemExtensions:
         officialExtensions:
             - siderolabs/i915
