@@ -32,7 +32,8 @@ spec:
         annotations:
           lbipam.cilium.io/ips: "${SECRET_LB_IPV4},${SECRET_LB_IPV6}"
           lbipam.cilium.io/sharing-key: "internal-ingress"
-        externalTrafficPolicy: Local
+        # Must be cluster when L2 Aware LB are enabled
+        externalTrafficPolicy: Cluster
   shutdown:
     drainTimeout: 180s
   telemetry:
