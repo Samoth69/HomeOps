@@ -3,6 +3,8 @@ machine:
   type: controlplane
   install:
     image: factory.talos.dev/metal-installer-secureboot/607ceea426d4d52b09ad1f681a99cea86a78747086cf91e03564e742ee711f09:v1.12.6
+  sysfs:
+    devices.system.cpu.cpufreq.boost: "1"
 ---
 apiVersion: v1alpha1
 kind: BondConfig
