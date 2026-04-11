@@ -17,6 +17,17 @@ sonarr:
           enabled: true
 
     custom_formats:
+      # We do not want x265 to be tanked in formats
+      # So we do two things (in order):
+      # - setting quality profile x265 to 0, effectively disabling it
+      # - setting the standard x265 with a score of 100 (this is an arbitrary number) to make sonarr priotize x265 content over everything else.
+      - trash_ids:
+          - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
+        assign_scores_to:
+          - trash_id: *qp1
+            score: 0
+          - trash_id: *qp2
+            score: 0
       - trash_ids:
           - c9eafd50846d299b862ca9bb6ea91950 # x265
         assign_scores_to:
@@ -24,8 +35,3 @@ sonarr:
             score: 100
           - trash_id: *qp2
             score: 100
-    
-    custom_format_groups:
-      skip:
-        # We do not want x265 to be tanked in formats
-        - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
