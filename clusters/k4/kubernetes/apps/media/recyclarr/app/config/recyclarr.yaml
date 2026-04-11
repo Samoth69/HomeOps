@@ -22,7 +22,7 @@ sonarr:
       # - setting quality profile x265 to 0, effectively disabling it
       # - setting the standard x265 with a score of 100 (this is an arbitrary number) to make sonarr priotize x265 content over everything else.
       - trash_ids:
-          - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
+          - 47435ece6b99a0b477caf360e79ba0bb # [Required] Golden Rule HD
         assign_scores_to:
           - trash_id: *qp1
             score: 0
