@@ -1,0 +1,117 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    controllers:
+      app:
+        strategy: Recreate
+        revisionHistoryLimit: 2
+        containers:
+          app:
+            image: 
+              repository: ghcr.io/itzg/minecraft-server
+              tag: java21
+            ports:
+              - containerPort: &port 25568
+                protocol: TCP
+                name: gameport-tcp
+              - containerPort: *port
+                protocol: UDP
+                name: gameport-udp
+            env:
+              # Fondamentaux
+              EULA: true
+              TYPE: NEOFORGE
+              VERSION: 1.21.1
+              NEOFORGE_VERSION: 21.1.224
+              SERVER_PORT: *port
+
+              # Performance
+              MEMORY: 8192M
+              USE_AIKAR_FLAGS: true
+
+              # Server.properties
+              DIFFICULTY: normal
+              VIEW_DISTANCE: 12
+              MOTD: Serveur Arctyx ma gueule !\n(c'est Serenz qui m'a dit de mettre ça)
+              PVP: true
+              MAX_WORLD_SIZE: 10000000
+              ENABLE_COMMAND_BLOCK: true
+              MAX_BUILD_HEIGHT: ""
+              MAX_TICK_TIME: 0
+              SYNC_CHUNK_WRITES: false
+              ENFORCE_WHITELIST: true
+              SPAWN_PROTECTION: 0
+              ALLOW_FLIGHT: true
+              ENABLE_WHITELIST: true
+
+              # Droits
+              OPS: Samoth69,Serenz
+              WHITELIST: Samoth69,Serenz
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 300m
+                memory: 10Gi
+              limits:
+                memory: 16Gi
+    defaultPodOptions:
+      labels:
+        ingress.samoth.eu/internet: allow
+        ingress.samoth.eu/lan: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        ingress.samoth.eu/host: allow
+        egress.samoth.eu/dns: allow
+        egress.samoth.eu/internet: allow
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      main:
+        annotations:
+          lbipam.cilium.io/ips: "${SECRET_LB2_IPV4}"
+          lbipam.cilium.io/sharing-key: "games"
+        controller: app
+        type: LoadBalancer
+        ports:
+          gameport-tcp:
+            enabled: true
+            protocol: TCP
+            port: *port
+          gameport-udp:
+            enabled: true
+            protocol: UDP
+            port: *port
+    persistence:
+      tmp:
+        type: emptyDir
+      data:
+        existingClaim: "{{ .Release.Name }}"

@@ -9,6 +9,7 @@ components:
   - ../../components/namespace-isolated
 
 resources:
+  - ./mc-atm10-01/ks.yaml
   - ./mc-cobbleverse-01/ks.yaml
   - ./mc-glmart-01/ks.yaml
   - ./openssh-server/ks.yaml

@@ -72,6 +72,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      mc-atm10-01:
+        existingClaim: mc-atm10-01
       mc-cobbleverse-01:
         existingClaim: mc-cobbleverse-01
       mc-glmart-01:
