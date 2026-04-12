@@ -7,7 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: ./clusters/k4/kubernetes/apps/games/qbittorrent-openssh-server/app
+  path: ./clusters/k4/kubernetes/apps/media/qbittorrent-openssh-server/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
