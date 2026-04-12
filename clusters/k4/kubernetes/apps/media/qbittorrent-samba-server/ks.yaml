@@ -5,6 +5,9 @@ kind: Kustomization
 metadata:
   name: &app qbittorrent-samba-server
 spec:
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: storage
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/media/qbittorrent-samba-server/app
   postBuild:
