@@ -11,7 +11,8 @@ components:
 resources:
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
-  - ./qbittorrent-samba-server/ks.yaml
+  - ./qbittorrent-openssh-server/ks.yaml
+  # - ./qbittorrent-samba-server/ks.yaml
   - ./qui/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sonarr-anime/ks.yaml
