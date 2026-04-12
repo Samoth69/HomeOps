@@ -78,6 +78,6 @@ spec:
         hostPath: /var/mnt/hdd1
         hostPathType: Directory
         advancedMounts:
-          qui:
+          openssh:
             app:
               - path: /var/mnt/hdd1
