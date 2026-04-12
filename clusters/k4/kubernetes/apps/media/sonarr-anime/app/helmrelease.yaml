@@ -99,6 +99,10 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
     
+    defaultPodOptions:
+      nodeSelector:
+        kubernetes.io/hostname: tatsumi
+
     service:
       app:
         controller: sonarr
