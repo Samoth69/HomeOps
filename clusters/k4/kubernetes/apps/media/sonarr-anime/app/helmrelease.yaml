@@ -128,3 +128,12 @@ spec:
         globalMounts:
           - path: /mnt/media/anime
             subPath: Animes
+      hdd1:
+        enabled: true
+        type: hostPath
+        hostPath: /var/mnt/hdd1
+        hostPathType: Directory
+        advancedMounts:
+          sonarr:
+            app:
+              - path: /var/mnt/hdd1

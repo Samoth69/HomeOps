@@ -24,5 +24,4 @@ spec:
   targetNamespace: media
   wait: false
   components:
-    - ../../../../components/database
     - ../../../../components/volsync
