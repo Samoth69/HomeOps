@@ -58,8 +58,24 @@ spec:
           lbipam.cilium.io/ips: "${SECRET_LB3_IPV4}"
           lbipam.cilium.io/sharing-key: "media"
         ports:
-          samba:
+          netbios-ns:
             enabled: true
+            protocol: UDP
+            port: 137
+            targetPort: 137
+          netbios-data:
+            enabled: true
+            protocol: UDP
+            port: 138
+            targetPort: 138
+          netbios-session:
+            enabled: true
+            protocol: TCP
+            port: 139
+            targetPort: 139
+          samba-tcp:
+            enabled: true
+            protocol: TCP
             port: 445
             targetPort: 445
           samba-udp:
@@ -67,6 +83,16 @@ spec:
             protocol: UDP
             port: 445
             targetPort: 445
+          ws-discovery-tcp:
+            enabled: true
+            protocol: TCP
+            port: 3702
+            targetPort: 3702
+          ws-discovery-udp:
+            enabled: true
+            protocol: UDP
+            port: 3702
+            targetPort: 3702
 
     persistence:
       config:
