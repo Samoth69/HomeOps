@@ -15,7 +15,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_STORAGECLASS: ceph-filesystem
-      VOLSYNC_CAPACITY: 50Gi
+      VOLSYNC_CAPACITY: 100Gi
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
   prune: true
