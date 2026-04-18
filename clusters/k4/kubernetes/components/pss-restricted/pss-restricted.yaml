@@ -1,6 +1,6 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/kyverno.io/clusterpolicy_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/kyverno.io/policy_v1.json
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: pss-restricted
   annotations:
@@ -11,8 +11,6 @@ metadata:
     policies.kyverno.io/minversion: 1.8.0
     kyverno.io/kubernetes-version: "1.24"
     policies.kyverno.io/subject: Pod
-    # TODO remove this later
-    policies.kyverno.io/scored: "false"
     policies.kyverno.io/description: >-
       The restricted profile of the Pod Security Standards, which is inclusive of
       the baseline profile, is a collection of all the most common configurations
@@ -21,7 +19,7 @@ metadata:
       restricted profile through the latest version of the Pod Security Standards cluster wide.
 spec:
   background: true
-  validationFailureAction: Audit
+  validationFailureAction: Enforce
   rules:
     - name: restricted
       match:
@@ -32,15 +30,6 @@ spec:
               operations:
                 - CREATE
                 - UPDATE
-      exclude:
-        any:
-          - resources:
-              namespaces:
-                - kube-system
-                - media
-                - monitoring
-                - storage
-                - system
       validate:
         podSecurity:
           level: restricted
