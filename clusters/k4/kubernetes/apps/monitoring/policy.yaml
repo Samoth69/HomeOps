@@ -41,8 +41,8 @@ spec:
                 # fluent-bit
                 - /var/log
                 - /var/lib/docker/containers
-                # node-exporter
                 - /etc/machine-id
+                # node-exporter
                 - /proc
                 - /sys
                 - /
@@ -50,13 +50,12 @@ spec:
                 - /dev
             
             - controlName: Host Namespaces
-              images:
-                - cr.fluentbit.io/fluent/fluent-bit:*
-                - quay.io/prometheus/node-exporter:*
             
             - controlName: Host Ports
-              images:
-                - quay.io/prometheus/node-exporter:*
+              values:
+                - "2020"
+                - "12345"
+                - "12346"
             
             - controlName: Privileged Containers
               images:
