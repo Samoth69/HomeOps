@@ -7,6 +7,7 @@ namespace: system-upgrade
 components:
   - ../../components/sops
   - ../../components/namespace-isolated
+  - ../../components/pss-restricted
 
 resources:
   - ./tuppr/ks.yaml

@@ -19,7 +19,7 @@ metadata:
       version of the Pod Security Standards cluster wide.
 spec:
   background: true
-  validationFailureAction: Audit
+  validationFailureAction: Enforce
   rules:
     - name: baseline
       match:
