@@ -31,7 +31,7 @@ spec:
                 - UPDATE
       validate:
         allowExistingViolations: false
-        failureAction: Audit
+        failureAction: Enforce
         podSecurity:
           level: baseline
           version: latest
@@ -42,3 +42,5 @@ spec:
             - controlName: Capabilities
               images:
                 - ghcr.io/qdm12/gluetun:*
+              values:
+                - NET_ADMIN
