@@ -37,23 +37,16 @@ spec:
           version: latest
           exclude:
             - controlName: HostPath Volumes
-              images:
-                - cr.fluentbit.io/fluent/fluent-bit:*
               values:
+                # fluent-bit
                 - /var/log
                 - /var/lib/docker/containers
+                # node-exporter
                 - /etc/machine-id
-            - controlName: HostPath Volumes
-              images:
-                - quay.io/prometheus/node-exporter:*
-              values:
                 - /proc
                 - /sys
                 - /
-            - controlName: HostPath Volumes
-              images:
-                - quay.io/prometheuscommunity/smartctl-exporter:*
-              values:
+                # smartctl-exporter
                 - /dev
             
             - controlName: Host Namespaces
