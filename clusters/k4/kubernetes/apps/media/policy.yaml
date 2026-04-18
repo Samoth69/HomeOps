@@ -70,9 +70,6 @@ spec:
           - resources:
               kinds:
                 - Pod
-              operations:
-                - CREATE
-                - UPDATE
       preconditions:
         all:
           - key: "{{ request.operation || 'BACKGROUND' }}"
