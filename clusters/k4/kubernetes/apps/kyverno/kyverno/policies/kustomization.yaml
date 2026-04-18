@@ -8,5 +8,3 @@ resources:
   # - ./pss-baseline-allow-hostpath.yaml
   - ./pss-baseline.yaml
   - ./pss-restricted.yaml
-  - ./require-pod-probes.yaml
-  - ./require-requests-limits.yaml
