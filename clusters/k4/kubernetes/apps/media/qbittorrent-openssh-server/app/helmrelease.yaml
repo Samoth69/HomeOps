@@ -59,14 +59,6 @@ spec:
         # TODO fix this
         ingress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu: deny
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile:
-          type: RuntimeDefault
     service:
       app:
         controller: openssh
