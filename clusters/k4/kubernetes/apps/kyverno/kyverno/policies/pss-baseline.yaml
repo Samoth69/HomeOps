@@ -35,11 +35,9 @@ spec:
           - resources:
               namespaces:
                 - kube-system
+                - media
                 - storage
-          - resources:
-              selector:
-                matchLabels:
-                  kyverno.samoth.eu/baseline: allow-*
+                - system
       validate:
         podSecurity:
           level: baseline

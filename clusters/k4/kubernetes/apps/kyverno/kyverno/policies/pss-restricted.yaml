@@ -12,7 +12,7 @@ metadata:
     kyverno.io/kubernetes-version: "1.24"
     policies.kyverno.io/subject: Pod
     # TODO remove this later
-    policies.kyverno.io/scored: "false"
+    # policies.kyverno.io/scored: "false"
     policies.kyverno.io/description: >-
       The restricted profile of the Pod Security Standards, which is inclusive of
       the baseline profile, is a collection of all the most common configurations
@@ -37,14 +37,9 @@ spec:
           - resources:
               namespaces:
                 - kube-system
-          # - resources:
-          #     selector:
-          #       matchLabels:
-          #         kyverno.samoth.eu/baseline: allow-*
-          # - resources:
-          #     selector:
-          #       matchLabels:
-          #         kyverno.samoth.eu/restricted: disable
+                - media
+                - storage
+                - system
       validate:
         podSecurity:
           level: restricted
