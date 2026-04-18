@@ -52,6 +52,7 @@ spec:
             - controlName: Host Namespaces
             
             - controlName: Host Ports
+              restrictedField: spec.containers[*].ports[*].hostPort
             
             - controlName: Privileged Containers
               images:
