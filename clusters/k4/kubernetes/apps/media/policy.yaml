@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/kyverno.io/clusterpolicy_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/kyverno.io/policy_v1.json
 apiVersion: kyverno.io/v1
 kind: Policy
 metadata:
@@ -37,56 +37,8 @@ spec:
           version: latest
           exclude:
             - controlName: HostPath Volumes
+              values:
+                - /var/mnt/hdd1
             - controlName: Capabilities
-    - name: limit-hostpath-rule
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-              operations:
-                - CREATE
-                - UPDATE
-      preconditions:
-        all:
-          - key: "{{ request.object.spec.volumes[?hostPath] | length(@) }}"
-            operator: GreaterThanOrEquals
-            value: 1
-      validate:
-        allowExistingViolations: false
-        failureAction: Audit
-        message: hostPath volumes are confined to /var/mnt/hdd1.
-        foreach:
-          - list: request.object.spec.volumes[?hostPath].hostPath
-            deny:
-              conditions:
-                any:
-                  - key: "{{ element.path  | to_string(@) }}"
-                    operator: NotEquals
-                    value: /var/mnt/hdd1
-    - name: limit-added-capabilites
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      preconditions:
-        all:
-          - key: "{{ request.operation || 'BACKGROUND' }}"
-            operator: NotEquals
-            value: DELETE
-      validate:
-        allowExistingViolations: false
-        failureAction: Audit
-        message: Only NET_ADMIN is allowed as added capabilities
-        foreach:
-          - list: request.object.spec.[ephemeralContainers, initContainers, containers][]
-            deny:
-              conditions:
-                all:
-                  - key: "{{ element.securityContext.capabilities.add[] || '' }}"
-                    operator: AnyNotIn
-                    value:
-                      # Required by gluetun
-                      - NET_ADMIN
-                      - ""
+              images:
+                - ghcr.io/qdm12/gluetun
