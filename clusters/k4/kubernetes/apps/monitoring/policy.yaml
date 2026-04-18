@@ -52,12 +52,11 @@ spec:
             - controlName: Host Namespaces
             
             - controlName: Host Ports
-              restrictedField: spec.containers[*].ports[*].hostPort
               values:
-                - "2020" # smartctl exporter
-                - "9100" # node exporter
-                - "12345" # fluent-bit for talos logs
-                - "12346" # fluent-bit for kernel logs
+                - 2020 # smartctl exporter
+                - 9100 # node exporter
+                - 12345 # fluent-bit for talos logs
+                - 12346 # fluent-bit for kernel logs
             
             - controlName: Privileged Containers
               images:
