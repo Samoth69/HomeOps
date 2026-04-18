@@ -19,7 +19,6 @@ metadata:
       restricted profile through the latest version of the Pod Security Standards cluster wide.
 spec:
   background: true
-  validationFailureAction: Enforce
   rules:
     - name: restricted
       match:
@@ -31,6 +30,8 @@ spec:
                 - CREATE
                 - UPDATE
       validate:
+        allowExistingViolations: false
+        failureAction: Enforce
         podSecurity:
           level: restricted
           version: latest

@@ -19,9 +19,8 @@ metadata:
       version of the Pod Security Standards cluster wide.
 spec:
   background: true
-  validationFailureAction: Enforce
   rules:
-    - name: baseline
+    - name: pss-baseline-rule
       match:
         any:
           - resources:
@@ -40,6 +39,8 @@ spec:
                 - storage
                 - system
       validate:
+        allowExistingViolations: false
+        failureAction: Enforce
         podSecurity:
           level: baseline
           version: latest
