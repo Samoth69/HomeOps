@@ -9,6 +9,7 @@ components:
   - ../../components/namespace
 
 resources:
+  - ./policy.yaml
   - ./fluentbit/ks.yaml
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
