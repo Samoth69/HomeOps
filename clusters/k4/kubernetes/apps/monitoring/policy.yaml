@@ -39,3 +39,32 @@ spec:
             - controlName: HostPath Volumes
               images:
                 - cr.fluentbit.io/fluent/fluent-bit:*
+              values:
+                - /var/log
+                - /var/lib/docker/containers
+                - /etc/machine-id
+            - controlName: HostPath Volumes
+              images:
+                - quay.io/prometheus/node-exporter:*
+              values:
+                - /proc
+                - /sys
+                - /
+            - controlName: HostPath Volumes
+              images:
+                - quay.io/prometheuscommunity/smartctl-exporter:*
+              values:
+                - /dev
+            
+            - controlName: Host Namespaces
+              images:
+                - cr.fluentbit.io/fluent/fluent-bit:*
+                - quay.io/prometheus/node-exporter:*
+            
+            - controlName: Host Ports
+              images:
+                - quay.io/prometheus/node-exporter:*
+            
+            - controlName: Privileged Containers
+              images:
+                - quay.io/prometheuscommunity/smartctl-exporter:*
