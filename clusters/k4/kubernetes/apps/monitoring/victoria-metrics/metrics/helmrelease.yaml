@@ -43,35 +43,45 @@ spec:
             sectionName: https
         hostnames:
           - "alertmanager.${SECRET_DOMAIN}"
-      # config:
-      #   route:
-      #     group_by: ["alertname", "job"]
-      #     group_interval: 10m
-      #     group_wait: 1m
-      #     receiver: webhook
-      #     repeat_interval: 12h
-      #     routes:
-      #       - receiver: "null"
-      #         matchers:
-      #           - name: alertname
-      #             value: InfoInhibitor|Watchdog|CPUThrottlingHigh
-      #             matchType: =~
-      #       - receiver: webhook
-      #         matchers:
-      #           - severity=~"warning|critical"
-      #   inhibit_rules:
-      #     - source_matchers:
-      #         - severity = "critical"
-      #       target_matchers:
-      #         - severity = "warning"
-      #       equal: ["alertname", "namespace"]
-      #   receivers:
-      #     - name: "null"
-      #     # - name: webhook
-      #     #   discordConfigs:
-      #     #     - apiURL:
-      #     #         name: alertmanager-webhook
-      #     #         key: url
+      config:
+        route:
+          group_by: ["alertname", "severity"]
+          group_interval: 10m
+          group_wait: 1m
+          receiver: webhook
+          repeat_interval: 12h
+          routes:
+            - receiver: "blackhole"
+              matchers:
+                - name: alertname
+                  value: InfoInhibitor|Watchdog|CPUThrottlingHigh
+                  matchType: =~
+            - receiver: webhook
+              matchers:
+                - severity=~"warning|critical"
+        inhibit_rules:
+          - source_matchers:
+              - severity = "critical"
+            target_matchers:
+              - severity = "warning"
+            equal: ["alertname", "namespace"]
+        receivers:
+          - name: "blackhole"
+          - name: webhook
+            discord_configs:
+              - webhook_url: alertmanager-webhook
+                send_resolved: true
+                title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if eq .Status "firing" }}🔥{{ else }}✅{{ end }} {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else if ne .CommonAnnotations.message ""}}{{ .CommonAnnotations.message }}{{ else if ne .CommonAnnotations.description ""}}{{ .CommonAnnotations.description }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}'
+                message: |-
+                  {{ range .Alerts -}}
+                  **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+
+                  {{ if ne .Annotations.summary ""}}**Summary:** {{ .Annotations.summary }}{{ else if ne .Annotations.message ""}}**Message:** {{ .Annotations.message }}{{ else if ne .Annotations.description ""}}**Description:** {{ .Annotations.description }}{{ end }}
+
+                  🏷 **Labels:**
+                  {{ range .Labels.SortedPairs }} • {{ .Name }}: {{ .Value }}
+                  {{ end }}
+                  {{ end }}
       spec:
         replicaCount: 2
         podMetadata:
