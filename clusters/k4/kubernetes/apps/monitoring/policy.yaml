@@ -55,6 +55,13 @@ spec:
             - controlName: Host Ports
               restrictedField: spec.containers[*].ports[*].hostPort
               images:
+                - quay.io/prometheus/node-exporter:*
+              values:
+                - "9100"
+
+            - controlName: Host Ports
+              restrictedField: spec.containers[*].ports[*].hostPort
+              images:
                 - cr.fluentbit.io/fluent/fluent-bit:*
               values:
                 - "2020"
