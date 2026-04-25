@@ -37,32 +37,33 @@ spec:
           version: latest
           exclude:
             - controlName: Host Namespaces
+
             - controlName: HostProcess
+
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
-                - /dev
-                - /lib/modules
-                - /run/mount
+                # - /dev
+                # - /lib/modules
+                # - /run/mount
                 - /sys
-                - /var/lib/rook*
-                # - /var/lib/rook/exporter
-                # - /var/lib/rook/storage/log
-                # - /var/lib/rook/storage/crash
-                - /var/lib/kubelet/plugins*
-                # - /var/lib/kubelet/plugins/storage.rbd.csi.ceph.com
+                # - /var/lib/kubelet/plugins*
+                # - /var/lib/rook*
+            
             - controlName: Privileged Containers
               images:
                 - ghcr.io/rook/ceph:*
                 - quay.io/ceph/ceph:*
                 - quay.io/cephcsi/cephcsi:*
                 - registry.k8s.io/sig-storage/csi-node-driver-registrar:*
+            
             - controlName: Capabilities
               images:
                 - quay.io/cephcsi/cephcsi:*
               restrictedField: spec.containers[*].securityContext.capabilities.add
               values:
                 - SYS_ADMIN
+            
             - controlName: Host Ports
               restrictedField: spec.containers[*].ports[*].hostPort
               images:
