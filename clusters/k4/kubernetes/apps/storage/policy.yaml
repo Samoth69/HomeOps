@@ -46,7 +46,7 @@ spec:
                 - /run/mount
                 - /sys
                 - /var/lib/rook
-                - /var/lib/rook*
+                # - /var/lib/rook*
                 - /var/lib/rook/exporter
                 - /var/lib/rook/storage/log
                 - /var/lib/kubelet/plugins
