@@ -39,7 +39,12 @@ spec:
             - controlName: Host Namespaces
             - controlName: HostProcess
             - controlName: Host Ports
+              values:
+                - TODO
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
                 - /var/lib/rook*
+            - controlName: Privileged Containers
+              images:
+                - quay.io/ceph/ceph:*
