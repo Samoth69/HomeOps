@@ -48,3 +48,11 @@ spec:
             - controlName: Privileged Containers
               images:
                 - quay.io/ceph/ceph:*
+                - quay.io/cephcsi/cephcsi:*
+                - registry.k8s.io/sig-storage/csi-node-driver-registrar:*
+            - controlName: Capabilities
+              images:
+                - quay.io/cephcsi/cephcsi:*
+              restrictedField: spec.containers[*].securityContext.capabilities.add
+              values:
+                - SYS_ADMIN
