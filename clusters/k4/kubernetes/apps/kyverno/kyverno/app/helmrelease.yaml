@@ -19,7 +19,8 @@ spec:
   chart:
     spec:
       chart: kyverno
-      version: 3.7.2
+      # We are on a release candidate because Kyverno doesn't really support Kubernetes 1.35.4
+      version: 3.8.0-rc.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
