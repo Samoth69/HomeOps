@@ -12,11 +12,6 @@ spec:
   ref:
     tag: 0.62.0
   url: oci://ghcr.io/victoriametrics/helm-charts/victoria-metrics-operator
-  verify:
-    provider: cosign
-    matchOIDCIdentity:
-      - issuer: "^https://token.actions.githubusercontent.com$"
-        subject: "^https://github.com/VictoriaMetrics/helm-charts.*$"
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
