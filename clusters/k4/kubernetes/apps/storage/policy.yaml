@@ -46,9 +46,9 @@ spec:
                 - /run/mount
                 - /sys
                 - /var/lib/rook
-                # - /var/lib/rook*
                 - /var/lib/rook/exporter
                 - /var/lib/rook/storage/log
+                - /var/lib/rook/storage/crash
                 - /var/lib/kubelet/plugins
                 - /var/lib/kubelet/plugins/storage.rbd.csi.ceph.com
             - controlName: Privileged Containers
