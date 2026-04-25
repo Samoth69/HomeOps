@@ -35,3 +35,13 @@ spec:
         podSecurity:
           level: baseline
           version: latest
+          exclude:
+            - controlName: Host Namespaces
+
+            - controlName: Host Ports
+              restrictedField: spec.containers[*].ports[*].hostPort
+              images:
+                - quay.io/cilium/operator-generic:*
+              values:
+                - "9234"
+                - "9963"
