@@ -78,6 +78,11 @@ spec:
             - name: DS_PROMETHEUS
               value: VictoriaMetrics
           url: https://grafana.com/api/dashboards/22604/revisions/2/download
+        spegel:
+          datasource:
+            - name: DS_PROMETHEUS
+              value: VictoriaMetrics
+          url: https://raw.githubusercontent.com/spegel-org/spegel/refs/tags/v0.7.0/charts/spegel/monitoring/grafana-dashboard.json
         volsync:
           datasource:
             - name: DS_PROMETHEUS

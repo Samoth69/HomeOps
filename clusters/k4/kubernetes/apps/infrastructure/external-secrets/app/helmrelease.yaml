@@ -60,5 +60,3 @@ spec:
         timeEncoding: iso8601
     grafanaDashboard:
       enabled: true
-      annotations:
-        grafana_folder: Externa Secrets

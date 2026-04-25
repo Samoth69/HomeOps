@@ -11,9 +11,8 @@ spec:
     name: spegel
   values:
     grafanaDashboard:
-      enabled: true
-      labels:
-        grafana_dashboard: "1"
+      # Declared inside grafana HR because we need to overwrite datasource
+      enabled: false
     service:
       registry:
         hostPort: 29999
