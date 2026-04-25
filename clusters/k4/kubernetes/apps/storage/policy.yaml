@@ -35,3 +35,11 @@ spec:
         podSecurity:
           level: baseline
           version: latest
+          exclude:
+            - controlName: Host Namespaces
+            - controlName: HostProcess
+            - controlName: Host Ports
+            - controlName: HostPath Volumes
+              restrictedField: spec.volumes[*].hostPath
+              values:
+                - /var/lib/rook*

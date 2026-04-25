@@ -35,3 +35,19 @@ spec:
         podSecurity:
           level: baseline
           version: latest
+          exclude:
+            - controlName: HostPath Volumes
+              restrictedField: spec.volumes[*].hostPath
+              values:
+                # generic device plugin
+                - /dev
+                - /sys
+                - /var/lib/kubelet/device-plugins
+                # node feature discovery
+                - /boot
+                - /etc/os-release
+                - /sys
+                - /usr/lib
+                - /lib
+                - /proc/swaps
+                - /etc/kubernetes/node-feature-discovery/features.d/
