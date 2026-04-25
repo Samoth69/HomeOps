@@ -37,10 +37,12 @@ spec:
           version: latest
           exclude:
             - controlName: HostPath Volumes
+              restrictedField: spec.volumes[*].hostPath.path
               values:
                 - /var/mnt/hdd1
             - controlName: Capabilities
               images:
                 - ghcr.io/qdm12/gluetun:*
+              restrictedField: spec.initContainers[*].securityContext.capabilities.add[*]
               values:
                 - NET_ADMIN
