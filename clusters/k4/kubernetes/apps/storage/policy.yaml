@@ -51,9 +51,7 @@ spec:
                 - /run/udev
                 - /sys
                 - /var/lib/ceph/crash
-                - /var/lib/kubelet/plugins_registry
-                - /var/lib/kubelet/plugins/storage.rbd.csi.ceph.com
-                - /var/lib/kubelet/plugins
+                - /var/lib/kubelet/plugins*
                 - /var/lib/kubelet/pods
                 - /var/lib/rook*
             
