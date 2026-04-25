@@ -43,12 +43,14 @@ spec:
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
-                # - /dev
-                # - /lib/modules
-                # - /run/mount
+                - /dev
+                - /lib/modules
+                - /run/mount
                 - /sys
-                # - /var/lib/kubelet/plugins*
-                # - /var/lib/rook*
+                - /var/lib/kubelet/plugins_registry
+                - /var/lib/kubelet/plugins
+                - /var/lib/kubelet/pods
+                - /var/lib/rook*
             
             - controlName: Privileged Containers
               images:
