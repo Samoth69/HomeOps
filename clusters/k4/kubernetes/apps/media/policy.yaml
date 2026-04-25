@@ -43,6 +43,6 @@ spec:
             - controlName: Capabilities
               images:
                 - ghcr.io/qdm12/gluetun:*
-              restrictedField: spec.initContainers[*].securityContext.capabilities.add[*]
+              restrictedField: spec.initContainers[*].securityContext.capabilities.add
               values:
                 - NET_ADMIN
