@@ -43,14 +43,14 @@ spec:
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
+                - /
                 - /dev
                 - /etc/ceph
                 - /lib/modules
                 - /run/mount
-                - /run/ceph
+                - /run/udev
                 - /sys
                 - /var/lib/ceph/crash
-                - /var/lib/rook-ceph-mon
                 - /var/lib/kubelet/plugins_registry
                 - /var/lib/kubelet/plugins/storage.rbd.csi.ceph.com
                 - /var/lib/kubelet/plugins
