@@ -37,7 +37,7 @@ spec:
           version: latest
           exclude:
             - controlName: HostPath Volumes
-              restrictedField: spec.volumes[*].hostPath.path
+              restrictedField: spec.volumes[*].hostPath
               values:
                 # fluent-bit
                 - /var/log
