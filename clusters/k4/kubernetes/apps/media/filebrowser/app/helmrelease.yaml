@@ -35,10 +35,10 @@ spec:
           nodeSelector:
             kubernetes.io/hostname: tatsumi
           securityContext:
-            runAsUser: 2000
-            runAsGroup: 2000
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             runAsNonRoot: true
-            fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile:
               type: RuntimeDefault
@@ -53,7 +53,6 @@ spec:
               FB_DATABASE: /config/filebrowser.db
               FB_ROOT: /srv
               FB_LOG: stdout
-              FB_NOAUTH: "true"
             probes:
               liveness: &probes
                 enabled: true
