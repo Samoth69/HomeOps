@@ -44,9 +44,13 @@ spec:
               restrictedField: spec.volumes[*].hostPath
               values:
                 - /dev
+                - /etc/ceph
                 - /lib/modules
                 - /run/mount
+                - /run/ceph
                 - /sys
+                - /var/lib/ceph/crash
+                - /var/lib/rook-ceph-mon
                 - /var/lib/kubelet/plugins_registry
                 - /var/lib/kubelet/plugins/storage.rbd.csi.ceph.com
                 - /var/lib/kubelet/plugins
