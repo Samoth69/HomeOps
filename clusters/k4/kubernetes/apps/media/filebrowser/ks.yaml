@@ -3,13 +3,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app qbittorrent-samba-server
+  name: &app filebrowser
 spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: storage
   interval: 1h
-  path: ./clusters/k4/kubernetes/apps/media/qbittorrent-samba-server/app
+  path: ./clusters/k4/kubernetes/apps/media/filebrowser/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -28,3 +28,5 @@ spec:
     namespace: flux-system
   targetNamespace: media
   wait: false
+  components:
+    - ../../../../components/volsync

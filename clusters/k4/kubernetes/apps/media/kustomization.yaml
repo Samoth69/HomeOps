@@ -10,10 +10,9 @@ components:
 
 resources:
   - ./policy.yaml
+  - ./filebrowser/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
-  - ./qbittorrent-openssh-server/ks.yaml
-  # - ./qbittorrent-samba-server/ks.yaml
   - ./qui/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sonarr-anime/ks.yaml
