@@ -60,3 +60,7 @@ spec:
               restrictedField: spec.containers[*].securityContext.capabilities.add
               values:
                 - SYS_ADMIN
+            - controlName: Host Ports
+              restrictedField: spec.containers[*].ports[*].hostPort
+              values:
+                - "9926"
