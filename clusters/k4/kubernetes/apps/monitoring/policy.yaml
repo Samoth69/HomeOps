@@ -54,6 +54,8 @@ spec:
             
             - controlName: Host Ports
               restrictedField: spec.containers[*].ports[*].hostPort
+              images:
+                - cr.fluentbit.io/fluent/fluent-bit:*
               values:
                 - "2020"
                 - "12345"

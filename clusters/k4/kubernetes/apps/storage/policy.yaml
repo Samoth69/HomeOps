@@ -62,5 +62,7 @@ spec:
                 - SYS_ADMIN
             - controlName: Host Ports
               restrictedField: spec.containers[*].ports[*].hostPort
+              images:
+                - quay.io/ceph/ceph:*
               values:
                 - "9926"
