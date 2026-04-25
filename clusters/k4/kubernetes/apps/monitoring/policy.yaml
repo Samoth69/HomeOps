@@ -37,6 +37,11 @@ spec:
           version: latest
           exclude:
             - controlName: HostPath Volumes
+              restrictedField: spec.volumes[*].hostPath.path
+              images:
+                - cr.fluentbit.io/fluent/fluent-bit:*
+                - quay.io/prometheus/node-exporter:*
+                - quay.io/prometheuscommunity/smartctl-exporter:*
               values:
                 # fluent-bit
                 - /var/log
@@ -53,6 +58,12 @@ spec:
             
             - controlName: Host Ports
               restrictedField: spec.containers[*].ports[*].hostPort
+              images:
+                - cr.fluentbit.io/fluent/fluent-bit:*
+              values:
+                - "2020"
+                - "12345"
+                - "12346"
             
             - controlName: Privileged Containers
               images:
