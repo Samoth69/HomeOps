@@ -65,4 +65,8 @@ spec:
               images:
                 - quay.io/ceph/ceph:*
               values:
+                - "3300"
+                - "6800"
+                - "7000"
+                - "9283"
                 - "9926"
