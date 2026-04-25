@@ -37,11 +37,7 @@ spec:
           version: latest
           exclude:
             - controlName: Host Namespaces
-              images:
-                - quay.io/ceph/ceph:*
             - controlName: HostProcess
-              images:
-                - quay.io/ceph/ceph:*
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
