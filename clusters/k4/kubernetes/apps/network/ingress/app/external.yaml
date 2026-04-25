@@ -18,4 +18,7 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-      tls: {}
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: "${SECRET_EXTERNAL_DOMAIN//./-}-tls"
