@@ -10,5 +10,6 @@ components:
 
 resources:
   - ./netpol.yaml
+  - ./policy.yaml
   - ./openebs/ks.yaml
   - ./rook-ceph/ks.yaml

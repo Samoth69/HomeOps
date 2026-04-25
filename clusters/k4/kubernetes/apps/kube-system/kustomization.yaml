@@ -8,6 +8,7 @@ components:
 
 resources:
   - ./namespace.yaml
+  - ./policy.yaml
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
   - ./metrics-server/ks.yaml
