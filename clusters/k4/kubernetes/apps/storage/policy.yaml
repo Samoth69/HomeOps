@@ -41,10 +41,13 @@ spec:
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
-                - /var/lib/rook*
-                - /lib/modules
                 - /dev
+                - /lib/modules
                 - /sys
+                - /run/mount
+                - /var/lib/rook*
+                - /var/lib/kubelet/plugins
+                - /var/lib/kubelet/plugins/storage.rbd.csi.ceph.com
             - controlName: Privileged Containers
               images:
                 - quay.io/ceph/ceph:*
