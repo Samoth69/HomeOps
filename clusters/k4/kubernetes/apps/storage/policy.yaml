@@ -37,11 +37,18 @@ spec:
           version: latest
           exclude:
             - controlName: Host Namespaces
+              images:
+                - quay.io/ceph/ceph:*
             - controlName: HostProcess
+              images:
+                - quay.io/ceph/ceph:*
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
                 - /var/lib/rook*
+                - /lib/modules
+                - /dev
+                - /sys
             - controlName: Privileged Containers
               images:
                 - quay.io/ceph/ceph:*
