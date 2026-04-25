@@ -18,13 +18,13 @@ spec:
       envoyDeployment:
         replicas: 2
         container:
-          imageRepository: mirror.gcr.io/envoyproxy/envoy
+          image: mirror.gcr.io/envoyproxy/envoy:v1.38.0
           resources:
             requests:
               cpu: 10m
               memory: 64Mi
             limits:
-              memory: 1Gi
+              memory: 256Mi
         pod:
           labels:
             ingress.samoth.eu/lan: allow

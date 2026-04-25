@@ -32,9 +32,9 @@ spec:
         resources:
           requests:
             cpu: 5m
-            memory: 48Mi
+            memory: 96Mi
           limits:
-            memory: 512Mi
+            memory: 256Mi
       pod:
         labels:
           ingress.samoth.eu/kube-apiserver: allow
