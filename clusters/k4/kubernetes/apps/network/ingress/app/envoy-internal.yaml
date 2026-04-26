@@ -39,6 +39,7 @@ spec:
         pod:
           labels:
             ingress.samoth.eu/lan: allow
+            egress.samoth.eu/envoy-internal: allow
       envoyService:
         annotations:
           lbipam.cilium.io/ips: "${SECRET_LB_IPV4},${SECRET_LB_IPV6}"
