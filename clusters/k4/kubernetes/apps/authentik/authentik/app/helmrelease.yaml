@@ -41,6 +41,10 @@ spec:
           value: "true"
     
     authentik:
+      error_reporting:
+        enabled: false
+      disable_update_check: true
+      disable_startup_analytics: true
       postgresql:
         host: pooler-transaction-rw.database.svc.cluster.local.
         name: "authentik"
