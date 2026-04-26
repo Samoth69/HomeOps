@@ -17,4 +17,4 @@ spec:
       name: ${APP}-secret
     redirectURL: https://${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}/oauth2/callback
     logoutPath: /logout
-    cookieDomain: ${SUBDOMAIN:=${APP}}.${SECRET_DOMAIN}
+    cookieDomain: ${SECRET_DOMAIN}
