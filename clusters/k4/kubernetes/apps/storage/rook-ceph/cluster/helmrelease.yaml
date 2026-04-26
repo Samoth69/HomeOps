@@ -42,7 +42,7 @@ spec:
       # There is a known issue with ceph tentacles and read affinity enabled
       # Make sure this is fixed before updating https://github.com/rook/rook/issues/16839
       repository: quay.io/ceph/ceph
-      tag: v19.2.3
+      tag: v20.2.1
     cephClusterSpec:
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
