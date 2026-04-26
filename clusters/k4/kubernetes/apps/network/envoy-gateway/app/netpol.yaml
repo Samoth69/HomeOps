@@ -143,3 +143,28 @@ spec:
     - toEndpoints:
         - matchLabels:
             ingress.samoth.eu/envoy-internal: allow
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: envoy-internal-to-envoy-internal
+spec:
+  description: "Required for OIDC"
+  endpointSelector:
+    matchLabels: &labels
+      app.kubernetes.io/name: envoy
+      app.kubernetes.io/component: proxy
+      gateway.envoyproxy.io/owning-gateway-name: envoy-internal
+  ingress:
+    - fromEndpoints:
+        - matchLabels: *labels
+      toPorts: &ports
+        - ports:
+            - port: "10443"
+              protocol: ANY
+  egress:
+    - toEndpoints:
+        - matchLabels: *labels
+      toPorts: *ports
+            
