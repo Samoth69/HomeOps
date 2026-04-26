@@ -8,7 +8,7 @@ spec:
   ipFamily: DualStack
   logging:
     level:
-      default: debug
+      default: warn
   provider:
     type: Kubernetes
     kubernetes:
