@@ -67,6 +67,9 @@ spec:
 
     dashboards:
       default:
+        authentik:
+          datasource: VictoriaMetrics
+          url: https://grafana.com/api/dashboards/14837/revisions/2/download
         cert-manager:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/20842/revisions/3/download

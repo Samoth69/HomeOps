@@ -51,7 +51,7 @@ spec:
       pdb: &pdb
         enabled: true
         minAvailable: 1
-      podLabels:
+      podLabels: &podLabels
         ingress.samoth.eu/vmagent: allow
       metrics:
         enabled: true
@@ -69,6 +69,7 @@ spec:
     worker:
       replicas: 2
       pdb: *pdb
+      podLabels: *podLabels
       resources:
         limits:
           memory: 1Gi
