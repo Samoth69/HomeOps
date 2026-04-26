@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: sonarr-anime
+  name: ${APP}
 spec:
   interval: 1h
   layerSelector:
@@ -17,11 +17,11 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app sonarr-anime
+  name: ${APP}
 spec:
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: ${APP}
   interval: 1h
   values:
     controllers:
@@ -66,8 +66,8 @@ spec:
               SONARR__LOG__DBENABLED: "False"
 
               SONARR__POSTGRES__HOST: pooler-transaction-rw.database.svc.cluster.local.
-              SONARR__POSTGRES__USER: *app
-              SONARR__POSTGRES__MAINDB: *app
+              SONARR__POSTGRES__USER: ${APP}
+              SONARR__POSTGRES__MAINDB: ${APP}
               SONARR__POSTGRES__PASSWORD:
                 valueFrom:
                   secretKeyRef:
@@ -116,11 +116,28 @@ spec:
     
     route:
       app:
-        hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        forceRename: ${APP}
+        hostnames: [&host "{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: network
+            sectionName: https
+      api:
+        hostnames: [*host]
+        parentRefs:
+          - name: internal
+            namespace: network
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            backendRefs:
+              - identifier: app
+                port: 80
+            timeouts:
+              request: "300s"
 
     persistence:
       config:
