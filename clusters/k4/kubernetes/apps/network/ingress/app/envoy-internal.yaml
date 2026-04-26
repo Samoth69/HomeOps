@@ -24,10 +24,15 @@ spec:
             capabilities:
               drop:
                 - ALL
-            readOnlyRootFilesystem: true
-            runAsGroup: 65532
-            runAsNonRoot: true
-            runAsUser: 65532
+            # readOnlyRootFilesystem: true
+            # runAsGroup: 65532
+            # runAsNonRoot: true
+            # runAsUser: 65532
+            # temporary debugging
+            readOnlyRootFilesystem: false
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
             seccompProfile:
               type: RuntimeDefault
           resources:
