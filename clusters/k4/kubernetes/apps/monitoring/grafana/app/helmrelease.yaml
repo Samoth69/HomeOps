@@ -67,7 +67,7 @@ spec:
 
     dashboards:
       default:
-        Authentik:
+        authentik:
           datasource:
             - name: DS_PROMETHEUS
               value: VictoriaMetrics
