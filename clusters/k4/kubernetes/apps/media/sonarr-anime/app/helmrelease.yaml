@@ -121,11 +121,13 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
+            sectionName: https
       api:
         hostnames: [*host]
         parentRefs:
           - name: internal
             namespace: network
+            sectionName: https
         rules:
           - matches:
               - path:
