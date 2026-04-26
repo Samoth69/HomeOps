@@ -39,6 +39,8 @@ spec:
         labels:
           ingress.samoth.eu/kube-apiserver: allow
           egress.samoth.eu/kube-apiserver: allow
+          # needed for security policies with OIDC
+          egress.samoth.eu/envoy-internal: allow
     config:
       envoyGateway:
         provider:
