@@ -125,7 +125,7 @@ spec:
       api:
         hostnames: [*host]
         parentRefs:
-          - name: internal
+          - name: envoy-internal
             namespace: network
             sectionName: https
         rules:
