@@ -38,6 +38,7 @@ spec:
               memory: 256Mi
         pod:
           labels:
+            ingress.samoth.eu/envoy-internal: allow
             ingress.samoth.eu/lan: allow
             egress.samoth.eu/envoy-internal: allow
       envoyService:
