@@ -48,7 +48,7 @@ spec:
         # Must be cluster when L2 Aware LB are enabled
         externalTrafficPolicy: Cluster
   shutdown:
-    drainTimeout: 180s
+    drainTimeout: 10s
   telemetry:
     metrics:
       prometheus:

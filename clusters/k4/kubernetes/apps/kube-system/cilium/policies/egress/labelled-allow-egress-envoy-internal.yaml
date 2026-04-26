@@ -11,3 +11,10 @@ spec:
     - toEndpoints:
         - matchLabels:
             gateway.envoyproxy.io/owning-gateway-name: envoy-internal
+    - toCIDR:
+        - ${SECRET_LB_POOL_IPV4}
+        - ${SECRET_LB_POOL_IPV6}
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: ANY
