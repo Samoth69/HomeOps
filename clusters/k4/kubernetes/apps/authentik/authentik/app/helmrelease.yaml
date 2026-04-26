@@ -57,10 +57,11 @@ spec:
         minAvailable: 1
       podLabels: &podLabels
         ingress.samoth.eu/vmagent: allow
-      metrics:
+      metrics: &metrics
         enabled: true
         serviceMonitor:
           enabled: true
+          scrapeTimeout: 10s
       route:
         main:
           enabled: true
@@ -74,10 +75,7 @@ spec:
       replicas: 2
       pdb: *pdb
       podLabels: *podLabels
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
+      metrics: *metrics
       resources:
         limits:
           memory: 1Gi
