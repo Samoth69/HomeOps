@@ -25,6 +25,8 @@ spec:
       kind: Gateway
   tcpKeepalive: {}
   timeout:
+    tcp:
+      connectTimeout: 10s
     http:
       connectionIdleTimeout: 15s
       requestTimeout: 120s
