@@ -33,8 +33,6 @@ spec:
       enabled: false
 
     alertmanager:
-      labels:
-        egress.samoth.eu/internet-discord: allow
       route:
         enabled: true
         parentRefs:
@@ -87,6 +85,7 @@ spec:
             ingress.samoth.eu/envoy-internal: allow
             ingress.samoth.eu/kube-apiserver: allow
             egress.samoth.eu/kube-apiserver: allow
+            egress.samoth.eu/internet-discord: allow
         externalURL: https://alertmanager.${SECRET_DOMAIN}
         storage:
           volumeClaimTemplate:
