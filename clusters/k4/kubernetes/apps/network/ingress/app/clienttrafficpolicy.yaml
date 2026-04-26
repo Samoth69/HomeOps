@@ -25,6 +25,8 @@ spec:
     http:
       idleTimeout: 60s
   tls:
+    clientValidation:
+      optional: true
     minVersion: "1.3"
     alpnProtocols:
       - h2
