@@ -75,9 +75,9 @@ spec:
           mon_data_avail_warn: "15" # orig: 30
           # One node (Lynka) has a kinda unstable tsc timer
           mon_clock_drift_allowed: "0.25"
-      # csi:
-      #   readAffinity:
-      #     enabled: true
+      csi:
+        readAffinity:
+          enabled: true
       network:
         provider: host
         connections:
