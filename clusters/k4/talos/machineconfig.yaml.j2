@@ -54,7 +54,7 @@ machine:
         UserNamespacesSupport: true
       maxPods: 150
       serializeImagePulls: false
-    image: ghcr.io/siderolabs/kubelet:v1.35.3
+    image: ghcr.io/siderolabs/kubelet:v1.35.4
     nodeIP:
       validSubnets:
         - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV4 }}/32
@@ -63,6 +63,12 @@ machine:
         - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV6 }}/128
         - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV4 }}/32
         - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV6 }}/128
+  logging:
+    destinations:
+      - endpoint: "tcp://127.0.0.1:12345/"
+        format: "json_lines"
+        extraTags:
+          source: talos-services
   udev:
     rules:
       # IO scheduler
@@ -108,14 +114,14 @@ cluster:
     key: {{ ENV.TALSECRET_CERTS_K8SAGGREGATOR_KEY }}
   allowSchedulingOnControlPlanes: true
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.35.3
+    image: registry.k8s.io/kube-apiserver:v1.35.4
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
       feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:v1.35.3
+    image: registry.k8s.io/kube-controller-manager:v1.35.4
     extraArgs:
       bind-address: 0.0.0.0
       node-cidr-mask-size-ipv6: "112"
@@ -136,7 +142,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.35.3
+    image: registry.k8s.io/kube-proxy:v1.35.4
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -157,7 +163,7 @@ cluster:
           schedulerName: default-scheduler
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:v1.35.3
+    image: registry.k8s.io/kube-scheduler:v1.35.4
   secretboxEncryptionSecret: {{ ENV.TALSECRET_SECRETS_SECRETBOXENCRYPTIONSECRET }}
   serviceAccount:
     key: {{ ENV.TALSECRET_CERTS_K8SSERVICEACCOUNT_KEY }}
@@ -225,3 +231,8 @@ provisioning:
   diskSelector:
     match: disk.model.contains("MTFDKBA960TF")
   minSize: 200GiB
+---
+apiVersion: v1alpha1
+kind: KmsgLogConfig
+name: remote-log
+url: tcp://127.0.0.1:12346/
