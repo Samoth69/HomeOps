@@ -2,7 +2,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: allow-kubeapi
+  name: ceph
 spec:
   description: "Allow kubeapi for storage namespace since most pod use it"
   endpointSelector:
@@ -14,3 +14,11 @@ spec:
   egress:
     - toEntities:
         - kube-apiserver
+    - toEntities:
+        - cluster
+      toPorts:
+        - ports:
+            - port: "3300"
+              protocol: ANY
+            - port: "6789"
+              protocol: ANY
