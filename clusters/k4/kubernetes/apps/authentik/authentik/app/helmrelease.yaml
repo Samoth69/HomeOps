@@ -82,7 +82,7 @@ spec:
 
     prometheus:
       rules:
-        enabled: true
+        enabled: false
 
     postgresql:
       enabled: false

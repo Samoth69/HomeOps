@@ -2,7 +2,7 @@
 
 ## Tatsumi
 
-Schematic ID : 243e9017c341814ac449c81d89d578f62d874e9309960fbaaef3da185a86e0f8
+Schematic ID : f30289c5c15d2bf37bb48b2d4aff89e387e20470432257bd94ef52c6c3db1a7f
 
 ```yaml
 customization:
@@ -11,6 +11,7 @@ customization:
         - sysctl.net.ipv6.conf.default.accept_ra=0
         - sysctl.net.ipv6.conf.all.autoconf=0
         - sysctl.net.ipv6.conf.all.accept_ra=0
+        - initcall_blacklist=algif_aead_init # https://copy.fail/
     systemExtensions:
         officialExtensions:
             - siderolabs/btrfs
@@ -22,7 +23,7 @@ customization:
 
 ## Lynka
 
-Schematic ID : 1451b597beb63e3da7d2d9db18e702501f53b71ebd46ac65c299142b3adebe7a
+Schematic ID : 7f404084e20b4c65cd633f5cdcfebab1c080214db9fc99229a57126b7a146189
 
 ```yaml
 customization:
@@ -31,12 +32,13 @@ customization:
         - sysctl.net.ipv6.conf.default.accept_ra=0
         - sysctl.net.ipv6.conf.all.autoconf=0
         - sysctl.net.ipv6.conf.all.accept_ra=0
-        - tsc=nowatchdog
         - cpufreq.default_governor=performance
+        - initcall_blacklist=algif_aead_init # https://copy.fail/
     systemExtensions:
         officialExtensions:
             - siderolabs/amd-ucode
             - siderolabs/amdgpu
+            - siderolabs/kata-containers
             - siderolabs/realtek-firmware
             - siderolabs/util-linux-tools
     bootloader: sd-boot
@@ -44,7 +46,7 @@ customization:
 
 ## Enigma
 
-Schematic ID : eba40428eb923227b9b8bdafd86a217ee34e1e1b42307432ee261fb0767547cb
+Schematic ID : 473463d952f6d2c1ee0f1dbc5a413df01ad65658f1d9c4794f8fa749137b4fb6
 
 ```yaml
 customization:
@@ -53,13 +55,14 @@ customization:
         - sysctl.net.ipv6.conf.default.accept_ra=0
         - sysctl.net.ipv6.conf.all.autoconf=0
         - sysctl.net.ipv6.conf.all.accept_ra=0
-        - tsc=nowatchdog
         - cpufreq.default_governor=performance
+        - initcall_blacklist=algif_aead_init # https://copy.fail/
     systemExtensions:
         officialExtensions:
             - siderolabs/i915
             - siderolabs/intel-ice-firmware
             - siderolabs/intel-ucode
+            - siderolabs/kata-containers
             - siderolabs/mei
             - siderolabs/realtek-firmware
             - siderolabs/util-linux-tools
