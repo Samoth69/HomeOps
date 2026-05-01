@@ -17,3 +17,9 @@ spec:
             k8s:io.kubernetes.pod.namespace: default
             component: apid
             provider: talos.dev
+    - toFQDNs:
+        - matchName: factory.talos.dev
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: ANY
