@@ -132,6 +132,11 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: VictoriaMetrics
+        victoria-logs-single-server:
+          url: https://grafana.com/api/dashboards/22084/revisions/11/download
+          datasource:
+            - name: DS_PROMETHEUS
+              value: VictoriaMetrics
 
     datasources:
       datasources.yaml:
