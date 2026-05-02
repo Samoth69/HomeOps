@@ -24,7 +24,7 @@ spec:
         kind: HelmRepository
         name: descheduler
   values:
-    replicas: 1
+    replicas: 2
     kind: Deployment
     podLabels:
       ingress.samoth.eu/vmagent: allow
@@ -32,8 +32,8 @@ spec:
       egress.samoth.eu/kube-apiserver: allow
     resources:
       requests:
-        cpu: 1m
-        memory: 256Mi
+        cpu: 5m
+        memory: 80Mi
       limits:
         memory: 512Mi
     cmdOptions:
@@ -70,6 +70,7 @@ spec:
                 evictableNamespaces:
                   exclude: &excludedNamespaces
                     - database
+                    - jobs
                     - storage
             - name: RemoveFailedPods
               args:
