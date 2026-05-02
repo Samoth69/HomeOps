@@ -19,6 +19,7 @@ spec:
             provider: talos.dev
     - toFQDNs:
         - matchName: factory.talos.dev
+        - matchName: factory.talos.dev.system-upgrade.svc.cluster.local
       toPorts:
         - ports:
             - port: "443"
