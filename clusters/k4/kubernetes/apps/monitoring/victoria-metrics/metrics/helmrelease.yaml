@@ -54,7 +54,7 @@ spec:
                 - alertname=~"InfoInhibitor|Watchdog|CPUThrottlingHigh|etcdMemberCommunicationSlow"
             - receiver: "blackhole"
               matchers:
-                - severity=="info"
+                - severity="info"
             - receiver: webhook
               matchers:
                 - severity=~"warning|critical"
