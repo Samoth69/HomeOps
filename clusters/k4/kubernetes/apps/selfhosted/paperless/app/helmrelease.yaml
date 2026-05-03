@@ -30,7 +30,9 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           labels:
-            app.kubernetes.io/component: application
+            ingress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/database: allow
         containers:
           app:
             image:
@@ -115,11 +117,6 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 6Gi
-    defaultPodOptions:
-      labels:
-        ingress.samoth.eu/envoy-internal: allow
-        egress.samoth.eu/envoy-internal: allow
-        egress.samoth.eu/database: allow
     service:
       app:
         ports:
