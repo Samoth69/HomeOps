@@ -7,8 +7,8 @@ namespace: selfhosted
 components:
   - ../../components/sops
   - ../../components/namespace-isolated
-  - ../../components/pss-restricted
 
 resources:
+  - ./policy.yaml
   - ./glance/ks.yaml
   - ./paperless/ks.yaml
