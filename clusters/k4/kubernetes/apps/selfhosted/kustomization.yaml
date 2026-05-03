@@ -9,6 +9,5 @@ components:
   - ../../components/namespace-isolated
 
 resources:
-  - ./policy.yaml
   - ./glance/ks.yaml
   - ./paperless/ks.yaml
