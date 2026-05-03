@@ -38,5 +38,6 @@ spec:
           version: latest
           exclude:
             - controlName: Volume Types
+              restrictedField: spec.volumes[*]
               values:
                 - spec.volumes[*].nfs
