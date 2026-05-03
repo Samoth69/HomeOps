@@ -92,8 +92,8 @@ spec:
                     key: password
               PAPERLESS_DBSSLMODE: require
               # Configure user permissions
-              USERMAP_UID: "2000" # truenas:k4
-              USERMAP_GID: "2000" # truenas:k4
+              USERMAP_UID: &uid 2000 # truenas:k4
+              USERMAP_GID: *uid # truenas:k4
               # Configure SSO
               PAPERLESS_DISABLE_REGULAR_LOGIN: true
               PAPERLESS_REDIRECT_LOGIN_TO_SSO: true
@@ -118,6 +118,14 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 6Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: *uid # hardcoded `paperless` user
+        runAsGroup: *uid
+        fsGroup: *uid
+        fsGroupChangePolicy: Always
+        seccompProfile: { type: "RuntimeDefault" }
     service:
       app:
         ports:
