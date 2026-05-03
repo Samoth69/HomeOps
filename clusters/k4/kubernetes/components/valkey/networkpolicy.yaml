@@ -11,6 +11,6 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey}
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
   egress: 
     - {}
