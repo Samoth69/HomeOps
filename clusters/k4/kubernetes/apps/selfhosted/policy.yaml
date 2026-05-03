@@ -36,7 +36,7 @@ spec:
           level: restricted
           version: latest
           exclude:
-            - controlName: HostPath Volumes
-              restrictedField: spec.volumes[*].nfs
+            - controlName: Volume Types
+              restrictedField: spec.volumes[*]
               values:
-                - /mnt/ThePool/Apps/Paperless
+                - nfs
