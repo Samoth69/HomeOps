@@ -39,4 +39,4 @@ spec:
             - controlName: Volume Types
               restrictedField: spec.volumes[*]
               values:
-                - nfs
+                - spec.volumes[*].nfs
