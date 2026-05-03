@@ -7,10 +7,10 @@ spec:
   description: "Allow the app to talk to valkey"
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+      app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey}
   ingress:
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey}
   egress: 
     - {}
