@@ -2,9 +2,24 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: ${APP}-valkey
+  name: valkey-from-${APP}
 spec:
   description: "Allow the app to talk to valkey"
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey}
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: ${APP}-to-valkey
+spec:
+  description: "Allow valkey to receive requests from the app"
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey}
