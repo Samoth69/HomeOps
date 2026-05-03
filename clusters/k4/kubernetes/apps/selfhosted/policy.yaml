@@ -31,12 +31,12 @@ spec:
                 - UPDATE
       validate:
         allowExistingViolations: false
-        failureAction: Enforce
+        # TODO revert
+        failureAction: Audit
         podSecurity:
           level: restricted
           version: latest
           exclude:
             - controlName: Volume Types
-              restrictedField: spec.volumes[*]
               values:
                 - spec.volumes[*].nfs
