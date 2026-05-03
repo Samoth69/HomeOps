@@ -19,7 +19,6 @@ spec:
         kind: Secret
     substitute:
       APP: *app
-      VOLSYNC_CLAIM: paperless-data
       VOLSYNC_CAPACITY: 20Gi
   prune: true
   sourceRef:
