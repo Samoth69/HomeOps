@@ -52,7 +52,7 @@ spec:
     
     auth:
       enabled: true
-      usersExistingSecret: ${APP}-valkey-password
+      usersExistingSecret: ${APP}-valkey-secret
       aclUsers:
         default:
           permissions: "~* &* +@all"
