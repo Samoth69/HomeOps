@@ -11,3 +11,4 @@ components:
 
 resources:
   - ./glance/ks.yaml
+  - ./paperless/ks.yaml
