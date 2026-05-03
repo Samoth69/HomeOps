@@ -21,6 +21,8 @@ kind: Kustomization
 metadata:
   name: &app qbittorrent
 spec:
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: qbittorrent-secrets
     - name: rook-ceph-cluster
@@ -48,5 +50,3 @@ spec:
     namespace: flux-system
   targetNamespace: media
   wait: false
-  components:
-    - ../../../../components/volsync

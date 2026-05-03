@@ -5,6 +5,9 @@ kind: Kustomization
 metadata:
   name: &app sonarr-anime
 spec:
+  components:
+    - ../../../../components/database
+    - ../../../../components/volsync
   dependsOn:
     - name: postgres-cnpg
       namespace: database
@@ -31,6 +34,3 @@ spec:
     namespace: flux-system
   targetNamespace: media
   wait: false
-  components:
-    - ../../../../components/database
-    - ../../../../components/volsync
