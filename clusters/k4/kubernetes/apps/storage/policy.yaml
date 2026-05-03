@@ -44,7 +44,7 @@ spec:
               restrictedField: spec.volumes[*].hostPath
               values:
                 - /
-                - /dev
+                - /dev*
                 - /etc/ceph
                 - /lib/modules
                 - /run/mount
@@ -54,6 +54,7 @@ spec:
                 - /var/lib/kubelet/plugins*
                 - /var/lib/kubelet/pods
                 - /var/lib/rook*
+                - /var/mnt/hostpath-data*
             
             - controlName: Privileged Containers
               images:
