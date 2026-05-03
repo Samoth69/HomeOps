@@ -21,6 +21,10 @@ apply-cluster *args:
       just clusters k4 talos apply-node ${node} {{ args }}; \
     done
 
+[doc('Generate schematic ID from Talos schematic')]
+gen-schematic-id node:
+    curl -sX POST --data-binary "@{{ talos_dir }}/nodes/{{ node }}-schematic.yaml" "https://factory.talos.dev/schematics" | jq -r '.id'
+
 [doc('Render Talos config for a node')]
 render-config node:
     export IS_CONTROLPLANE="$(just clusters k4 talos machine-controller {{ node }})"; \

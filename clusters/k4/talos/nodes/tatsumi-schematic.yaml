@@ -1,0 +1,14 @@
+customization:
+  extraKernelArgs:
+    - sysctl.net.ipv6.conf.default.autoconf=0
+    - sysctl.net.ipv6.conf.default.accept_ra=0
+    - sysctl.net.ipv6.conf.all.autoconf=0
+    - sysctl.net.ipv6.conf.all.accept_ra=0
+    - initcall_blacklist=algif_aead_init # https://copy.fail/
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/btrfs
+      - siderolabs/kata-containers
+      - siderolabs/qemu-guest-agent
+      - siderolabs/util-linux-tools
+  bootloader: sd-boot

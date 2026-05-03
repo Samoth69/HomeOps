@@ -1,0 +1,19 @@
+customization:
+  extraKernelArgs:
+    - sysctl.net.ipv6.conf.default.autoconf=0
+    - sysctl.net.ipv6.conf.default.accept_ra=0
+    - sysctl.net.ipv6.conf.all.autoconf=0
+    - sysctl.net.ipv6.conf.all.accept_ra=0
+    - cpufreq.default_governor=performance
+    - initcall_blacklist=algif_aead_init # https://copy.fail/
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/i915
+      - siderolabs/intel-ice-firmware
+      - siderolabs/intel-ucode
+      - siderolabs/kata-containers
+      - siderolabs/mei
+      - siderolabs/realtek-firmware
+      - siderolabs/util-linux-tools
+      - siderolabs/xe
+  bootloader: sd-boot

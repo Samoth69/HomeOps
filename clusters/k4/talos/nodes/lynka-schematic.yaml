@@ -1,0 +1,16 @@
+customization:
+  extraKernelArgs:
+    - sysctl.net.ipv6.conf.default.autoconf=0
+    - sysctl.net.ipv6.conf.default.accept_ra=0
+    - sysctl.net.ipv6.conf.all.autoconf=0
+    - sysctl.net.ipv6.conf.all.accept_ra=0
+    - cpufreq.default_governor=performance
+    - initcall_blacklist=algif_aead_init # https://copy.fail/
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/amd-ucode
+      - siderolabs/amdgpu
+      - siderolabs/kata-containers
+      - siderolabs/realtek-firmware
+      - siderolabs/util-linux-tools
+  bootloader: sd-boot
