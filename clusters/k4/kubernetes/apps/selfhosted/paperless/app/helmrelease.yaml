@@ -95,8 +95,8 @@ spec:
               USERMAP_UID: &uid 2000 # truenas:k4
               USERMAP_GID: *uid # truenas:k4
               # Configure SSO
-              PAPERLESS_DISABLE_REGULAR_LOGIN: true
-              PAPERLESS_REDIRECT_LOGIN_TO_SSO: true
+              # PAPERLESS_DISABLE_REGULAR_LOGIN: true
+              # PAPERLESS_REDIRECT_LOGIN_TO_SSO: true
               PAPERLESS_SOCIAL_AUTO_SIGNUP: true
               PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: true
               PAPERLESS_SOCIALACCOUNT_ONLY: true
