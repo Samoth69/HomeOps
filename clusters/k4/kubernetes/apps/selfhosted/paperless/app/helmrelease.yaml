@@ -92,7 +92,8 @@ spec:
                     key: password
               PAPERLESS_DBSSLMODE: require
               # Configure user permissions
-              USERMAP_GID: "1000"
+              USERMAP_UID: "2000" # truenas:k4
+              USERMAP_GID: "2000" # truenas:k4
               # Configure SSO
               PAPERLESS_DISABLE_REGULAR_LOGIN: true
               PAPERLESS_REDIRECT_LOGIN_TO_SSO: true
