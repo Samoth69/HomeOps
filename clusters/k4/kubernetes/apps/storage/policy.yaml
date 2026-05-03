@@ -62,6 +62,7 @@ spec:
                 - quay.io/ceph/ceph:*
                 - quay.io/cephcsi/cephcsi:*
                 - registry.k8s.io/sig-storage/csi-node-driver-registrar:*
+                - quay.io/openebs/*:*
             
             - controlName: Capabilities
               images:
