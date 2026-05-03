@@ -143,6 +143,15 @@ spec:
             namespace: network
             sectionName: https
         rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /admin/
+            filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  hostname: www.google.com
+                  statusCode: 302
           - backendRefs:
               - identifier: app
                 port: http
