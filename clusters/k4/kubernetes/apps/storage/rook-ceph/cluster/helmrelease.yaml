@@ -135,8 +135,7 @@ spec:
             devices:
               - name: "/dev/disk/by-partlabel/r-rook-data"
           - name: "lynka"
-            devices:
-              - name: "/dev/disk/by-partlabel/r-rook-data"
+            deviceFilter: /dev/disk/by-id/nvme-Micron_7450_MTFDKBA960TFR_.*
           - name: "enigma"
             devices:
               - name: "/dev/disk/by-partlabel/r-rook-data"
