@@ -26,8 +26,10 @@ spec:
   values:
     global:
       imageRegistry: mirror.gcr.io
+    podDisruptionBudget:
+      minAvailable: 1
     deployment:
-      replicas: 1
+      replicas: 2
       envoyGateway:
         resources:
           requests:

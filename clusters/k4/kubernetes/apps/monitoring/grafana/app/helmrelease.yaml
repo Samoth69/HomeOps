@@ -105,6 +105,19 @@ spec:
         ceph-pools:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/5342/revisions/9/download
+      envoy:
+        envoy-clusters:
+          datasource: VictoriaMetrics
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/tags/v1.7.2/charts/gateway-addons-helm/dashboards/envoy-clusters.json
+        envoy-gateway-global:
+          datasource: VictoriaMetrics
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/tags/v1.7.2/charts/gateway-addons-helm/dashboards/envoy-gateway-global.json
+        envoy-proxy-global:
+          datasource: VictoriaMetrics
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/tags/v1.7.2/charts/gateway-addons-helm/dashboards/envoy-proxy-global.json
+        global-ratelimit:
+          datasource: VictoriaMetrics
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/tags/v1.7.2/charts/gateway-addons-helm/dashboards/global-ratelimit.json
       kubernetes:
         kubernetes-api-server:
           datasource: VictoriaMetrics
