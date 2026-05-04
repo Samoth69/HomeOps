@@ -1,4 +1,5 @@
-apiVersion: gateway.envoyproxy.io/v1beta1
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/gateway.networking.k8s.io/referencegrant_v1.json
+apiVersion: gateway.networking.k8s.io/v1
 kind: ReferenceGrant
 metadata:
   name: authentik
