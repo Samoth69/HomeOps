@@ -15,6 +15,7 @@ spec:
       enabled: true
       bbr: true
     bpf:
+      datapathMode: netkit
       masquerade: true
       distributedLRU:
         enabled: true
@@ -25,7 +26,6 @@ spec:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
-    # NOTE: devices might need to be set if you have more than one active NIC on your hosts
     devices: bond0
     dashboards:
       enabled: true
@@ -74,6 +74,7 @@ spec:
       enabled: true
     loadBalancer:
       algorithm: maglev
+      mode: dsr
     localRedirectPolicies:
       enabled: true
     operator:
