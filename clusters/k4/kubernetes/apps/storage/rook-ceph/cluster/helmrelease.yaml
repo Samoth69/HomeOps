@@ -44,7 +44,7 @@ spec:
     cephClusterSpec:
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
-      # skipUpgradeChecks: true
+      skipUpgradeChecks: true
       removeOSDsIfOutAndSafeToRemove: true
       dashboard:
         ssl: false
