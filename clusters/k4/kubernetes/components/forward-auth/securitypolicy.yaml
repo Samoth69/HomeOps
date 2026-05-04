@@ -12,7 +12,7 @@ spec:
     failOpen: false
     recomputeRoute: true
     headersToExtAuth:
-      - cookie
+      - Cookie
     http:
       backendRefs:
         - kind: Service
@@ -21,7 +21,6 @@ spec:
           port: 9000
       path: /outpost.goauthentik.io/auth/envoy
       headersToBackend: 
-        - set-cookie
         - Set-Cookie
         - x-authentik-uid
         - x-authentik-username

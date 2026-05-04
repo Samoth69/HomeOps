@@ -7,7 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/database
-    - ../../../../components/forward-auth
+    # - ../../../../components/forward-auth
     - ../../../../components/volsync
   dependsOn:
     - name: postgres-cnpg

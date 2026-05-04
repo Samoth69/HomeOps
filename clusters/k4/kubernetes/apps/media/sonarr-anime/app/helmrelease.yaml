@@ -123,15 +123,15 @@ spec:
             namespace: network
             sectionName: https
         rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /outpost.goauthentik.io
-            backendRefs:
-              - kind: Service
-                name: ak-outpost-envoy
-                namespace: authentik
-                port: 9000
+          # - matches:
+          #     - path:
+          #         type: PathPrefix
+          #         value: /outpost.goauthentik.io
+          #   backendRefs:
+          #     - kind: Service
+          #       name: ak-outpost-envoy
+          #       namespace: authentik
+          #       port: 9000
           - backendRefs:
               - identifier: app
                 port: 80
