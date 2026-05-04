@@ -108,7 +108,7 @@ spec:
             cpu: 500m
             memory: 2Gi
           limits:
-            memory: 6Gi
+            memory: 8Gi
         mgr-sidecar:
           requests:
             cpu: 50m
@@ -135,7 +135,7 @@ spec:
             devices:
               - name: "/dev/disk/by-partlabel/r-rook-data"
           - name: "lynka"
-            deviceFilter: /dev/disk/by-id/nvme-Micron_7450_MTFDKBA960TFR_.*
+            devicePathFilter: /dev/disk/by-id/nvme-Micron_7450_MTFDKBA960TFR_.*
           - name: "enigma"
             devices:
               - name: "/dev/disk/by-partlabel/r-rook-data"
