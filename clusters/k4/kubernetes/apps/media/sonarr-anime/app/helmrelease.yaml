@@ -132,6 +132,9 @@ spec:
                 name: ak-outpost-envoy
                 namespace: authentik
                 port: 9000
+          - backendRefs:
+              - identifier: app
+                port: 80
       api:
         hostnames: [*host]
         parentRefs:
