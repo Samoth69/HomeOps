@@ -5,12 +5,12 @@ metadata:
   name: authentik
 spec:
   from:
-    - &sp
-      group: gateway.envoyproxy.io
+    - group: gateway.envoyproxy.io
       kind: SecurityPolicy
       namespace: media
-    # - <<: *sp
-    #   namespace: selfhosted
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: media
   to:
     - group: ""
       kind: Service
