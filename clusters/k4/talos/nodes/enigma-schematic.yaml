@@ -16,4 +16,6 @@ customization:
       - siderolabs/realtek-firmware
       - siderolabs/util-linux-tools
       - siderolabs/xe
+  secureboot:
+    includeWellKnownCertificates: true
   bootloader: sd-boot

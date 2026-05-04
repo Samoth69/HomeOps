@@ -13,4 +13,6 @@ customization:
       - siderolabs/kata-containers
       - siderolabs/realtek-firmware
       - siderolabs/util-linux-tools
+  secureboot:
+    includeWellKnownCertificates: true
   bootloader: sd-boot

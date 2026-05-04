@@ -11,4 +11,6 @@ customization:
       - siderolabs/kata-containers
       - siderolabs/qemu-guest-agent
       - siderolabs/util-linux-tools
+  secureboot:
+    includeWellKnownCertificates: true
   bootloader: sd-boot
