@@ -26,9 +26,10 @@ spec:
   values:
     global:
       podLabels:
+        ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/envoy-internal: allow
-        egress.samoth.eu/database: allow
         ingress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/database: allow
         egress.samoth.eu/kube-apiserver: allow
       podAnnotations:
         reloader.stakater.com/auto: "true"
@@ -55,8 +56,6 @@ spec:
       pdb: &pdb
         enabled: true
         minAvailable: 1
-      podLabels: &podLabels
-        ingress.samoth.eu/vmagent: allow
       metrics: &metrics
         enabled: true
         serviceMonitor:
@@ -74,7 +73,6 @@ spec:
     worker:
       replicas: 2
       pdb: *pdb
-      podLabels: *podLabels
       metrics: *metrics
       resources:
         limits:

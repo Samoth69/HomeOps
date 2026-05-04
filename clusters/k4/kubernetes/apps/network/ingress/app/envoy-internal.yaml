@@ -40,6 +40,7 @@ spec:
           labels:
             ingress.samoth.eu/envoy-internal: allow
             ingress.samoth.eu/lan: allow
+            ingress.samoth.eu/vmagent: allow
             egress.samoth.eu/envoy-internal: allow
       envoyService:
         annotations:
@@ -51,6 +52,8 @@ spec:
     drainTimeout: 30s
   telemetry:
     metrics:
+      enableRequestResponseSizesStats: true
+      enableVirtualHostStats: true
       prometheus:
         compression:
           type: Gzip
