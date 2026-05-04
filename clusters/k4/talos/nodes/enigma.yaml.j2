@@ -3,6 +3,7 @@ machine:
   type: controlplane
   install:
     image: factory.talos.dev/metal-installer-secureboot/f9771dbb3e512d03d91b58851d4106efaed6a692031e4033116f7386f64d6971:v1.13.0
+    disk: /dev/sda
 ---
 apiVersion: v1alpha1
 kind: BondConfig
