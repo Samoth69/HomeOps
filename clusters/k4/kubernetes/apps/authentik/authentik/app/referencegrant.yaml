@@ -1,0 +1,15 @@
+apiVersion: gateway.envoyproxy.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: authentik
+spec:
+  from:
+    - &sp
+      group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: media
+    # - <<: *sp
+    #   namespace: selfhosted
+  to:
+    - group: ""
+      kind: Service
