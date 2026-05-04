@@ -10,8 +10,8 @@ spec:
       name: "${APP}"
   extAuth:
     failOpen: false
-    recomputeRoute: true
-    headersToExtAuth: ["Cookie"]
+    recomputeRoute: false
+    headersToExtAuth: ["cookie"]
     http:
       backendRefs:
         - kind: Service
