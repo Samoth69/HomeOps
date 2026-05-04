@@ -10,8 +10,9 @@ spec:
       name: "${APP}"
   extAuth:
     failOpen: false
-    recomputeRoute: false
-    headersToExtAuth: ["cookie"]
+    recomputeRoute: true
+    headersToExtAuth:
+      - cookie
     http:
       backendRefs:
         - kind: Service
@@ -19,4 +20,13 @@ spec:
           namespace: authentik
           port: 9000
       path: /outpost.goauthentik.io/auth/envoy
-      headersToBackend: ["set-cookie", "${AUTH_HEADER:=x-authentik-uid}", "x-authentik-username", "x-authentik-name", "x-authentik-email", "x-authentik-groups", "x-authentik-entitlements"]
+      headersToBackend: 
+        - set-cookie
+        - Set-Cookie
+        - x-authentik-uid
+        - x-authentik-username
+        - x-authentik-name
+        - x-authentik-email
+        - x-authentik-groups
+        - x-authentik-entitlements
+        - authorization
