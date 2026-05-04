@@ -122,6 +122,16 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: Exact
+                  value: /outpost.goauthentik.io
+            backendRefs:
+              - kind: Service
+                name: ak-outpost-envoy
+                namespace: authentik
+                port: 9000
       api:
         hostnames: [*host]
         parentRefs:
