@@ -9,7 +9,6 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: snapshot-controller
-      namespace: kube-system
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/system/snapshot-controller/app
   postBuild:
