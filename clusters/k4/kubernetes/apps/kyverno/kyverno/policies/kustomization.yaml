@@ -8,3 +8,4 @@ resources:
   - ./deny-secret-serviceaccount-token-type.yaml
   - ./pss-baseline.yaml
   - ./pss-restricted.yaml
+  - ./restrict-serviceaccount-automount-sa-token.yaml

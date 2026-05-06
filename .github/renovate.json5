@@ -249,6 +249,7 @@
         '!/rook\/rook-ceph-cluster/',
         '!/ceph\/ceph/',
         '!/cilium\/cilium/',
+        '!/kyverno\/kyverno/',
         '!/siderolabs\/installer/',
         '!/siderolabs\/kubelet/'
       ],
