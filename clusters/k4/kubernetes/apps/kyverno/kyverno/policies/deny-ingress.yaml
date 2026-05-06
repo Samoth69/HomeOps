@@ -30,5 +30,5 @@ spec:
         resources:
           - ingresses
   validations:
-    - expression: 'true'
+    - expression: 'false'
       message: "Ingresses are not allowed on this cluster"
