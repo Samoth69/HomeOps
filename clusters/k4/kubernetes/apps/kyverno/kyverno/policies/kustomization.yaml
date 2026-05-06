@@ -6,6 +6,7 @@ resources:
   - ./check-serviceaccount-secrets.yaml
   - ./deny-ingress.yaml
   - ./deny-secret-serviceaccount-token-type.yaml
+  - ./disable-automountserviceaccounttoken.yaml
   - ./pss-baseline.yaml
   - ./pss-restricted.yaml
   - ./restrict-serviceaccount-automount-sa-token.yaml
