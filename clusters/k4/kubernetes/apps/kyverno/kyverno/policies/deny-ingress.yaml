@@ -12,7 +12,7 @@ metadata:
     policies.kyverno.io/subject: Ingress
 spec:
   validationActions:
-    - Audit
+    - Deny
   evaluation:
     admission:
       enabled: true
