@@ -170,3 +170,6 @@ spec:
           paperless:
             app:
               - path: /data/nas
+    serviceAccount:
+      paperless:
+        enabled: false
