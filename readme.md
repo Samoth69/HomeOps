@@ -10,6 +10,10 @@ If you want to get started in GitOps with Kubernetes, have a look at the excelle
 
 Main cluster
 
+### Lynka
+
+Old cluster, disabled for now
+
 ## Docker
 
 ### PiHoleGamma
