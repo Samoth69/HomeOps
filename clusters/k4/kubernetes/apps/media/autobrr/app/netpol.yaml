@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: autobrr
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: ${APP}
+  egress:
+    - toFQDNs:
+        - matchName: "irc.rizon.net"
+        - matchName: "irc.rizon.net.media.svc.cluster.local"
+      toPorts:
+        - ports:
+            - port: "6697"
+              protocol: ANY
