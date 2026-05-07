@@ -13,5 +13,7 @@ spec:
         - matchName: "irc.rizon.net.media.svc.cluster.local"
       toPorts:
         - ports:
+            - port: "6667"
+              protocol: ANY
             - port: "6697"
               protocol: ANY
