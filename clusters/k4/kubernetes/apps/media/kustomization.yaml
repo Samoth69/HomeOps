@@ -17,3 +17,4 @@ resources:
   - ./qui/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sonarr-anime/ks.yaml
+  - ./thelounge/ks.yaml
