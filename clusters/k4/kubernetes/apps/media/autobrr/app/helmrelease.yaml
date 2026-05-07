@@ -69,7 +69,7 @@ spec:
 
               # Database
               AUTOBRR__DATABASE_TYPE: postgres
-              AUTOBRR__POSTGRES_HOST: pooler-transaction-rw.database.svc.cluster.local.
+              AUTOBRR__POSTGRES_HOST: pooler-transaction-rw.database.svc.cluster.local
               AUTOBRR__POSTGRES_DATABASE: *app
               AUTOBRR__POSTGRES_SSLMODE: require
               AUTOBRR__POSTGRES_USER: *app
