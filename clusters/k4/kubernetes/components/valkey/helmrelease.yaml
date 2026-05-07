@@ -13,7 +13,7 @@ spec:
     tag: 0.9.4
   url: oci://ghcr.io/valkey-io/valkey-helm/valkey
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -31,9 +31,6 @@ spec:
     
     workloadAnnotations:
       reloader.stakater.com/auto: "true"
-    
-    podLabels:
-      ingress.samoth.eu/vmagent: allow
     
     podSecurityContext:
       fsGroup: 1000
@@ -70,3 +67,6 @@ spec:
                   values:
                   - ${APP}
               topologyKey: kubernetes.io/hostname
+
+    serviceAccount:
+      create: false
