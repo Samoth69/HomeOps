@@ -36,7 +36,6 @@ spec:
             ingress.samoth.eu/envoy-internal: allow
             ingress.samoth.eu/vmagent: allow
             egress.samoth.eu/envoy-internal: allow
-            egress.samoth.eu/database: allow
             egress.samoth.eu/internet-http: allow
           securityContext:
             runAsUser: 2000
@@ -68,18 +67,6 @@ spec:
                     name: ${APP}-secret
                     key: api-key
 
-              # Database
-              AUTOBRR__DATABASE_TYPE: postgres
-              AUTOBRR__POSTGRES_HOST: pooler-transaction-rw.database.svc.cluster.local
-              AUTOBRR__POSTGRES_DATABASE: *app
-              AUTOBRR__POSTGRES_SSLMODE: require
-              AUTOBRR__POSTGRES_USER: *app
-              AUTOBRR__POSTGRES_PASS:
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-user-${APP}
-                    key: password
-              
               # SSO
               AUTOBRR__OIDC_ENABLED: "true"
               AUTOBRR__OIDC_ISSUER: https://authentik.${SECRET_DOMAIN}/application/o/${APP}/

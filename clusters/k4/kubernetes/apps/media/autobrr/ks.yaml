@@ -6,11 +6,8 @@ metadata:
   name: &app autobrr
 spec:
   components:
-    - ../../../../components/database
     - ../../../../components/volsync
   dependsOn:
-    - name: postgres-cnpg
-      namespace: database
     - name: rook-ceph-cluster
       namespace: storage
   interval: 1h
