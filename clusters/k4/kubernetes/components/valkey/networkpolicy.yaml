@@ -2,7 +2,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: valkey-from-${APP}
+  name: valkey-${APP}-side
 spec:
   description: "Allow the app to talk to valkey"
   endpointSelector:
@@ -17,7 +17,7 @@ spec:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: ${APP}-to-valkey
+  name: valkey-${APP}-valkey-side
 spec:
   description: "Allow valkey to receive requests from the app"
   endpointSelector:
@@ -28,7 +28,4 @@ spec:
         - matchLabels:
             app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
   egress: 
-    # TODO why this is needed ?
-    - toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+    - {}
