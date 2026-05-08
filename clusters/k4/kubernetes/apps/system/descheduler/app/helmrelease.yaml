@@ -76,6 +76,7 @@ spec:
                   pods: 40
                 evictableNamespaces:
                   exclude: &excludedNamespaces
+                    - games
                     - jobs
             - name: HighNodeUtilization
               args:
