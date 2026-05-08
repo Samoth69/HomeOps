@@ -60,6 +60,12 @@ spec:
         prometheus:
           serviceMonitor:
             enabled: true
+        resources:
+          requests:
+            cpu: 5m
+            memory: 32Mi
+          limits:
+            memory: 512Mi
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "10.48.0.0/16"
@@ -86,14 +92,30 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      podDisruptionBudget:
+        enabled: true
+        minAvailable: 1
+        maxUnavailable: null
       replicas: 2
+      resources:
+        requests:
+          cpu: 5m
+          memory: 100Mi
+        limits:
+          memory: 1G
       rollOutPods: true
+
     prometheus:
       enabled: true
       serviceMonitor:
         enabled: true
         trustCRDsExist: true
-    # TODO revert
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1500Mi
+      limits:
+        memory: 4G
     rollOutCiliumPods: false
     routingMode: native
     securityContext:
