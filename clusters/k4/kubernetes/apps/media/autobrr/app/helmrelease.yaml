@@ -26,7 +26,7 @@ spec:
   values:
     controllers:
       autobrr:
-        strategy: Recreate
+        type: statefulset
 
         annotations:
           reloader.stakater.com/auto: "true"

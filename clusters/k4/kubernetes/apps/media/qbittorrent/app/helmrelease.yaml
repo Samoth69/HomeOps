@@ -26,7 +26,7 @@ spec:
   values:
     controllers:
       qbittorrent:
-        strategy: Recreate
+        type: statefulset
         pod:
           securityContext:
             fsGroup: 1000
