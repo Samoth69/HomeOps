@@ -20,3 +20,9 @@ spec:
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/internet-http: allow
+    resources:
+      requests:
+        cpu: 5m
+        memory: 256Mi
+      limits:
+        memory: 1Gi
