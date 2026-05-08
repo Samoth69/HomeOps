@@ -27,3 +27,9 @@ spec:
     podLabels:
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
+    resources:
+      requests:
+        cpu: 1m
+        memory: 20Mi
+      limits:
+        memory: 256Mi

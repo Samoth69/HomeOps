@@ -69,12 +69,21 @@ spec:
           parentRefs:
             - name: envoy-internal
               namespace: network
+      resources:
+        requests:
+          cpu: 15m
+          memory: 512Mi
+        limits:
+          memory: 1Gi
 
     worker:
       replicas: 2
       pdb: *pdb
       metrics: *metrics
       resources:
+        requests:
+          cpu: 50m
+          memory: 512Mi
         limits:
           memory: 1Gi
 

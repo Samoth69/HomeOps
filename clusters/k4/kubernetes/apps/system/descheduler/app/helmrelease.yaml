@@ -75,8 +75,8 @@ spec:
             - name: HighNodeUtilization
               args:
                 thresholds:
-                  cpu: 80
-                  memory: 80
+                  cpu: 90
+                  memory: 90
                   pods: 80
                 evictableNamespaces:
                   exclude: *excludedNamespaces

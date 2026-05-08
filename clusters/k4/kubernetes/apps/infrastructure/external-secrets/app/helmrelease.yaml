@@ -40,6 +40,12 @@ spec:
     serviceMonitor:
       enabled: true
       interval: 1m
+    resources: &resources
+      requests:
+        cpu: 1m
+        memory: 45Mi
+      limits:
+        memory: 256Mi
     certController:
       image:
         repository: ghcr.io/external-secrets/external-secrets
@@ -49,6 +55,7 @@ spec:
       log:
         level: info
         timeEncoding: iso8601
+      resources: *resources
     webhook:
       image:
         repository: ghcr.io/external-secrets/external-secrets
@@ -58,5 +65,6 @@ spec:
       log:
         level: info
         timeEncoding: iso8601
+      resources: *resources
     grafanaDashboard:
       enabled: true

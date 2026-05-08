@@ -13,6 +13,15 @@ spec:
       labels:
         ingress.samoth.eu/envoy-internal: allow
         ingress.samoth.eu/vmagent: allow
+    spec:
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: 5m
+              memory: 32Mi
+            limits:
+              memory: 512Mi
 
   instances: 3
   type: rw

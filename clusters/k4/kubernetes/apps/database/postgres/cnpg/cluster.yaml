@@ -47,6 +47,8 @@ spec:
     enablePodMonitor: true
 
   postgresql:
+    parameters:
+      shared_buffers: "128MB" # should be 1/4 of memory request
     pg_hba:
       - hostssl all all all scram-sha-256
 
@@ -56,3 +58,10 @@ spec:
         ensure: absent
     services:
       disabledDefaultServices: ["ro", "r"]
+  
+  resources:
+    requests:
+      cpu: 30m
+      memory: 512Mi
+    limits:
+      memory: 2Gi
