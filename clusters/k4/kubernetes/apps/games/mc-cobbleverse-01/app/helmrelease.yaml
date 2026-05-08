@@ -26,8 +26,7 @@ spec:
   values:
     controllers:
       app:
-        strategy: Recreate
-        revisionHistoryLimit: 2
+        type: statefulset
         containers:
           app:
             image: 
