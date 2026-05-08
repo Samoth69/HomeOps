@@ -8,10 +8,19 @@ spec:
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+  ingress:
+    # TODO WHY ????
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey}
   egress:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey}
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
 apiVersion: "cilium.io/v2"
@@ -27,5 +36,9 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
   egress: 
     - {}
