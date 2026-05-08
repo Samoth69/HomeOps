@@ -48,6 +48,8 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
+      evictionHard:
+        memory.available: "500Mi"
       featureGates:
         UserNamespacesSupport: true
       maxPods: 150
@@ -118,11 +120,23 @@ cluster:
       enable-aggregator-routing: "true"
       feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
+    resources:
+      requests:
+        cpu: 150m
+        memory: 4Gi
+      limits:
+        memory: 4Gi
   controllerManager:
     image: registry.k8s.io/kube-controller-manager:v1.35.4
     extraArgs:
       bind-address: 0.0.0.0
       node-cidr-mask-size-ipv6: "112"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 256Mi
+      limits:
+        memory: 1Gi
   coreDNS:
     disabled: true
   etcd:
@@ -162,6 +176,12 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.35.4
+    resources:
+      requests:
+        cpu: 10m
+        memory: 128Mi
+      limits:
+        memory: 512Gi
   secretboxEncryptionSecret: {{ ENV.TALSECRET_SECRETS_SECRETBOXENCRYPTIONSECRET }}
   serviceAccount:
     key: {{ ENV.TALSECRET_CERTS_K8SSERVICEACCOUNT_KEY }}
