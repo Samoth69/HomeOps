@@ -46,6 +46,13 @@ spec:
             - name: DefaultEvictor
               args:
                 nodeFit: true
+                podProtections:
+                  extraEnabled:
+                  - PodsWithPVC
+                  config:
+                    PodsWithPVC:
+                      protectedStorageClasses:
+                      - name: openebs-hostpath
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity
               args:
@@ -69,9 +76,7 @@ spec:
                   pods: 40
                 evictableNamespaces:
                   exclude: &excludedNamespaces
-                    - database
                     - jobs
-                    - storage
             - name: HighNodeUtilization
               args:
                 thresholds:
