@@ -72,6 +72,14 @@ spec:
                     - database
                     - jobs
                     - storage
+            - name: HighNodeUtilization
+              args:
+                thresholds:
+                  cpu: 80
+                  memory: 80
+                  pods: 80
+                evictableNamespaces:
+                  exclude: *excludedNamespaces
             - name: RemoveFailedPods
               args:
                 reasons:
@@ -89,6 +97,7 @@ spec:
               enabled:
                 - RemovePodsViolatingTopologySpreadConstraint
                 - LowNodeUtilization
+                - HighNodeUtilization
             deschedule:
               enabled:
                 - RemoveFailedPods
