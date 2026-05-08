@@ -28,4 +28,7 @@ spec:
         - matchLabels:
             app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
   egress: 
-    - {}
+    # TODO why this is needed ?
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
