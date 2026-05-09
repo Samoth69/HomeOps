@@ -138,18 +138,7 @@ spec:
 
     vmsingle:
       enabled: true
-      route:
-        enabled: true
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-            sectionName: https
-        hostnames:
-          - "vmsingle.${SECRET_DOMAIN}"
       spec:
-        podMetadata:
-          labels:
-            ingress.samoth.eu/envoy-internal: allow
         extraArgs:
           enableTCP6: "true"
         replicaCount: 1
