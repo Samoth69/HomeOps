@@ -147,6 +147,9 @@ spec:
         hostnames:
           - "vmsingle.${SECRET_DOMAIN}"
       spec:
+        podMetadata:
+          labels:
+            ingress.samoth.eu/envoy-internal: allow
         extraArgs:
           enableTCP6: "true"
         replicaCount: 1
