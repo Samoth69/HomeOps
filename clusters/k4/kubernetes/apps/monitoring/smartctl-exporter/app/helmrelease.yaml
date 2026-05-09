@@ -44,9 +44,6 @@ spec:
             - __meta_kubernetes_endpoint_node_name
           targetLabel: instance
 
-    podAnnotations:
-      kyverno.samoth.eu/baseline: allow-hostpath-privileged
-
     prometheusRules:
       enabled: false
 
