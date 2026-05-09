@@ -9,6 +9,7 @@ spec:
     enableTCP6: "true"
   retentionPeriod: 30d
   retentionMaxDiskSpaceUsageBytes: 20GB
+  priorityClassName: monitoring
   podMetadata:
     labels:
       ingress.samoth.eu/envoy-internal: allow
@@ -18,3 +19,9 @@ spec:
     resources:
       requests:
         storage: 50Gi
+  resources:
+    requests:
+      cpu: 150m
+      memory: 750Mi
+    limits:
+      memory: 1500Mi

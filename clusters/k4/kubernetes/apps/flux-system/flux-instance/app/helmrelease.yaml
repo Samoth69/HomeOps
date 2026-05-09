@@ -52,7 +52,7 @@ spec:
                 value: --requeue-dependency=5s
             target:
               kind: Deployment
-              name: (kustomize-controller|helm-controller|source-controller)
+              name: (kustomize-controller|helm-controller|source-controller|notification-controller)
           - # Increase the memory limits
             patch: |
               apiVersion: apps/v1
@@ -69,6 +69,7 @@ spec:
                             cpu: 10m
                             memory: 128Mi
                           limits:
+                            cpu: ~
                             memory: 512Mi
             target:
               kind: Deployment

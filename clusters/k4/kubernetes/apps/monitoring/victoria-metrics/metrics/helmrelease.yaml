@@ -141,6 +141,7 @@ spec:
       spec:
         extraArgs:
           enableTCP6: "true"
+        priorityClassName: monitoring
         replicaCount: 1
         retentionPeriod: 30d
         storage:
@@ -154,7 +155,7 @@ spec:
         resources:
           requests:
             cpu: 200m
-            memory: 1Gi
+            memory: 1500Mi
           limits:
             memory: 3Gi
 

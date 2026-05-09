@@ -10,6 +10,7 @@ components:
 
 resources:
   - ./policy.yaml
+  - ./priorityclass.yaml
   - ./fluentbit/ks.yaml
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
