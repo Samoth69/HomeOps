@@ -25,3 +25,4 @@ spec:
       memory: 750Mi
     limits:
       memory: 1500Mi
+  useStrictSecurity: true

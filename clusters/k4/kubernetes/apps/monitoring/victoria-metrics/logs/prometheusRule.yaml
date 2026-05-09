@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: vlsingle
+spec:
+  groups:
+    - name: vlsingle.rules
+      rules:
+        - alert: TooLowVlRowsIngestedTotal
+          annotations:
+            summary: too low rows ingested total for Victoria Logs
+          expr: rate(vl_rows_ingested_total) < 20
+          for: 5m
+          labels:
+            severity: critical
+        - alert: VlRowsIngestedTotalIsAbsent
+          annotations:
+            summary: no value found for vl_rows_ingested_total for 5 minutes, something may be wrong with log collectors
+          expr: absent_over_time(rate(vl_rows_ingested_total))
+          for: 5m
+          labels:
+            severity: critical
