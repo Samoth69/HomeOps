@@ -67,6 +67,7 @@ spec:
   podMetricsEndpoints:
     - port: metrics
       scheme: http
+      path: /stats/prometheus
   selector:
     matchLabels:
       gateway.networking.k8s.io/gateway-name: envoy-internal
