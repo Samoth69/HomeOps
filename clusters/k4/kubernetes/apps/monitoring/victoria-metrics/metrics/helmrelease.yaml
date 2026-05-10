@@ -164,14 +164,11 @@ spec:
 
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
-      metricLabelsAllowlist:
-        - cronjobs=[*]
-        - jobs=[*]
-        - pods=[*]
-        - deployments=[*]
-        - statefulsets=[*]
-        - daemonsets=[*]
-        - persistentvolumeclaims=[*]
+      customResourceState:
+        enabled: true
+        create: false
+        name: custom-resource-state-metrics
+        key: config.yaml
       podLabels:
         ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/kube-apiserver: allow

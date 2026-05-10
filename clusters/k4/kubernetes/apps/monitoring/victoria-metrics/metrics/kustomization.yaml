@@ -6,3 +6,11 @@ resources:
   - ./helmrelease.yaml
   - ./scrapeconfigs
   - ./netpol.yaml
+configMapGenerator:
+  - name: custom-resource-state-metrics
+    files:
+      - config.yaml=./configmaps/customresourcestatemetrics.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
