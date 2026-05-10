@@ -69,4 +69,4 @@ spec:
       scheme: http
   selector:
     matchLabels:
-      gateway.networking.k8s.io/gateway-nam: envoy-internal
+      gateway.networking.k8s.io/gateway-name: envoy-internal
