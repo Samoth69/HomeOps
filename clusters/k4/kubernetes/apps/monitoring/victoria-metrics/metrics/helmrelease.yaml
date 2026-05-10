@@ -189,6 +189,12 @@ spec:
             verbs:
               - list
               - watch
+      resources:
+        requests:
+          cpu: 10m
+          memory: 350Mi
+        limits:
+          memory: 1Gi
       vmScrape:
         enabled: true
         spec:
