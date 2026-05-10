@@ -173,6 +173,22 @@ spec:
         ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/kube-apiserver: allow
+      rbac:
+        extraRules:
+          - apiGroups:
+              - "gateway.networking.k8s.io"
+            resources:
+              - gateways
+              - gatewayclasses
+              - httproutes
+              - grpcroutes
+              - tcproutes
+              - tlsroutes
+              - udproutes
+              - backendtlspolicies
+            verbs:
+              - list
+              - watch
       vmScrape:
         enabled: true
         spec:
