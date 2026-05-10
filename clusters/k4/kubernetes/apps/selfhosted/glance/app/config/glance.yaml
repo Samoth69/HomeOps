@@ -68,12 +68,8 @@ pages:
         widgets:
           - type: weather
             units: metric
-            location: Lyon,	Auvergne-Rhône-Alpes, France
+            location: Lyon,	France
             hour-format: 24h
-          - type: repository
-            repository: Samoth69/Fern
-            pull-requests-limit: 5
-            issues-limit: 3
           - type: repository
             repository: Samoth69/HomeOps
             pull-requests-limit: 5
