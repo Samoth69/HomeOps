@@ -1,3 +1,4 @@
+# https://github.com/envoyproxy/gateway/blob/v1.7.3/charts/gateway-addons-helm/values.yaml#L65
 kind: CustomResourceStateMetrics
 spec:
   resources:
