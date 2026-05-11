@@ -67,8 +67,6 @@ spec:
         reloader.stakater.com/auto: "true"
       securityContext:
         pod:
-          fsGroup: 65534
-          fsGroupChangePolicy: OnRootMismatch
           runAsGroup: 65533 # nogroup
           runAsNonRoot: true
           runAsUser: 65534 # nobody
