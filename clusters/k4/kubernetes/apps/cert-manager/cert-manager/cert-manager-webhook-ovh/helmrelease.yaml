@@ -67,7 +67,7 @@ spec:
         reloader.stakater.com/auto: "true"
       securityContext:
         pod:
-          fsGroup: 65533
+          fsGroup: 65534
           fsGroupChangePolicy: OnRootMismatch
           runAsGroup: 65533 # nogroup
           runAsNonRoot: true
@@ -77,4 +77,3 @@ spec:
           allowPrivilegeEscalation: false
           capabilities: {drop: ["ALL"]}
           readOnlyRootFilesystem: true
-          privileged: false
