@@ -67,11 +67,11 @@ spec:
         reloader.stakater.com/auto: "true"
       securityContext:
         pod:
-          fsGroup: 1000
+          fsGroup: 65533
           fsGroupChangePolicy: OnRootMismatch
-          runAsGroup: 1000
+          runAsGroup: 65533 # nogroup
           runAsNonRoot: true
-          runAsUser: 1000
+          runAsUser: 65534 # nobody
           seccompProfile: { type: "RuntimeDefault" }
         container:
           allowPrivilegeEscalation: false
