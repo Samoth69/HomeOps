@@ -36,7 +36,7 @@ spec:
     - name: cert-manager
       namespace: cert-manager
   interval: 1h
-  path: ./clusters/k4/kubernetes/apps/cert-manager/cert-manager-webhook-ovh/app
+  path: ./clusters/k4/kubernetes/apps/cert-manager/cert-manager/cert-manager-webhook-ovh
   postBuild:
     substituteFrom:
       - name: cluster-secrets
