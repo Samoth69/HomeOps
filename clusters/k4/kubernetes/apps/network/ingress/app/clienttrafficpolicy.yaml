@@ -11,14 +11,18 @@ spec:
         # pods CIDR
         - 10.48.0.0/16
         - fd00:48::/56
+  connection:
+    maxAcceptPerSocketEvent: 0
   http2:
     onInvalidMessage: TerminateStream
-  # http3: {}
+  http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
   timeout:
+    tcp:
+      idleTimeout: 10s
     http:
       idleTimeout: 60s
   tls:
