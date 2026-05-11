@@ -15,6 +15,7 @@ spec:
         app: alpine
         egress.samoth.eu/internet-http: allow
         egress.samoth.eu/cluster: allow
+        egress.samoth.eu/internal-ingress: allow
     spec:
       # dnsPolicy: Default
       containers:

@@ -6,8 +6,6 @@ resources:
   - ./backendtrafficpolicy.yaml
   - ./clienttrafficpolicy.yaml
   - ./envoy-internal.yaml
-  - ./envoy-external.yaml
-  - ./external.yaml
   - ./gatewayclass.yaml
   - ./httpsredirect.yaml
   - ./internal.yaml
