@@ -67,9 +67,9 @@ spec:
         reloader.stakater.com/auto: "true"
       securityContext:
         pod:
-          runAsGroup: 65533 # nogroup
+          runAsGroup: 1000
           runAsNonRoot: true
-          runAsUser: 65534 # nobody
+          runAsUser: 1000
           seccompProfile: { type: "RuntimeDefault" }
         container:
           allowPrivilegeEscalation: false
