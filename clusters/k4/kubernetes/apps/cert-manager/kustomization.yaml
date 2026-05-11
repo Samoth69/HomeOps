@@ -7,7 +7,6 @@ namespace: cert-manager
 components:
   - ../../components/sops
   - ../../components/namespace
-  - ../../components/pss-restricted
 
 resources:
   - ./cert-manager/ks.yaml
