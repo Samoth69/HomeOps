@@ -133,3 +133,9 @@
   hostname:
     name: "{{ hostname }}"
   when: hostname is defined
+
+- name: enable fstrim timer
+  systemd:
+    name: fstrim.timer
+    enabled: true
+  when: ansible_distribution == 'Rocky'
