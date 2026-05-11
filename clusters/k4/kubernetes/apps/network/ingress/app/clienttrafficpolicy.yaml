@@ -13,7 +13,7 @@ spec:
         - fd00:48::/56
   http2:
     onInvalidMessage: TerminateStream
-  http3: {}
+  # http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
