@@ -29,7 +29,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "@daily"
-          backoffLimit: 0
+          backoffLimit: 5
           concurrencyPolicy: Forbid
           failedJobsHistory: 1
           successfulJobsHistory: 1
