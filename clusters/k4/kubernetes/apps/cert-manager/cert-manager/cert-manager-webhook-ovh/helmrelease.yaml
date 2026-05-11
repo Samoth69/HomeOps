@@ -65,6 +65,10 @@ spec:
     pod:
       annotations:
         reloader.stakater.com/auto: "true"
+      podLabels:
+        ingress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/internet: allow
       securityContext:
         pod:
           runAsGroup: 1000
