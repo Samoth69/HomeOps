@@ -31,10 +31,3 @@ spec:
             memory: 20Mi
           limits:
             memory: 1Gi
-        volumeMounts:
-          - mountPath: "/mnt/alpine"
-            name: mypvc
-      volumes:
-        - name: mypvc
-          persistentVolumeClaim:
-            claimName: alpine
