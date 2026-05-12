@@ -21,8 +21,8 @@ spec:
         storage: 50Gi
   resources:
     requests:
-      cpu: 150m
-      memory: 750Mi
+      cpu: 100m
+      memory: 1Gi
     limits:
-      memory: 1500Mi
+      memory: 3Gi
   useStrictSecurity: true
