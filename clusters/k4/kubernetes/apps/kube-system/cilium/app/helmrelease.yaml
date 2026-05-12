@@ -87,7 +87,7 @@ spec:
     loadBalancer:
       standalone: true
       algorithm: maglev
-      mode: dsr
+      mode: snat
     localRedirectPolicies:
       enabled: true
     operator:
