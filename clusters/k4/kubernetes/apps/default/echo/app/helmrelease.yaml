@@ -80,7 +80,7 @@ spec:
         annotations:
           lbipam.cilium.io/ips: "${SECRET_LB3_IPV4}"
         ports:
-          ssh:
+          http:
             port: *port
     serviceMonitor:
       app:
