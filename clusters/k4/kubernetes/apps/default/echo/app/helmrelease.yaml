@@ -74,6 +74,14 @@ spec:
         ports:
           http:
             port: *port
+      app2:
+        controller: echo
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "${SECRET_LB3_IPV4}"
+        ports:
+          ssh:
+            port: *port
     serviceMonitor:
       app:
         endpoints:

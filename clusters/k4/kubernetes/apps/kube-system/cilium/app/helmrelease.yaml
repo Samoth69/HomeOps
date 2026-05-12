@@ -85,6 +85,7 @@ spec:
       leaseRenewDeadline: 1s
       leaseRetryPeriod: 200ms
     loadBalancer:
+      standalone: true
       algorithm: maglev
       mode: dsr
     localRedirectPolicies:
