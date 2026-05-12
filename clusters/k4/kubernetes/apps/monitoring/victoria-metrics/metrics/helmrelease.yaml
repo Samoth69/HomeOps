@@ -51,7 +51,7 @@ spec:
           routes:
             - receiver: "blackhole"
               matchers:
-                - alertname=~"InfoInhibitor|Watchdog|CPUThrottlingHigh|etcdMemberCommunicationSlow"
+                - alertname=~"InfoInhibitor|Watchdog|CPUThrottlingHigh|etcdMemberCommunicationSlow|etcdDatabaseHighFragmentationRatio"
             - receiver: "blackhole"
               matchers:
                 - severity=~"info|warning"
