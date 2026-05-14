@@ -13,4 +13,4 @@ s3_region = 'garage'
 
 [s3_web]
 bind_addr = '0.0.0.0:3903'
-root_domain = 'truenas.samoth.eu'
+root_domain = 'garage.truenas.samoth.eu'
