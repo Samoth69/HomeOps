@@ -11,6 +11,8 @@ secrets:
     file: /home/truenas_admin/.config/doco-cd/sops_age_key.txt
 services:
   app:
+    cap_drop:
+      - ALL
     configs:
       - source: poll-config.yml
         target: /poll-config.yml
@@ -30,7 +32,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    image: ghcr.io/kimdre/doco-cd:0.87.0
+    image: ghcr.io/kimdre/doco-cd:0.88.0
     restart: unless-stopped
     secrets:
       - sops_age_key
