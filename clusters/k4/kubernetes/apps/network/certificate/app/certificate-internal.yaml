@@ -4,17 +4,17 @@ kind: Certificate
 metadata:
   name: "${SECRET_DOMAIN//./-}"
 spec:
-  secretName: "${SECRET_DOMAIN//./-}-tls"
-  issuerRef:
-    kind: Issuer
-    # TODO passer sur le profile shortlived
-    name: letsencrypt-prod
-  commonName: "${SECRET_DOMAIN}"
   dnsNames:
     - "${SECRET_DOMAIN}"
     - "*.${SECRET_DOMAIN}"
-  renewBefore: 720h #30d
+  duration: 160h
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-staging
   privateKey:
     algorithm: ECDSA
     size: 384
     rotationPolicy: Always
+  secretName: "${SECRET_DOMAIN//./-}-tls"
+  usages:
+    - digital signature
