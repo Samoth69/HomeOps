@@ -1,0 +1,7 @@
+---
+name: home-ops
+working_dir: ./docker/TrueNAS
+auto_discover: true
+auto_discover_opts:
+  depth: 1
+  delete: true

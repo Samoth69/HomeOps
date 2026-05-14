@@ -1,0 +1,38 @@
+---
+networks:
+  apps:
+    name: apps
+    external: false
+services:
+  traefik:
+    command:
+      # - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.cf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.cf.acme.profile=shortlived
+      - --certificatesresolvers.cf.acme.dnsChallenge.provider=ovh
+      - --certificatesresolvers.cf.acme.storage=/certs/acme.json
+      - --entryPoints.web.address=:80
+      - --entryPoints.web.http.redirections.entryPoint.scheme=https
+      - --entryPoints.web.http.redirections.entryPoint.to=websecure
+      - --entryPoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certResolver=cf
+      - --entrypoints.websecure.http.tls.domains[0].main=*.truenas.samoth.eu
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+    container_name: traefik
+    environment:
+      - OVH_ENDPOINT=ovh-eu
+    env_file:
+      - secrets.sops.env
+    image: ghcr.io/traefik/traefik:3.7.1
+    networks:
+      - apps
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - acme:/certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+volumes:
+  acme:
