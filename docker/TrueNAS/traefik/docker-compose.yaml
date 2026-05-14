@@ -30,6 +30,7 @@ services:
     ports:
       - 80:80
       - 443:443
+    restart: unless-stopped
     volumes:
       - acme:/certs
       - /var/run/docker.sock:/var/run/docker.sock:ro
