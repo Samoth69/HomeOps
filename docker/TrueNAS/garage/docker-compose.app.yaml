@@ -1,0 +1,49 @@
+---
+networks:
+  apps:
+    name: apps
+    external: true
+services:
+  garage:
+    container_name: garage
+    environment:
+      TZ: Europe/Paris
+      RUST_BACKTRACE: "1"
+      RUST_LOG: garage=info
+    env_file:
+      - secrets.sops.env
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.garage.entrypoints: websecure
+      traefik.http.routers.garage.rule: Host(`garage.truenas.samoth.eu`)
+    image: dxflrs/garage:v2.3.0
+    networks:
+      - apps
+    ports:
+      - 3903:3903 # S3 API
+    restart: unless-stopped
+    volumes:
+      - ./garage.toml:/etc/garage.toml
+      - /mnt/TheSSDs/Apps/Garage/MetadataSnapshots:/var/lib/garage/snapshots
+      - /mnt/TheSSDs/Apps/Garage/Metadata:/var/lib/garage/meta
+      - /mnt/ThePool/Apps/Garage/Data:/var/lib/garage/data
+  
+  garage-ui:
+    container_name: garage-webui
+    environment:
+      API_BASE_URL: "http://garage:3903"
+      S3_ENDPOINT_URL: "http://garage:3900"
+    env_file:
+      - secrets.sops.env
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.garage-ui.entrypoints: websecure
+      traefik.http.routers.garage-ui.rule: Host(`garage-ui.truenas.samoth.eu`)
+    image: khairul169/garage-webui:latest
+    networks:
+      - apps
+    ports:
+      - 3909:3909
+    restart: unless-stopped
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
