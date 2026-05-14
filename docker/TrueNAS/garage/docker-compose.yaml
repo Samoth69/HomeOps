@@ -30,8 +30,8 @@ services:
   garage-ui:
     container_name: garage-webui
     environment:
-      API_BASE_URL: "http://garage:3903"
-      S3_ENDPOINT_URL: "http://garage:3900"
+      API_BASE_URL: "http://garage:3900"
+      S3_ENDPOINT_URL: "http://garage:3903"
     env_file:
       - secrets.sops.env
     labels:
