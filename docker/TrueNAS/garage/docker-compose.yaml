@@ -16,11 +16,10 @@ services:
       traefik.enable: "true"
       traefik.http.routers.garage.entrypoints: websecure
       traefik.http.routers.garage.rule: Host(`garage.truenas.samoth.eu`)
+      traefik.http.services.garage.loadbalancer.server.port: "3903" # S3 API
     image: dxflrs/garage:v2.3.0
     networks:
       - apps
-    ports:
-      - 3903:3903 # S3 API
     restart: unless-stopped
     volumes:
       - ./garage.toml:/etc/garage.toml
@@ -39,11 +38,10 @@ services:
       traefik.enable: "true"
       traefik.http.routers.garage-ui.entrypoints: websecure
       traefik.http.routers.garage-ui.rule: Host(`garage-ui.truenas.samoth.eu`)
+      traefik.http.services.garage-ui.loadbalancer.server.port: "3909" # WebUI
     image: khairul169/garage-webui:latest
     networks:
       - apps
-    ports:
-      - 3909:3909
     restart: unless-stopped
     volumes:
       - ./garage.toml:/etc/garage.toml:ro
