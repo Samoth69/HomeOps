@@ -3,6 +3,7 @@ metadata_dir = '/var/lib/garage/meta'
 metadata_snapshots_dir = '/var/lib/garage/snapshots'
 replication_factor = 1
 rpc_bind_addr = '0.0.0.0:3901'
+rpc_public_addr = 'garage-rpc.truenas.samoth.eu'
 
 [admin]
 api_bind_addr = '0.0.0.0:3904'
@@ -10,7 +11,3 @@ api_bind_addr = '0.0.0.0:3904'
 [s3_api]
 api_bind_addr = '0.0.0.0:3900'
 s3_region = 'garage'
-
-[s3_web]
-bind_addr = '0.0.0.0:3903'
-root_domain = 'garage.truenas.samoth.eu'
