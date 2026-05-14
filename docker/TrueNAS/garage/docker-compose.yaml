@@ -17,11 +17,7 @@ services:
       traefik.http.routers.garage-s3.entrypoints: websecure
       traefik.http.routers.garage-s3.rule: Host(`garage.truenas.samoth.eu`)
       traefik.http.routers.garage-s3.service: garage-s3
-      traefik.http.services.garage-s3.loadbalancer.server.port: "3903" # S3 API
-      traefik.http.routers.garage-rpc.entrypoints: websecure
-      traefik.http.routers.garage-rpc.rule: Host(`garage-rpc.truenas.samoth.eu`)
-      traefik.http.routers.garage-rpc.service: garage-rpc
-      traefik.http.services.garage-rpc.loadbalancer.server.port: "3901" # RPC
+      traefik.http.services.garage-s3.loadbalancer.server.port: "3900" # S3 API
     image: dxflrs/garage:v2.3.0
     networks:
       - apps
@@ -35,8 +31,8 @@ services:
   garage-ui:
     container_name: garage-webui
     environment:
-      API_BASE_URL: "http://garage:3900"
-      S3_ENDPOINT_URL: "http://garage:3903"
+      API_BASE_URL: "http://garage:3904"
+      S3_ENDPOINT_URL: "http://garage:3900"
     env_file:
       - secrets.sops.env
     labels:
