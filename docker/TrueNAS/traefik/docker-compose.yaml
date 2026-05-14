@@ -5,8 +5,8 @@ networks:
 services:
   traefik:
     command:
-      # - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.cf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      # - --certificatesresolvers.cf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.profile=shortlived
       - --certificatesresolvers.cf.acme.dnsChallenge.provider=ovh
       - --certificatesresolvers.cf.acme.storage=/certs/acme.json
