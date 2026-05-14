@@ -30,7 +30,7 @@ spec:
         - ${SECRET_GARAGE_IP}/32
       toPorts:
         - ports:
-            - port: "3900"
+            - port: "443"
               protocol: TCP
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
