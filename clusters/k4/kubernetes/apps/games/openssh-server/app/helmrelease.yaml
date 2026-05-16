@@ -74,5 +74,3 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       mc-atm10-01:
         existingClaim: mc-atm10-01
-      mc-cobbleverse-01:
-        existingClaim: mc-cobbleverse-01
