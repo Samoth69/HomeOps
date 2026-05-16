@@ -84,7 +84,9 @@ spec:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/20842/revisions/3/download
         doco-cd:
-          datasource: VictoriaMetrics
+          datasource:
+            - name: DS_PROMETHEUS
+              value: VictoriaMetrics
           url: https://grafana.com/api/dashboards/23980/revisions/1/download
         node-exporter-full:
           datasource: VictoriaMetrics
