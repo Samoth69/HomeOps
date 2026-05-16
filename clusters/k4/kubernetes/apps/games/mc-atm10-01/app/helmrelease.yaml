@@ -44,7 +44,7 @@ spec:
               EULA: true
               TYPE: NEOFORGE
               VERSION: 1.21.1
-              NEOFORGE_VERSION: 21.1.224
+              NEOFORGE_VERSION: 21.1.228
               SERVER_PORT: *port
 
               # Performance
