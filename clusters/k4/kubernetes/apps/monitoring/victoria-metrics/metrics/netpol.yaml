@@ -2,7 +2,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: vmks-metrics
+  name: vmks-metrics-smartctl
 spec:
   endpointSelector:
     matchLabels:
@@ -14,4 +14,24 @@ spec:
       toPorts:
         - ports:
             - port: "9633"
+              protocol: TCP
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: vmks-metrics-doco-cd
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: vmks
+      app.kubernetes.io/name: vmagent
+  egress:
+    - toCIDR:
+        - 192.168.0.2/32
+        - 192.168.0.3/32
+        - ${SECRET_TRUENAS_CIDR}
+      toPorts:
+        - ports:
+            - port: "9120"
               protocol: TCP

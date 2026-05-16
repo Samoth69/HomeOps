@@ -83,6 +83,9 @@ spec:
         cert-manager:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/20842/revisions/3/download
+        doco-cd:
+          datasource: VictoriaMetrics
+          url: https://grafana.com/api/dashboards/23980/revisions/1/download
         node-exporter-full:
           datasource: VictoriaMetrics
           url: https://grafana.com/api/dashboards/1860/revisions/42/download

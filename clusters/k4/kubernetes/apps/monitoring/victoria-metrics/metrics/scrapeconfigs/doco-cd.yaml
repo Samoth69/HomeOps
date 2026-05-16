@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name doco-cd
+spec:
+  staticConfigs:
+    - targets:
+        - &PiHoleGamma 192.168.0.2:9120
+        - &PiHoleDelta 192.168.0.3:9120
+        - &TrueNAS ${SECRET_TRUENAS_IP}:9120
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
+    - action: replace
+      sourceLabels: ["__address__"]
+      regex: *PiHoleGamma
+      replacement: PiHoleGamma
+      targetLabel: instance
+    - action: replace
+      sourceLabels: ["__address__"]
+      regex: *PiHoleDelta
+      replacement: PiHoleDelta
+      targetLabel: instance
+    - action: replace
+      sourceLabels: ["__address__"]
+      regex: *TrueNAS
+      replacement: TrueNAS
+      targetLabel: instance

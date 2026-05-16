@@ -1,7 +1,7 @@
 ---
 name: home-ops
 working_dir: ./docker/PiHoleGamma
-auto_discover: true
-auto_discover_opts:
+auto_discovery:
+  enabled: true
   depth: 1
   delete: true
