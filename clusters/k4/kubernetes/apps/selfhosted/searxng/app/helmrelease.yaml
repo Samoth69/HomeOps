@@ -58,6 +58,8 @@ spec:
             pass_ip = [
               '192.168.0.0/16',      # IPv4 private network
               '10.0.0.0/8',          # IPv4 private network
+              'fe80::/10',           # IPv6 linklocal
+              '${SECRET_CIDR_LAN_V6}'
             ]
 
             # Activate passlist of (hardcoded) IPs from the SearXNG organization,
