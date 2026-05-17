@@ -152,6 +152,9 @@ spec:
                 requestRedirect:
                   hostname: www.google.com
                   statusCode: 302
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /
           - backendRefs:
               - identifier: app
                 port: http
