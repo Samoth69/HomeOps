@@ -7,35 +7,16 @@ metadata:
   name: cilium-policy-drops
 spec:
   groups:
-    # Network-policy drop visibility. Without these, a CiliumNetworkPolicy
-    # gap is silent — drops show up only when a user notices an app is
-    # broken. The 2026-05-17 netpol rollout left 5+ apps broken for ~14h
-    # before discovery; these alerts close that loop.
-    #
-    # Metric: `hubble_drop_total{reason="POLICY_DENIED"}` is emitted by
-    # the cilium-agent hubble-metrics server (port 9965) and carries the
-    # `source_namespace` + `destination_namespace` labels added via
-    # `hubble.metrics.enabled[drop]:labelsContext=...` in
-    # kubernetes/apps/kube-system/cilium/app/values.yaml.
-    #
-    # A correctly-configured cluster has 0 sustained policy drops. Brief
-    # spikes during pod startup races and netpol reconciles are normal;
-    # thresholds below tolerate those while catching real breakage.
     - name: cilium-policy-drops
       rules:
         - alert: CiliumPolicyDropsSustained
           annotations:
             description: >-
-              CiliumNetworkPolicy is dropping {{ $value | humanize }} pkt/s
-              destined for namespace {{ $labels.destination_namespace }}
-              (sustained 10m+). App {{ $labels.source }} at {{ $labels.protocol }} with destination {{ $labels.destination }}
+              CiliumNetworkPolicy is dropping {{ $value | humanize }} pkt/s (sustained 10m+).
+              App {{ $labels.source }} using {{ $labels.protocol }} with destination {{ $labels.destination }}
             summary: Sustained CiliumNetworkPolicy drops into {{ $labels.source }}.
-          # >5 drops/min (0.083 pkt/s) sustained for 10m = real policy gap,
-          # not a transient reconcile race. Drops with no destination_namespace
-          # label (host-network or unmapped) get aggregated into the empty
-          # bucket but still alert.
           expr: |
-            sum by (destination_namespace) (
+            sum by (source, destination, protocol) (
               rate(hubble_drop_total{reason="POLICY_DENIED"}[5m])
             ) > 0.083
           for: 10m
@@ -44,18 +25,13 @@ spec:
         - alert: CiliumPolicyDropBurst
           annotations:
             description: >-
-              CiliumNetworkPolicy is dropping {{ $value | humanize }} pkt/s
-              destined for namespace {{ $labels.destination_namespace }}
-              (sustained 10m+). App {{ $labels.source }} at {{ $labels.protocol }} with destination {{ $labels.destination }}
-            summary: CiliumNetworkPolicy drop burst into {{ $labels.destination_namespace }}.
-          # 200 drops in 2m = ~1.7 pkt/s sustained, the signature of an app
-          # whose connectivity just broke (e.g. a netpol PR landed and an
-          # egress rule went missing). Critical → routes through HolmesGPT
-          # investigation + Pushover.
+              CiliumNetworkPolicy is dropping {{ $value | humanize }} pkt/s (sustained 10m+).
+              App {{ $labels.source }} using {{ $labels.protocol }} with destination {{ $labels.destination }}
+            summary: CiliumNetworkPolicy drop burst into {{ $labels.source }}.
           expr: |
-            sum by (destination_namespace) (
-              increase(hubble_drop_total{reason="POLICY_DENIED"}[2m])
-            ) > 200
+            sum by (source, destination, protocol) (
+              rate(hubble_drop_total{reason="POLICY_DENIED"}[5m])
+            ) > 0.083
           for: 2m
           labels:
             severity: warning
