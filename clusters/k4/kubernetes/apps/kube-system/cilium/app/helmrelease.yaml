@@ -41,13 +41,14 @@ spec:
       enabled: true
     hubble:
       enabled: true
+      eventBufferCapacity: "16383"
       metrics:
         enabled:
-          - dns:query;ignoreAAAA;sourceContext=workload|pod|dns|ip
-          - drop:sourceContext=workload|pod|dns|ip;destinationContext=workload|pod|dns|ip;labelsContext=source_workload_kind,destination_workload_kind
-          - flow:sourceContext=workload|pod|dns|ip;destinationContext=workload|pod|dns|ip;labelsContext=source_workload_kind,destination_workload_kind
-          - flows-to-world:any-drop;port;syn-only;sourceContext=workload|pod|dns|ip;destinationContext=dns|ip;labelsContext=source_workload_kind
-          - port-distribution:protocol;port;sourceContext=workload|pod|dns|ip;destinationContext=dns|ip;labelsContext=source_workload_kind,destination_workload_kind
+          - dns:query;ignoreAAAA;sourceContext=workload|pod|dns|ip;labelsContext=source_namespace,source_pod
+          - drop:sourceContext=workload|pod|dns|ip;destinationContext=workload|pod|dns|ip;labelsContext=source_workload_kind,destination_workload_kind,source_namespace,destination_namespace
+          - flow:sourceContext=workload|pod|dns|ip;destinationContext=workload|pod|dns|ip;labelsContext=source_workload_kind,destination_workload_kind,source_namespace,destination_namespace
+          - flows-to-world:any-drop;port;syn-only;sourceContext=workload|pod|dns|ip;destinationContext=dns|ip;labelsContext=source_workload_kind,source_namespace
+          - port-distribution:protocol;port;sourceContext=workload|pod|dns|ip;destinationContext=dns|ip;labelsContext=source_workload_kind,destination_workload_kind,source_namespace,destination_namespace
         serviceMonitor:
           enabled: true
         dashboards:
