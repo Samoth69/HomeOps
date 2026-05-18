@@ -127,6 +127,7 @@ spec:
             egress.samoth.eu/cluster: allow
         extraArgs:
           enableTCP6: "true"
+          promscrape.maxScrapeSize: "67108864" # Cilium somehow produces more metrics than the default 16777216
         configReloaderExtraArgs:
           enableTCP6: "true"
         resources:
