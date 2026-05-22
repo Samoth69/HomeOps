@@ -27,6 +27,7 @@ spec:
           decryption:
             provider: sops
           deletionPolicy: WaitForTermination
+          interval: 1h
           prune: true
           patches:
             - patch: |-
@@ -61,7 +62,6 @@ spec:
             kind: GitRepository
             name: flux-system
             namespace: flux-system
-          interval: 1h
           wait: false
       target:
         group: kustomize.toolkit.fluxcd.io
