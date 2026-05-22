@@ -12,9 +12,6 @@ spec:
       namespace: storage
   path: ./clusters/k4/kubernetes/apps/media/qbittorrent/app
   postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
     substitute:
       APP: *app
   healthChecks:

@@ -53,6 +53,10 @@ spec:
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
+          postBuild:
+            substituteFrom:
+              - name: cluster-secrets
+                kind: Secret
           sourceRef:
             kind: GitRepository
             name: flux-system
