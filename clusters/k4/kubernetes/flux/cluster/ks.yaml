@@ -27,6 +27,7 @@ spec:
           decryption:
             provider: sops
           deletionPolicy: WaitForTermination
+          prune: true
           patches:
             - patch: |-
                 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -52,6 +53,12 @@ spec:
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
+          sourceRef:
+            kind: GitRepository
+            name: flux-system
+            namespace: flux-system
+          interval: 1h
+          wait: false
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization

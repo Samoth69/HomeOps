@@ -3,50 +3,23 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: qbittorrent-secrets
-spec:
-  interval: 1h
-  path: ./clusters/k4/kubernetes/apps/media/qbittorrent/secrets
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: media
-  wait: false
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: &app qbittorrent
 spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: qbittorrent-secrets
     - name: rook-ceph-cluster
       namespace: storage
-  interval: 1h
   path: ./clusters/k4/kubernetes/apps/media/qbittorrent/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      # Needed for netpol
-      - name: qbittorrent-secret
-        kind: Secret
     substitute:
       APP: *app
-  prune: true
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *app
       namespace: media
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: media
-  wait: false
+  targetNamespace: media  
