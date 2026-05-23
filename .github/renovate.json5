@@ -242,6 +242,7 @@
         '!/cilium\/cilium/',
         '!/kyverno\/kyverno/',
         '!/siderolabs\/installer/',
+        '!/siderolabs\/talos/',
         '!/siderolabs\/kubelet/'
       ],
       matchUpdateTypes: [
