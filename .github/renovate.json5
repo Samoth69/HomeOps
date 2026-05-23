@@ -7,6 +7,11 @@
     ':dependencyDashboard',
     ':disableRateLimiting',
     ':semanticCommits',
+    'github>home-operations/renovate-presets//managers/annotated.json5',
+    'github>home-operations/renovate-presets//managers/cnpg.json5',
+    'github>home-operations/renovate-presets//managers/grafanaDashboards.json5',
+    'github>home-operations/renovate-presets//managers/oci.json5',
+    'github>home-operations/renovate-presets//managers/talosFactory.json5'
   ],
   dependencyDashboard: true,
   dependencyDashboardTitle: 'Renovate Dashboard 🤖',
@@ -92,20 +97,6 @@
       ],
       matchPackageNames: [
         '/rook/',
-      ],
-      group: {
-        commitMessageTopic: '{{{groupName}}} group',
-      },
-    },
-    {
-      description: 'Dragonfly Group',
-      groupName: 'Dragonfly',
-      matchDatasources: [
-        'docker',
-        'github-releases',
-      ],
-      matchPackageNames: [
-        '/dragonflydb/',
       ],
       group: {
         commitMessageTopic: '{{{groupName}}} group',
