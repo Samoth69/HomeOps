@@ -34,6 +34,14 @@ spec:
       - --metric-resolution=10s
       - --kubelet-request-timeout=2s
     replicas: 2
+    topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: metrics-server
+            app.kubernetes.io/instance: metrics-server
+        topologyKey: kubernetes.io/hostname
+        maxSkew: 1
+        whenUnsatisfiable: DoNotSchedule
     podDisruptionBudget:
       enabled: true
       minAvailable: 1
