@@ -54,8 +54,8 @@ upgrade-k8s version:
     talosctl -n "{{ controller }}" upgrade-k8s --to {{ version }}
 
 [doc('Upgrade Talos version on a node')]
-upgrade-node node:
-    talosctl -n "{{ node }}" upgrade -i "$(just clusters k4 talos machine-image {{ node }})" -m powercycle --timeout=10m
+upgrade-node node *args:
+    talosctl -n "{{ node }}" upgrade -i "$(just clusters k4 talos machine-image {{ node }})" -m powercycle --timeout=10m {{ args }}
 
 [doc('Download Talos machine image')]
 download-image version schematic:
