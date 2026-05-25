@@ -60,6 +60,7 @@ identity_providers:
         default_policy: one_factor
     jwks:
       - key: '{{ env "JWKS_KEY_SECRET" }}'
+        certificate_chain: '{{ env "JWKS_CERT_CHAIN_SECRET" }}'
     cors:
       endpoints:
         - "authorization"
