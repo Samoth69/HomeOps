@@ -43,7 +43,7 @@ spec:
               QUI__LOG_LEVEL: INFO
 
               QUI__OIDC_ENABLED: "true"
-              QUI__OIDC_ISSUER: https://authelia.${SECRET_DOMAIN}
+              QUI__OIDC_ISSUER: https://authentik.${SECRET_DOMAIN}/application/o/${APP}/
               QUI__OIDC_CLIENT_ID:
                 valueFrom:
                   secretKeyRef:
@@ -97,7 +97,8 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: "RuntimeDefault" }
+        seccompProfile:
+          type: RuntimeDefault
     
     service:
       app:
