@@ -166,7 +166,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: authelia-config
+        name: ${APP}-config
         globalMounts:
           - path: /config/configuration.yaml
             subPath: configuration.yaml
