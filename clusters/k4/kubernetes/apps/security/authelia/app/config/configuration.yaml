@@ -67,7 +67,7 @@ identity_providers:
     clients:
       - client_name: qui
         client_id: qui
-        client_secret: '{{ env "QUI_OAUTH_CLIENT_SECRET" }}'
+        client_secret: '{{ env "QUI_OIDC_CLIENT_SECRET" }}'
         public: false
         authorization_policy: default
         require_pkce: false
