@@ -117,7 +117,7 @@ spec:
     route:
       app:
         forceRename: ${APP}
-        hostnames: [&host "{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        hostnames: [&host "${APP}.${SECRET_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: network
