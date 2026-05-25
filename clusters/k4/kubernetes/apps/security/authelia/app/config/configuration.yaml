@@ -65,6 +65,7 @@ identity_providers:
             policy: one_factor
     jwks:
       - key: '{{ env "JWKS_KEY_SECRET" }}'
+        algorithm: RS256
     cors:
       endpoints:
         - "authorization"
