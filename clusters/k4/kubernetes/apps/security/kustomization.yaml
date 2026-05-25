@@ -9,5 +9,6 @@ components:
   - ../../components/namespace-isolated
 
 resources:
-  - ./priorityclass.yaml
+  - ./authelia/ks.yaml
   - ./lldap/ks.yaml
+  - ./priorityclass.yaml
