@@ -42,7 +42,7 @@ spec:
             env:
               TZ: Europe/Paris
               LLDAP_HTTP_PORT: &port 80
-              LLDAP_HTTP_URL: https://${APP}.${CLUSTER_DOMAIN}
+              LLDAP_HTTP_URL: https://${APP}.${SECRET_DOMAIN}
               LLDAP_LDAP_PORT: &ldapPort 389
               LLDAP_DATABASE_URL:
                 valueFrom:
