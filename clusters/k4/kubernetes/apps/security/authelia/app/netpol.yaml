@@ -8,6 +8,8 @@ spec:
     matchLabels:
       app.kubernetes.io/name: authelia
       app.kubernetes.io/instance: authelia
+  # Required for TCP SYN ACK
+  # TODO why ??
   ingress:
     - fromEndpoints: &labels
         - matchLabels:
@@ -25,7 +27,7 @@ spec:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: ingress-to-lldap
+  name: authelia-lldap-side
 spec:
   endpointSelector:
     matchLabels:
