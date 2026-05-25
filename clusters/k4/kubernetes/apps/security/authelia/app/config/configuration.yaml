@@ -56,3 +56,12 @@ definitions:
     trusted:
       - "${SECRET_CIDR_LAN_V4}"
       - "${SECRET_CIDR_LAN_V6}"
+
+access_control:
+  default_policy: one_factor
+  rules:
+    - networks:
+        - internal
+        - trusted
+      policy: one_factor
+      domain: "*.${SECRET_DOMAIN}"
