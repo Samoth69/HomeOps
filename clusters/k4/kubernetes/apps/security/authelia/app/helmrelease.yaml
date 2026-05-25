@@ -167,8 +167,12 @@ spec:
           - path: /config/configuration.yaml
             subPath: configuration.yaml
             readOnly: true
-      tmp:
-        type: emptyDir
+      secret-files:
+        enabled: true
+        type: secret
+        name: authelia-secret
+        globalMounts:
+          - path: /config/secret
     serviceAccount:
       *app :
         enabled: false
