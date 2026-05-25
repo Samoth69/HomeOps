@@ -57,7 +57,12 @@ identity_providers:
   oidc:
     authorization_policies:
       default:
-        default_policy: one_factor
+        default_policy: deny
+        rules:
+          - networks:
+              - internal
+              - trusted
+            policy: one_factor
     jwks:
       - key: '{{ env "JWKS_KEY_SECRET" }}'
     cors:
