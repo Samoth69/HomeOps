@@ -4,21 +4,9 @@ authentication_backend:
   refresh_interval: 1m
   ldap:
     implementation: "lldap"
-    start_tls: false
     address: "ldap://lldap.security.svc.cluster.local:389"
     base_dn: "DC=samoth,DC=eu"
     user: "UID=authelia,OU=people,DC=samoth,DC=eu"
-    additional_users_dn: ou=people
-    users_filter: (&({username_attribute}={input})(objectClass=person))
-    additional_groups_dn: ou=groups
-    groups_filter: (member={dn})
-    group_search_mode: filter
-    attributes:
-      username: uid
-      display_name: displayName
-      group_name: cn
-      mail: mail
-      member_of: memberOf
 
 session:
   same_site: lax

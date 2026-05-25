@@ -30,6 +30,8 @@ spec:
     parameters:
       max_client_conn: "1000"
       default_pool_size: "10"
+      # Required by authelia https://stackoverflow.com/a/71798410
+      ignore_startup_parameters: "search_path"
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/monitoring.coreos.com/podmonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
