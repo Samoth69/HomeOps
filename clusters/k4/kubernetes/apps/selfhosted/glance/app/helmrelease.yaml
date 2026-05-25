@@ -57,21 +57,16 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources: {}
             probes:
-              liveness:
+              liveness: &probe
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /healthz
                     port: 8080
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthz
-                    port: 8080
+              readiness: *probe
     defaultPodOptions:
+      automountServiceAccountToken: true
       labels:
         ingress.samoth.eu/envoy-internal: allow
         ingress.samoth.eu/kube-apiserver: allow
