@@ -118,7 +118,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: app
+              - identifier: ${APP}
                 port: http
     persistence:
       data:
