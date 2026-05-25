@@ -109,7 +109,7 @@ spec:
             port: *ldapPort
             protocol: TCP
     route:
-      app:
+      *app :
         hostnames:
           - "${APP}.${SECRET_DOMAIN}"
         parentRefs:
