@@ -9,4 +9,5 @@ components:
   - ../../components/namespace-isolated
 
 resources:
+  - ./priorityclass.yaml
   - ./lldap/ks.yaml
