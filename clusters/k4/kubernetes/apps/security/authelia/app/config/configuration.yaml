@@ -64,7 +64,7 @@ identity_providers:
               - trusted
             policy: one_factor
     jwks:
-      - key: '{{ secret "/config/secret/JWKS_KEY_SECRET" | mindent 10 "|" | msquote }}'
+      - key: {{ secret "/config/secret/JWKS_KEY_SECRET" | mindent 10 "|" | msquote }}
     cors:
       endpoints:
         - "authorization"
