@@ -36,9 +36,12 @@ spec:
             ingress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/database: allow
           securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
             runAsUser: 568
             runAsGroup: 568
             runAsNonRoot: true
+            seccompProfile: { type: "RuntimeDefault" }
         containers:
           app:
             image:
@@ -123,13 +126,6 @@ spec:
       hostPID: false
       priorityClassName: security
       shareProcessNamespace: false
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: "RuntimeDefault" }
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
