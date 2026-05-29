@@ -27,7 +27,7 @@ spec:
     image:
       registry: ghcr.io
       repository: valkey-io/valkey
-      tag: 9.0.4-alpine
+      tag: 9.1.0-alpine
     
     workloadAnnotations:
       reloader.stakater.com/auto: "true"
