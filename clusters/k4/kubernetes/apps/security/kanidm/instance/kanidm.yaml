@@ -33,13 +33,6 @@ spec:
           drop:
           - ALL
         readOnlyRootFilesystem: true
-        runAsUser: 999
-        runAsGroup: 999
-        runAsNonRoot: true
-        fsGroup: 999
-        fsGroupChangePolicy: "OnRootMismatch"
-        seccompProfile:
-          type: RuntimeDefault
   containers:
     - name: kanidm
       securityContext:
@@ -48,8 +41,6 @@ spec:
           drop:
           - ALL
         readOnlyRootFilesystem: true
-        seccompProfile:
-          type: RuntimeDefault
   image: kanidm/server:1.10.3
   imagePullPolicy: IfNotPresent
   logLevel: info
@@ -60,6 +51,8 @@ spec:
     runAsNonRoot: true
     fsGroup: 999
     fsGroupChangePolicy: "OnRootMismatch"
+    seccompProfile:
+      type: RuntimeDefault
   gateway:
     hostnames:
       - *domain
