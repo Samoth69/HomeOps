@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./backendtlspolicy.yaml
   - ./certificate.yaml
+  - ./group.yaml
   - ./httproute.yaml
   - ./kanidm.yaml
   - ./netpol.yaml

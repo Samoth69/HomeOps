@@ -16,6 +16,13 @@ spec:
   
   public: false
 
+  scopeMap:
+    - group: users
+      scopes:
+        - openid
+        - profile
+        - email
+
   secretRotation:
     enabled: ${KANIDM_SECRET_ROTATION:=true}
     periodDays: 7

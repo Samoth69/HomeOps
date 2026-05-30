@@ -1,0 +1,12 @@
+apiVersion: kaniop.rs/v1beta1
+kind: KanidmGroup
+metadata:
+  name: users
+spec:
+  kanidmRef:
+    name: kanidm-cluster
+  entryManagedBy: samoth
+  mail:
+    - ${SECRET_EMAIL}
+  members:
+    - samoth
