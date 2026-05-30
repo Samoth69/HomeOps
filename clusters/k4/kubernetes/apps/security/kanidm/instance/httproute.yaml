@@ -24,6 +24,5 @@ spec:
       sessionPersistence:
         sessionName: kanidm-session
         type: Cookie
-        absoluteTimeout: 10s
         cookieConfig:
-          lifetimeType: Permanent
+          lifetimeType: Session
