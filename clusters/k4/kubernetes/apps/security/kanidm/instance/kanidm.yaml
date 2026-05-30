@@ -26,14 +26,14 @@ spec:
           memory: 128M
         limits:
           memory: 128M
-  
+
   initContainers:
     - name: kanidm-generate-replication-config
       securityContext:
         allowPrivilegeEscalation: false
         capabilities:
           drop:
-          - ALL
+            - ALL
         readOnlyRootFilesystem: true
   containers:
     - name: kanidm
@@ -41,7 +41,7 @@ spec:
         allowPrivilegeEscalation: false
         capabilities:
           drop:
-          - ALL
+            - ALL
         readOnlyRootFilesystem: true
   image: kanidm/server:1.10.3
   imagePullPolicy: IfNotPresent
@@ -62,6 +62,21 @@ spec:
       - name: envoy-internal
         namespace: network
         sectionName: https
+    rules:
+      - backendRefs:
+          - kind: Service
+            name: kanidm-cluster
+            port: 8443
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+        sessionPersistence:
+          sessionName: kanidm-session
+          type: Cookie
+          absoluteTimeout: 10s
+          cookieConfig:
+            lifetimeType: Permanent
   storage:
     volumeClaimTemplate:
       spec:
@@ -70,4 +85,3 @@ spec:
         resources:
           requests:
             storage: 128Mi
-  
