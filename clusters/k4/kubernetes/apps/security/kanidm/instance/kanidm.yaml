@@ -63,3 +63,4 @@ spec:
         resources:
           requests:
             storage: 128Mi
+  oauth2ClientNamespaceSelector: {}
