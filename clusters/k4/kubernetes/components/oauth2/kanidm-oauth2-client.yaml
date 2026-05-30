@@ -16,6 +16,8 @@ spec:
   
   public: false
 
+  preferShortUsername: true
+
   scopeMap:
     - group: users
       scopes:
