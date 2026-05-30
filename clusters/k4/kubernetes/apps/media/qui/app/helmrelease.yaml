@@ -43,17 +43,17 @@ spec:
               QUI__LOG_LEVEL: INFO
 
               QUI__OIDC_ENABLED: "true"
-              QUI__OIDC_ISSUER: https://authentik.${SECRET_DOMAIN}/application/o/${APP}/
+              QUI__OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/
               QUI__OIDC_CLIENT_ID:
                 valueFrom:
                   secretKeyRef:
-                    name: qui-oidc-secret
-                    key: client-id
+                    name: qui-kanidm-oauth2-credentials
+                    key: CLIENT_ID
               QUI__OIDC_CLIENT_SECRET:
                 valueFrom:
                   secretKeyRef:
-                    name: qui-oidc-secret
-                    key: client-secret
+                    name: qui-kanidm-oauth2-credentials
+                    key: CLIENT_SECRET
               QUI__OIDC_REDIRECT_URL: https://${APP}.${SECRET_DOMAIN}/api/auth/oidc/callback
               QUI__OIDC_DISABLE_BUILT_IN_LOGIN: "true"
               QUI__CORS_ALLOWED_ORIGINS: https://${APP}.${SECRET_DOMAIN}
