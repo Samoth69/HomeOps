@@ -18,6 +18,8 @@ spec:
                   kanidm.kaniop.rs/cluster: kanidm-cluster
                   kanidm.kaniop.rs/replica-group: default
               topologyKey: kubernetes.io/hostname
+      statefulSetAnnotations:
+        reloader.stakater.com/auto: "true"
       resources:
         requests:
           cpu: 10m
