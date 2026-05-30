@@ -24,7 +24,7 @@ spec:
       namespace: security
     - name: rook-ceph-cluster
       namespace: storage
-  path: ./clusters/k4/kubernetes/apps/security/instance/app
+  path: ./clusters/k4/kubernetes/apps/security/kanidm/instance
   postBuild:
     substituteFrom:
       - name: cluster-secrets
