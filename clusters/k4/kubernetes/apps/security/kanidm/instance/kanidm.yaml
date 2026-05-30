@@ -25,6 +25,22 @@ spec:
         limits:
           memory: 128M
   
+  initContainers:
+    - name: kanidm-generate-replication-config
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+          - ALL
+  containers:
+    - name: kanidm
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+          - ALL
   image: kanidm/server:1.10.3
   imagePullPolicy: IfNotPresent
   logLevel: info
