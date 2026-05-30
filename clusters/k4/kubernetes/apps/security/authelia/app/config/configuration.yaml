@@ -65,6 +65,7 @@ identity_providers:
             policy: one_factor
     jwks:
       - key: {{ secret "/config/secret/JWKS_KEY_SECRET" | mindent 10 "|" | msquote }}
+        use: 'sig'
     cors:
       endpoints:
         - "authorization"
