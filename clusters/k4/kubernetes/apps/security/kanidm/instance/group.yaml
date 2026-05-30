@@ -7,6 +7,6 @@ spec:
     name: kanidm-cluster
   entryManagedBy: samoth
   mail:
-    - ${SECRET_EMAIL}
+    - users@idm.${SECRET_DOMAIN}
   members:
     - samoth
