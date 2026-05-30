@@ -143,6 +143,9 @@ spec:
     - toEndpoints:
         - matchLabels:
             ingress.samoth.eu/envoy-internal: allow
+        - matchLabels:
+            kanidm.kaniop.rs/cluster: kanidm-cluster
+            k8s:io.kubernetes.pod.namespace: security
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumnetworkpolicy_v2.json
 apiVersion: "cilium.io/v2"
