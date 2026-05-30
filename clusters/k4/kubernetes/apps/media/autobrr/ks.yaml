@@ -6,11 +6,11 @@ metadata:
   name: &app autobrr
 spec:
   components:
+    - ../../../../components/oauth2
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: storage
-  interval: 1h
   path: ./clusters/k4/kubernetes/apps/media/autobrr/app
   postBuild:
     substituteFrom:
@@ -18,15 +18,10 @@ spec:
         kind: Secret
     substitute:
       APP: *app
-  prune: true
+      KANIDM_REDIRECT_PATH: /api/auth/oidc/callback
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *app
       namespace: media
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
   targetNamespace: media
-  wait: false

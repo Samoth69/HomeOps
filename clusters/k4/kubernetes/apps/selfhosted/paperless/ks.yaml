@@ -5,6 +5,7 @@ metadata:
   name: &app paperless
 spec:
   components:
+    - ../../../../components/oauth2
     - ../../../../components/database
     - ../../../../components/valkey
     - ../../../../components/volsync
@@ -20,10 +21,5 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 20Gi
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
+      KANIDM_REDIRECT_PATH: /accounts/oidc/kanidm/login/callback/
   targetNamespace: selfhosted
-  wait: false

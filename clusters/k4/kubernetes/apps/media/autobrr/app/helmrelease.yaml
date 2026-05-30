@@ -69,17 +69,17 @@ spec:
 
               # SSO
               AUTOBRR__OIDC_ENABLED: "true"
-              AUTOBRR__OIDC_ISSUER: https://authentik.${SECRET_DOMAIN}/application/o/${APP}/
+              AUTOBRR__OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
               AUTOBRR__OIDC_CLIENT_ID:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-secret
-                    key: client-id
+                    name: ${APP}-kanidm-oauth2-credentials
+                    key: CLIENT_ID
               AUTOBRR__OIDC_CLIENT_SECRET:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-secret
-                    key: client-secret
+                    name: ${APP}-kanidm-oauth2-credentials
+                    key: CLIENT_SECRET
               AUTOBRR__OIDC_REDIRECT_URL: https://${APP}.${SECRET_DOMAIN}/api/auth/oidc/callback
               AUTOBRR__OIDC_DISABLE_BUILT_IN_LOGIN: "true"
             probes:
