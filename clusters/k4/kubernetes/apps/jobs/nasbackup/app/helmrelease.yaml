@@ -54,7 +54,7 @@ spec:
               # repository: ghcr.io/restic/restic
               # tag: 0.18.1
               repository: kopia/kopia
-              tag: 0.22.3
+              tag: 0.23.0
             command:
               - "/scripts/nasbackup.sh"
             envFrom:
