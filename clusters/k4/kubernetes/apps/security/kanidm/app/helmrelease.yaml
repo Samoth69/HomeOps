@@ -24,9 +24,6 @@ spec:
     name: ${APP}
   interval: 1h
   values:
-    additionalLabels:
-      ingress.samoth.eu/kube-apiserver: allow
-      egress.samoth.eu/kube-apiserver: allow
     env:
       - name: LISTEN_ADDRESS
         value: "::"
