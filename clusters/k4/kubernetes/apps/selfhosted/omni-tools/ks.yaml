@@ -2,9 +2,9 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app glance
+  name: &app omni-tools
 spec:
-  path: ./clusters/k4/kubernetes/apps/selfhosted/glance/app
+  path: ./clusters/k4/kubernetes/apps/selfhosted/omni-tools/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
