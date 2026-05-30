@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=
+apiVersion: kaniop.rs/v1beta1
+kind: Kanidm
+metadata:
+  name: kanidm-cluster
+spec:
+  domain: &domain idm.k4.samoth.eu
+  origin: https://idm.k4.samoth.eu
+  replicaGroups:
+    - name: default
+      replicas: 2
+      primaryNode: true
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  kanidm.kaniop.rs/cluster: kanidm-cluster
+                  kanidm.kaniop.rs/replica-group: default
+              topologyKey: kubernetes.io/hostname
+      image: kanidm/server:1.10.3
+      imagePullPolicy: IfNotPresent
+      logLevel: info
+      automountServiceAccountToken: false
+      gateway:
+        hostnames:
+          - *domain
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+      storage:
+        volumeClaimTemplate:
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 128Mi
+      resources:
+        requests:
+          cpu: 10m
+          memory: 128M
+        limits:
+          memory: 128M

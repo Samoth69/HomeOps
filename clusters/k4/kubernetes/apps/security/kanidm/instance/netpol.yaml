@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: kanidm-cluster
+spec:
+  endpointSelector: &appLabels
+    matchLabels: 
+      kanidm.kaniop.rs/cluster: kanidm-cluster
+  ingress:
+    - fromEndpoints:
+        - *appLabels
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: kaniop
+            app.kubernetes.io/name: kaniop
+    - fromEndpoints:
+        - matchLabels:
+            gateway.envoyproxy.io/owning-gateway-name: envoy-internal
+            k8s:io.kubernetes.pod.namespace: network
+  egress:
+    - toEndpoints:
+        - *appLabels
