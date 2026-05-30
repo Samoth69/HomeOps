@@ -5,7 +5,9 @@ metadata:
   name: kanidm-cluster-tls
 spec:
   isCA: true
-  commonName: idm.${SECRET_DOMAIN}
+  dnsNames:
+    - idm.${SECRET_DOMAIN}
+  duration: 160h
   secretName: kanidm-cluster-tls
   privateKey:
     algorithm: ECDSA
