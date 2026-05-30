@@ -43,7 +43,7 @@ spec:
               QUI__LOG_LEVEL: INFO
 
               QUI__OIDC_ENABLED: "true"
-              QUI__OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}/
+              QUI__OIDC_ISSUER: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
               QUI__OIDC_CLIENT_ID:
                 valueFrom:
                   secretKeyRef:
