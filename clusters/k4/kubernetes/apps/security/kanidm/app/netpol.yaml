@@ -14,7 +14,6 @@ spec:
   egress:
     - toEntities:
         - kube-apiserver
-    # TODO find a better label
     - toEndpoints:
         - matchLabels:
-            kanidm.kaniop.rs/cluster: kanidm-cluster
+            app.kubernetes.io/managed-by: kaniop-kanidm

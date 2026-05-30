@@ -4,8 +4,8 @@ kind: Kanidm
 metadata:
   name: kanidm-cluster
 spec:
-  domain: &domain idm.k4.samoth.eu
-  origin: https://idm.k4.samoth.eu
+  domain: &domain idm.${SECRET_DOMAIN}
+  origin: https://idm.${SECRET_DOMAIN}
   replicaGroups:
     - name: default
       replicas: 2
