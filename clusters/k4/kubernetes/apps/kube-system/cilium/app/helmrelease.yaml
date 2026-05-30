@@ -84,7 +84,7 @@ spec:
       enabled: true
       leaseDuration: 3s
       leaseRenewDeadline: 1s
-      leaseRetryPeriod: 200ms
+      leaseRetryPeriod: 500ms
     loadBalancer:
       standalone: true
       algorithm: maglev
