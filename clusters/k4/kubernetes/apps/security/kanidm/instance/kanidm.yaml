@@ -55,28 +55,6 @@ spec:
     fsGroupChangePolicy: "OnRootMismatch"
     seccompProfile:
       type: RuntimeDefault
-  gateway:
-    hostnames:
-      - *domain
-    parentRefs:
-      - name: envoy-internal
-        namespace: network
-        sectionName: https
-    rules:
-      - backendRefs:
-          - kind: Service
-            name: kanidm-cluster
-            port: 8443
-        matches:
-          - path:
-              type: PathPrefix
-              value: /
-        sessionPersistence:
-          sessionName: kanidm-session
-          type: Cookie
-          absoluteTimeout: 10s
-          cookieConfig:
-            lifetimeType: Permanent
   storage:
     volumeClaimTemplate:
       spec:
