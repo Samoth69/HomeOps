@@ -1,0 +1,11 @@
+apiVersion: kaniop.rs/v1beta1
+kind: KanidmPersonAccount
+metadata:
+  name: samoth
+spec:
+  kanidmRef:
+    name: kanidm-cluster
+  personAttributes:
+    displayname: Samoth
+    mail:
+      - ${SECRET_EMAIL}

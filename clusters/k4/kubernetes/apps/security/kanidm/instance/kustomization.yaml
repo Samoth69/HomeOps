@@ -7,3 +7,4 @@ resources:
   - ./certificate.yaml
   - ./kanidm.yaml
   - ./netpol.yaml
+  - ./person.yaml
