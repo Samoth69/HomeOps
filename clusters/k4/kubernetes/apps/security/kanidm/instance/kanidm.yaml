@@ -33,7 +33,11 @@ spec:
           drop:
           - ALL
         readOnlyRootFilesystem: true
+        runAsUser: 999
+        runAsGroup: 999
         runAsNonRoot: true
+        fsGroup: 999
+        fsGroupChangePolicy: "OnRootMismatch"
         seccompProfile:
           type: RuntimeDefault
   containers:
@@ -44,7 +48,11 @@ spec:
           drop:
           - ALL
         readOnlyRootFilesystem: true
+        runAsUser: 999
+        runAsGroup: 999
         runAsNonRoot: true
+        fsGroup: 999
+        fsGroupChangePolicy: "OnRootMismatch"
         seccompProfile:
           type: RuntimeDefault
   image: kanidm/server:1.10.3
