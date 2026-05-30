@@ -6,6 +6,7 @@ metadata:
   name: postgres-${APP}
   namespace: database
 spec:
+  databaseReclaimPolicy: delete
   name: ${APP}
   owner: ${OWNER}
   cluster:
