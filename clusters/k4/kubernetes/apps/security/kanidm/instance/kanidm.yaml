@@ -18,28 +18,30 @@ spec:
                   kanidm.kaniop.rs/cluster: kanidm-cluster
                   kanidm.kaniop.rs/replica-group: default
               topologyKey: kubernetes.io/hostname
-      image: kanidm/server:1.10.3
-      imagePullPolicy: IfNotPresent
-      logLevel: info
-      automountServiceAccountToken: false
-      gateway:
-        hostnames:
-          - *domain
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-            sectionName: https
-      storage:
-        volumeClaimTemplate:
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 128Mi
       resources:
         requests:
           cpu: 10m
           memory: 128M
         limits:
           memory: 128M
+  
+  image: kanidm/server:1.10.3
+  imagePullPolicy: IfNotPresent
+  logLevel: info
+  automountServiceAccountToken: false
+  gateway:
+    hostnames:
+      - *domain
+    parentRefs:
+      - name: envoy-internal
+        namespace: network
+        sectionName: https
+  storage:
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 128Mi
+  
