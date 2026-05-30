@@ -29,18 +29,24 @@ spec:
     - name: kanidm-generate-replication-config
       securityContext:
         allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
         capabilities:
           drop:
           - ALL
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
   containers:
     - name: kanidm
       securityContext:
         allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
         capabilities:
           drop:
           - ALL
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
   image: kanidm/server:1.10.3
   imagePullPolicy: IfNotPresent
   logLevel: info
