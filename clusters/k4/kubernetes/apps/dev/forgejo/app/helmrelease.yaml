@@ -23,6 +23,13 @@ spec:
     name: ${APP}
   interval: 1h
   values:
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities: {drop: ["ALL"]}
+      readOnlyRootFilesystem: true
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
     deployment:
       labels:
         ingress.samoth.eu/envoy-internal: allow
@@ -70,6 +77,7 @@ spec:
       admin:
         username: ""
       config:
+        APP_NAME: 'Samousse Industries'
         cache:
           ENABLED: true
           ADAPTER: redis
@@ -145,6 +153,11 @@ spec:
     persistence:
       create: false
       claimName: forgejo
+    podSecurityContext:
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+      seccompProfile:
+        type: RuntimeDefault
     service:
       ssh:
         port: *sshPort
@@ -154,3 +167,9 @@ spec:
         - name: envoy-internal
           namespace: network
           sectionName: ssh
+    resources:  
+      requests:
+        cpu: 10m
+        memory: 128M
+      limits:
+        memory: 1Gi
