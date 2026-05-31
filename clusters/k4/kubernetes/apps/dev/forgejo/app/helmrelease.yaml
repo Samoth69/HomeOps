@@ -1,0 +1,156 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 17.1.0
+  url: oci://code.forgejo.org/forgejo-helm/forgejo
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    deployment:
+      labels:
+        ingress.samoth.eu/envoy-internal: allow
+        egress.samoth.eu/database: allow
+        egress.samoth.eu/envoy-internal: allow
+      annotations:
+        reloader.stakater.com/auto: "true"
+    gitea:
+      additionalConfigFromEnvs:
+        - name: FORGEJO__CACHE__HOST
+          valueFrom:
+            secretKeyRef:
+              name: ${APP}-valkey-secret
+              key: url
+        - name: FORGEJO__QUEUE__CONN_STR
+          valueFrom:
+            secretKeyRef:
+              name: ${APP}-valkey-secret
+              key: url
+        - name: FORGEJO__SESSION__PROVIDER_CONFIG
+          valueFrom:
+            secretKeyRef:
+              name: ${APP}-valkey-secret
+              key: url
+        - name: FORGEJO__DATABASE__HOST
+          valueFrom:
+            secretKeyRef:
+              name: postgres-user-${APP}
+              key: hostname
+        - name: FORGEJO__DATABASE__NAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-user-${APP}
+              key: database-name
+        - name: FORGEJO__DATABASE__USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-user-${APP}
+              key: username
+        - name: FORGEJO__DATABASE__PASSWD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-user-${APP}
+              key: password
+      admin:
+        username: ""
+      config:
+        cache:
+          ENABLED: true
+          ADAPTER: redis
+        cron.archive_cleanup:
+          ENABLED: true
+          RUN_AT_START: true
+          SCHEDULE: "@every 1h"
+          OLDER_THAN: 2h
+        database:
+          DB_TYPE: postgres
+        indexer:
+          ISSUE_INDEXER_TYPE: bleve
+          REPO_INDEXER_ENABLED: true
+        lfs:
+          PATH: /data/git/lfs
+        mailer:
+          ENABLED: false
+        openid:
+          ENABLE_OPENID_SIGNIN: false
+          ENABLE_OPENID_SIGNUP: false
+        queue:
+          TYPE: redis
+        repository:
+          DEFAULT_REPO_UNITS: repo.code,repo.releases,repo.issues,repo.pulls,repo.actions
+          DISABLED_REPO_UNITS: repo.ext_wiki,repo.ext_issues
+          ROOT: /data/git/repositories
+        repository.pull-request:
+          DEFAULT_MERGE_STYLE: squash
+        security:
+          REVERSE_PROXY_TRUSTED_PROXIES: 10.48.0.0/16,fd00:48::/104
+        server:
+          APP_DATA_PATH: /data/gitea
+          ROOT_URL: https://${APP}.${SECRET_DOMAIN}
+          SSH_DOMAIN: ${APP}.${SECRET_DOMAIN}
+          SSH_PORT: &sshPort 22
+        service:
+          ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+          DEFAULT_ENABLE_TIMETRACKING: false
+          ENABLE_INTERNAL_SIGNIN: false
+          ENABLE_PASSWORD_SIGNIN_FORM: false
+          SHOW_REGISTRATION_BUTTON: false
+        service.explore:
+          DISABLE_CODE_PAGE: false
+          DISABLE_ORGANIZATIONS_PAGE: true
+          DISABLE_USERS_PAGE: true
+          REQUIRE_SIGNIN_VIEW: false
+        session:
+          PROVIDER: redis
+          SESSION_LIFE_TIME: "1209600"
+        webhook:
+          ALLOWED_HOST_LIST: "*"
+      oauth:
+        - name: kanidm
+          adminGroup: users@${APP}.${SECRET_DOMAIN}
+          autoDiscoverUrl: https://${APP}.${SECRET_DOMAIN}/oauth2/openid/forgejo/.well-known/openid-configuration
+          existingSecret: ${APP}-kanidm-oidc
+          groupClaimName: groups
+          provider: openidConnect
+          scopes: profile email groups
+    httpRoute:
+      enabled: true
+      hostnames:
+        - "${APP}.${SECRET_DOMAIN}"
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
+          sectionName: https
+    image:
+      rootless: true
+      registry: code.forgejo.org
+      repository: forgejo/forgejo
+      tag: 15.0.2-rootless
+    persistence:
+      create: false
+      claimName: forgejo
+    service:
+      ssh:
+        port: *sshPort
+    tcpRoute:
+      enabled: true
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
+          sectionName: ssh

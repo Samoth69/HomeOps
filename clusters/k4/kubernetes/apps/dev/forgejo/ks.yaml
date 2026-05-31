@@ -1,8 +1,9 @@
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app paperless
+  name: &app forgejo
 spec:
   components:
     - ../../../../components/oauth2
@@ -14,15 +15,14 @@ spec:
       namespace: database
     - name: volsync
       namespace: system
-  interval: 1h
-  path: ./clusters/k4/kubernetes/apps/selfhosted/paperless/app
+  path: ./clusters/k4/kubernetes/apps/dev/forgejo/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 20Gi
-      KANIDM_REDIRECT_PATH: /accounts/oidc/kanidm/login/callback/
+      VOLSYNC_CAPACITY: 10Gi
+      KANIDM_REDIRECT_PATH: /user/oauth2/kanidm/callback
       KANIDM_SECRET_ROTATION: "false"
-  targetNamespace: selfhosted
+  targetNamespace: dev
