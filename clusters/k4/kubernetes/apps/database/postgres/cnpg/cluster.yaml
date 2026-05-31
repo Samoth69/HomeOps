@@ -43,9 +43,6 @@ spec:
           barmanObjectName: *store
           serverName: postgres
 
-  monitoring:
-    enablePodMonitor: true
-
   postgresql:
     parameters:
       shared_buffers: "128MB" # should be 1/4 of memory request

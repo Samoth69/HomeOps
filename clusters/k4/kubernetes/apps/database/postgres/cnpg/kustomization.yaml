@@ -11,3 +11,4 @@ resources:
   - ./scheduledbackup.yaml
   - ./secret.sops.yaml
   - ./tcproute.yaml
+  - ./vmpodscrape.yaml
