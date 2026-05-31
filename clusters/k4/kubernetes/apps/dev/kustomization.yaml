@@ -8,5 +8,4 @@ components:
   - ../../components/namespace
 
 resources:
-  - ./alpine/ks.yaml
-  - ./echo/ks.yaml
+  - ./forgejo/ks.yaml
