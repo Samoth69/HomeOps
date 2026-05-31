@@ -123,8 +123,8 @@ spec:
           ALLOWED_HOST_LIST: "*"
       oauth:
         - name: kanidm
-          adminGroup: users@${APP}.${SECRET_DOMAIN}
-          autoDiscoverUrl: https://${APP}.${SECRET_DOMAIN}/oauth2/openid/forgejo/.well-known/openid-configuration
+          adminGroup: users@idm.${SECRET_DOMAIN}
+          autoDiscoverUrl: https://idm.${SECRET_DOMAIN}/oauth2/openid/forgejo/.well-known/openid-configuration
           existingSecret: ${APP}-kanidm-oidc
           groupClaimName: groups
           provider: openidConnect
