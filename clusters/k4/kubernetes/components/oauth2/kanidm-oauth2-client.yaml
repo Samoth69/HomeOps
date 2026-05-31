@@ -21,6 +21,7 @@ spec:
   scopeMap:
     - group: users
       scopes:
+        - groups
         - openid
         - profile
         - email
