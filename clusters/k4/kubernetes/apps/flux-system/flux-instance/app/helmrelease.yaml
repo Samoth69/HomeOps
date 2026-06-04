@@ -26,6 +26,7 @@ spec:
         url: "https://github.com/Samoth69/HomeOps.git"
         ref: "refs/heads/main"
         path: clusters/k4/kubernetes/flux/cluster
+        interval: 15m
       commonMetadata:
         labels:
           app.kubernetes.io/name: flux
