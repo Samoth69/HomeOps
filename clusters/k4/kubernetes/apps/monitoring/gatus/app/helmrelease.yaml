@@ -58,7 +58,6 @@ spec:
               repository: ghcr.io/twin/gatus
               tag: v5.36.0
             env:
-              GATUS_DELAY_START_SECONDS: 5
               GATUS_CONFIG_PATH: /config
               GATUS_WEB_PORT: &port 80
               TZ: Europe/Paris
