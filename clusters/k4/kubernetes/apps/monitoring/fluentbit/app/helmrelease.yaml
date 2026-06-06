@@ -150,7 +150,8 @@ spec:
           add app kernel
           rename msg log
           rename talos-level level
-          rename talos-time date
+          # TODO why does the kernel logs are multiples days in the future ?
+          # rename talos-time date
 
       customParsers: |-
         [PARSER]
