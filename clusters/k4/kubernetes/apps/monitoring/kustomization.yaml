@@ -12,6 +12,7 @@ resources:
   - ./policy.yaml
   - ./priorityclass.yaml
   - ./fluentbit/ks.yaml
+  - ./gatus/ks.yaml
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
   - ./node-exporter/ks.yaml
