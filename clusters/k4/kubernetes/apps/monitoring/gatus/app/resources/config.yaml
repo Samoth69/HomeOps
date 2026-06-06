@@ -27,7 +27,7 @@ endpoints:
 metrics: true
 storage:
   type: postgres
-  path: ${POSTGRES_URI}
+  path: $${POSTGRES_URI}
   caching: true
 ui:
   title: Status | Gatus
@@ -37,4 +37,4 @@ ui:
     - name: Github
       link: https://github.com/Samoth69/HomeOps
 web:
-  port: ${GATUS_WEB_PORT}
+  port: $${GATUS_WEB_PORT}
