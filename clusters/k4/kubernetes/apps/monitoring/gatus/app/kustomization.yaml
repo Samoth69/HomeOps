@@ -15,6 +15,6 @@ configMapGenerator:
       labels:
         grafana_dashboard: "1"
     files:
-      - gatus.json=./resources/dashboard.yaml
+      - gatus.json=./resources/dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
