@@ -2,7 +2,7 @@
 endpoints:
   - name: PiHoleGamma
     group: dns
-    url: dns://192.168.0.2:53
+    url: 192.168.0.2
     interval: 1m
     dns:
       query-name: "${SECRET_GATUS_MONITORING_DOMAIN}"
@@ -11,7 +11,7 @@ endpoints:
       - "[DNS_RCODE] == NOERROR"
   - name: PiHoleDelta
     group: dns
-    url: dns://192.168.0.3:53
+    url: 192.168.0.3
     interval: 1m
     dns:
       query-name: "${SECRET_GATUS_MONITORING_DOMAIN}"
