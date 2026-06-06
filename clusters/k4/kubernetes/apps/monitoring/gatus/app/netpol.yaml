@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: gatus
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: gatus
+      app.kubernetes.io/name: gatus
+  egress:
+    - toCIDR:
+        - 1.1.1.1/32
+        - 8.8.8.8/32
+        - 9.9.9.9/32
+      icmps:
+        - fields:
+            - family: IPv4
+              type: EchoRequest
+    - toCIDR:
+        - 2606:4700:4700::1111/128
+        - 2001:4860:4860::8888/128
+        - 2620:fe::fe/128
+      icmps:
+        - fields:
+            - family: IPv6
+              type: EchoRequest
+    - toCIDR:
+        - 1.1.1.1/32
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: TCP
+            - port: "53"
+              protocol: UDP
