@@ -39,7 +39,7 @@ endpoints:
       - "[CONNECTED] == true"
   - name: Cloudflare IPv6
     group: connectivity
-    url: icmp://2606:4700:4700::1111
+    url: icmp://[2606:4700:4700::1111]
     interval: 1m
     conditions:
       - "[CONNECTED] == true"
@@ -52,7 +52,7 @@ endpoints:
       - "[CONNECTED] == true"
   - name: Google IPv6
     group: connectivity
-    url: icmp://2001:4860:4860::8888
+    url: icmp://[2001:4860:4860::8888]
     interval: 1m
     conditions:
       - "[CONNECTED] == true"
@@ -65,7 +65,7 @@ endpoints:
       - "[CONNECTED] == true"
   - name: Quad9 IPv6
     group: connectivity
-    url: icmp://2620:fe::fe
+    url: icmp://[2620:fe::fe]
     interval: 1m
     conditions:
       - "[CONNECTED] == true"
