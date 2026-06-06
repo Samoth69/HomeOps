@@ -46,6 +46,8 @@ spec:
             args:
               - --auto-httproute
               # - --enable-httproute
+              - --default-group
+              - kube
             resources:
               requests:
                 cpu: 10m
