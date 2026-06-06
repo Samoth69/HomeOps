@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: gatus-configmap
     files:
-      - config.yaml=./gatus-config.yaml
+      - config.yaml=./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
