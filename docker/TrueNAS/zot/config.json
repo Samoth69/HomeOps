@@ -1,0 +1,100 @@
+{
+    "distSpecVersion": "1.1.1",
+    "storage": {
+        "rootDirectory": "/var/lib/zot",
+        "commit": true,
+        "dedupe": true,
+        "gc": true,
+        "gcDelay": "1h",
+        "gcInterval": "24h",
+        "retention": {
+            "delay": "24h",
+            "policies": [
+                {
+                    "repositories": [
+                        "homelab/**"
+                    ],
+                    "deleteReferrers": false,
+                    "deleteUntagged": true,
+                    "keepTags": [
+                        {
+                            "patterns": [
+                                ".*"
+                            ],
+                            "mostRecentlyPushedCount": 10,
+                            "mostRecentlyPulledCount": 10,
+                            "pulledWithin": "720h",
+                            "pushedWithin": "720h"
+                        }
+                    ]
+                },
+                {
+                    "repositories": [
+                        "**"
+                    ],
+                    "deleteReferrers": true,
+                    "deleteUntagged": true,
+                    "keepTags": [
+                        {
+                            "patterns": [
+                                ".*"
+                            ],
+                            "mostRecentlyPulledCount": 5,
+                            "pulledWithin": "720h"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "http": {
+        "address": "0.0.0.0",
+        "port": "8080",
+        "auth": {
+            "failDelay": 5,
+            "htpasswd": {
+                "path": "/etc/zot/htpasswd"
+            }
+        },
+        "accessControl": {
+            "repositories": {
+                "**": {
+                    "anonymousPolicy": [
+                        "read"
+                    ],
+                    "defaultPolicy": [
+                        "read"
+                    ]
+                },
+                "homelab/**": {
+                    "policies": [
+                        {
+                            "users": [
+                                "zot-deploy"
+                            ],
+                            "actions": [
+                                "read",
+                                "create",
+                                "update"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "adminPolicy": {
+                "users": [
+                    "zot-admin"
+                ],
+                "actions": [
+                    "read",
+                    "create",
+                    "update",
+                    "delete"
+                ]
+            }
+        }
+    },
+    "log": {
+        "level": "debug"
+    }
+}

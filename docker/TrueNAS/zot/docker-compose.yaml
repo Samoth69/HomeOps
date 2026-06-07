@@ -1,0 +1,22 @@
+---
+networks:
+  apps:
+    name: apps
+    external: true
+services:
+  zot:
+    container_name: zot
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.zot.entrypoints: websecure
+      traefik.http.routers.zot.rule: Host(`zot.truenas.samoth.eu`)
+      traefik.http.services.zot.loadbalancer.server.port: "8080"
+    image: ghcr.io/project-zot/zot:v2.1.17
+    networks:
+      - apps
+    restart: unless-stopped
+    user: zot:zot
+    volumes:
+      - ./config.json:/etc/zot/config.json:ro
+      - ./htpasswd:/etc/zot/htpasswd:ro
+      - /mnt/TheSSDs/Apps/zot:/var/lib/zot
