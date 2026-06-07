@@ -6,7 +6,7 @@ services:
     environment:
     - FULL_SYNC=true
     - RUN_GRAVITY=true
-    - CRON=0 * * * *
+    - CRON=0 4 * * 6
     - TZ=Europe/Paris
     - CLIENT_SKIP_TLS_VERIFICATION=true
     env_file:

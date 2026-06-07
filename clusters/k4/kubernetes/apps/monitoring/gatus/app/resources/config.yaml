@@ -18,6 +18,11 @@ endpoints:
     group: dns
     url: 192.168.0.3
     interval: 1m
+    # Nebula-sync window
+    maintenance-windows:
+      - start: "04:00"
+        duration: 10m
+        timezone: "Europe/Paris"
     dns:
       query-name: "${SECRET_GATUS_MONITORING_DOMAIN}"
       query-type: "A"
