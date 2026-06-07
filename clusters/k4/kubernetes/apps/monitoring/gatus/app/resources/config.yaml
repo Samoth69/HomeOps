@@ -23,6 +23,8 @@ endpoints:
       - start: "04:00"
         duration: 10m
         timezone: "Europe/Paris"
+        every:
+          - Sunday
     dns:
       query-name: "${SECRET_GATUS_MONITORING_DOMAIN}"
       query-type: "A"
