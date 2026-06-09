@@ -48,7 +48,7 @@ spec:
           app:
             image:
               repository: filebrowser/filebrowser
-              tag: v2.63.12
+              tag: v2.63.13
             env:
               TZ: Europe/Paris
               FB_DATABASE: /config/filebrowser.db
