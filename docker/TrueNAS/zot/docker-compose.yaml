@@ -15,7 +15,6 @@ services:
     networks:
       - apps
     restart: unless-stopped
-    user: zot:zot
     volumes:
       - ./config.json:/etc/zot/config.json:ro
       - ./htpasswd:/etc/zot/htpasswd:ro
