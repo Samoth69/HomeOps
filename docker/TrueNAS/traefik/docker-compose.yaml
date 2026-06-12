@@ -24,7 +24,7 @@ services:
       - OVH_ENDPOINT=ovh-eu
     env_file:
       - secrets.sops.env
-    image: ghcr.io/traefik/traefik:3.7.4
+    image: ghcr.io/traefik/traefik:v3.7.5
     networks:
       - apps
     ports:
