@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: &app qbittorrent-samba-server
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: *app
+      app.kubernetes.io/instance: *app
+  ingress:
+    - fromCIDRSet:
+        - cidrGroupRef: group-lan
+      toPorts:
+        - ports:
+            - port: "445"
+              protocol: ANY
+  egress:
+    - toCIDRSet:
+        - cidrGroupRef: group-lan
