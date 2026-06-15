@@ -6,7 +6,7 @@ metadata:
 spec:
   nodeSelector:
     matchLabels:
-      kubernetes.io/hostname: tatsumi
+      node-role.kubernetes.io/control-plane: ""
   ingress:
     - fromCIDRSet:
         - cidrGroupRef: group-lan
