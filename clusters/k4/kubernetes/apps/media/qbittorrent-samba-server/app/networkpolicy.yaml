@@ -9,8 +9,8 @@ spec:
       app.kubernetes.io/name: *app
       app.kubernetes.io/instance: *app
   ingress:
-    - fromCIDRSet:
-        - cidrGroupRef: group-lan
+    - fromCIDR:
+        - ${SECRET_CIDR_LAN_V4}
       toPorts:
         - ports:
             - port: "445"
