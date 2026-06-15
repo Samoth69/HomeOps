@@ -33,6 +33,7 @@ spec:
             reloader.stakater.com/auto: "true"
           labels:
             ingress.samoth.eu/lan: allow
+            egress.samoth.eu/lan: allow
           securityContext:
             seccompProfile: { type: RuntimeDefault }
 
