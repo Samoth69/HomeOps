@@ -34,11 +34,6 @@ spec:
           labels:
             ingress.samoth.eu/lan: allow
           securityContext:
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
-            runAsGroup: 1000
-            runAsNonRoot: true
-            runAsUser: 1000
             seccompProfile: { type: RuntimeDefault }
 
         containers:
@@ -57,6 +52,12 @@ spec:
                 memory: 1Gi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                add:
+                  - CAP_SETGID
+                  - CAP_SETUID
+                drop:
+                  - ALL
 
     service:
       app:
