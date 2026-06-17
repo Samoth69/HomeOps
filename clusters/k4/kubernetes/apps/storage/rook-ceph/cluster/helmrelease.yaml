@@ -20,6 +20,8 @@ kind: HelmRelease
 metadata:
   name: rook-ceph-cluster
 spec:
+  upgrade:
+    timeout: 15m
   interval: 30m
   chartRef:
     kind: OCIRepository
