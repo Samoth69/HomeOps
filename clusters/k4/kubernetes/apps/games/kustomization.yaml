@@ -8,6 +8,7 @@ components:
   - ../../components/sops
   - ../../components/namespace-isolated
 
-resources: []
+resources:
   # - ./mc-atm10-01/ks.yaml
-  # - ./openssh-server/ks.yaml
+  - ./mc-rlcraft-01/ks.yaml
+  - ./openssh-server/ks.yaml

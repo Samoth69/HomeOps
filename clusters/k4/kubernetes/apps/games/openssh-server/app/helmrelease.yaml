@@ -72,5 +72,5 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      # mc-atm10-01:
-      #   existingClaim: mc-atm10-01
+      mc-rlcraft-01:
+        existingClaim: mc-rlcraft-01
