@@ -74,3 +74,5 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       mc-rlcraft-01:
         existingClaim: mc-rlcraft-01
+      palworld-01:
+        existingClaim: palworld-01
