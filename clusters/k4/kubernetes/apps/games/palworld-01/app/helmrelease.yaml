@@ -1,0 +1,108 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 5.0.1
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    controllers:
+      app:
+        type: statefulset
+        revisionHistoryLimit: 2
+        containers:
+          app:
+            image: 
+              repository: ghcr.io/thijsvanloef/palworld-server-docker
+              tag: v2.4.1
+            ports:
+              - containerPort: &port 8211
+                name: gameport
+                protocol: UDP
+            env:
+              PUID: &puid 1000
+              PGID: *puid
+              PORT: 8211  # Optional but recommended
+              PLAYERS: 16  # Optional but recommended
+              MULTITHREADING: true
+              REST_API_ENABLED: true
+              REST_API_PORT: 8212
+              TZ: "Europe/Paris"
+              COMMUNITY: false  # Enable this if you want your server to show up in the community servers tab, USE WITH SERVER_PASSWORD!
+              SERVER_NAME: "Palworld Samousse"
+              SERVER_DESCRIPTION: "ceci est une description"
+              CROSSPLAY_PLATFORMS: "(Steam,Xbox,PS5,Mac)"
+              AUTO_UPDATE_ENABLED: true
+              # Réglages custom pour Serenz
+              SUPPLY_DROP_SPAN: 60
+              PAL_EGG_DEFAULT_HATCHING_TIME: 1.0
+            envFrom:
+              - secretRef:
+                  name: ${APP}-secret
+            resources:
+              requests:
+                cpu: 250m
+                memory: 1Gi
+              limits:
+                memory: 16Gi
+    defaultPodOptions:
+      labels:
+        ingress.samoth.eu/internet: allow
+        ingress.samoth.eu/lan: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        ingress.samoth.eu/host: allow
+        egress.samoth.eu/dns: allow
+        egress.samoth.eu/internet: allow
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: *puid
+        runAsGroup: *puid
+        fsGroup: *puid
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: "RuntimeDefault" }
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                      - lynka
+    service:
+      main:
+        annotations:
+          lbipam.cilium.io/ips: "${SECRET_LB2_IPV4}"
+          lbipam.cilium.io/sharing-key: "games"
+        controller: app
+        type: LoadBalancer
+        ports:
+          gameport-tcp:
+            enabled: true
+            protocol: TCP
+            port: *port
+          gameport-udp:
+            enabled: true
+            protocol: UDP
+            port: *port
+    persistence:
+      palworld:
+        existingClaim: "{{ .Release.Name }}"
