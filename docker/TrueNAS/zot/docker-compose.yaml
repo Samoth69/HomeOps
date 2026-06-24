@@ -11,7 +11,7 @@ services:
       traefik.http.routers.zot.entrypoints: websecure
       traefik.http.routers.zot.rule: Host(`zot.truenas.samoth.eu`)
       traefik.http.services.zot.loadbalancer.server.port: "8080"
-    image: ghcr.io/project-zot/zot:v2.1.17
+    image: ghcr.io/project-zot/zot:v2.1.18
     networks:
       - apps
     restart: unless-stopped
