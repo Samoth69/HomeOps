@@ -73,7 +73,7 @@ spec:
       config:
         existingClaim: "{{ .Release.Name }}"
       mc-carpg-01:
-        existingClaim: mc-rlcraft-01
+        existingClaim: mc-carpg-01
       mc-rlcraft-01:
         existingClaim: mc-rlcraft-01
       palworld-01:
