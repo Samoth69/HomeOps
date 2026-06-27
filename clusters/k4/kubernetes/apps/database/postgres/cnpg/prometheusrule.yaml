@@ -14,5 +14,5 @@ spec:
           labels:
             severity: critical
           annotations:
-            description: &desc "Backup for Postgres cluster {{ $job }} are too old"
+            description: &desc "Backup for Postgres cluster {{ $labels.job }} are too old"
             summary: *desc
