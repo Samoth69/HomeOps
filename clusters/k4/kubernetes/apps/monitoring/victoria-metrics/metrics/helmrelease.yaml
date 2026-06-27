@@ -52,9 +52,6 @@ spec:
             - receiver: "blackhole"
               matchers:
                 - alertname=~"InfoInhibitor|Watchdog|CPUThrottlingHigh|etcdMemberCommunicationSlow|etcdDatabaseHighFragmentationRatio|etcdHighNumberOfFailedGRPCRequests"
-            - receiver: "blackhole"
-              matchers:
-                - severity=~"info|warning"
             - receiver: webhook
               matchers:
                 - severity="critical"
