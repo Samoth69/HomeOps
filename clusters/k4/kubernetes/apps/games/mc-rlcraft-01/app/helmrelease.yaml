@@ -48,6 +48,7 @@ spec:
 
               # Performance
               MEMORY: 4096M
+              # Aikar flags for java8, meowice flags for anything above java8
               USE_AIKAR_FLAGS: true
 
               # Server.properties

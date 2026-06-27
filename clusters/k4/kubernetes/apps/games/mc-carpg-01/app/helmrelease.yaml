@@ -49,7 +49,7 @@ spec:
 
               # Performance
               MEMORY: 4096M
-              USE_AIKAR_FLAGS: true
+              USE_MEOWICE_FLAGS: true
 
               # Server.properties
               DIFFICULTY: normal
@@ -100,12 +100,14 @@ spec:
                   failureThreshold: 60 # 5 minutes with a period of 5 seconds
                   successThreshold: 1
                   timeoutSeconds: 1
+            # DO NOT COPY RESOURCES VALUES BELOW THIS
+            # THEY ARE WAY TOO HIGH FOR A 4G JVM, SOMETHING IS WRONG WITH THIS PACK IM TESTING STUFF
             resources:
               requests:
                 cpu: 1000m
-                memory: 6Gi
+                memory: 8Gi
               limits:
-                memory: 9Gi
+                memory: 16Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow

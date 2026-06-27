@@ -49,7 +49,7 @@ spec:
 
               # Performance
               MEMORY: 10240M
-              USE_AIKAR_FLAGS: true
+              USE_MEOWICE_FLAGS: true
 
               # Server.properties
               DIFFICULTY: normal
