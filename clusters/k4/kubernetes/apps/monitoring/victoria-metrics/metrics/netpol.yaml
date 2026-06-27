@@ -35,3 +35,24 @@ spec:
         - ports:
             - port: "9120"
               protocol: TCP
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: vmks-sync-job
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: vmks
+      app.kubernetes.io/name: vmks
+      app.kubernetes.io/component: syncJob
+  egress:
+    - toFQDNs:
+        - matchName: "raw.githubusercontent.com"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: "TCP"
+    - toEntities:
+        - kube-apiserver
