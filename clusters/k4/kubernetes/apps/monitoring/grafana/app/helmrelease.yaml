@@ -83,11 +83,6 @@ spec:
             - name: DS_PROMETHEUS
               value: VictoriaMetrics
           url: https://grafana.com/api/dashboards/23980/revisions/1/download
-        etcd:
-          url: https://grafana.com/api/dashboards/22236/revisions/4/download
-          datasource:
-            - name: DS_PROMETHEUS
-              value: VictoriaMetrics
         smartctl-exporter:
           datasource:
             - name: DS_PROMETHEUS
@@ -128,6 +123,23 @@ spec:
         global-ratelimit:
           datasource: VictoriaMetrics
           url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/tags/v1.7.2/charts/gateway-addons-helm/dashboards/global-ratelimit.json
+      kubernetes:
+        kubernetes-volumes:
+          datasource: VictoriaMetrics
+          url: https://grafana.com/api/dashboards/11454/revisions/14/download
+        etcd-custom:
+          url: https://grafana.com/api/dashboards/22236/revisions/4/download
+          datasource:
+            - name: DS_PROMETHEUS
+              value: VictoriaMetrics
+        node-exporter-full:
+          datasource: VictoriaMetrics
+          url: https://grafana.com/api/dashboards/1860/revisions/42/download
+        victoria-logs-single-server:
+          url: https://grafana.com/api/dashboards/22084/revisions/11/download
+          datasource:
+            - name: DS_PROMETHEUS
+              value: VictoriaMetrics
 
     datasources:
       datasources.yaml:
