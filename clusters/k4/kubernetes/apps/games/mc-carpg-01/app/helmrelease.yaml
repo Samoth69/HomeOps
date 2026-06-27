@@ -103,9 +103,9 @@ spec:
             resources:
               requests:
                 cpu: 1000m
-                memory: 5Gi
+                memory: 6Gi
               limits:
-                memory: 7Gi
+                memory: 9Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow
