@@ -48,8 +48,8 @@ spec:
       app.kubernetes.io/name: vmks
       app.kubernetes.io/component: syncJob
   egress:
-    - toFQDNs:
-        - matchName: "raw.githubusercontent.com"
+    - toEntities:
+        - world
       toPorts:
         - ports:
             - port: "443"
