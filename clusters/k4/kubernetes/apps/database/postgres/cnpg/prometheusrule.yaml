@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cnpg-rules
+spec:
+  groups:
+    - name: CNPG
+      rules:
+        - alert: BackupNotWorking
+          expr: |
+            avg by (job) (time() - barman_cloud_cloudnative_pg_io_last_available_backup_timestamp) > (24 * 3600)
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: &desc "Backup for Postgres cluster {{ $job }} are too old"
+            summary: *desc

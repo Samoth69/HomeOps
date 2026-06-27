@@ -8,6 +8,7 @@ resources:
   - ./objectstore.yaml
   - ./pooler-session-rw.yaml
   - ./pooler-transaction-rw.yaml
+  - ./prometheusrule.yaml
   - ./scheduledbackup.yaml
   - ./secret.sops.yaml
   - ./tcproute.yaml
