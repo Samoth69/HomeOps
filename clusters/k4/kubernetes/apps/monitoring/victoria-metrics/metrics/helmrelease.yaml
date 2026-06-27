@@ -46,7 +46,7 @@ spec:
           group_by: ["alertname", "severity"]
           group_interval: 10m
           group_wait: 1m
-          receiver: webhook
+          receiver: blackhole
           repeat_interval: 12h
           routes:
             - receiver: "blackhole"
