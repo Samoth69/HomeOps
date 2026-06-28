@@ -31,6 +31,7 @@ spec:
           app:
             image: 
               repository: ghcr.io/itzg/minecraft-server
+              pullPolicy: Always
               tag: java21
             ports:
               - containerPort: &port 25568
