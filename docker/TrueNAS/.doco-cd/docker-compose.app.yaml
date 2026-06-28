@@ -5,6 +5,7 @@ configs:
   poll-config.yml:
     content: |
       - url: https://github.com/Samoth69/HomeOps.git
+        reference: main
         interval: 3600 # every hour
 secrets:
   sops_age_key:
