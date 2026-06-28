@@ -18,6 +18,10 @@
     - upsmon.conf
   notify: restart nut
 
+- name: list installed packages
+  package_facts:
+    manager: auto
+
 - name: config ufw - allow ports
   ufw:
     rule: allow
@@ -27,3 +31,4 @@
   with_items:
     - {"port": 3493, "proto": "tcp"}
     - {"port": 3493, "proto": "udp"}
+  when: "'ufw' in ansible_facts.packages"
