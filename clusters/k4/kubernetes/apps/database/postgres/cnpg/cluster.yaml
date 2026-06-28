@@ -35,6 +35,8 @@ spec:
       parameters:
         barmanObjectName: &store garage-store
 
+  enablePDB: false
+
   externalClusters:
     - name: *src
       plugin:
