@@ -49,7 +49,7 @@ spec:
               SERVER_PORT: *port
 
               # Performance
-              MEMORY: 4096M
+              MEMORY: 6G
               USE_MEOWICE_FLAGS: true
 
               # Server.properties
@@ -106,9 +106,9 @@ spec:
             resources:
               requests:
                 cpu: 1000m
-                memory: 8Gi
+                memory: 10Gi
               limits:
-                memory: 16Gi
+                memory: 20Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow

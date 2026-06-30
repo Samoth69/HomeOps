@@ -1,0 +1,74 @@
+# TODO convert this crap to app template
+---
+# Service account the client will use to reset the deployment,
+# by default the pods running inside the cluster can do no such things.
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: deployment-restart
+
+---
+# allow getting status and patching only the one deployment you want
+# to restart
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: deployment-restart
+rules:
+  - apiGroups: ["apps", "extensions"]
+    resources: ["statefulsets"]
+    verbs: ["get", "patch", "list", "watch"] # "list" and "watch" are only needed
+                                             # if you want to use `rollout status`
+---
+# bind the role to the service account
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deployment-restart
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: deployment-restart
+subjects:
+  - kind: ServiceAccount
+    name: deployment-restart
+  
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: deployment-restart
+spec:
+  concurrencyPolicy: Forbid
+  schedule: '0 7 * * *' # cron spec of time, here, 8 o'clock
+  timeZone: "Europe/Paris"
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      ttlSecondsAfterFinished: 100
+      template:
+        spec:
+          serviceAccountName: deployment-restart
+          restartPolicy: Never
+          containers:
+            - name: kubectl
+              image: registry.k8s.io/kubectl:v1.34.2
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                seccompProfile:
+                  type: RuntimeDefault
+                capabilities:
+                  drop: [ "ALL" ]
+              command:
+                - 'kubectl'
+                - 'rollout'
+                - 'restart'
+                - 'statefulsets/mc-carpg-01'
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  memory: 512Mi
