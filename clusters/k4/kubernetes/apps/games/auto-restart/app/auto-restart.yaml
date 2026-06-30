@@ -48,6 +48,10 @@ spec:
       activeDeadlineSeconds: 600
       ttlSecondsAfterFinished: 100
       template:
+        metadata:
+          labels:
+            ingress.samoth.eu/kube-apiserver: allow
+            egress.samoth.eu/kube-apiserver: allow
         spec:
           serviceAccountName: deployment-restart
           restartPolicy: Never
