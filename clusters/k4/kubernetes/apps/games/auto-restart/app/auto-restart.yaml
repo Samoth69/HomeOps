@@ -37,7 +37,7 @@ subjects:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: deployment-restart
+  name: auto-restart
 spec:
   concurrencyPolicy: Forbid
   schedule: '0 7 * * *' # cron spec of time, here, 8 o'clock
