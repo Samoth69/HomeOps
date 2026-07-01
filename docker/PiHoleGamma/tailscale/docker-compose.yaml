@@ -17,7 +17,9 @@ services:
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - net_admin
+    networks:
+      - tailscale
 
 networks:
-  default:
+  tailscale:
     enable_ipv6: true
