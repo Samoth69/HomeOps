@@ -4,6 +4,7 @@ services:
     hostname: PiHoleGamma
     restart: unless-stopped
     container_name: tailscale
+    network_mode: host
     environment:
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
@@ -17,9 +18,3 @@ services:
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - net_admin
-    networks:
-      - tailscale
-
-networks:
-  tailscale:
-    enable_ipv6: true
