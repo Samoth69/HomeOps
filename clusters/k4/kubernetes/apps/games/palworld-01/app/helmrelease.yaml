@@ -76,7 +76,7 @@ spec:
         runAsUser: *puid
         runAsGroup: *puid
         fsGroup: *puid
-        fsGroupChangePolicy: OnRootMismatch
+        # fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: "RuntimeDefault" }
       affinity:
         nodeAffinity:
