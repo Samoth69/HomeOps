@@ -107,7 +107,7 @@ spec:
       resources:
         requests:
           cpu: 5m
-          memory: 100Mi
+          memory: 150Mi
         limits:
           memory: 1G
       rollOutPods: true
@@ -119,8 +119,8 @@ spec:
         trustCRDsExist: true
     resources:
       requests:
-        cpu: 100m
-        memory: 1500Mi
+        cpu: 150m
+        memory: 2Gi
       limits:
         memory: 4G
     rollOutCiliumPods: false
