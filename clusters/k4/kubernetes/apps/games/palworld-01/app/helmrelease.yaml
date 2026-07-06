@@ -38,7 +38,7 @@ spec:
                 name: gameport
                 protocol: UDP
             env:
-              PUID: &puid 568
+              PUID: &puid 1000
               PGID: *puid
               PORT: 8211  # Optional but recommended
               PLAYERS: 16  # Optional but recommended
@@ -76,7 +76,7 @@ spec:
         runAsUser: *puid
         runAsGroup: *puid
         fsGroup: *puid
-        # fsGroupChangePolicy: OnRootMismatch
+        fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: "RuntimeDefault" }
       affinity:
         nodeAffinity:
