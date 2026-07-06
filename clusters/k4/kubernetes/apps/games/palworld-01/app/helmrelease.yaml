@@ -38,7 +38,7 @@ spec:
                 name: gameport
                 protocol: UDP
             env:
-              PUID: &puid 1000
+              PUID: &puid 568
               PGID: *puid
               PORT: 8211  # Optional but recommended
               PLAYERS: 16  # Optional but recommended
