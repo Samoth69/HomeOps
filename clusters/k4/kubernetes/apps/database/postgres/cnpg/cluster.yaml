@@ -15,9 +15,7 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie
 
   storage:
-    # openebs-hostpath doesn't support volume expansion
-    resizeInUseVolumes: false
-    storageClass: openebs-hostpath
+    storageClass: miroir-local
     size: 20G
 
   affinity:

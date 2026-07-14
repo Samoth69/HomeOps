@@ -52,7 +52,9 @@ spec:
                   config:
                     PodsWithPVC:
                       protectedStorageClasses:
+                      # TODO: remove this
                       - name: openebs-hostpath
+                      - name: miroir-local
             - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity
               args:
