@@ -5,7 +5,7 @@ customization:
     - sysctl.net.ipv6.conf.all.autoconf=0
     - sysctl.net.ipv6.conf.all.accept_ra=0
     - cpufreq.default_governor=performance
-    - initcall_blacklist=algif_aead_init # https://copy.fail/
+    - initcall_blacklist=algif_aead_init,esp4,esp6,rxrpc # https://copy.fail & Dirty Frag
   systemExtensions:
     officialExtensions:
       - siderolabs/amd-ucode
