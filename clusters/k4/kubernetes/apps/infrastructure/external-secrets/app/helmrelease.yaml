@@ -30,6 +30,8 @@ spec:
         ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/kube-apiserver: allow
+    replicaCount: 2
+    leaderElect: true
     image:
       repository: ghcr.io/external-secrets/external-secrets
     installCRDs: true
@@ -37,6 +39,8 @@ spec:
     log:
       level: info
       timeEncoding: iso8601
+    podDisruptionBudget:
+      enabled: true
     serviceMonitor:
       enabled: true
       interval: 1m
@@ -62,6 +66,9 @@ spec:
       serviceMonitor:
         enabled: true
         interval: 1m
+      replicaCount: 2
+      podDisruptionBudget:
+        enabled: true
       log:
         level: info
         timeEncoding: iso8601
