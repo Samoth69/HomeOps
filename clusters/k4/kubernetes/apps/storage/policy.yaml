@@ -51,8 +51,7 @@ spec:
                 - /run/udev
                 - /sys
                 - /var/lib/ceph/crash
-                - /var/lib/kubelet/plugins*
-                - /var/lib/kubelet/pods
+                - /var/lib/kubelet*
                 - /var/lib/rook*
                 - /var/mnt/hostpath-data*
             
@@ -63,6 +62,7 @@ spec:
                 - quay.io/cephcsi/cephcsi:*
                 - registry.k8s.io/sig-storage/csi-node-driver-registrar:*
                 - quay.io/openebs/*:*
+                - ghcr.io/home-operations/miroir-agent:*
             
             - controlName: Capabilities
               images:
