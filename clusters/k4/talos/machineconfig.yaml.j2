@@ -44,6 +44,9 @@ machine:
   install:
     wipe: true
     legacyBIOSSupport: false
+  kernel:
+    modules:
+      - name: dm_thin_pool
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -54,7 +57,9 @@ machine:
         UserNamespacesSupport: true
       maxPods: 150
       serializeImagePulls: false
-    image: ghcr.io/siderolabs/kubelet:v1.35.4
+      shutdownGracePeriod: 90s
+      shutdownGracePeriodCriticalPods: 60s
+    image: ghcr.io/siderolabs/kubelet:v1.36.2
     nodeIP:
       validSubnets:
         - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV4 }}/32
@@ -114,7 +119,7 @@ cluster:
     key: {{ ENV.TALSECRET_CERTS_K8SAGGREGATOR_KEY }}
   allowSchedulingOnControlPlanes: true
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.35.4
+    image: registry.k8s.io/kube-apiserver:v1.36.2
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
@@ -127,7 +132,7 @@ cluster:
       limits:
         memory: 4Gi
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:v1.35.4
+    image: registry.k8s.io/kube-controller-manager:v1.36.2
     extraArgs:
       bind-address: 0.0.0.0
       node-cidr-mask-size-ipv6: "112"
@@ -154,7 +159,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.35.4
+    image: registry.k8s.io/kube-proxy:v1.36.2
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -175,7 +180,7 @@ cluster:
           schedulerName: default-scheduler
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:v1.35.4
+    image: registry.k8s.io/kube-scheduler:v1.36.2
     resources:
       requests:
         cpu: 10m
@@ -246,7 +251,16 @@ provisioning:
   diskSelector:
     match: system_disk
   minSize: 256GiB
-  grow: true
+  maxSize: 256GiB
+---
+apiVersion: v1alpha1
+kind: RawVolumeConfig
+name: miroir
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 256GiB
+  maxSize: 256GiB
 ---
 apiVersion: v1alpha1
 kind: KmsgLogConfig

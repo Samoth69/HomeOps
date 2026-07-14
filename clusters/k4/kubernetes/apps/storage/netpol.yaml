@@ -2,7 +2,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: ceph
+  name: storage
 spec:
   description: "Allow kubeapi for storage namespace since most pod use it"
   endpointSelector:
