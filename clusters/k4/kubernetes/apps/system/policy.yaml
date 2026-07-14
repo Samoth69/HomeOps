@@ -38,6 +38,8 @@ spec:
           exclude:
             - controlName: HostProcess
 
+            - controlName: Host Namespaces
+
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
