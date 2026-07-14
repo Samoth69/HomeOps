@@ -26,6 +26,12 @@ spec:
         name: external-secrets
   values:
     global:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          matchLabelKeys:
+            - pod-template-hash
       podLabels:
         ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/kube-apiserver: allow
