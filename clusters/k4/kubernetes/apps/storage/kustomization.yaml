@@ -11,5 +11,6 @@ components:
 resources:
   - ./netpol.yaml
   - ./policy.yaml
+  - ./miroir/ks.yaml
   - ./openebs/ks.yaml
   - ./rook-ceph/ks.yaml
