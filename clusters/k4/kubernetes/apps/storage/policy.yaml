@@ -49,10 +49,12 @@ spec:
                 - /lib/modules
                 - /run/mount
                 - /run/udev
+                - /run/lvm
                 - /sys
                 - /var/lib/ceph/crash
                 - /var/lib/kubelet*
                 - /var/lib/rook*
+                - /var/lib/miroir-drbd.d
                 - /var/mnt/hostpath-data*
             
             - controlName: Privileged Containers
