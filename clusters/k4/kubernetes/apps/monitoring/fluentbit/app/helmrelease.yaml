@@ -142,6 +142,11 @@ spec:
           rename talos-level level
           rename talos-time date
 
+        [FILTER]
+          name grep
+          match talos.*
+          grep exclude app auditd
+
         # Kernel
         [FILTER]
           name modify
