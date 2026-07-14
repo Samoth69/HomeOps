@@ -25,9 +25,11 @@ spec:
   interval: 1h
   values:
     nodes:
-      tatsumi:
+      tatsumi: &config
         backend: lvmthin
         device: /dev/disk/by-partlabel/r-miroir
+      lynka: *config
+      # enigma: *config
     storageClasses:
       - name: miroir-local
         replicas: 1
