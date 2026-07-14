@@ -29,7 +29,7 @@ spec:
         backend: lvmthin
         device: /dev/disk/by-partlabel/r-miroir
       lynka: *config
-      # enigma: *config
+      enigma: *config
     storageClasses:
       - name: miroir-local
         replicas: 1
