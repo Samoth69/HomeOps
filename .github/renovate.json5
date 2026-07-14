@@ -241,6 +241,8 @@
         '!/ceph\/ceph/',
         '!/cilium\/cilium/',
         '!/kyverno\/kyverno/',
+        // Project is very new and as a consequence may push breaking changes as minor updates
+        '!/home-oprations\/miroir/',
         '!/siderolabs\/installer/',
         '!/siderolabs\/talos/',
         '!/siderolabs\/kubelet/'
