@@ -7,3 +7,7 @@ spec:
   externalCIDRs:
     - ${SECRET_CIDR_LAN_V4}
     - ${SECRET_CIDR_LAN_V6}
+    # https://tailscale.com/docs/concepts/tailscale-ip-addresses
+    - 100.64.0.0/10
+    # https://tailscale.com/docs/concepts/ip-and-dns-addresses#tailscale-ipv6-local-address-prefix
+    - fd7a:115c:a1e0:ab12::/64
