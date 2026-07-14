@@ -56,6 +56,13 @@
   when: "'ufw' in ansible_facts.packages"
   notify: restart ufw
 
+- name: config ufw sysctl
+  copy:
+    src: sysctl.conf
+    dest: /etc/ufw/sysctl.conf
+  when: "'ufw' in ansible_facts.packages"
+  notify: restart ufw
+
 - name: fail if docker isn't installed
   fail:
     msg: Docker engine need to be installed
