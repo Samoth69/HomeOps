@@ -145,7 +145,7 @@ spec:
         [FILTER]
           name grep
           match talos.*
-          grep exclude app auditd
+          exclude app auditd
 
         # Kernel
         [FILTER]
