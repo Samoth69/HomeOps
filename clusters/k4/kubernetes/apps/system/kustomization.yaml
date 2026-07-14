@@ -11,6 +11,7 @@ components:
 resources:
   - ./policy.yaml
   - ./descheduler/ks.yaml
+  - ./etcd-defrag/ks.yaml
   - ./generic-device-plugin/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./snapshot-controller/ks.yaml

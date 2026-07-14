@@ -36,6 +36,8 @@ spec:
           level: baseline
           version: latest
           exclude:
+            - controlName: HostProcess
+
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
@@ -51,3 +53,9 @@ spec:
                 - /lib
                 - /proc/swaps
                 - /etc/kubernetes/node-feature-discovery/features.d/
+                # etcd-defrag
+                - /system/secrets/etcd
+
+            - controlName: Privileged Containers
+              images:
+                - ghcr.io/ahrtr/etcd-defrag:*

@@ -64,7 +64,7 @@ spec:
                 - quay.io/cephcsi/cephcsi:*
                 - registry.k8s.io/sig-storage/csi-node-driver-registrar:*
                 - quay.io/openebs/*:*
-                # miroir-agent uses SHA digest
+                # miroir-agent uses SHA digest without version
                 - ghcr.io/home-operations/miroir-agent*
             
             - controlName: Capabilities
