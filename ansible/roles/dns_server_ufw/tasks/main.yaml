@@ -11,14 +11,6 @@
     - {"port": 443, "proto": "tcp"}
     - {"port": 443, "proto": "udp"}
 
-- name: config ufw - tailscale forwarding
-  ufw:
-    rule: allow
-    route: true
-    interface_in: tailscale0
-    interface_out: "{{ ansible_facts['default_ipv4']['interface'] }}"
-    comment: tailscale
-
 - name: copy after.rules
   copy:
     src: after.rules
