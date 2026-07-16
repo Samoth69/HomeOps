@@ -42,3 +42,14 @@ spec:
       cnpg.io/poolerName: *name
   podMetricsEndpoints:
     - port: metrics
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pooler-session-rw-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: pooler
+      cnpg.io/poolerName: pooler-session-rw
