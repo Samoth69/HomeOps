@@ -1,4 +1,8 @@
 ---
+alerting:
+  discord:
+    webhook-url: ${SECRET_GATUS_DISCORD_WEBHOOK}
+
 connectivity:
   checker:
     target: 1.1.1.1:53
@@ -14,6 +18,10 @@ endpoints:
       query-type: "A"
     conditions:
       - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: discord
+        description: "PiHoleGamma is down"
+        send-on-resolved: true
   - name: PiHoleDelta
     group: dns
     url: 192.168.0.3
@@ -30,6 +38,10 @@ endpoints:
       query-type: "A"
     conditions:
       - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: discord
+        description: "PiHoleDelta is down"
+        send-on-resolved: true
   
   - name: HomeAssistant
     group: iot
@@ -37,6 +49,10 @@ endpoints:
     interval: 1m
     conditions:
       - "[STATUS] == 200"
+    alerts:
+      - type: discord
+        description: "HomeAssistant is down"
+        send-on-resolved: true
 
   - name: Cloudflare IPv4
     group: connectivity
