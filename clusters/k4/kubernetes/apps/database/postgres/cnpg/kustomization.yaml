@@ -6,7 +6,8 @@ resources:
   - ./cluster.yaml
   - ./netpol.yaml
   - ./objectstore.yaml
-  - ./pooler-session-rw.yaml
+  # No app uses it
+  # - ./pooler-session-rw.yaml
   - ./pooler-transaction-rw.yaml
   - ./prometheusrule.yaml
   - ./scheduledbackup.yaml
