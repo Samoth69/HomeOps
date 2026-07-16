@@ -215,6 +215,8 @@ spec:
     route:
       main:
         enabled: true
+        annotations:
+          gatus.home-operations.com/enabled: "true"
         hostnames:
           - grafana.${SECRET_DOMAIN}
         parentRefs:

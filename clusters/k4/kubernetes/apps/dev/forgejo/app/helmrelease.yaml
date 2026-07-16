@@ -139,6 +139,8 @@ spec:
           scopes: profile email groups
     httpRoute:
       enabled: true
+      annotations:
+        gatus.home-operations.com/enabled: "true"
       hostnames:
         - "${APP}.${SECRET_DOMAIN}"
       parentRefs:
