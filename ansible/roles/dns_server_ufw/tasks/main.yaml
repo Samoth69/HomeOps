@@ -11,6 +11,12 @@
     - {"port": 443, "proto": "tcp"}
     - {"port": 443, "proto": "udp"}
 
+- name: config ufw - tailscale
+  ufw:
+    rule: allow
+    interface_in: tailscale0
+    comment: tailscale
+
 - name: copy after.rules
   copy:
     src: after.rules
