@@ -131,4 +131,3 @@ spec:
           app:
             app:
               - path: /var/mnt/hdd1
-                readOnly: true
