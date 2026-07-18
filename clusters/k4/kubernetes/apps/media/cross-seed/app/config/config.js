@@ -20,7 +20,7 @@ module.exports = {
     searchCadence: "2w",
     skipRecheck: true,
     // radarr: [`http://radarr.media.svc.cluster.local:7878/?apikey=${process.env.RADARR__AUTH__APIKEY}`],
-    sonarr: [`https://sonarr-anime.${process.env.SECRET_DOMAIN}/?apikey=${process.env.SONARR__AUTH__APIKEY}`],
+    sonarr: [`https://sonarr-anime.${process.env.SECRET_DOMAIN}/?apikey=${process.env.SONARR_ANIME__AUTH__APIKEY}`],
     torrentClients: [`qbittorrent:https://qui.${process.env.SECRET_DOMAIN}/proxy/${process.env.QBITTORRENT_APIKEY}`],
     torznab: fetchIndexers(`https://prowlarr.${process.env.SECRET_DOMAIN}`, process.env.PROWLARR__AUTH__APIKEY, "cross-seed"),
     useClientTorrents: true

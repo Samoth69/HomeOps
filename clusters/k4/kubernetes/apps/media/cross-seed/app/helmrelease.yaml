@@ -49,6 +49,14 @@ spec:
                 secretKeyRef:
                   name: ${APP}-secret
                   key: qui-qbittorrent-key
+              PROWLARR__AUTH__APIKEY:
+                secretKeyRef:
+                  name: prowlarr-secret
+                  key: api-key
+              SONARR_ANIME__AUTH__APIKEY:
+                secretKeyRef:
+                  name: sonarr-anime-secret
+                  key: api-key
               SECRET_DOMAIN: ${SECRET_DOMAIN}
             probes:
               liveness: &probes
