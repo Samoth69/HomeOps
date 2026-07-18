@@ -45,10 +45,10 @@ spec:
                 secretKeyRef:
                   name: ${APP}-secret
                   key: api-key
-              QBITTORRENT_APIKEY:
+              QBITTORRENT_PROXY_URL:
                 secretKeyRef:
                   name: ${APP}-secret
-                  key: qui-qbittorrent-key
+                  key: qui-qbittorrent-proxy-url
               PROWLARR__AUTH__APIKEY:
                 secretKeyRef:
                   name: prowlarr-secret
