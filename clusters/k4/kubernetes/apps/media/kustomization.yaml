@@ -11,6 +11,7 @@ components:
 resources:
   - ./policy.yaml
   - ./autobrr/ks.yaml
+  - ./cross-seed/ks.yaml
   - ./filebrowser/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
