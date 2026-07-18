@@ -11,7 +11,7 @@ module.exports = {
     action: "inject",
     apiKey: process.env.CROSSSEED_APIKEY,
     dataDirs: ["/var/mnt/hdd1/downloaded"],
-    excludeRecentSearch: "3 days",
+    excludeRecentSearch: "1 week",
     excludeOlder: "2 weeks",
     linkCategory: "cross-seed",
     linkDirs: ["/var/mnt/hdd1/cross-seed"],
@@ -19,7 +19,7 @@ module.exports = {
     matchMode: "partial",
     port: Number(process.env.CROSSSEED_PORT),
     rssCadence: null, // autobrr feeds him with torrents
-    searchCadence: "2 weeks",
+    searchCadence: "1 day",
     skipRecheck: true,
     // radarr: [`http://radarr.media.svc.cluster.local:7878/?apikey=${process.env.RADARR__AUTH__APIKEY}`],
     sonarr: [`https://sonarr-anime.${process.env.SECRET_DOMAIN}/?apikey=${process.env.SONARR_ANIME__AUTH__APIKEY}`],
