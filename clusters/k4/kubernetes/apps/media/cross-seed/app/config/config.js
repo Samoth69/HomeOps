@@ -19,7 +19,7 @@ module.exports = {
     matchMode: "partial",
     port: Number(process.env.CROSSSEED_PORT),
     rssCadence: null, // autobrr feeds him with torrents
-    searchCadence: "2w",
+    searchCadence: "2 weeks",
     skipRecheck: true,
     // radarr: [`http://radarr.media.svc.cluster.local:7878/?apikey=${process.env.RADARR__AUTH__APIKEY}`],
     sonarr: [`https://sonarr-anime.${process.env.SECRET_DOMAIN}/?apikey=${process.env.SONARR_ANIME__AUTH__APIKEY}`],
