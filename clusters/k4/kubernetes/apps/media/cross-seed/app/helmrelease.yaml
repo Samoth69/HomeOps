@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: cross-seed
+  name: ${APP}
 spec:
   interval: 1h
   layerSelector:
@@ -17,11 +17,11 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cross-seed
+  name: ${APP}
 spec:
   chartRef:
     kind: OCIRepository
-    name: cross-seed
+    name: ${APP}
   interval: 1h
   values:
     controllers:
@@ -110,7 +110,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
-        name: cross-seed-config
+        name: "${APP}-config"
         globalMounts:
           - path: /config/config.js
             subPath: config.js
