@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: ${APP}-config
+  - name: cross-seed-config
     files:
       - ./config/config.js
 generatorOptions:

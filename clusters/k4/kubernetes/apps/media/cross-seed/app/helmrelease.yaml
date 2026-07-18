@@ -110,7 +110,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
-        name: "{{ .Release.Name }}-config"
+        name: cross-seed-config
         globalMounts:
           - path: /config/config.js
             subPath: config.js
