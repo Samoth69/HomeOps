@@ -12,6 +12,8 @@ spec:
       namespace: storage
     - name: qbittorrent
       namespace: media
+    - name: qui
+      namespace: media
     - name: prowlarr
       namespace: media
     - name: sonarr-anime
