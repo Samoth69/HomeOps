@@ -12,7 +12,7 @@ module.exports = {
     apiKey: process.env.CROSSSEED_APIKEY,
     dataDirs: ["/var/mnt/hdd1/downloaded"],
     linkCategory: "cross-seed",
-    linkDirs: ["/var/mnt/hdd1/downloaded/cross-seed"],
+    linkDirs: ["/var/mnt/hdd1/cross-seed"],
     linkType: "hardlink",
     matchMode: "partial",
     port: Number(process.env.CROSSSEED_PORT),
