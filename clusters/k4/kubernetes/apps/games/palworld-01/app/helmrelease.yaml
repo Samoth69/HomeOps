@@ -46,7 +46,7 @@ spec:
               REST_API_ENABLED: true
               REST_API_PORT: 8212
               TZ: "Europe/Paris"
-              COMMUNITY: false  # Enable this if you want your server to show up in the community servers tab, USE WITH SERVER_PASSWORD!
+              COMMUNITY: true  # Enable this if you want your server to show up in the community servers tab, USE WITH SERVER_PASSWORD!
               SERVER_NAME: "Palworld Samousse"
               SERVER_DESCRIPTION: "ceci est une description"
               CROSSPLAY_PLATFORMS: "(Steam,Xbox,PS5,Mac)"
