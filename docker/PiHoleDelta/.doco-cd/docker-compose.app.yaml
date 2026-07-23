@@ -31,7 +31,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    image: ghcr.io/kimdre/doco-cd:0.99.1
+    image: ghcr.io/kimdre/doco-cd:0.100.0
     ports:
       - "9120:9120" # Prometheus metrics
     restart: unless-stopped
