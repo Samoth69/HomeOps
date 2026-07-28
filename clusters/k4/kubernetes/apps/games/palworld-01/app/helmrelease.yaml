@@ -54,6 +54,7 @@ spec:
               # Réglages custom pour Serenz
               SUPPLY_DROP_SPAN: 60
               PAL_EGG_DEFAULT_HATCHING_TIME: 1.0
+              BASE_CAMP_MAX_NUM_IN_GUILD: 32
             envFrom:
               - secretRef:
                   name: ${APP}-secret
