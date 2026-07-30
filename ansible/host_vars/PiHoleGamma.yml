@@ -3,7 +3,7 @@ ipv4_addresses:
   - 192.168.0.2/24
 
 ipv6_addresses:
-  - 2a01:e0a:5c9:f0a0::2/64
+  - fe80::2/64
 
 hostname: "PiHoleGamma"
 rpi_base_username: thomas
