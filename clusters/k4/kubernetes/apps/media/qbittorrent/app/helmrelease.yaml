@@ -68,7 +68,7 @@ spec:
               - coredns
             image:
               repository: ghcr.io/qdm12/gluetun
-              tag: v3.41.2
+              tag: v3.41.3
             restartPolicy: Always
             env:
               DOT: "off"
