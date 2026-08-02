@@ -29,3 +29,8 @@ spec:
       - fields:
           - family: IPv4
             type: EchoRequest
+  egress:
+    - toEntities:
+        - cluster
+    - toCIDRSet:
+        - cidrGroupRef: group-lan

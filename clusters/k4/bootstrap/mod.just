@@ -87,6 +87,10 @@ apps:
 
 [doc('Apply Helmfile Apps')]
 resources-late:
+    sops decrypt "{{ kubernetes_dir }}/components/sops/cluster-secrets.sops.yaml" | yq '.. | select((tag == "!!map" or tag == "!!seq") | not) | "TALSECRET_" + (path | join("_") | upcase) + "=" + .' | while read p; do \
+      export $p; \
+    done; \
+    yq '(.. | select(tag == "!!str")) |= envsubst' "{{ kubernetes_dir }}/apps/kube-system/cilium/cidr-group/cidr-group-lan.yaml" | kubectl apply -n kube-system -f -
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/ingress/*.yaml" || true
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/egress/*.yaml" || true
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/flux-system/flux-instance/app/netpol.yaml" || true
