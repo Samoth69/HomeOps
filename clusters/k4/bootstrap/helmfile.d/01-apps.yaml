@@ -47,6 +47,15 @@ releases:
       - ./templates/values.yaml.gotmpl
     needs:
       - kube-system/coredns
+  
+  - name: kyverno
+    namespace: kyverno
+    chart: oci://ghcr.io/kyverno/charts/kyverno
+    version: 3.8.2
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - cert-manager/cert-manager
 
   - name: flux-operator
     namespace: flux-system
