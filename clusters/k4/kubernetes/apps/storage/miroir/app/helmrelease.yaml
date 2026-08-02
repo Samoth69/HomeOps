@@ -23,7 +23,3 @@ spec:
     kind: OCIRepository
     name: ${APP}
   interval: 1h
-  values:
-    storageClasses:
-      - name: miroir-local
-        replicas: 1
