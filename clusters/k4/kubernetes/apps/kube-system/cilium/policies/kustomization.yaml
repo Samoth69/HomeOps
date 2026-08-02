@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./allow-dns.yaml
   - ./host-firewall.yaml
+  - ./hubble.yaml
   - ./egress
   - ./ingress
   - ./l2announcementpolicy.yaml

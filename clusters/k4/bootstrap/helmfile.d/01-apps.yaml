@@ -15,10 +15,10 @@ releases:
       - ./templates/values.yaml.gotmpl
       # Durring bootstrap we need to disable hubble because it need dns to work
       # But DNS aren't installed at this stage.
-      - hubble:
-          enabled: false
-          relay:
-            enabled: false
+      # - hubble:
+      #     enabled: false
+      #     relay:
+      #       enabled: false
 
   - name: coredns
     namespace: kube-system
