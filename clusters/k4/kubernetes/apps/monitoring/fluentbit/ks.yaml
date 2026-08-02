@@ -4,6 +4,9 @@ kind: Kustomization
 metadata:
   name: fluentbit
 spec:
+  dependsOn:
+    - name: victoria-logs
+      namespace: monitoring
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/monitoring/fluentbit/app
   prune: true
