@@ -40,12 +40,12 @@ spec:
               repository: ghcr.io/crazy-max/samba
               tag: 4.23.8
             ports:
-              - containerPort: &port 445
+              - containerPort: &smb-direct-port 445
                 protocol: TCP
-                name: smb-tcp
-              - containerPort: *port
-                protocol: UDP
-                name: smb-udp
+                name: smb-direct
+              - containerPort: &smb-netbios-port 139
+                protocol: TCP
+                name: smb-netbios
             env:
               TZ: Europe/Paris
               SAMBA_HOSTS_ALLOW: ${SECRET_CIDR_LAN_V4}
@@ -65,14 +65,14 @@ spec:
           lbipam.cilium.io/ips: "${SECRET_LB3_IPV4}"
           lbipam.cilium.io/sharing-key: "media"
         ports:
-          samba-tcp:
+          samba-direct:
             enabled: true
             protocol: TCP
-            port: *port
-          samba-udp:
+            port: *smb-direct-port
+          samba-netbios:
             enabled: true
-            protocol: UDP
-            port: *port
+            protocol: TCP
+            port: *smb-netbios-port
 
     persistence:
       config:
