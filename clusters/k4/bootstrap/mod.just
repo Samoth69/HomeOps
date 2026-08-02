@@ -9,7 +9,7 @@ nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
 
 
 [private]
-default: talos kubernetes (kubeconfig "node") wait namespaces resources crds apps resources-late kubeconfig
+default: talos kubernetes (kubeconfig "node") wait namespaces resources crds apps resources-late flux kubeconfig
 
 [doc('Install Talos')]
 talos:
@@ -91,6 +91,14 @@ resources-late:
       export $p; \
     done; \
     yq '(.. | select(tag == "!!str")) |= envsubst' "{{ kubernetes_dir }}/apps/kube-system/cilium/cidr-group/cidr-group-lan.yaml" | kubectl apply -n kube-system -f -
+    kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/host-firewall.yaml"
+    kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/flux-system/flux-instance/app/netpol.yaml"
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/ingress/*.yaml" || true
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/egress/*.yaml" || true
-    kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/flux-system/flux-instance/app/netpol.yaml" || true
+
+[doc('Apply Helmfile Flux')]
+flux:
+    just log info "Running stage..." "stage" "$0"
+    if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/02-flux.yaml" sync --hide-notes; then \
+      just log fatal "Failed to sync helmfile" "stage" "$0"; \
+    fi;
