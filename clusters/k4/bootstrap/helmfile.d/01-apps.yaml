@@ -38,6 +38,7 @@ releases:
     needs:
       - kube-system/coredns
   
+  # Needed by Kyverno, will be required to bootstrap the cluster
   - name: cert-manager
     namespace: cert-manager
     chart: oci://quay.io/jetstack/charts/cert-manager
