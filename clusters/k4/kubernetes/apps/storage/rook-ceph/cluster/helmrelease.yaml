@@ -134,8 +134,7 @@ spec:
         useAllDevices: false
         nodes:
           - name: "tatsumi"
-            devices:
-              - name: "/dev/disk/by-partlabel/r-rook-data"
+            devicePathFilter: /dev/disk/by-id/nvme-Micron_7450_MTFDKBA960TFR_.*
           - name: "lynka"
             devicePathFilter: /dev/disk/by-id/nvme-Micron_7450_MTFDKBA960TFR_.*
           - name: "enigma"
