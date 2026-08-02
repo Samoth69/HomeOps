@@ -94,6 +94,7 @@ resources-late:
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/allow-dns.yaml"
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/host-firewall.yaml"
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/flux-system/flux-instance/app/netpol.yaml"
+    kubectl apply -n kube-system -f "{{ kubernetes_dir }}/apps/kube-system/spegel/app/netpol.yaml"
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/ingress/*.yaml" || true
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/egress/*.yaml" || true
 

@@ -5,9 +5,14 @@ metadata:
   name: spegel
 spec:
   endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: metrics-server
+    matchLabels: &labels
+      app.kubernetes.io/instance: spegel
+  ingress:
+    - fromEndpoints:
+        - matchLabels: *labels
   egress:
+    - toEndpoints:
+        - matchLabels: *labels
     - toEntities:
         - host
         - remote-node
