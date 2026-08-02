@@ -32,5 +32,6 @@ spec:
   egress:
     - toEntities:
         - cluster
+        - world
     - toCIDRSet:
         - cidrGroupRef: group-lan
