@@ -143,6 +143,9 @@ spec:
       - name: ceph-blockpool
         spec:
           failureDomain: host
+          parameters:
+            compression_algorithm: zstd
+            compression_mode: aggressive
           replicated:
             size: 3
         storageClass:
@@ -153,8 +156,6 @@ spec:
           mountOptions:
             - discard
           parameters:
-            compression_algorithm: zstd
-            compression_mode: passive
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
