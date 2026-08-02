@@ -37,6 +37,15 @@ releases:
       - ./templates/values.yaml.gotmpl
     needs:
       - kube-system/coredns
+  
+  - name: cert-manager
+    namespace: cert-manager
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: 1.21.1
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/coredns
 
   - name: flux-operator
     namespace: flux-system
