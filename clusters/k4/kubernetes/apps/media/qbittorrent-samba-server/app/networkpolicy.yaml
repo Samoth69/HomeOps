@@ -16,6 +16,9 @@ spec:
               protocol: TCP
             - port: "445"
               protocol: TCP
+  egress:
+    - toCIDRSet:
+        - cidrGroupRef: group-lan
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
 apiVersion: cilium.io/v2
@@ -36,3 +39,6 @@ spec:
               protocol: TCP
             - port: "445"
               protocol: TCP
+  egress:
+    - toCIDRSet:
+        - cidrGroupRef: group-lan
