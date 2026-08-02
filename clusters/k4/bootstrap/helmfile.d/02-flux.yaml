@@ -13,8 +13,6 @@ releases:
     version: 0.57.0
     values:
       - ./templates/values.yaml.gotmpl
-    needs:
-      - kube-system/spegel
 
   - name: flux-instance
     namespace: flux-system
