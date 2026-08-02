@@ -28,4 +28,5 @@ spec:
       helm.toolkit.fluxcd.io/namespace: kube-system
     podLabels:
       ingress.samoth.eu/vmagent: allow
+      egress.samoth.eu/internet-http: allow
 
