@@ -91,6 +91,7 @@ resources-late:
       export $p; \
     done; \
     yq '(.. | select(tag == "!!str")) |= envsubst' "{{ kubernetes_dir }}/apps/kube-system/cilium/cidr-group/cidr-group-lan.yaml" | kubectl apply -n kube-system -f -
+    kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/allow-dns.yaml"
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/host-firewall.yaml"
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/flux-system/flux-instance/app/netpol.yaml"
     kubectl apply -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/ingress/*.yaml" || true
