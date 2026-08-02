@@ -13,3 +13,21 @@ spec:
         kind: Secret
     substitute:
       APP: *app
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app miroir-instance
+spec:
+  dependsOn:
+    - name: miroir
+      namespace: storage
+  targetNamespace: storage
+  path: ./clusters/k4/kubernetes/apps/storage/miroir/instance
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+    substitute:
+      APP: *app

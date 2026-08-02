@@ -24,14 +24,6 @@ spec:
     name: ${APP}
   interval: 1h
   values:
-    nodes:
-      tatsumi: &config
-        pools:
-          default:
-            backend: lvmthin
-            device: /dev/disk/by-partlabel/r-miroir
-      lynka: *config
-      enigma: *config
     storageClasses:
       - name: miroir-local
         replicas: 1
