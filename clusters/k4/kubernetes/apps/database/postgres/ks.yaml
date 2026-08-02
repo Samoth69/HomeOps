@@ -31,6 +31,8 @@ spec:
       dependsOn:
         - name: cnpg
         - name: plugin-barman-cloud
+        - name: miroir
+          namespace: storage
       healthChecks:
         - apiVersion: postgresql.cnpg.io/v1
           kind: Cluster
