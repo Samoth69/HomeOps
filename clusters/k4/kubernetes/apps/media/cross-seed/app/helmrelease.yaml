@@ -31,45 +31,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        # Temporary
-        initContainers:
-          restore:
-            image:
-              repository: ghcr.io/cross-seed/cross-seed
-              tag: 6.13.7
-            args:
-              - restore
-            env:
-              TZ: Europe/Paris
-              CROSSSEED_PORT: &port 3000
-              CROSSSEED_APIKEY:
-                secretKeyRef:
-                  name: ${APP}-secret
-                  key: api-key
-              QBITTORRENT_PROXY_URL:
-                secretKeyRef:
-                  name: ${APP}-secret
-                  key: qui-qbittorrent-proxy-url
-              PROWLARR__AUTH__APIKEY:
-                secretKeyRef:
-                  name: prowlarr-secret
-                  key: api-key
-              SONARR_ANIME__AUTH__APIKEY:
-                secretKeyRef:
-                  name: sonarr-anime-secret
-                  key: api-key
-              SECRET_DOMAIN: ${SECRET_DOMAIN}
-            resources:
-              requests:
-                cpu: 10m
-                memory: 200Mi
-              limits:
-                memory: 512Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
-
         containers:
           app:
             image:
