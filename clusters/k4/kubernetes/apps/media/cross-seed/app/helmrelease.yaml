@@ -166,7 +166,5 @@ spec:
         type: hostPath
         hostPath: /var/mnt/hdd1
         hostPathType: Directory
-        advancedMounts:
-          app:
-            app:
-              - path: /var/mnt/hdd1
+        globalMounts:
+          - path: /var/mnt/hdd1
