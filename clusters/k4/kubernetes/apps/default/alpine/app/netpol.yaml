@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: alpine
+spec:
+  endpointSelector:
+    matchLabels:
+      app: alpine
+  egress:
+    - toEntities:
+        - host
+    - toCIDRSet:
+        - cidrGroupRef: group-lan
