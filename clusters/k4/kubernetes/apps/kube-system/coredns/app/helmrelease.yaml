@@ -19,12 +19,12 @@ spec:
     service:
       name: kube-dns
       # ipFamilyPolicy: RequireDualStack
-      ipFamilies:
-      - IPv4
+      # ipFamilies:
+      # - IPv4
       # - IPv6
       clusterIP: 10.69.0.10
-      clusterIPs:
-        - 10.69.0.10
+      # clusterIPs:
+      #   - 10.69.0.10
         # - fd00:69::a
     customLabels:
       ingress.samoth.eu/cluster: allow
