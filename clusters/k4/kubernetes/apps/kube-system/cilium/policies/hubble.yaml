@@ -10,6 +10,8 @@ spec:
       app.kubernetes.io/part-of: cilium
   egress:
     - toEndpoints:
+        - {}
+    - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: cilium-agent
             app.kubernetes.io/part-of: cilium
