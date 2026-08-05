@@ -20,9 +20,9 @@ spec:
       name: kube-dns
       ipFamilyPolicy: RequireDualStack
       ipFamilies:
-      - IPv6
       - IPv4
-      clusterIP: fd00:69::a
+      - IPv6
+      clusterIP: 10.69.0.10
       clusterIPs:
         - fd00:69::a
         - 10.69.0.10
