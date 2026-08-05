@@ -13,7 +13,12 @@ spec:
         - matchLabels:
             app.kubernetes.io/name: cilium-agent
             app.kubernetes.io/part-of: cilium
-      toPorts:
+      toPorts: &port
         - ports:
             - port: "443"
               protocol: "ANY"
+    - toEntities:
+        - host
+        - remote-node
+      toPorts: *port
+      
