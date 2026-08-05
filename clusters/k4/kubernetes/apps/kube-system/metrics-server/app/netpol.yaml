@@ -11,6 +11,7 @@ spec:
   egress:
     - toEntities:
         - host
+        - kube-apiserver
       toPorts:
         - ports:
             # kubelet metrics port
