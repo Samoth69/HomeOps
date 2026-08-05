@@ -8,9 +8,8 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: ${APP}
   egress:
-    - toFQDNs:
-        - matchName: "irc.rizon.net"
-        - matchName: "irc.rizon.net.media.svc.cluster.local"
+    - toEntities:
+        - world
       toPorts:
         - ports:
             - port: "6697"
