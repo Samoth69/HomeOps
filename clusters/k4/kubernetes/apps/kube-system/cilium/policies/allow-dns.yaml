@@ -7,6 +7,11 @@ spec:
   endpointSelector:
     matchLabels:
       {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
   egress:
     - toEndpoints:
         - matchLabels:
