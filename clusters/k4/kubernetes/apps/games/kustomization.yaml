@@ -13,5 +13,6 @@ resources:
   # - ./mc-atm10-01/ks.yaml
   # - ./mc-carpg-01/ks.yaml
   # - ./mc-rlcraft-01/ks.yaml
-  - ./openssh-server/ks.yaml
+  # FIXME: why is it broken ?
+  # - ./openssh-server/ks.yaml
   - ./palworld-01/ks.yaml
