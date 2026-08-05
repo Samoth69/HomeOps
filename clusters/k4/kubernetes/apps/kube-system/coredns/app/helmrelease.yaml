@@ -31,8 +31,6 @@ spec:
       ingress.samoth.eu/vmagent: allow
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
-      # TODO make dns specific rule
-      egress.samoth.eu/internet: allow
     hpa:
       enabled: true
       minReplicas: 3

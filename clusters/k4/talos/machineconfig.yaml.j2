@@ -13,6 +13,7 @@ machine:
     hostDNS:
       enabled: true
       forwardKubeDNSToHost: true
+      resolveMemberNames: true
     kubePrism:
       enabled: false
     {% if ENV.IS_CONTROLPLANE %}
