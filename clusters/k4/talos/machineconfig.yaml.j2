@@ -75,6 +75,11 @@ machine:
         format: "json_lines"
         extraTags:
           source: talos-services
+  network:
+    interfaces:
+      - interface: lo
+        addresses:
+          - 169.254.116.108/32
   sysctls:
     # IPv6 requirements (because we don't want SLAAC to assign ips to our nodes)
     net.ipv6.conf.default.autoconf: 0
