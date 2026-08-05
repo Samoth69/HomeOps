@@ -24,8 +24,8 @@ spec:
       - IPv6
       clusterIP: 10.69.0.10
       clusterIPs:
-        - fd00:69::a
         - 10.69.0.10
+        - fd00:69::a
     customLabels:
       ingress.samoth.eu/cluster: allow
       ingress.samoth.eu/vmagent: allow
