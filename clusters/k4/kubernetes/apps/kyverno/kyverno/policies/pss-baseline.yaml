@@ -33,8 +33,6 @@ spec:
         any:
           - resources:
               namespaces:
-                # TODO remove
-                - cilium-test-*
                 - kube-system
                 - media
                 - monitoring
