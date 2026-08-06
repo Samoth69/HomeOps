@@ -8,6 +8,7 @@ customization:
   systemExtensions:
     officialExtensions:
       - siderolabs/kata-containers
+      - siderolabs/nut-client
       - siderolabs/qemu-guest-agent
       - siderolabs/util-linux-tools
   secureboot:

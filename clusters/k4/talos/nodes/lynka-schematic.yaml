@@ -11,6 +11,7 @@ customization:
       - siderolabs/amd-ucode
       - siderolabs/amdgpu
       - siderolabs/kata-containers
+      - siderolabs/nut-client
       - siderolabs/realtek-firmware
       - siderolabs/util-linux-tools
   secureboot:

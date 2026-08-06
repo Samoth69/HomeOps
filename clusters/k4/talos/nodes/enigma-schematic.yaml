@@ -13,6 +13,7 @@ customization:
       - siderolabs/intel-ucode
       - siderolabs/kata-containers
       - siderolabs/mei
+      - siderolabs/nut-client
       - siderolabs/realtek-firmware
       - siderolabs/util-linux-tools
       - siderolabs/xe
