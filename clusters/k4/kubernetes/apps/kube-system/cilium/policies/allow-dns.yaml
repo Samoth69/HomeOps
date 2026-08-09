@@ -21,3 +21,7 @@ spec:
         - ports:
             - port: "53"
               protocol: "ANY"
+          rules:
+            # Allow DNS proxy to work properly
+            dns:
+              - matchPattern: "*"
