@@ -7,11 +7,7 @@
     ':dependencyDashboard',
     ':disableRateLimiting',
     ':semanticCommits',
-    'github>home-operations/renovate-presets//managers/annotated.json5',
-    'github>home-operations/renovate-presets//managers/cnpg.json5',
-    'github>home-operations/renovate-presets//managers/grafanaDashboards.json5',
-    'github>home-operations/renovate-presets//managers/oci.json5',
-    'github>home-operations/renovate-presets//managers/talosFactory.json5'
+    'github>home-operations/renovate-presets'
   ],
   dependencyDashboard: true,
   dependencyDashboardTitle: 'Renovate Dashboard 🤖',
@@ -23,31 +19,6 @@
     '**/*.sops.*',
     'clusters/PiHoleGamma/teleinfo'
   ],
-  flux: {
-    managerFilePatterns: [
-      '/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/',
-    ],
-  },
-  'helm-values': {
-    managerFilePatterns: [
-      '/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/',
-    ],
-  },
-  helmfile: {
-    managerFilePatterns: [
-      '/(^|/)helmfile\\.ya?ml(?:\\.j2)?$/',
-    ],
-  },
-  kubernetes: {
-    managerFilePatterns: [
-      '/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/',
-    ],
-  },
-  kustomize: {
-    managerFilePatterns: [
-      '/(^|/)kustomization\\.ya?ml(?:\\.j2)?$/',
-    ],
-  },
   packageRules: [
     {
       description: 'CoreDNS Group',
@@ -116,64 +87,6 @@
       ],
       minimumReleaseAge: '3 days',
       ignoreTests: true,
-    },
-    {
-      matchUpdateTypes: [
-        'major',
-      ],
-      semanticCommitType: 'feat',
-      commitMessagePrefix: '{{semanticCommitType}}({{semanticCommitScope}})!:',
-      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
-    },
-    {
-      matchUpdateTypes: [
-        'minor',
-      ],
-      semanticCommitType: 'feat',
-      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
-    },
-    {
-      matchUpdateTypes: [
-        'patch',
-      ],
-      semanticCommitType: 'fix',
-      commitMessageExtra: '( {{currentVersion}} → {{newVersion}} )',
-    },
-    {
-      matchUpdateTypes: [
-        'digest',
-      ],
-      semanticCommitType: 'chore',
-      commitMessageExtra: '( {{currentDigestShort}} → {{newDigestShort}} )',
-    },
-    {
-      matchDatasources: [
-        'docker',
-      ],
-      semanticCommitScope: 'container',
-      commitMessageTopic: 'image {{depName}}',
-    },
-    {
-      matchDatasources: [
-        'helm',
-      ],
-      semanticCommitScope: 'helm',
-      commitMessageTopic: 'chart {{depName}}',
-    },
-    {
-      matchManagers: [
-        'github-actions',
-      ],
-      semanticCommitType: 'ci',
-      semanticCommitScope: 'github-action',
-      commitMessageTopic: 'action {{depName}}',
-    },
-    {
-      matchDatasources: [
-        'github-releases',
-      ],
-      semanticCommitScope: 'github-release',
-      commitMessageTopic: 'release {{depName}}',
     },
     {
       matchUpdateTypes: [
