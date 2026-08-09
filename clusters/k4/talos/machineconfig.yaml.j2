@@ -254,3 +254,12 @@ apiVersion: v1alpha1
 kind: KmsgLogConfig
 name: remote-log
 url: tcp://127.0.0.1:12346/
+---
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: nut-client
+configFiles:
+  - content: |-
+      MONITOR {{ ENV.TALSECRET_CUSTOM_NUTSERVERIP }} 1 monuser secret secondary
+      SHUTDOWNCMD "/sbin/poweroff"
+    mountPath: /usr/local/etc/nut/upsmon.conf
