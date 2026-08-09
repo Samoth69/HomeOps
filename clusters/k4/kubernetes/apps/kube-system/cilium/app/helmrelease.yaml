@@ -26,11 +26,13 @@ spec:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
-    devices: bond0
     dashboards:
       enabled: true
       annotations:
         grafana_folder: Cilium
+    devices: bond0
+    dnsProxy:
+      dnsRejectResponseCode: nameError
     endpointRoutes:
       enabled: true
     envoy:
