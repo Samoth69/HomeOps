@@ -57,6 +57,10 @@ spec:
                 secretKeyRef:
                   name: sonarr-anime-secret
                   key: api-key
+              SONARR_TV__AUTH__APIKEY:
+                secretKeyRef:
+                  name: sonarr-tv-secret
+                  key: api-key
               SECRET_DOMAIN: ${SECRET_DOMAIN}
             probes:
               liveness: &probes
