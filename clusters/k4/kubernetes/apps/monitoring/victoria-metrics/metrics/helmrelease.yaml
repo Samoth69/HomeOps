@@ -115,6 +115,14 @@ spec:
 
     vmagent:
       spec:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: vmagent
+                    app.kubernetes.io/instance: vmks
+                topologyKey: kubernetes.io/hostname
         configReloaderExtraArgs:
           enableTCP6: "true"
         extraArgs:
@@ -141,7 +149,7 @@ spec:
         resources:
           requests:
             cpu: 200m
-            memory: 200Mi
+            memory: 350Mi
           limits:
             memory: 1Gi
 
