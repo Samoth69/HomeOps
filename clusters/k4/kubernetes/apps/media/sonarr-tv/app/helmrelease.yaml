@@ -1,0 +1,166 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 5.0.1
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    controllers:
+      sonarr:
+        type: statefulset
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          labels:
+            ingress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/database: allow
+            egress.samoth.eu/internet-http: allow
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
+        
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/sonarr
+              tag: 4.0.19.2997
+            env:
+              SONARR__APP__INSTANCENAME: Sonarr-TV
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__APIKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-secret
+                    key: api-key
+              SONARR__AUTH__METHOD: External
+
+              SONARR__LOG__LEVEL: info
+              SONARR__LOG__ANALYTICSENABLED: "False"
+              SONARR__LOG__DBENABLED: "False"
+
+              SONARR__POSTGRES__HOST: pooler-transaction-rw.database.svc.cluster.local.
+              SONARR__POSTGRES__USER: ${APP}
+              SONARR__POSTGRES__MAINDB: ${APP}
+              SONARR__POSTGRES__PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-user-${APP}
+                    key: password
+              
+              SONARR__UPDATE__BRANCH: develop
+              
+              SONARR__SERVER__PORT: &port 80
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+                memory: 384Mi
+              limits:
+                memory: 2048Mi
+            securityContext:
+              allowPrivilegeEscalation: true
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+    
+    defaultPodOptions:
+      nodeSelector:
+        kubernetes.io/hostname: tatsumi
+
+    service:
+      app:
+        controller: sonarr
+        ipFamilyPolicy: RequireDualStack
+        ports:
+          http:
+            targetPort: *port
+            port: 80
+    
+    route:
+      app:
+        forceRename: ${APP}
+        hostnames: [&host "${APP}.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+      api:
+        hostnames: [*host]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            backendRefs:
+              - identifier: app
+                port: 80
+            timeouts:
+              request: "300s"
+
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+      tmp:
+        type: emptyDir
+      media:
+        type: nfs
+        path: /mnt/ThePool/Videos
+        server: ${SECRET_TRUENAS_IP}
+        globalMounts:
+          - path: /mnt/media/tv
+            subPath: Séries
+      hdd1:
+        enabled: true
+        type: hostPath
+        hostPath: /var/mnt/hdd1
+        hostPathType: Directory
+        advancedMounts:
+          sonarr:
+            app:
+              - path: /var/mnt/hdd1
