@@ -115,6 +115,11 @@ spec:
 
     vmagent:
       spec:
+        configReloaderExtraArgs:
+          enableTCP6: "true"
+        extraArgs:
+          enableTCP6: "true"
+          promscrape.maxScrapeSize: "67108864" # Cilium somehow produces more metrics than the default 16777216
         globalScrapeMetricRelabelConfigs: &relabel-config
           - action: labeldrop
             regex: ((?:extensions_talos|feature_node).*)
@@ -124,11 +129,15 @@ spec:
             ingress.samoth.eu/kube-apiserver: allow
             egress.samoth.eu/kube-apiserver: allow
             egress.samoth.eu/cluster: allow
-        extraArgs:
-          enableTCP6: "true"
-          promscrape.maxScrapeSize: "67108864" # Cilium somehow produces more metrics than the default 16777216
-        configReloaderExtraArgs:
-          enableTCP6: "true"
+        scrapeInterval: 30s
+        replicaCount: 2
+        statefulMode: true
+        statefulStorage:
+          volumeClaimTemplate:
+            spec:
+              resources:
+                  requests:
+                    storage: 1Gi
         resources:
           requests:
             cpu: 200m
@@ -140,6 +149,7 @@ spec:
       enabled: true
       spec:
         extraArgs:
+          dedup.minScrapeInterval: 30s
           enableTCP6: "true"
         priorityClassName: monitoring
         replicaCount: 1
