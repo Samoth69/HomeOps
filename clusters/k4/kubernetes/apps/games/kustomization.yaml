@@ -9,10 +9,10 @@ components:
   - ../../components/namespace-isolated
 
 resources:
-  - ./auto-restart/ks.yaml
+  # - ./auto-restart/ks.yaml
   # - ./mc-atm10-01/ks.yaml
   # - ./mc-carpg-01/ks.yaml
+  - ./mc-ragnamod-vii-in-the-sky/ks.yaml
   # - ./mc-rlcraft-01/ks.yaml
-  # FIXME: why is it broken ?
-  # - ./openssh-server/ks.yaml
+  - ./openssh-server/ks.yaml
   - ./palworld-01/ks.yaml

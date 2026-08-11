@@ -34,7 +34,7 @@ spec:
               pullPolicy: Always
               tag: java21
             ports:
-              - containerPort: &port 25568
+              - containerPort: &port 25566
                 protocol: TCP
                 name: gameport-tcp
               - containerPort: *port
@@ -43,9 +43,9 @@ spec:
             env:
               # Fondamentaux
               EULA: true
-              TYPE: NEOFORGE
-              VERSION: 1.21.1
-              NEOFORGE_VERSION: 21.1.228
+              TYPE: FORGE
+              VERSION: 1.18.2
+              FORGE_VERSION: 40.3.12
               SERVER_PORT: *port
 
               # Performance
@@ -53,11 +53,11 @@ spec:
               USE_MEOWICE_FLAGS: true
 
               # Server.properties
-              DIFFICULTY: normal
+              DIFFICULTY: hard
               VIEW_DISTANCE: 12
               MOTD: |
-                Serveur Arctyx ma gueule !
-                (c'est Serenz qui m'a dit de mettre ça)
+                Who lives in a pineapple under the sea ?
+                SpongeBob SquarePants !
               PVP: true
               MAX_WORLD_SIZE: 10000000
               ENABLE_COMMAND_BLOCK: true
