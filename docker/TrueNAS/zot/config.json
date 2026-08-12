@@ -79,6 +79,9 @@
                     ]
                 },
                 "homelab/**": {
+                    "anonymousPolicy": [
+                        "read"
+                    ],
                     "defaultPolicy": [
                         "read"
                     ],
