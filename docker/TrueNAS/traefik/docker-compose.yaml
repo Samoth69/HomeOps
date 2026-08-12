@@ -19,6 +19,7 @@ services:
       - --entrypoints.websecure.http.tls.domains[0].main=*.truenas.samoth.eu
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
+      - --log.level=INFO
     container_name: traefik
     environment:
       - OVH_ENDPOINT=ovh-eu
