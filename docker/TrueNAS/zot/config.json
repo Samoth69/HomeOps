@@ -79,6 +79,9 @@
                     ]
                 },
                 "homelab/**": {
+                    "defaultPolicy": [
+                        "read"
+                    ],
                     "policies": [
                         {
                             "users": [
