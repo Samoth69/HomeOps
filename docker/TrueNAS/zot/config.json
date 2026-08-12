@@ -1,6 +1,13 @@
 {
     "distSpecVersion": "1.1.1",
     "extensions": {
+        "scrub": {
+            "enable": true,
+            "interval": "24h"
+        },
+        "search": {
+            "enable": true
+        },
         "ui": {
             "enable": true
         }
