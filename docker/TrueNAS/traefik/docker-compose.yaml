@@ -5,6 +5,8 @@ networks:
 services:
   traefik:
     command:
+      - --accesslog=true
+      - --accesslog.filters.statuscodes=400-599
       # - --certificatesresolvers.cf.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.profile=shortlived
@@ -17,9 +19,11 @@ services:
       - --entrypoints.websecure.http.tls=true
       - --entrypoints.websecure.http.tls.certResolver=cf
       - --entrypoints.websecure.http.tls.domains[0].main=*.truenas.samoth.eu
+      - --global.checkNewVersion=false
+      - --global.sendAnonymousUsage=false
+      - --log.level=INFO
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
-      - --log.level=INFO
     container_name: traefik
     environment:
       - OVH_ENDPOINT=ovh-eu
