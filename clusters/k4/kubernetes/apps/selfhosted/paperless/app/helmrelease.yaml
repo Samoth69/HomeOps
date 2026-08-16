@@ -99,12 +99,22 @@ spec:
               # PAPERLESS_REDIRECT_LOGIN_TO_SSO: true
               PAPERLESS_SOCIAL_AUTO_SIGNUP: true
               PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: true
-              PAPERLESS_SOCIALACCOUNT_ONLY: true
+              # PAPERLESS_SOCIALACCOUNT_ONLY: true
               PAPERLESS_SOCIALACCOUNT_PROVIDERS:
                 valueFrom:
                   secretKeyRef:
                     name: paperless-secret
                     key: PAPERLESS_SOCIALACCOUNT_PROVIDERS
+              PAPERLESS_ADMIN_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_ADMIN_USER
+              PAPERLESS_ADMIN_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_ADMIN_PASSWORD
             probes:
               liveness:
                 enabled: true
