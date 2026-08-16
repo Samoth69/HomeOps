@@ -90,7 +90,7 @@ spec:
                   secretKeyRef:
                     name: postgres-user-paperless
                     key: password
-              PAPERLESS_DBSSLMODE: require
+              PAPERLESS_DB_OPTIONS: '{"sslmode": "require"}'
               # Configure user permissions
               USERMAP_UID: &uid 2000 # truenas:k4
               USERMAP_GID: *uid # truenas:k4
@@ -105,16 +105,6 @@ spec:
                   secretKeyRef:
                     name: paperless-secret
                     key: PAPERLESS_SOCIALACCOUNT_PROVIDERS
-              PAPERLESS_ADMIN_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secret
-                    key: PAPERLESS_ADMIN_USER
-              PAPERLESS_ADMIN_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secret
-                    key: PAPERLESS_ADMIN_PASSWORD
             probes:
               liveness:
                 enabled: true
