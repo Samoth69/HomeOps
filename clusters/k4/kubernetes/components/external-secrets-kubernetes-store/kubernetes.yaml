@@ -9,7 +9,7 @@ spec:
       # TODO find a better way to pass this value
       remoteNamespace: ${NAMESPACE}
       server:
-        url: kubernetes.default
+        url: https://kubernetes.default.svc
       auth:
         serviceAccount:
           name: external-secrets-kubernetes-store
