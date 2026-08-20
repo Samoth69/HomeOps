@@ -8,6 +8,8 @@ spec:
     kubernetes:
       # TODO find a better way to pass this value
       remoteNamespace: ${NAMESPACE}
+      server:
+        url: kubernetes.default
       auth:
         serviceAccount:
           name: external-secrets
