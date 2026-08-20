@@ -1,13 +1,16 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/external-secrets.io/secretstore_v1.json
 apiVersion: external-secrets.io/v1
 kind: SecretStore
 metadata:
   name: kubernetes
 spec:
   provider:
-    kubernetes: {}
-  auth:
-    serviceAccount:
-      name: external-secrets
+    kubernetes:
+      # TODO find a better way to pass this value
+      remoteNamespace: ${NAMESPACE}
+      auth:
+        serviceAccount:
+          name: external-secrets
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role

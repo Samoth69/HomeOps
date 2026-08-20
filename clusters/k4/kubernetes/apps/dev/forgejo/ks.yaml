@@ -6,8 +6,9 @@ metadata:
   name: &app forgejo
 spec:
   components:
-    - ../../../../components/oauth2
     - ../../../../components/database
+    - ../../../../components/external-secrets-kubernetes-store
+    - ../../../../components/oauth2
     - ../../../../components/valkey
     - ../../../../components/volsync
   dependsOn:
@@ -16,13 +17,14 @@ spec:
     - name: volsync
       namespace: system
   path: ./clusters/k4/kubernetes/apps/dev/forgejo/app
+  targetNamespace: &namespace dev
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 10Gi
       KANIDM_REDIRECT_PATH: /user/oauth2/kanidm/callback
       KANIDM_SECRET_ROTATION: "false"
-  targetNamespace: dev
