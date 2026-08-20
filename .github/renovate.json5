@@ -80,10 +80,10 @@
         'docker',
       ],
       matchPackageNames: [
-        '/kube-scheduler',
-        '/kube-proxy',
-        '/kube-controller-manager',
-        '/kube-apiserver',
+        '/kube-scheduler/',
+        '/kube-proxy/',
+        '/kube-controller-manager/',
+        '/kube-apiserver/',
       ],
       group: {
         commitMessageTopic: '{{{groupName}}} group',
