@@ -51,7 +51,7 @@ spec:
                 - /run/udev
                 - /run/lvm
                 - /sys
-                - /var/lib/ceph/crash
+                - /var/lib/ceph*
                 - /var/lib/kubelet*
                 - /var/lib/rook*
                 - /var/lib/miroir-drbd.d
