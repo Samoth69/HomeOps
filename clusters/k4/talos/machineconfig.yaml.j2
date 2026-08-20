@@ -60,7 +60,7 @@ machine:
       serializeImagePulls: false
       shutdownGracePeriod: 90s
       shutdownGracePeriodCriticalPods: 60s
-    image: ghcr.io/siderolabs/kubelet:v1.36.3
+    image: ghcr.io/siderolabs/kubelet:v1.36.4
     nodeIP:
       validSubnets:
         - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV4 }}/32
