@@ -74,13 +74,16 @@
       },
     },
     {
-      description: 'registry.k8s.io Group',
-      groupName: 'registry.k8s.io',
+      description: 'Kubernetes Group',
+      groupName: 'Kubernetes',
       matchDatasources: [
         'docker',
       ],
       matchPackageNames: [
-        'registry.k8s.io',
+        '/kube-scheduler',
+        '/kube-proxy',
+        '/kube-controller-manager',
+        '/kube-apiserver',
       ],
       group: {
         commitMessageTopic: '{{{groupName}}} group',
