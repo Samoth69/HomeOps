@@ -73,6 +73,7 @@ spec:
         mon:
           # https://docs.ceph.com/en/latest/rados/operations/health-checks/#mon-disk-low
           mon_data_avail_warn: "15" # orig: 30
+          mon_cluster_log_level: info
       security:
         cephx:
           daemon:
@@ -81,17 +82,17 @@ spec:
       csi:
         readAffinity:
           enabled: true
-      # TODO remove when Talos is running linux 7.0+ see https://rook.io/docs/rook/latest-release/Storage-Configuration/Advanced/cephx-key-rotation/#migrating-csi-keys-to-a-new-key-type
-      healthCheck:
-        muteHealthWarning:
-          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
-            policy: mute
-          AUTH_INSECURE_CLIENT_KEY_TYPE:
-            policy: mute
-          AUTH_INSECURE_KEYS_ALLOWED:
-            policy: mute
-          AUTH_INSECURE_KEYS_CREATABLE:
-            policy: mute
+      # # TODO remove when Talos is running linux 7.0+ see https://rook.io/docs/rook/latest-release/Storage-Configuration/Advanced/cephx-key-rotation/#migrating-csi-keys-to-a-new-key-type
+      # healthCheck:
+      #   muteHealthWarning:
+      #     AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
+      #       policy: mute
+      #     AUTH_INSECURE_CLIENT_KEY_TYPE:
+      #       policy: mute
+      #     AUTH_INSECURE_KEYS_ALLOWED:
+      #       policy: mute
+      #     AUTH_INSECURE_KEYS_CREATABLE:
+      #       policy: mute
       network:
         provider: host
         connections:
