@@ -85,16 +85,16 @@ spec:
         readAffinity:
           enabled: true
       # # TODO remove when Talos is running linux 7.0+ see https://rook.io/docs/rook/latest-release/Storage-Configuration/Advanced/cephx-key-rotation/#migrating-csi-keys-to-a-new-key-type
-      # healthCheck:
-      #   muteHealthWarning:
-      #     AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
-      #       policy: mute
-      #     AUTH_INSECURE_CLIENT_KEY_TYPE:
-      #       policy: mute
-      #     AUTH_INSECURE_KEYS_ALLOWED:
-      #       policy: mute
-      #     AUTH_INSECURE_KEYS_CREATABLE:
-      #       policy: mute
+      healthCheck:
+        muteHealthWarning:
+          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_CLIENT_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_KEYS_ALLOWED:
+            policy: mute
+          AUTH_INSECURE_KEYS_CREATABLE:
+            policy: mute
       network:
         provider: host
         connections:
