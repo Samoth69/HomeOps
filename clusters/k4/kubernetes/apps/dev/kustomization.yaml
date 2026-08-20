@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: dev
 
 components:
+  - ../../components/external-secrets-kubernetes-store
   - ../../components/sops
   - ../../components/namespace
 
