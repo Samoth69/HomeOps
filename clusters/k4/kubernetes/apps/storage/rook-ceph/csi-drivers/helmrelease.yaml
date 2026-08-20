@@ -1,0 +1,117 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: rook-ceph-csi-operator
+spec:
+  interval: 1h
+  url: https://ceph.github.io/ceph-csi-operator
+  timeout: 3m
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rook-ceph-csi-drivers
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: ceph-csi-drivers
+      version: 1.0.4
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: rook-ceph-csi-operator
+  values:
+    # Rook-compatible default values for the ceph-csi-drivers Helm chart.
+    #
+    # Use these values when installing or upgrading the ceph-csi-drivers chart
+    # alongside the rook-ceph operator chart. The driver names must match the
+    # provisioner names used by Rook (e.g. in StorageClasses and VolumeSnapshotClasses).
+    #
+    # If the Rook operator is installed in a namespace other than rook-ceph, replace
+    # "rook-ceph" in the driver names below with your operator namespace.
+
+    operatorConfig:
+      namespace: storage # namespace:operator
+      driverSpecDefaults:
+        imageSet:
+          name: rook-csi-operator-image-set-configmap
+        log:
+          rotation:
+            enabled: false
+        nodePlugin:
+          priorityClassName: system-node-critical
+          resources:
+            plugin:
+              limits:
+                memory: 1Gi
+              requests:
+                cpu: 250m
+                memory: 512Mi
+            registrar:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 50m
+                memory: 128Mi
+        controllerPlugin:
+          priorityClassName: system-cluster-critical
+          resources:
+            attacher:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 10m
+                memory: 64Mi
+            omapGenerator:
+              limits:
+                memory: 1Gi
+              requests:
+                cpu: 100m
+                memory: 512Mi
+            plugin:
+              limits:
+                memory: 1Gi
+              requests:
+                memory: 512Mi
+            provisioner:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 10m
+                memory: 128Mi
+            resizer:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 10m
+                memory: 128Mi
+            snapshotter:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 10m
+                memory: 128Mi
+
+    drivers:
+      rbd:
+        enabled: true
+        name: storage.rbd.csi.ceph.com # csi-provisioner-name
+        snapshotPolicy: volumeGroupSnapshot
+        controllerPlugin:
+          replicas: 2
+      cephfs:
+        enabled: true
+        name: storage.cephfs.csi.ceph.com # csi-provisioner-name
+        snapshotPolicy: volumeGroupSnapshot
+        controllerPlugin:
+          replicas: 2
+      nfs:
+        enabled: false
+        name: storage.nfs.csi.ceph.com # csi-provisioner-name
+      nvmeof:
+        enabled: false
+        name: storage.nvmeof.csi.ceph.com # csi-provisioner-name
