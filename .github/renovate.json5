@@ -74,6 +74,19 @@
       },
     },
     {
+      description: 'registry.k8s.io Group',
+      groupName: 'registry.k8s.io',
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        'registry.k8s.io',
+      ],
+      group: {
+        commitMessageTopic: '{{{groupName}}} group',
+      },
+    },
+    {
       description: 'Auto-merge GitHub Actions',
       matchManagers: [
         'github-actions',
