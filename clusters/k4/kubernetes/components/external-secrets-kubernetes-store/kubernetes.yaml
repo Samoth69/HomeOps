@@ -5,6 +5,9 @@ metadata:
 spec:
   provider:
     kubernetes: {}
+  auth:
+    serviceAccount:
+      name: external-secrets
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -18,6 +21,12 @@ rules:
   - get
   - list
   - watch
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - selfsubjectrulesreviews
+  verbs:
+  - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
