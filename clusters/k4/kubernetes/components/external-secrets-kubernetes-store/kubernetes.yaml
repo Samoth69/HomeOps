@@ -48,7 +48,7 @@ metadata:
   name: external-secrets-kubernetes-store
 subjects:
   - kind: ServiceAccount
-    name: external-secrets
+    name: external-secrets-kubernetes-store
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
