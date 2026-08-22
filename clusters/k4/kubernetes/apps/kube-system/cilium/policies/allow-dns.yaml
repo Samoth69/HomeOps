@@ -13,18 +13,6 @@ spec:
             k8s:io.kubernetes.pod.namespace: kube-system
             k8s-app: kube-dns
   egress:
-    # TODO Why do we need to allow the service when we have an endpoint ?
-    - toCIDR:
-        - fd00:69::a/128
-        - 10.69.0.10/32
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: "ANY"
-          rules:
-            # Allow DNS proxy to work properly
-            dns:
-              - matchPattern: "*"
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
