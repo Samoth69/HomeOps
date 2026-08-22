@@ -36,6 +36,9 @@ spec:
       webhooks:
         minAvailable: 1
     
+    additionalAnnotations:
+      reloader.stakater.com/auto: "true"
+
     podLabels:
       keda: &labels
         ingress.samoth.eu/kube-apiserver: allow
