@@ -6,6 +6,9 @@ metadata:
   name: keda
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/infrastructure/keda/app
   postBuild:
