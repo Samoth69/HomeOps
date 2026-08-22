@@ -68,7 +68,9 @@ spec:
           memory: 100Mi
     
     certificates:
+      secretName: &cert kedaorg-ca
       certManager:
         enabled: true
         duration: 30d
         renewBefore: 7d
+        caSecretName: *cert
