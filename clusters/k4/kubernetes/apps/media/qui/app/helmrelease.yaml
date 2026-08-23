@@ -85,8 +85,6 @@ spec:
     defaultPodOptions:
       nodeSelector:
         kubernetes.io/hostname: tatsumi
-      annotations:
-        reloader.stakater.com/auto: "true"
       labels:
         ingress.samoth.eu/envoy-internal: allow
         egress.samoth.eu/envoy-internal: allow

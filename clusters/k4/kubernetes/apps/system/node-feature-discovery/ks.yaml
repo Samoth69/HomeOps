@@ -9,7 +9,6 @@ spec:
     labels:
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
-      kyverno.samoth.eu/baseline: allow-hostpath
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/system/node-feature-discovery/app
   postBuild:
