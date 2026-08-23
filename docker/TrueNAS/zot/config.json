@@ -6,11 +6,41 @@
             "interval": "24h"
         },
         "search": {
-            "enable": true
+            "enable": true,
+            "cve": {
+                "updateInterval": "2h"
+            }
         },
         "sync": {
             "enable": true,
             "registries": [
+                {
+                    "urls": [
+                        "https://code.forgejo.org"
+                    ],
+                    "content": [
+                        {
+                            "prefix": "**",
+                            "destination": "/code-forgejo-org"
+                        }
+                    ],
+                    "onDemand": true,
+                    "tlsVerify": true
+                },
+                {
+                    "urls": [
+                        "https://mirror.gcr.io",
+                        "https://docker.io/library"
+                    ],
+                    "content": [
+                        {
+                            "prefix": "**",
+                            "destination": "/docker-io"
+                        }
+                    ],
+                    "onDemand": true,
+                    "tlsVerify": true
+                },
                 {
                     "urls": [
                         "https://ghcr.io"
@@ -26,12 +56,38 @@
                 },
                 {
                     "urls": [
-                        "https://docker.io/library"
+                        "https://quay.io"
                     ],
                     "content": [
                         {
                             "prefix": "**",
-                            "destination": "/docker-io"
+                            "destination": "/quay-io"
+                        }
+                    ],
+                    "onDemand": true,
+                    "tlsVerify": true
+                },
+                {
+                    "urls": [
+                        "https://registry.k8s.io"
+                    ],
+                    "content": [
+                        {
+                            "prefix": "**",
+                            "destination": "/registry-k8s-io"
+                        }
+                    ],
+                    "onDemand": true,
+                    "tlsVerify": true
+                },
+                {
+                    "urls": [
+                        "https://cr.fluentbit.io"
+                    ],
+                    "content": [
+                        {
+                            "prefix": "**",
+                            "destination": "/cr-fluentbit-io"
                         }
                     ],
                     "onDemand": true,
