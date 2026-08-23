@@ -263,3 +263,52 @@ configFiles:
       MONITOR {{ ENV.TALSECRET_CUSTOM_NUTSERVERIP }} 1 monuser secret secondary
       SHUTDOWNCMD "/sbin/poweroff"
     mountPath: /usr/local/etc/nut/upsmon.conf
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: code.forgejo.org
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/code-forgejo-io
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: docker.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/docker-io
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: mirror.gcr.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/docker-io
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: ghcr.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/ghcr-io
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: quay.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/quay-io
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: registry.k8s.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/registry-k8s-io
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: cr.fluentbit.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/cr-fluentbit-io
+skipFallback: false
