@@ -109,7 +109,7 @@ spec:
                 memory: 64Mi
               limits:
                 memory: 512Mi
-                squat.ai/tun: "1"
+                devic.es/tun: "1"
         containers:
           qbittorrent:
             image:

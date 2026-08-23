@@ -84,21 +84,6 @@ spec:
               - secretRef:
                   name: forgejo-runner-secret
         containers:
-          daemon:
-            image:
-              repository: docker
-              tag: 29.7.1-dind
-            resources:
-              requests:
-                cpu: 10m
-                memory: 194Mi
-              limits:
-                memory: 194Mi
-            securityContext:
-              privileged: true
-            env:
-              - name: DOCKER_TLS_CERTDIR
-                value: /certs
           app:
             image:
               repository: code.forgejo.org/forgejo/runner
@@ -108,18 +93,12 @@ spec:
                 cpu: 10m
                 memory: 100Mi
               limits:
-                memory: 100Mi
+                memory: 1Gi
+                devic.es/fuse: 1
             command:
               - "sh"
               - "-c"
               - "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; forgejo-runner --config /config/config.yaml daemon"
-            env:
-              - name: DOCKER_HOST
-                value: tcp://localhost:2376
-              - name: DOCKER_CERT_PATH
-                value: /certs/client
-              - name: DOCKER_TLS_VERIFY
-                value: "1"
 
     service:
       app:
