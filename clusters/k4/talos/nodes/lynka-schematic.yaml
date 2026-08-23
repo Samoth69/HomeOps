@@ -10,6 +10,7 @@ customization:
     officialExtensions:
       - siderolabs/amd-ucode
       - siderolabs/amdgpu
+      - siderolabs/fuse3
       - siderolabs/kata-containers
       - siderolabs/nut-client
       - siderolabs/realtek-firmware

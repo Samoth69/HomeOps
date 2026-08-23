@@ -7,6 +7,7 @@ customization:
     - initcall_blacklist=algif_aead_init,esp4,esp6,rxrpc # https://copy.fail & Dirty Frag
   systemExtensions:
     officialExtensions:
+      - siderolabs/fuse3
       - siderolabs/kata-containers
       - siderolabs/nut-client
       - siderolabs/qemu-guest-agent

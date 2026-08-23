@@ -10,9 +10,6 @@ runner:
   # Extra environment variables to run jobs.
   envs:
     CLEEB: true
-    DOCKER_HOST: tcp://127.0.0.1:2376
-    DOCKER_TLS_VERIFY: 1
-    DOCKER_CERT_PATH: /certs/client
   # Extra environment variables to run jobs from a file.
   # It will be ignored if it's empty or the file doesn't exist.
   env_file: .env
