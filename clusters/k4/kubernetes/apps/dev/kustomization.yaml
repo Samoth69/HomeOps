@@ -9,3 +9,4 @@ components:
 
 resources:
   - ./forgejo/ks.yaml
+  - ./forgejo-runner/ks.yaml

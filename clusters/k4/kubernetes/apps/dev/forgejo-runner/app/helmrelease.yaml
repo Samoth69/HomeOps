@@ -1,0 +1,143 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 5.1.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    controllers:
+      forgejo-runner:
+        type: statefulset
+        replicas: 2
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          labels:
+            ingress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/internet-http: allow
+          # runtimeClassName: kata # kata doesn't support cilium netkit mode yet - https://github.com/kata-containers/kata-containers/issues/12159
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+
+        statefulset:
+          volumeClaimTemplates:
+            - name: data
+              globalMounts:
+                - path: /data
+              accessMode: "ReadWriteOnce"
+              size: 1Gi
+            - name: actions
+              globalMounts:
+                - path: /data/.cache
+                  subPath: cache
+                - path: /var/lib/docker
+                  subPath: docker
+              accessMode: "ReadWriteOnce"
+              size: 5Gi
+
+        initContainers:
+          register:
+            image:
+              repository: code.forgejo.org/forgejo/runner
+              tag: 13.0.0
+            command:
+              - "sh"
+              - "-c"
+              - >
+                if [ ! -f /data/.runner ]; then
+                  echo "Registering runner...";
+                  forgejo-runner register --no-interactive \
+                    --token $(RUNNER_TOKEN) \
+                    --name $(RUNNER_NAME) \
+                    --instance $(FORGEJO_INSTANCE_URL) \
+                    --labels "$(LABELS)";
+                else
+                  echo "Runner already registered, skipping.";
+                fi
+            env:
+              FORGEJO_INSTANCE_URL: https://git.m00nlit.dev
+              LABELS: "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest"
+            envFrom:
+              - secretRef:
+                  name: forgejo-runner-secret
+        containers:
+          daemon:
+            image:
+              repository: docker
+              tag: 29.7.1-dind
+            resources:
+              requests:
+                cpu: 10m
+                memory: 194Mi
+              limits:
+                memory: 194Mi
+            securityContext:
+              privileged: true
+            env:
+              - name: DOCKER_TLS_CERTDIR
+                value: /certs
+          app:
+            image:
+              repository: code.forgejo.org/forgejo/runner
+              tag: 13.0.0
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 100Mi
+            command:
+              - "sh"
+              - "-c"
+              - "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; forgejo-runner --config /config/config.yaml daemon"
+            env:
+              - name: DOCKER_HOST
+                value: tcp://localhost:2376
+              - name: DOCKER_CERT_PATH
+                value: /certs/client
+              - name: DOCKER_TLS_VERIFY
+                value: "1"
+
+    service:
+      app:
+        controller: forgejo-runner
+        ports:
+          http:
+            port: 45315
+
+    persistence:
+      config:
+        type: configMap
+        name: forgejo-runner-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
+
+      certs:
+        type: emptyDir
+      cache:
+        type: emptyDir
