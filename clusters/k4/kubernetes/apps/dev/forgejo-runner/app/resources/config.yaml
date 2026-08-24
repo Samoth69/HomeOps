@@ -69,11 +69,13 @@ container:
   #   - '**'
   valid_volumes:
     - /certs/client
-  # overrides the docker client host with the specified one.
-  # If it's empty, act_runner will find an available docker host automatically.
-  # If it's "-", act_runner will find an available docker host automatically, but the docker host won't be mounted to the job containers and service containers.
-  # If it's not empty or "-", the specified docker host will be used. An error will be returned if it doesn't work.
-  docker_host: ""
+  # Overrides the docker host set by the DOCKER_HOST environment variable, and mounts on the job container.
+  # If "-" or "", no docker host will be mounted in the job container
+  # If "automount", an available docker host will automatically be found and mounted in the job container (e.g., /var/run/docker.sock).
+  # If it's a url, the specified docker host will be mounted in the job container
+  # Example urls: unix:///run/docker.socket or ssh://user@host
+  # The specified socket is mounted within the job container at /var/run/docker.sock
+  docker_host: "-"
 
 host:
   # The parent directory of a job's working directory.
