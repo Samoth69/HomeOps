@@ -98,7 +98,7 @@ spec:
             command:
               - "sh"
               - "-c"
-              - "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; forgejo-runner --config /config/config.yaml daemon"
+              - "forgejo-runner --config /config/config.yaml daemon"
 
     service:
       app:
