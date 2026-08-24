@@ -6,6 +6,8 @@ metadata:
   name: keda
   namespace: flux-system
 spec:
+  components:
+    - ../../../../components/app-network-policy
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
