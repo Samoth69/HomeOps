@@ -92,6 +92,13 @@ spec:
               - "-c"
               - "podman system service --time 0 unix:///var/run/podman.sock"
             restartPolicy: Always
+            securityContext:
+              capabilities:
+                add:
+                  - "MKNOD"
+                  - "SETFCAP"
+                  - "SYS_CHROOT"
+                  # - "SYS_ADMIN"
             resources:
               requests:
                 cpu: 10m
