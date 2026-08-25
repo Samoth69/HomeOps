@@ -83,7 +83,6 @@ spec:
             envFrom:
               - secretRef:
                   name: forgejo-runner-secret
-        containers:
           daemon:
             image:
               repository: quay.io/podman/stable
@@ -92,6 +91,7 @@ spec:
               - "sh"
               - "-c"
               - "podman system service --time 0 unix:///var/run/podman.sock"
+            restartPolicy: Always
             resources:
               requests:
                 cpu: 10m
@@ -99,6 +99,7 @@ spec:
               limits:
                 memory: 1Gi
                 devic.es/fuse: 1
+        containers:
           app:
             image:
               repository: code.forgejo.org/forgejo/runner
