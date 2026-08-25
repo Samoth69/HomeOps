@@ -84,6 +84,21 @@ spec:
               - secretRef:
                   name: forgejo-runner-secret
         containers:
+          daemon:
+            image:
+              repository: quay.io/podman/stable
+              tag: v5.8.4
+            command:
+              - "sh"
+              - "-c"
+              - "podman system service --time 0 unix:///var/run/podman.sock"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 194Mi
+              limits:
+                memory: 1Gi
+                devic.es/fuse: 1
           app:
             image:
               repository: code.forgejo.org/forgejo/runner
@@ -94,7 +109,6 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 1Gi
-                devic.es/fuse: 1
             command:
               - "sh"
               - "-c"
@@ -115,8 +129,9 @@ spec:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
-
-      certs:
-        type: emptyDir
       cache:
         type: emptyDir
+      var-run:
+        type: emptyDir
+        globalMounts:
+          - path: /var/run

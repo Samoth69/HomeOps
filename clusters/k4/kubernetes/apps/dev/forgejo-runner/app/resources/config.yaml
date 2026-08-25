@@ -75,7 +75,7 @@ container:
   # If it's a url, the specified docker host will be mounted in the job container
   # Example urls: unix:///run/docker.socket or ssh://user@host
   # The specified socket is mounted within the job container at /var/run/docker.sock
-  docker_host: "-"
+  docker_host: "unix:///var/run/podman.sock"
 
 host:
   # The parent directory of a job's working directory.
