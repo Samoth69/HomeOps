@@ -100,14 +100,12 @@ spec:
                   failureThreshold: 60 # 5 minutes with a period of 5 seconds
                   successThreshold: 1
                   timeoutSeconds: 1
-            # DO NOT COPY RESOURCES VALUES BELOW THIS
-            # THEY ARE WAY TOO HIGH FOR A 4G JVM, SOMETHING IS WRONG WITH THIS PACK IM TESTING STUFF
             resources:
               requests:
-                cpu: 1000m
-                memory: 10Gi
+                cpu: 250m
+                memory: 5Gi
               limits:
-                memory: 20Gi
+                memory: 8Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow
