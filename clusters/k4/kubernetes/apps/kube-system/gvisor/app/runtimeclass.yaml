@@ -13,5 +13,4 @@ handler: runsc-kvm
 # It's not recommanded to run nested virtualization : https://gvisor.dev/docs/user_guide/platforms/
 scheduling:
   nodeSelector:
-    matchLabels:
-      feature.node.kubernetes.io/cpu-model.hypervisor: none
+    feature.node.kubernetes.io/cpu-model.hypervisor: none
