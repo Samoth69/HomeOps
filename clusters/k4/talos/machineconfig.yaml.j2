@@ -107,6 +107,8 @@ machine:
     net.ipv4.tcp_wmem: 4096 65536 33554432
     sunrpc.tcp_max_slot_table_entries: "128"
     sunrpc.tcp_slot_table_entries: "128"
+    # gvisor
+    user.max_user_namespaces: "11255"
   token: {{ ENV.TALSECRET_SECRETS_BOOTSTRAPTOKEN }}
 cluster:
   {% if ENV.IS_CONTROLPLANE %}

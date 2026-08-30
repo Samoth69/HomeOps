@@ -11,6 +11,7 @@ resources:
   - ./policy.yaml
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
+  - ./gvisor/ks.yaml
   - ./metrics-server/ks.yaml
   - ./spegel/ks.yaml
   

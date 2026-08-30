@@ -3,18 +3,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app forgejo-runner
+  name: gvisor
 spec:
   dependsOn:
-    - name: forgejo
-    - name: kata-containers
-      namespace: kube-system
-  path: ./clusters/k4/kubernetes/apps/dev/forgejo-runner/app
-  targetNamespace: &namespace dev
+    - name: node-feature-discovery
+      namespace: system
+  targetNamespace: kube-system
+  path: ./clusters/k4/kubernetes/apps/kube-system/gvisor/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-    substitute:
-      APP: *app
-      NAMESPACE: *namespace
+  prune: true

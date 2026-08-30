@@ -37,7 +37,7 @@ spec:
             ingress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/internet-http: allow
-          # runtimeClassName: kata # kata doesn't support cilium netkit mode yet - https://github.com/kata-containers/kata-containers/issues/12159
+          runtimeClassName: gvisor-kvm
           securityContext:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
@@ -85,32 +85,47 @@ spec:
                   name: forgejo-runner-secret
           daemon:
             image:
-              repository: quay.io/podman/stable
-              tag: v5.8.4
-            command:
-              - "sh"
-              - "-c"
-              - "podman system service --time 0 unix:///var/run/podman.sock"
+              repository: docker
+              tag: 29.7.1-dind
             restartPolicy: Always
             securityContext:
-              capabilities:
-                add:
-                  - "MKNOD"
-                  - "SETFCAP"
-                  - "SYS_CHROOT"
-                  # - "SYS_ADMIN"
+              privileged: true
+            env:
+              - name: DOCKER_TLS_CERTDIR
+                value: /certs
+            probes:
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - sh
+                      - -c
+                      - docker --tlsverify --tlscacert=/certs/client/ca.pem --tlscert=/certs/client/cert.pem --tlskey=/certs/client/key.pem -H tcp://localhost:2376 info
+                  initialDelaySeconds: 5
+                  periodSeconds: 1
+                  failureThreshold: 30
             resources:
               requests:
                 cpu: 10m
                 memory: 194Mi
               limits:
                 memory: 1Gi
-                devic.es/fuse: 1
         containers:
           app:
             image:
               repository: code.forgejo.org/forgejo/runner
               tag: 13.0.0
+            env:
+              - name: DEBIAN_FRONTEND
+                value: noninteractive
+              - name: DOCKER_HOST
+                value: tcp://localhost:2376
+              - name: DOCKER_TLS_VERIFY
+                value: "1"
+              - name: DOCKER_CERT_PATH
+                value: /certs/client
             resources:
               requests:
                 cpu: 10m
@@ -137,9 +152,7 @@ spec:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
+      certs:
+        type: emptyDir
       cache:
         type: emptyDir
-      var-run:
-        type: emptyDir
-        globalMounts:
-          - path: /var/run
