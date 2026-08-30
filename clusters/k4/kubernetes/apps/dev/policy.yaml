@@ -1,8 +1,8 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/kyverno.io/clusterpolicy_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/kyverno.io/policy_v1.json
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
-  name: pss-baseline
+  name: pss-baseline-special
   annotations:
     policies.kyverno.io/title: Baseline Pod Security Standards
     policies.kyverno.io/category: Pod Security, EKS Best Practices
@@ -29,19 +29,13 @@ spec:
               operations:
                 - CREATE
                 - UPDATE
-      exclude:
-        any:
-          - resources:
-              namespaces:
-                - dev
-                - kube-system
-                - media
-                - monitoring
-                - storage
-                - system
       validate:
         allowExistingViolations: false
         failureAction: Enforce
         podSecurity:
           level: baseline
           version: latest
+          exclude:
+            - controlName: Privileged Containers
+              images:
+                - docker:*-dind
