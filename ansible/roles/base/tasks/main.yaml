@@ -4,7 +4,7 @@
     name:
       - epel-release
     state: latest
-  when: ansible_distribution == 'Rocky'
+  when: ansible_facts['distribution'] == 'Rocky'
 
 - name: get packages info
   package_facts:
@@ -14,7 +14,7 @@
   become: yes
   import_tasks:
     file: network.yml
-  when: "'NetworkManager' in ansible_facts.packages or 'network-manager' in ansible_facts.packages"
+  when: "'NetworkManager' in ansible_facts['packages'] or 'network-manager' in ansible_facts['packages']"
 
 - name: install qemu-guest-agent and enable if this is a vm 
   become: yes
@@ -28,7 +28,7 @@
         name: qemu-guest-agent
         enabled: true
         state: started
-  when: "ansible_virtualization_role == 'guest' and ansible_virtualization_type == 'kvm'"
+  when: "ansible_facts['virtualization_role'] == 'guest' and ansible_facts['virtualization_type'] == 'kvm'"
 
 - name: check if usefull tools are installed
   become: yes
@@ -138,4 +138,4 @@
   systemd:
     name: fstrim.timer
     enabled: true
-  when: ansible_distribution == 'Rocky'
+  when: ansible_facts['distribution'] == 'Rocky'

@@ -23,7 +23,7 @@ users:
 #-----------------------
 # Network config
 #-----------------------
-network_conn_name: "{{ansible_default_ipv4.alias}}"
+network_conn_name: "{{ ansible_facts['default_ipv4']['alias'] }}"
 ipv4_addresses: []
 ipv4_gateway: 192.168.0.1
 ipv4_dns:

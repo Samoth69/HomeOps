@@ -22,7 +22,7 @@
     - name: debian
       uris: http://ftp.fr.debian.org/debian/
       suites:
-        - "{{ ansible_distribution_release }}"
+        - "{{ ansible_facts['distribution']_release }}"
       components:
         - main
         - contrib
@@ -32,7 +32,7 @@
     - name: debian-updates
       uris: http://ftp.fr.debian.org/debian/
       suites:
-        - "{{ ansible_distribution_release }}-updates"
+        - "{{ ansible_facts['distribution']_release }}-updates"
       components:
         - main
         - contrib
@@ -40,14 +40,14 @@
     - name: debian-security
       uris: http://ftp.fr.debian.org/debian-security/
       suites:
-        - "{{ ansible_distribution_release }}-security"
+        - "{{ ansible_facts['distribution']_release }}-security"
       components:
         - main
         - contrib
       signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
     - name: proxmox
       uris: http://download.proxmox.com/debian/pve/
-      suites: "{{ ansible_distribution_release }}"
+      suites: "{{ ansible_facts['distribution']_release }}"
       components:
         - pve-no-subscription
       signed_by: /usr/share/keyrings/proxmox-archive-keyring.gpg

@@ -27,6 +27,7 @@
     dns4: "{{ipv4_dns}}"
     dns4_ignore_auto: true
     state: present
+    type: ethernet
   when: ipv4_dns|length > 0
   notify: restart network-interface
 
@@ -35,6 +36,7 @@
     conn_name: "{{network_conn_name}}"
     dns4_search: "{{ipv4_domains}}"
     state: present
+    type: ethernet
   when: ipv4_domains|length > 0
   notify: restart network-interface
 
@@ -43,6 +45,7 @@
     conn_name: "{{network_conn_name}}"
     routes4: "{{ipv4_routes}}"
     state: present
+    type: ethernet
   notify: restart network-interface
 
 # ############################ IPv6 ###############################
@@ -64,6 +67,7 @@
     dns6: "{{ipv6_dns}}"
     dns6_ignore_auto: true
     state: present
+    type: ethernet
   when: ipv6_dns|length > 0
   notify: restart network-interface
 
@@ -72,6 +76,7 @@
     conn_name: "{{network_conn_name}}"
     dns6_search: "{{ipv6_domains}}"
     state: present
+    type: ethernet
   when: ipv6_domains|length > 0
   notify: restart network-interface
 
@@ -80,6 +85,7 @@
     conn_name: "{{network_conn_name}}"
     routes6: "{{ipv6_routes}}"
     state: present
+    type: ethernet
   notify: restart network-interface
 
 - name: set IPv6 routes if defined
@@ -87,6 +93,7 @@
     conn_name: "{{network_conn_name}}"
     routes6: "{{ipv6_routes}}"
     state: present
+    type: ethernet
   when: ipv6_routes|length > 0
   notify: restart network-interface
 

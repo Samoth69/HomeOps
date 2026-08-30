@@ -1,5 +1,5 @@
 Types: deb
 URIs: https://download.docker.com/linux/debian
-Suites: {{ ansible_distribution_release }}
+Suites: {{ ansible_facts['distribution']_release }}
 Components: stable
 Signed-By: /etc/apt/keyrings/docker.asc
