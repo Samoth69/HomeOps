@@ -7,8 +7,6 @@ metadata:
 spec:
   dependsOn:
     - name: forgejo
-    - name: gvisor
-      namespace: kube-system
   path: ./clusters/k4/kubernetes/apps/dev/forgejo-runner/app
   targetNamespace: &namespace dev
   postBuild:
