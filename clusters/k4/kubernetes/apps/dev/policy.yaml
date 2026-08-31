@@ -38,4 +38,4 @@ spec:
           exclude:
             - controlName: Privileged Containers
               images:
-                - docker:*-dind
+                - docker:*-dind-rootless
