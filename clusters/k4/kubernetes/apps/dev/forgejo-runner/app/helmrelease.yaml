@@ -37,7 +37,6 @@ spec:
             ingress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/internet-http: allow
-          runtimeClassName: gvisor-kvm
           securityContext:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
