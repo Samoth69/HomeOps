@@ -11,7 +11,6 @@ customization:
       - siderolabs/amd-ucode
       - siderolabs/amdgpu
       - siderolabs/fuse3
-      - siderolabs/gvisor
       - siderolabs/nut-client
       - siderolabs/realtek-firmware
       - siderolabs/util-linux-tools

@@ -74,23 +74,6 @@
       },
     },
     {
-      automerge: false,
-      description: 'Kubernetes Group',
-      groupName: 'Kubernetes',
-      matchDatasources: [
-        'docker',
-      ],
-      matchPackageNames: [
-        '/kube-scheduler/',
-        '/kube-proxy/',
-        '/kube-controller-manager/',
-        '/kube-apiserver/',
-      ],
-      group: {
-        commitMessageTopic: '{{{groupName}}} group',
-      },
-    },
-    {
       description: 'Auto-merge GitHub Actions',
       matchManagers: [
         'github-actions',
@@ -185,6 +168,23 @@
       automergeType: 'pr',
       minimumReleaseAge: "3 days",
       minimumReleaseAgeBehaviour: "timestamp-optional"
+    },
+    {
+      automerge: false,
+      description: 'Kubernetes Group',
+      groupName: 'Kubernetes',
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        '/kube-scheduler/',
+        '/kube-proxy/',
+        '/kube-controller-manager/',
+        '/kube-apiserver/',
+      ],
+      group: {
+        commitMessageTopic: '{{{groupName}}} group',
+      },
     },
   ],
   customManagers: [
