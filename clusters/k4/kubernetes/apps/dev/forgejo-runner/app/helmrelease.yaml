@@ -86,7 +86,10 @@ spec:
           daemon:
             image:
               repository: docker
-              tag: 29.7.2-dind
+              tag: 29.7.2-dind-rootless
+            args:
+              - --net-raw
+              - --allow-packet-socket-write
             restartPolicy: Always
             securityContext:
               privileged: true
