@@ -57,12 +57,12 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: karakeep-secret
-                    key: MEILISEARCH_MASTER_KEY
+                    key: meilisearch_master_key
               NEXTAUTH_SECRET:
                 valueFrom:
                   secretKeyRef:
                     name: karakeep-secret
-                    key: ENCRYPTION_KEY
+                    key: encryption_key
               NEXTAUTH_URL: https://karakeep.${SECRET_DOMAIN}
               DISABLE_NEW_RELEASE_CHECK: true
               COREPACK_INTEGRITY_KEYS: 0
@@ -144,7 +144,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: karakeep-secret
-                    key: MEILISEARCH_MASTER_KEY
+                    key: meilisearch_master_key
             resources:
               requests:
                 cpu: 10m
