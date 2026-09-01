@@ -39,6 +39,8 @@ spec:
         pod:
           labels:
             app.kubernetes.io/component: application
+            ingress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/envoy-internal: allow
             egress.samoth.eu/internet-http: allow
         containers:
           app:
