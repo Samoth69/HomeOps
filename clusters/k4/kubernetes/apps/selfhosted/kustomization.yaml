@@ -10,6 +10,7 @@ components:
 
 resources:
   - ./glance/ks.yaml
+  - ./karakeep/ks.yaml
   - ./omni-tools/ks.yaml
   - ./paperless/ks.yaml
   - ./searxng/ks.yaml
