@@ -4,7 +4,6 @@ kind: Certificate
 metadata:
   name: kanidm-cluster-tls
 spec:
-  isCA: true
   dnsNames:
     - idm.${SECRET_DOMAIN}
   duration: 160h
