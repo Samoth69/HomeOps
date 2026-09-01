@@ -6,6 +6,7 @@ metadata:
 spec:
   components:
     - ../../../../components/app-network-policy
+    - ../../../../components/oauth2
     - ../../../../components/volsync
   path: ./clusters/k4/kubernetes/apps/selfhosted/karakeep/app
   postBuild:
@@ -14,4 +15,5 @@ spec:
         kind: Secret
     substitute:
       APP: *app
+      KANIDM_REDIRECT_PATH: /api/auth/callback/custom
   targetNamespace: selfhosted
