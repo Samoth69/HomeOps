@@ -11,9 +11,8 @@ components:
 resources:
   # - ./auto-restart/ks.yaml
   # - ./mc-atm10-01/ks.yaml
-  # - ./mc-carpg-01/ks.yaml
   - ./mc-glmart-02/ks.yaml
-  - ./mc-ragnamod-vii-in-the-sky/ks.yaml
+  # - ./mc-ragnamod-vii-in-the-sky/ks.yaml
   # - ./mc-rlcraft-01/ks.yaml
   - ./openssh-server/ks.yaml
-  - ./palworld-01/ks.yaml
+  # - ./palworld-01/ks.yaml
