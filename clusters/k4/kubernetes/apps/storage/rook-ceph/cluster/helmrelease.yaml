@@ -12,7 +12,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v1.20.6
+    tag: v1.20.7
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -82,24 +82,13 @@ spec:
           csi:
             keyRotationPolicy: KeyGeneration
             keyGeneration: 2
-            keepPriorKeyCountMax: 1
+            keepPriorKeyCountMax: 1 # TODO set to 0 one day
             keyType: aes256k
       csi:
         cephfs:
           kernelMountOptions: ms_mode=prefer-crc
         readAffinity:
           enabled: true
-      # # TODO remove when Talos is running linux 7.0+ see https://rook.io/docs/rook/latest-release/Storage-Configuration/Advanced/cephx-key-rotation/#migrating-csi-keys-to-a-new-key-type
-      healthCheck:
-        muteHealthWarning:
-          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
-            policy: mute
-          AUTH_INSECURE_CLIENT_KEY_TYPE:
-            policy: mute
-          AUTH_INSECURE_KEYS_ALLOWED:
-            policy: mute
-          AUTH_INSECURE_KEYS_CREATABLE:
-            policy: mute
       network:
         provider: host
         connections:
