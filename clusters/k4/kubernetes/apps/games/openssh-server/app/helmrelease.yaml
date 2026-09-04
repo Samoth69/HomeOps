@@ -72,7 +72,5 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      mc-ragnamod-vii-in-the-sky:
-        existingClaim: mc-ragnamod-vii-in-the-sky
-      palworld-01:
-        existingClaim: palworld-01
+      mc-glmart-02:
+        existingClaim: mc-glmart-02
