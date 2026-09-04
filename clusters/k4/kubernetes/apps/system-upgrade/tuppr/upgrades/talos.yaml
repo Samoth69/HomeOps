@@ -23,8 +23,8 @@ spec:
       kind: Cluster
       expr: |-
         status.phase in ['Cluster in healthy state']
-  maintenance:
-    windows:
-      - start: "0 5 * * *"
-        duration: "2h"
-        timezone: "Europe/Paris"
+  # maintenance:
+  #   windows:
+  #     - start: "0 5 * * *"
+  #       duration: "2h"
+  #       timezone: "Europe/Paris"
