@@ -50,7 +50,7 @@ spec:
               CONFIG_DIR: /data/config
               SKIP_CHOWN: true
               OAUTH_ENABLED: true
-              OAUTH_PROVIDER_URL: https://idm.${SECRET_DOMAIN}
+              OAUTH_PROVIDER_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
               OAUTH_REDIRECT_URL: https://ganymede.${SECRET_DOMAIN}/api/v1/auth/oauth/callback
               OAUTH_CLIENT_ID:
                 valueFrom:
