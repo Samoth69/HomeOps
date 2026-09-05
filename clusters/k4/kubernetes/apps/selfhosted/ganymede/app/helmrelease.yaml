@@ -47,7 +47,6 @@ spec:
               TEMP_DIR: /data/tmp
               LOGS_DIR: /data/logs
               CONFIG_DIR: /data/config
-              SKIP_CHOWN: true
               OAUTH_ENABLED: true
               OAUTH_PROVIDER_URL: https://idm.${SECRET_DOMAIN}
               OAUTH_REDIRECT_URL: https://ganymede.${SECRET_DOMAIN}/api/v1/auth/oauth/callback
@@ -173,9 +172,11 @@ spec:
           ganymede:
             app:
               - path: /data/.cache
-                subPath: cache
+                subPath: data-cache
               - path: /data/logs
-                subPath: logs
+                subPath: data-logs
+              - path: /var/log
+                subPath: var-log
               - path: /tmp
                 subPath: tmp
     serviceAccount:
