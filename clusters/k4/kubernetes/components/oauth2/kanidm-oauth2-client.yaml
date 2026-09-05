@@ -31,3 +31,10 @@ spec:
     periodDays: 7
   
   allowInsecureClientDisablePkce: ${KANIDM_DISABLE_PKCE:=false}
+
+  claimMap:
+    - name: groups
+      valuesMap:
+      - group: admin
+        values:
+          - ganymede-admin

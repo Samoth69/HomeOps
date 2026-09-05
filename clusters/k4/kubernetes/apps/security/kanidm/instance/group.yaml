@@ -14,12 +14,12 @@ spec:
 apiVersion: kaniop.rs/v1beta1
 kind: KanidmGroup
 metadata:
-  name: ganymede-admin
+  name: admin
 spec:
   kanidmRef:
     name: kanidm-cluster
   entryManagedBy: samoth
   mail:
-    - ganymede-admin@idm.${SECRET_DOMAIN}
+    - admin@idm.${SECRET_DOMAIN}
   members:
     - samoth
