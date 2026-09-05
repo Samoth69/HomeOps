@@ -159,6 +159,7 @@ spec:
             app:
               - path: /data/videos
       data-tmp:
+        forceRename: ${APP}-tmp
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 50Gi
