@@ -29,14 +29,14 @@ spec:
         certificateRefs:
           - kind: Secret
             name: "${SECRET_DOMAIN//./-}-tls"
-    # - name: postgres
-    #   protocol: TCP
-    #   port: 5432
-    #   allowedRoutes:
-    #     kinds:
-    #       - kind: TCPRoute
-    #     namespaces:
-    #       from: Selector
-    #       selector:
-    #         matchLabels:
-    #           kubernetes.io/metadata.name: database
+    - name: postgres
+      protocol: TCP
+      port: 5432
+      allowedRoutes:
+        kinds:
+          - kind: TCPRoute
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: database
