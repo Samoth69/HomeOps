@@ -48,7 +48,7 @@ spec:
               TEMP_DIR: /data/tmp
               LOGS_DIR: /data/logs
               CONFIG_DIR: /data/config
-              SKIP_CHOWN: true
+              # SKIP_CHOWN: true
               OAUTH_ENABLED: true
               OAUTH_PROVIDER_URL: https://idm.${SECRET_DOMAIN}/oauth2/openid/${APP}
               OAUTH_REDIRECT_URL: https://ganymede.${SECRET_DOMAIN}/api/v1/auth/oauth/callback
@@ -120,14 +120,6 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 8Gi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: *uid
-        runAsGroup: *uid
-        fsGroup: *uid
-        fsGroupChangePolicy: Always
-        seccompProfile: { type: "RuntimeDefault" }
     service:
       app:
         ports:
