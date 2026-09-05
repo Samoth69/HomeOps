@@ -51,8 +51,11 @@ spec:
 
   managed:
     roles:
+      # This user may be used for disaster recovery
       - name: app
-        ensure: absent
+        login: true
+        superuser: true
+        ensure: present
     services:
       disabledDefaultServices: ["ro", "r"]
   
