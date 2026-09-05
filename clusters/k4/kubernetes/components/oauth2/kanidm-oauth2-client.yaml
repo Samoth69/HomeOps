@@ -35,6 +35,6 @@ spec:
   claimMap:
     - name: groups
       valuesMap:
-      - group: users
+      - group: groups
         values:
           - ganymede-admin
