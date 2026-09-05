@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: paperless
+  name: ${APP}
 spec:
   interval: 15m
   layerSelector:
@@ -17,11 +17,11 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app paperless
+  name: ${APP}
 spec:
   chartRef:
     kind: OCIRepository
-    name: *app
+    name: ${APP}
   interval: 1h
   values:
     controllers:
