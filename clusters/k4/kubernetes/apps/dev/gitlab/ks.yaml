@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app gitlab
+spec:
+  components:
+    - ../../../../components/oauth2
+    - ../../../../components/database
+    - ../../../../components/valkey
+  dependsOn:
+    - name: postgres-cnpg
+      namespace: database
+  path: ./clusters/k4/kubernetes/apps/dev/gitlab/app
+  targetNamespace: &namespace dev
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+    substitute:
+      APP: *app
+      NAMESPACE: *namespace
+      KANIDM_REDIRECT_PATH: /users/auth/openid_connect/callback
+      KANIDM_SECRET_ROTATION: "false"

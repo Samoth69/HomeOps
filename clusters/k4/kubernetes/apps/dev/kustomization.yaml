@@ -11,3 +11,4 @@ resources:
   - ./policy.yaml
   - ./forgejo/ks.yaml
   - ./forgejo-runner/ks.yaml
+  # - ./gitlab/ks.yaml

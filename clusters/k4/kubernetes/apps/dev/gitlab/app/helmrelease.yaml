@@ -1,0 +1,119 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  url: https://charts.gitlab.io/
+  timeout: 3m
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chart:
+    spec:
+      chart: gitlab
+      version: 10.3.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: ${APP}
+  interval: 1h
+  values:
+    global:
+      hosts:
+        domain: ${SECRET_DOMAIN}
+        https: true
+        gitlab:
+          name: gitlab.${SECRET_DOMAIN}
+        pages:
+          name: gitlab-pages.${SECRET_DOMAIN}
+        ssh: gitlab.${SECRET_DOMAIN}
+
+      gatewayApi:
+        enabled: true
+        configureCertmanager: false
+        gatewayRef:
+          name: envoy-internal
+          namespace: network
+        installEnvoy: false
+      
+      time_zone: "Europe/Paris"
+
+      psql:
+        host: pooler-transaction-rw.database.svc.cluster.local
+        port: 5432
+        database: gitlab
+        username: gitlab
+        preparedStatements: false
+        databaseTasks: true
+        password:
+          useSecret: true
+          secret: postgres-user-gitlab
+          key: password
+      
+      redis:
+        host: gitlab-valkey
+        port: 6379
+        auth:
+          enabled: true
+          secret: gitlab-valkey-secret
+          key: password
+      
+      registry:
+        enabled: false
+      
+      gitaly:
+        internal:
+          names:
+            - default
+      
+      appConfig:
+        artifacts:
+          enabled: false
+        contentSecurityPolicy:
+          enabled: true
+          report_only: false
+        defaultColorMode: 3 # System
+        gitTimeout: 3600 # 1 hour
+        lfs:
+          enabled: false
+        packages:
+          enabled: false
+    
+      # omniauth:
+      #   enabled: true
+      #   allowSingleSignOn:
+      #     - openid_connect
+    
+    # end of global
+
+    registry:
+      enabled: false
+
+    gitaly:
+      configuration:
+        git:
+          catfile_cache_size: 100
+        daily_maintenance:
+          start_hour: 23
+      persistence:
+        enabled: true
+        storageClass: ceph-block
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        subPath: data
+
+    installCertmanager: false
+    
+    certmanager-issuer:
+      enabled: false
+
+    prometheus:
+      install: false
+      rbac:
+        create: false
