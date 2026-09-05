@@ -7,6 +7,7 @@ spec:
   components:
     - ../../../../components/oauth2
     - ../../../../components/database
+    - ../../../../components/external-secrets-kubernetes-store
     - ../../../../components/volsync
   dependsOn:
     - name: postgres-cnpg
@@ -15,13 +16,14 @@ spec:
       namespace: system
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/selfhosted/ganymede/app
+  targetNamespace: &namespace selfhosted
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
     substitute:
       APP: *app
+      NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 20Gi
       KANIDM_REDIRECT_PATH: /accounts/oidc/kanidm/login/callback/
       KANIDM_SECRET_ROTATION: "false"
-  targetNamespace: selfhosted
