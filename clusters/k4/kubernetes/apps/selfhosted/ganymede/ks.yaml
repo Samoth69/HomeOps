@@ -24,5 +24,4 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
-      KANIDM_REDIRECT_PATH: /accounts/oidc/kanidm/login/callback/
-      KANIDM_SECRET_ROTATION: "false"
+      KANIDM_REDIRECT_PATH: /api/v1/auth/oauth/callback

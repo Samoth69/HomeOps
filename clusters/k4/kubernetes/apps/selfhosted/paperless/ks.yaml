@@ -27,4 +27,3 @@ spec:
       NAMESPACE: *namespace
       VOLSYNC_CAPACITY: 20Gi
       KANIDM_REDIRECT_PATH: /accounts/oidc/kanidm/login/callback/
-      KANIDM_SECRET_ROTATION: "false"
