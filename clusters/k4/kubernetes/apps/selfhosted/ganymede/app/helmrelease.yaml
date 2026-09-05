@@ -118,14 +118,6 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 8Gi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: *uid
-        runAsGroup: *uid
-        fsGroup: *uid
-        fsGroupChangePolicy: Always
-        seccompProfile: { type: "RuntimeDefault" }
     service:
       app:
         ports:
