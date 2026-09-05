@@ -75,6 +75,7 @@ spec:
                   secretKeyRef:
                     name: postgres-user-ganymede
                     key: hostname
+              DB_PORT: 5432
               DB_NAME:
                 valueFrom:
                   secretKeyRef:
