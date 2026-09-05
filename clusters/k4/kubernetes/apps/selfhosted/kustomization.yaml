@@ -9,6 +9,7 @@ components:
   - ../../components/namespace-isolated
 
 resources:
+  - ./ganymede/ks.yaml
   - ./glance/ks.yaml
   - ./karakeep/ks.yaml
   - ./omni-tools/ks.yaml

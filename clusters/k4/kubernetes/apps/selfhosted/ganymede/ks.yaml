@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app ganymede
+spec:
+  components:
+    - ../../../../components/oauth2
+    - ../../../../components/database
+    - ../../../../components/volsync
+  dependsOn:
+    - name: postgres-cnpg
+      namespace: database
+    - name: volsync
+      namespace: system
+  interval: 1h
+  path: ./clusters/k4/kubernetes/apps/selfhosted/ganymede/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 20Gi
+      KANIDM_REDIRECT_PATH: /accounts/oidc/kanidm/login/callback/
+      KANIDM_SECRET_ROTATION: "false"
+  targetNamespace: selfhosted

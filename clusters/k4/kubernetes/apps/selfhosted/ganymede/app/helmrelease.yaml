@@ -1,0 +1,182 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: paperless
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 5.1.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app paperless
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  interval: 1h
+  values:
+    controllers:
+      ganymede:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            ingress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/envoy-internal: allow
+            egress.samoth.eu/database: allow
+        containers:
+          app:
+            image:
+              repository: ghcr.io/zibbp/ganymede
+              tag: 4.20.0
+            env:
+              TZ: Europe/Paris
+              PUID: &uid 2000 # truenas:k4
+              PGID: *uid
+              DEBUG: false
+              VIDEOS_DIR: /data/videos
+              TEMP_DIR: /data/tmp
+              LOGS_DIR: /data/logs
+              CONFIG_DIR: /data/config
+              SKIP_CHOWN: true
+              OAUTH_ENABLED: true
+              OAUTH_PROVIDER_URL: https://idm.${SECRET_DOMAIN}
+              OAUTH_REDIRECT_URL: https://ganymede.${SECRET_DOMAIN}/api/v1/auth/oauth/callback
+              OAUTH_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: ganymede-kanidm-oauth2-credentials
+                    key: CLIENT_ID
+              OAUTH_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: ganymede-kanidm-oauth2-credentials
+                    key: CLIENT_SECRET
+              SHOW_SSO_LOGIN_BUTTON: true
+              FORCE_SSO_AUTH: false
+              REQUIRE_LOGIN: true
+              MAX_CHAT_DOWNLOAD_EXECUTIONS: 3
+              MAX_CHAT_RENDER_EXECUTIONS: 2
+              MAX_VIDEO_DOWNLOAD_EXECUTIONS: 2
+              MAX_VIDEO_CONVERT_EXECUTIONS: 3
+              MAX_VIDEO_SPRITE_THUMBNAIL_EXECUTIONS: 5
+              # Configure postgres
+              DB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-user-ganymede
+                    key: hostname
+              DB_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-user-ganymede
+                    key: database-name
+              DB_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-user-ganymede
+                    key: username
+              DB_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-user-ganymede
+                    key: password
+              DB_SSL: require
+            envFrom:
+              - secretRef:
+                  name: ${APP}-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 4000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 25m
+                memory: 2Gi
+              limits:
+                memory: 8Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: *uid
+        runAsGroup: *uid
+        fsGroup: *uid
+        fsGroupChangePolicy: Always
+        seccompProfile: { type: "RuntimeDefault" }
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "${APP}.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+    persistence:
+      data:
+        existingClaim: ganymede
+        advancedMounts:
+          ganymede:
+            app:
+              - path: /data/config
+      media:
+        type: nfs
+        path: /mnt/ThePool/Apps/Ganymede
+        server: ${SECRET_TRUENAS_IP}
+        advancedMounts:
+          ganymede:
+            app:
+              - path: /data/videos
+      data-tmp:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 50Gi
+        advancedMounts:
+          ganymede:
+            app:
+              - path: /data/tmp
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          ganymede:
+            app:
+              - path: /data/.cache
+                subPath: cache
+              - path: /data/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
+    serviceAccount:
+      ganymede:
+        enabled: false
