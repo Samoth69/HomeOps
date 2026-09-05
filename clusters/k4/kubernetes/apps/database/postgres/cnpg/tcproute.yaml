@@ -11,5 +11,5 @@ spec:
       sectionName: postgres
   rules:
     - backendRefs:
-        - name: pooler-session-rw
+        - name: pooler-transaction-rw
           port: 5432
