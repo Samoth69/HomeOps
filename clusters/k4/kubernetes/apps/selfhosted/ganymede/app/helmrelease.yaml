@@ -63,7 +63,7 @@ spec:
                     name: ganymede-kanidm-oauth2-credentials
                     key: CLIENT_SECRET
               SHOW_SSO_LOGIN_BUTTON: true
-              FORCE_SSO_AUTH: true
+              FORCE_SSO_AUTH: false
               REQUIRE_LOGIN: true
               MAX_CHAT_DOWNLOAD_EXECUTIONS: 3
               MAX_CHAT_RENDER_EXECUTIONS: 2

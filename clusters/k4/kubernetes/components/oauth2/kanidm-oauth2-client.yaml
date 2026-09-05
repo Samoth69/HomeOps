@@ -18,6 +18,8 @@ spec:
 
   preferShortUsername: true
 
+  disableConsentPrompt: true
+
   scopeMap:
     - group: users
       scopes:
