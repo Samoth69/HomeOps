@@ -10,16 +10,3 @@ spec:
     - users@idm.${SECRET_DOMAIN}
   members:
     - samoth
----
-apiVersion: kaniop.rs/v1beta1
-kind: KanidmGroup
-metadata:
-  name: admin
-spec:
-  kanidmRef:
-    name: kanidm-cluster
-  entryManagedBy: samoth
-  mail:
-    - admin@idm.${SECRET_DOMAIN}
-  members:
-    - samoth
