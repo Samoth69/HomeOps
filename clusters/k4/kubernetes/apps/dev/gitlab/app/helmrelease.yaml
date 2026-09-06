@@ -60,8 +60,11 @@ spec:
         labels:
           ingress.samoth.eu/envoy-internal: allow
           ingress.samoth.eu/keda: allow
+          ingress.samoth.eu/vmagent: allow
+          ingress.samoth.eu/kube-apiserver: allow
           egress.samoth.eu/database: allow
           egress.samoth.eu/envoy-internal: allow
+          egress.samoth.eu/kube-apiserver: allow
 
       psql:
         host: pooler-transaction-rw.database.svc.cluster.local
