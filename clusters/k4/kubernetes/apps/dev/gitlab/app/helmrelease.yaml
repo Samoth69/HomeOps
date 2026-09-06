@@ -72,7 +72,7 @@ spec:
         database: gitlab
         username: gitlab
         preparedStatements: false
-        databaseTasks: true
+        databaseTasks: false
         password:
           useSecret: true
           secret: postgres-user-gitlab
