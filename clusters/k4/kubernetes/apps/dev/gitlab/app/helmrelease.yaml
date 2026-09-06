@@ -137,7 +137,7 @@ spec:
           enabled: true
           size: 5Gi
       toolbox:
-        enabled: true
+        enabled: false
       migrations:
         extraEnv:
           GITLAB_VALIDATE_DATABASE_CONFIG: "0"
