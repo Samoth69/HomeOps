@@ -116,10 +116,10 @@ spec:
                   periodSeconds: 10
             resources:
               requests:
-                cpu: 25m
-                memory: 2Gi
+                cpu: 15m
+                memory: 1Gi
               limits:
-                memory: 8Gi
+                memory: 6Gi
     service:
       app:
         ports:
