@@ -137,7 +137,7 @@ spec:
           enabled: true
           size: 5Gi
       toolbox:
-        enabled: false
+        enabled: true
       migrations:
         extraEnv:
           GITLAB_VALIDATE_DATABASE_CONFIG: "0"
@@ -148,6 +148,9 @@ spec:
     installCertmanager: false
 
     certmanager-issuer:
+      enabled: false
+
+    gitlab-runner:
       enabled: false
 
     prometheus:
