@@ -40,9 +40,8 @@ spec:
         gatewayRef:
           name: envoy-internal
           namespace: network
-          sectionName: https
         installEnvoy: false
-      
+
       time_zone: "Europe/Paris"
 
       deployment:
@@ -78,7 +77,7 @@ spec:
           useSecret: true
           secret: postgres-user-gitlab
           key: password
-      
+
       redis:
         host: gitlab-valkey
         port: 6379
@@ -86,10 +85,10 @@ spec:
           enabled: true
           secret: gitlab-valkey-secret
           key: password
-      
+
       registry:
         enabled: false
-      
+
       serviceAccount:
         enabled: false
         create: false
@@ -98,7 +97,7 @@ spec:
         internal:
           names:
             - default
-      
+
       appConfig:
         artifacts:
           enabled: false
@@ -120,7 +119,7 @@ spec:
       #   enabled: true
       #   allowSingleSignOn:
       #     - openid_connect
-    
+
     # end of global
 
     registry:
@@ -140,9 +139,12 @@ spec:
       migrations:
         extraEnv:
           GITLAB_VALIDATE_DATABASE_CONFIG: "0"
+      webservice:
+        gatewayRoute:
+          sectionName: https
 
     installCertmanager: false
-    
+
     certmanager-issuer:
       enabled: false
 
