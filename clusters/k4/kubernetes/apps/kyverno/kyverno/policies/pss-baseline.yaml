@@ -33,7 +33,6 @@ spec:
         any:
           - resources:
               namespaces:
-                - dev
                 - kube-system
                 - media
                 - monitoring

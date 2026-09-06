@@ -44,6 +44,25 @@ spec:
       
       time_zone: "Europe/Paris"
 
+      deployment:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+      edition: ce
+
+      kas:
+        enabled: false
+
+      keda:
+        enabled: true
+
+      pod:
+        labels:
+          ingress.samoth.eu/envoy-internal: allow
+          ingress.samoth.eu/keda: allow
+          egress.samoth.eu/database: allow
+          egress.samoth.eu/envoy-internal: allow
+
       psql:
         host: pooler-transaction-rw.database.svc.cluster.local
         port: 5432
@@ -67,6 +86,10 @@ spec:
       registry:
         enabled: false
       
+      serviceAccount:
+        enabled: false
+        create: false
+
       gitaly:
         internal:
           names:
@@ -82,9 +105,13 @@ spec:
         gitTimeout: 3600 # 1 hour
         lfs:
           enabled: false
+        object_store:
+          enabled: false
         packages:
           enabled: false
-    
+        uploads:
+          enabled: false
+
       # omniauth:
       #   enabled: true
       #   allowSingleSignOn:
@@ -95,18 +122,17 @@ spec:
     registry:
       enabled: false
 
-    gitaly:
-      configuration:
-        git:
-          catfile_cache_size: 100
-        daily_maintenance:
-          start_hour: 23
-      persistence:
-        enabled: true
-        storageClass: ceph-block
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        subPath: data
+    gitlab:
+      gitaly:
+        configuration:
+          git:
+            catfile_cache_size: 100
+        dailyMaintenance:
+          disabled: false
+          startHour: 6
+        persistence:
+          enabled: true
+          size: 5Gi
 
     installCertmanager: false
     
