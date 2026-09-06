@@ -67,16 +67,17 @@ spec:
           egress.samoth.eu/kube-apiserver: allow
 
       psql:
-        host: pooler-transaction-rw.database.svc.cluster.local
-        port: 5432
-        database: gitlab
-        username: gitlab
-        preparedStatements: false
-        databaseTasks: true
-        password:
-          useSecret: true
-          secret: postgres-user-gitlab
-          key: password
+        main:
+          host: pooler-transaction-rw.database.svc.cluster.local
+          port: 5432
+          database: gitlab
+          username: gitlab
+          preparedStatements: false
+          databaseTasks: true
+          password:
+            useSecret: true
+            secret: postgres-user-gitlab
+            key: password
       
       redis:
         host: gitlab-valkey
