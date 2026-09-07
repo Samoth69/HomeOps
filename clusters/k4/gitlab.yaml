@@ -1230,7 +1230,7 @@ spec:
           value: "0.055"
         - name: RUBY_GC_HEAP_INIT_SLOTS
           value: "80000"
-        image: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:16.9.0
+        image: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter:v16.11.10
         lifecycle:
           preStop:
             exec:
