@@ -1584,7 +1584,7 @@ spec:
           value: tlsmlkem=0,tlskyber=0
         - name: TZ
           value: Europe/Paris
-        image: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v14.56.1
+        image: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v19.3.1
         livenessProbe:
           exec:
             command:
