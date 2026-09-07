@@ -3302,7 +3302,7 @@ spec:
       - emptyDir: {}
         name: certs-path
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   labels:
@@ -3321,7 +3321,7 @@ spec:
       app: gitaly
       release: gitlab
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   labels:
@@ -3340,7 +3340,7 @@ spec:
       app: gitlab-shell
       release: gitlab
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   labels:
@@ -3360,7 +3360,7 @@ spec:
       queue-pod-name: all-in-1
       release: gitlab
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   labels:
