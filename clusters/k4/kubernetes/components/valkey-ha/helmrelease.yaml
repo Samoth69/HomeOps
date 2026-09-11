@@ -39,7 +39,7 @@ spec:
     
     resources:
       requests:
-        cpu: 10m
+        cpu: 15m
         memory: 16Mi
       limits:
         memory: 128Mi
@@ -53,7 +53,7 @@ spec:
 
     auth:
       enabled: true
-      existingSecret: ${APP}-valkey-secret
+      existingSecret: ${APP}-valkey-ha-secret
 
     affinity:
       podAffinity:
@@ -75,3 +75,9 @@ spec:
         repository: valkey-io/valkey
         tag: 9.1.2-alpine
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 15m
+          memory: 16Mi
+        limits:
+          memory: 128Mi
