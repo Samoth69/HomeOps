@@ -30,7 +30,7 @@ spec:
       tag: 9.1.2-alpine
       pullPolicy: IfNotPresent
     
-    architecture: standalone
+    architecture: replication
 
     replicaCount: 3
 
