@@ -79,7 +79,7 @@ spec:
           key: password
 
       redis:
-        host: gitlab-valkey-ha.dev.svc.cluster.local
+        host: mymaster
         port: 6379
         sentinels:
           - host: gitlab-valkey-ha-0.gitlab-valkey-ha-headless

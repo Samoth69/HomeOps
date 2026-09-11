@@ -75,6 +75,7 @@ spec:
         repository: valkey-io/valkey
         tag: 9.1.2-alpine
         pullPolicy: IfNotPresent
+      masterName: mymaster
       resources:
         requests:
           cpu: 15m
