@@ -162,7 +162,7 @@ spec:
       enabled: false
 
     gitlab-runner:
-      enabled: false
+      install: false
 
     prometheus:
       install: false
