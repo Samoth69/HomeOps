@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: valkey-ha-${APP}-side
+spec:
+  description: "Allow the app to talk to valkey"
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+  ingress:
+    # TODO WHY ????
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey-ha}
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey-ha}
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: valkey-ha-${APP}-valkey-side
+spec:
+  description: "Allow valkey to receive requests from the app"
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey-ha}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
+  egress:
+    - {}
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: valkey-ha-${APP}-internal
+spec:
+  description: Allow valkey to talk to itself
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey-ha}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey-ha}
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey-ha}

@@ -8,7 +8,7 @@ spec:
   components:
     - ../../../../components/oauth2
     - ../../../../components/database
-    - ../../../../components/valkey
+    - ../../../../components/valkey-ha
   dependsOn:
     - name: postgres-cnpg
       namespace: database
