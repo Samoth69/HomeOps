@@ -82,11 +82,11 @@ spec:
         host: gitlab-valkey-ha
         port: 6379
         sentinels:
+          - host: gitlab-valkey-ha-0.gitlab-valkey-ha-headless
+            port: 26379
           - host: gitlab-valkey-ha-1.gitlab-valkey-ha-headless
             port: 26379
           - host: gitlab-valkey-ha-2.gitlab-valkey-ha-headless
-            port: 26379
-          - host: gitlab-valkey-ha-3.gitlab-valkey-ha-headless
             port: 26379
         auth:
           enabled: true
