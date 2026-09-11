@@ -93,7 +93,7 @@ spec:
           secret: gitlab-valkey-ha-secret
           key: password
         sentinelAuth:
-          enabled: false
+          enabled: true
           secret: gitlab-valkey-ha-secret
           key: password
 
