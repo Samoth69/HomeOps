@@ -128,7 +128,7 @@ spec:
           blockAutoCreatedUsers: true
           providers:
             - secret: ${APP}-kanidm-oidc
-              key: PROVIDER
+              key: provider
         packages:
           enabled: false
         uploads:
