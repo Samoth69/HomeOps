@@ -120,20 +120,19 @@ spec:
           enabled: false
         object_store:
           enabled: false
+        omniauth:
+          enabled: true
+          allowSingleSignOn:
+            - openid_connect
+          autoLinkLdapUser: false
+          blockAutoCreatedUsers: true
+          providers:
+            - secret: ${APP}-kanidm-oidc
+              key: PROVIDER
         packages:
           enabled: false
         uploads:
           enabled: false
-
-      omniauth:
-        enabled: true
-        allowSingleSignOn:
-          - openid_connect
-        autoLinkLdapUser: false
-        blockAutoCreatedUsers: true
-        providers:
-          - secret: ${APP}-kanidm-oidc
-            key: PROVIDER
 
     # end of global
 
