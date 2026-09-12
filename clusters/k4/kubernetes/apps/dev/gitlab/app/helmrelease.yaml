@@ -129,6 +129,8 @@ spec:
         enabled: true
         allowSingleSignOn:
           - openid_connect
+        autoLinkLdapUser: false
+        blockAutoCreatedUsers: true
         providers:
           - secret: ${APP}-kanidm-oidc
             key: PROVIDER
