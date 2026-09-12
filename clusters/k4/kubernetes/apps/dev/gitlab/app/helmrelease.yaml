@@ -27,7 +27,7 @@ spec:
     global:
       hosts:
         domain: ${SECRET_DOMAIN}
-        https: true
+        https: false
         gitlab:
           name: gitlab.${SECRET_DOMAIN}
         pages:
@@ -41,9 +41,6 @@ spec:
           name: envoy-internal
           namespace: network
         installEnvoy: false
-
-      ingress:
-        configureCertmanager: false
 
       time_zone: "Europe/Paris"
 
@@ -134,6 +131,10 @@ spec:
       #     - openid_connect
 
     # end of global
+
+    gatewayApiResources:
+      gateway:
+        protocol: HTTP
 
     registry:
       enabled: false
