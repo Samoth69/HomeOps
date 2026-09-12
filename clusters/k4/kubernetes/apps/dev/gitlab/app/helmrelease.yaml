@@ -125,10 +125,13 @@ spec:
         uploads:
           enabled: false
 
-      # omniauth:
-      #   enabled: true
-      #   allowSingleSignOn:
-      #     - openid_connect
+      omniauth:
+        enabled: true
+        allowSingleSignOn:
+          - openid_connect
+        providers:
+          - secret: ${APP}-kanidm-oidc
+            key: PROVIDER
 
     # end of global
 
