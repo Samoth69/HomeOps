@@ -8,6 +8,7 @@ spec:
   components:
     - ../../../../components/oauth2
     - ../../../../components/database
+    - ../../../../components/external-secrets-kubernetes-store
     - ../../../../components/valkey-ha
   dependsOn:
     - name: postgres-cnpg
