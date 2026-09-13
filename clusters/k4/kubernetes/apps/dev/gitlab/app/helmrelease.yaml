@@ -161,9 +161,29 @@ spec:
       migrations:
         extraEnv:
           GITLAB_VALIDATE_DATABASE_CONFIG: "0"
+      sidekiq:
+        resources:
+          requests:
+            cpu: 150m
+            memory: 2G
+          limits:
+            memory: 5G
       webservice:
+        workhorse:
+          resources:
+            requests:
+              cpu: 15m
+              memory: 32Mi
+            limits:
+              memory: 1Gi # TODO : revise this
         gatewayRoute:
           sectionName: https
+        resources:
+          requests:
+            cpu: 30m
+            memory: 2.5Gi
+          limits:
+            memory: 5Gi
 
     installCertmanager: false
 
