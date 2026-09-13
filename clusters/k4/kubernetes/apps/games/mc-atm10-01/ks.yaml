@@ -20,7 +20,7 @@ spec:
       KOPIUR_STORAGECLASS: ceph-filesystem
       KOPIUR_CAPACITY: 50Gi
       KOPIUR_ACCESSMODES: ReadWriteMany
-      VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
+      KOPIUR_SNAPSHOTCLASS: csi-ceph-filesystem
   prune: true
   sourceRef:
     kind: GitRepository
