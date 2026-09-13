@@ -126,7 +126,13 @@ spec:
           enabled: true
           allowSingleSignOn:
             - openid_connect
-          autoLinkLdapUser: false
+          autoLinkUser: 
+            - openid_connect
+          syncProfileFromProvider:
+            - openid_connect
+          syncProfileAttributes:
+            - name
+            - email
           blockAutoCreatedUsers: false
           providers:
             - secret: ${APP}-kanidm-oidc
