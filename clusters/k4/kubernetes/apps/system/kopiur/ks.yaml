@@ -50,7 +50,7 @@ spec:
     - apiVersion: kopiur.home-operations.com/v1alpha1
       kind: ClusterRepository
       failed: status.phase == 'Error'
-      inProgress: status.phase not in ['Ready', 'Error']
+      inProgress: "!(status.phase in ['Ready', 'Error'])"
       current: status.phase == 'Ready'
   postBuild:
     substituteFrom:
