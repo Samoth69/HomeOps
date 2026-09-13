@@ -9,6 +9,7 @@ spec:
     - ../../../../components/oauth2
     - ../../../../components/database
     - ../../../../components/external-secrets-kubernetes-store
+    - ../../../../components/kopiur/backup
     - ../../../../components/valkey-ha
   dependsOn:
     - name: postgres-cnpg
@@ -24,3 +25,17 @@ spec:
       NAMESPACE: *namespace
       KANIDM_REDIRECT_PATH: /users/auth/openid_connect/callback
       KANIDM_SECRET_ROTATION: "false"
+  patches:
+    - target:
+        kind: StatefulSet
+        group: apps
+        version: v1
+        name: gitlab-gitaly
+      patch: |
+        - op: add
+          path: /spec/volumeClaimTemplates/0
+          value:
+            dataSourceRef:
+              apiGroup: kopiur.home-operations.com
+              kind: Restore
+              name: ${APP}
