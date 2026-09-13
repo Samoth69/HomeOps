@@ -23,7 +23,7 @@ spec:
     keepWeekly: 2
   sources:
   - pvc:
-      name: ${APP}
+      name: ${KOPIUR_PVC_NAME:=${APP}}
     sourcePathOverride: /data
   upload:
     maxParallelFileReads: 2

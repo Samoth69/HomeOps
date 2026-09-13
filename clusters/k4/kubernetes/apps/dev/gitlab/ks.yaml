@@ -23,6 +23,7 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      KOPIUR_PVC_NAME: repo-data-gitlab-gitaly-0
       KANIDM_REDIRECT_PATH: /users/auth/openid_connect/callback
       KANIDM_SECRET_ROTATION: "false"
   patches:
