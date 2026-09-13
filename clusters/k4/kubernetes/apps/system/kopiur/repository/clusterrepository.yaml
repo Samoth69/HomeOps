@@ -38,6 +38,10 @@ spec:
                   values:
                     - tatsumi
             weight: 1
+    podSecurityContext:
+      runAsGroup: 1000
+      runAsUser: 1000
+      fsGroup: 1000
     podLabels:
       # mover need kubeapi access to work
       ingress.samoth.eu/kube-apiserver: allow
