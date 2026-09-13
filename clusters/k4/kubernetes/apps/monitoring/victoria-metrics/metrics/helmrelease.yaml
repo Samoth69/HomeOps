@@ -172,10 +172,10 @@ spec:
         useStrictSecurity: true
         resources:
           requests:
-            cpu: 200m
-            memory: 1500Mi
+            cpu: 300m
+            memory: 2500Mi
           limits:
-            memory: 3Gi
+            memory: 5gi
 
     prometheus-node-exporter:
       enabled: false
