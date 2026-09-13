@@ -165,9 +165,9 @@ spec:
         resources:
           requests:
             cpu: 150m
-            memory: 2G
+            memory: 2Gi
           limits:
-            memory: 5G
+            memory: 5Gi
       webservice:
         workhorse:
           resources:
