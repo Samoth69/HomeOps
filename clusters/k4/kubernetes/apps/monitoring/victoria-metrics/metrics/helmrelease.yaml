@@ -175,7 +175,7 @@ spec:
             cpu: 300m
             memory: 2500Mi
           limits:
-            memory: 5gi
+            memory: 5Gi
 
     prometheus-node-exporter:
       enabled: false
