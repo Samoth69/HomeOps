@@ -39,7 +39,9 @@ spec:
                     - tatsumi
             weight: 1
     podLabels:
-      egress.samoth.eu/truenas-nfs: allow
+      # mover need kubeapi access to work
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/kube-apiserver: allow
     cache:
       # Every cache PVC is 5Gi or larger (KOPIUR_CAPACITY default). Kopia's own
       # defaults are 5000 MiB per budget, larger than the whole PVC, so the
