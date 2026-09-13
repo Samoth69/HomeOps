@@ -4,8 +4,9 @@ kind: Kustomization
 namespace: dev
 
 components:
-  - ../../components/sops
+  - ../../components/kopiur/secret
   - ../../components/namespace
+  - ../../components/sops
 
 resources:
   - ./gitlab/ks.yaml
