@@ -9,7 +9,6 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}}
   ingress:
-    # TODO WHY ????
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/instance: ${INSTANCE_NAME:=${APP}-valkey-ha}

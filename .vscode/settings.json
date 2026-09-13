@@ -1,3 +1,4 @@
 {
     "sops.defaults.ageKeyFile": "age.key",
+    "todo-tree.ripgrep.ripgrep": "/home/linuxbrew/.linuxbrew/bin/rg"
 }
