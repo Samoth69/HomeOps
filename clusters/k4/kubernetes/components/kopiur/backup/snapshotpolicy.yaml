@@ -24,6 +24,7 @@ spec:
   sources:
   - pvc:
       name: ${APP}
+    sourcePathOverride: /data
   upload:
     maxParallelFileReads: 2
   volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
