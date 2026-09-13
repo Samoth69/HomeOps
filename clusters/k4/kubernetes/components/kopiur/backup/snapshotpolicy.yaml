@@ -10,9 +10,9 @@ spec:
   copyMethod: Snapshot
   mover:
     podSecurityContext:
-      fsGroup: ${VOLSYNC_PGID:=1000}
-      runAsGroup: ${VOLSYNC_PGID:=1000}
-      runAsUser: ${VOLSYNC_PUID:=1000}
+      fsGroup: ${KOPIUR_PGID:=1000}
+      runAsGroup: ${KOPIUR_PGID:=1000}
+      runAsUser: ${KOPIUR_PUID:=1000}
   repository:
     kind: ClusterRepository
     name: truenas

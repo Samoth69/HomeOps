@@ -21,8 +21,6 @@ spec:
       KOPIUR_CAPACITY: 50Gi
       KOPIUR_ACCESSMODES: ReadWriteMany
       KOPIUR_SNAPSHOTCLASS: csi-ceph-filesystem
-      VOLSYNC_PGID: "568"
-      VOLSYNC_PUID: "568"
   prune: true
   sourceRef:
     kind: GitRepository
