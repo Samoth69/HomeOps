@@ -46,6 +46,12 @@ spec:
       kind: ClusterRepository
       name: truenas
       namespace: *namespace
+  healthCheckExprs:
+    - apiVersion: kopiur.home-operations.com/v1alpha1
+      kind: ClusterRepository
+      failed: status.phase == 'Error'
+      inProgress: status.phase not in ['Ready', 'Error']
+      current: status.phase == 'Ready'
   postBuild:
     substituteFrom:
       - name: cluster-secrets
