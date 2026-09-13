@@ -7,7 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/oauth2
-    - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: rook-ceph-cluster
       namespace: storage

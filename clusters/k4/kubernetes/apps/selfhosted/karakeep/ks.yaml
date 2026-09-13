@@ -6,8 +6,8 @@ metadata:
 spec:
   components:
     - ../../../../components/app-network-policy
+    - ../../../../components/kopiur/backup
     - ../../../../components/oauth2
-    - ../../../../components/volsync
   path: ./clusters/k4/kubernetes/apps/selfhosted/karakeep/app
   postBuild:
     substituteFrom:

@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kopiur.home-operations.com/snapshotpolicy_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotPolicy
+metadata:
+  name: ${APP}
+spec:
+  compression:
+    compressor: zstd-fastest
+  copyMethod: Snapshot
+  identity:
+    hostname: default
+    username: APP
+  mover:
+    podSecurityContext:
+      fsGroup: ${VOLSYNC_PGID:=1000}
+      runAsGroup: ${VOLSYNC_PGID:=1000}
+      runAsUser: ${VOLSYNC_PUID:=1000}
+  repository:
+    kind: ClusterRepository
+    name: truenas
+  retention:
+    keepLatest: 3
+    keepHourly: 24
+    keepDaily: 7
+    keepWeekly: 2
+  sources:
+  - pvc:
+      name: ${APP}
+    sourcePathOverride: /data
+  upload:
+    maxParallelFileReads: 2
+  volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}

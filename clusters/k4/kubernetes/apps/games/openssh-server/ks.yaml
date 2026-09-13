@@ -22,4 +22,4 @@ spec:
   targetNamespace: games
   wait: true
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur/backup

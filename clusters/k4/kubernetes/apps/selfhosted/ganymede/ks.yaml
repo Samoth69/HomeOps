@@ -8,7 +8,7 @@ spec:
     - ../../../../components/oauth2
     - ../../../../components/database
     - ../../../../components/external-secrets-kubernetes-store
-    - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: postgres-cnpg
       namespace: database

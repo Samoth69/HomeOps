@@ -8,7 +8,7 @@ spec:
   components:
     - ../../../../components/database
     # - ../../../../components/forward-auth
-    - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: postgres-cnpg
       namespace: database
@@ -22,7 +22,7 @@ spec:
         kind: Secret
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
   prune: true
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2

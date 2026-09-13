@@ -14,10 +14,10 @@ spec:
         kind: Secret
     substitute:
       APP: *app
-      VOLSYNC_STORAGECLASS: ceph-filesystem
-      VOLSYNC_CAPACITY: 50Gi
-      VOLSYNC_ACCESSMODES: ReadWriteMany
+      KOPIUR_STORAGECLASS: ceph-filesystem
+      KOPIUR_CAPACITY: 50Gi
+      KOPIUR_ACCESSMODES: ReadWriteMany
       VOLSYNC_SNAPSHOTCLASS: csi-ceph-filesystem
   targetNamespace: games
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur/backup
