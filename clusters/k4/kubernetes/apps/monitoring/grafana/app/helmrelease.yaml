@@ -93,13 +93,6 @@ spec:
             - name: DS_PROMETHEUS
               value: VictoriaMetrics
           url: https://raw.githubusercontent.com/spegel-org/spegel/refs/tags/v0.7.0/charts/spegel/monitoring/grafana-dashboard.json
-        volsync:
-          datasource:
-            - name: DS_PROMETHEUS
-              value: VictoriaMetrics
-            - name: VAR_REPLICATIONDESTNAME
-              value: ".*-bootstrap"
-          url: https://grafana.com/api/dashboards/21356/revisions/3/download
       ceph:
         ceph-cluster:
           datasource: VictoriaMetrics
