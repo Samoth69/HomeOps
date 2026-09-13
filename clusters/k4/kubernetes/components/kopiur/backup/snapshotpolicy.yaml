@@ -8,9 +8,6 @@ spec:
   compression:
     compressor: zstd-fastest
   copyMethod: Snapshot
-  identity:
-    hostname: default
-    username: APP
   mover:
     podSecurityContext:
       fsGroup: ${VOLSYNC_PGID:=1000}
@@ -27,7 +24,6 @@ spec:
   sources:
   - pvc:
       name: ${APP}
-    sourcePathOverride: /data
   upload:
     maxParallelFileReads: 2
   volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
