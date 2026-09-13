@@ -6,6 +6,9 @@ metadata:
   name: &app mc-ragnamod-vii-in-the-sky
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: kopiur-repository
+      namespace: system
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/games/mc-ragnamod-vii-in-the-sky/app
   postBuild:

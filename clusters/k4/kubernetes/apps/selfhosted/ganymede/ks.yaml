@@ -10,10 +10,12 @@ spec:
     - ../../../../components/external-secrets-kubernetes-store
     - ../../../../components/kopiur/backup
   dependsOn:
+    - name: kopiur-repository
+      namespace: system
+    - name: rook-ceph-cluster
+      namespace: storage
     - name: postgres-cnpg
       namespace: database
-    - name: volsync
-      namespace: system
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/selfhosted/ganymede/app
   targetNamespace: &namespace selfhosted

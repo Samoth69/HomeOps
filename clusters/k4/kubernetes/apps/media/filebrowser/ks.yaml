@@ -8,6 +8,8 @@ spec:
   components:
     - ../../../../components/kopiur/backup
   dependsOn:
+    - name: kopiur-repository
+      namespace: system
     - name: rook-ceph-cluster
       namespace: storage
   interval: 1h

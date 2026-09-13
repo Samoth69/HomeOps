@@ -12,6 +12,8 @@ spec:
     - ../../../../components/kopiur/backup
     - ../../../../components/valkey-ha
   dependsOn:
+    - name: kopiur-repository
+      namespace: system
     - name: postgres-cnpg
       namespace: database
   path: ./clusters/k4/kubernetes/apps/dev/gitlab/app

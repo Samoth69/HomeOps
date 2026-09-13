@@ -6,6 +6,9 @@ metadata:
   name: &app mc-atm10-01
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: kopiur-repository
+      namespace: system
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/games/mc-atm10-01/app
   postBuild:

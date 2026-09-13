@@ -10,6 +10,8 @@ spec:
     # - ../../../../components/forward-auth
     - ../../../../components/kopiur/backup
   dependsOn:
+    - name: kopiur-repository
+      namespace: system
     - name: postgres-cnpg
       namespace: database
     - name: rook-ceph-cluster

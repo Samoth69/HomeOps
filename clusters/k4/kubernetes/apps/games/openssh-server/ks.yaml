@@ -6,6 +6,9 @@ metadata:
   name: &app openssh-server
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: kopiur-repository
+      namespace: system
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/games/openssh-server/app
   postBuild:

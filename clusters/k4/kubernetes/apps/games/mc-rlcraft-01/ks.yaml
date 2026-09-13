@@ -6,6 +6,9 @@ metadata:
   name: &app mc-rlcraft-01
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: kopiur-repository
+      namespace: system
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/games/mc-rlcraft-01/app
   postBuild:

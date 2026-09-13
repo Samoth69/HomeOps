@@ -11,10 +11,12 @@ spec:
     - ../../../../components/kopiur/backup
     - ../../../../components/valkey
   dependsOn:
+    - name: kopiur-repository
+      namespace: system
+    - name: rook-ceph-cluster
+      namespace: storage
     - name: postgres-cnpg
       namespace: database
-    - name: volsync
-      namespace: system
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/selfhosted/paperless/app
   targetNamespace: &namespace selfhosted

@@ -41,6 +41,11 @@ spec:
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/system/kopiur/repository
   targetNamespace: &namespace system
+  healthChecks:
+    - apiVersion: kopiur.home-operations.com/v1alpha1
+      kind: ClusterRepository
+      name: truenas
+      namespace: *namespace
   postBuild:
     substituteFrom:
       - name: cluster-secrets
