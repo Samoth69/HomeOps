@@ -18,4 +18,3 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./reloader/ks.yaml
-  - ./volsync/ks.yaml
