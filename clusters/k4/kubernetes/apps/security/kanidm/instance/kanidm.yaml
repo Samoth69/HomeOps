@@ -43,7 +43,7 @@ spec:
           drop:
             - ALL
         readOnlyRootFilesystem: true
-  image: kanidm/server:1.11.1
+  image: kanidm/server:1.11.2
   imagePullPolicy: IfNotPresent
   logLevel: info
   automountServiceAccountToken: false
