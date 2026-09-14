@@ -17,7 +17,7 @@ spec:
   chart:
     spec:
       chart: gitlab
-      version: 10.3.1
+      version: 10.3.2
       interval: 30m
       sourceRef:
         kind: HelmRepository
