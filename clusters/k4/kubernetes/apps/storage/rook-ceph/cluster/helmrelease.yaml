@@ -281,9 +281,9 @@ spec:
         route:
           enabled: true
           host:
-            - name: "ceph-object-store.${SECRET_DOMAIN}"
-              path: /
-              pathType: PathPrefix
+            name: "ceph-object-store.${SECRET_DOMAIN}"
+            path: /
+            pathType: PathPrefix
           parentRefs:
             - name: envoy-internal
               namespace: network
