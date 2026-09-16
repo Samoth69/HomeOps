@@ -111,8 +111,6 @@ spec:
             - default
 
       appConfig:
-        artifacts:
-          enabled: false
         contentSecurityPolicy:
           enabled: true
           report_only: false
