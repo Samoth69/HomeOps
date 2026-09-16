@@ -121,7 +121,10 @@ spec:
         lfs:
           enabled: false
         object_store:
-          enabled: false
+          enabled: true
+          connection:
+            secret: gitlab-s3-configuration-secret
+            key: config
         omniauth:
           enabled: true
           allowSingleSignOn:
@@ -167,11 +170,6 @@ spec:
       migrations:
         extraEnv:
           GITLAB_VALIDATE_DATABASE_CONFIG: "0"
-      object_store:
-        enabled: true
-        connection:
-          secret: gitlab-s3-configuration-secret
-          key: config
       sidekiq:
         resources:
           requests:
