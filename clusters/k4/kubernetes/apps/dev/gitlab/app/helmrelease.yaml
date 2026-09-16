@@ -124,7 +124,7 @@ spec:
           enabled: true
           connection:
             secret: ${APP}-extra-config
-            key: s3-connection
+            key: s3_connection
         omniauth:
           enabled: true
           allowSingleSignOn:
@@ -139,7 +139,7 @@ spec:
           blockAutoCreatedUsers: false
           providers:
             - secret: ${APP}-extra-config
-              key: oidc-provider
+              key: oidc_provider
         packages:
           enabled: false
         uploads:
