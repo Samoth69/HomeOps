@@ -135,8 +135,8 @@ spec:
             - email
           blockAutoCreatedUsers: false
           providers:
-            - secret: ${APP}-kanidm-oidc
-              key: provider
+            - secret: ${APP}-extra-config
+              key: s3-connection
         packages:
           enabled: false
         uploads:
@@ -167,6 +167,11 @@ spec:
       migrations:
         extraEnv:
           GITLAB_VALIDATE_DATABASE_CONFIG: "0"
+      object_store:
+        enabled: true
+        connection:
+          secret: gitlab-s3-configuration-secret
+          key: config
       sidekiq:
         resources:
           requests:
