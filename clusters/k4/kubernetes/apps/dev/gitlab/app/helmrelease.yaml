@@ -122,6 +122,7 @@ spec:
           enabled: false
         object_store:
           enabled: true
+          bucket: gitlab
           connection:
             secret: ${APP}-extra-config
             key: s3_connection
