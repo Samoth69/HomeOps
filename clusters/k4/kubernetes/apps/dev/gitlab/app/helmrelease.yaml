@@ -126,16 +126,17 @@ spec:
           enabled: false
         omniauth:
           enabled: true
+          allowBypassTwoFactor: true
           allowSingleSignOn:
             - openid_connect
           autoLinkUser: 
             - openid_connect
+          blockAutoCreatedUsers: false
           syncProfileFromProvider:
             - openid_connect
           syncProfileAttributes:
             - name
             - email
-          blockAutoCreatedUsers: false
           providers:
             - secret: ${APP}-extra-config
               key: oidc_provider
