@@ -112,6 +112,7 @@ spec:
 
       appConfig:
         enabled: true
+        enableUsagePing: false
         artifacts:
           bucket: gitlab-artifacts
           connection:
@@ -122,6 +123,8 @@ spec:
           report_only: false
         defaultColorMode: 3 # System
         gitTimeout: 3600 # 1 hour
+        ldap:
+          preventSignin: true
         lfs:
           enabled: false
         omniauth:
