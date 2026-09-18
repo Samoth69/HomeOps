@@ -32,6 +32,7 @@ spec:
       NAMESPACE: *namespace
       KOPIUR_PVC_NAME: repo-data-gitlab-gitaly-0
       KANIDM_REDIRECT_PATH: /users/auth/openid_connect/callback
+      DATABASE_NAME: gitlabhq_production
   patches:
     - target:
         kind: StatefulSet

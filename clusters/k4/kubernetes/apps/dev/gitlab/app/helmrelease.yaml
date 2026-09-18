@@ -71,7 +71,7 @@ spec:
         host: pooler-transaction-rw.database.svc.cluster.local
         port: 5432
         database: gitlab
-        username: gitlab
+        username: gitlabhq_production
         preparedStatements: false
         databaseTasks: true
         password:
@@ -175,9 +175,9 @@ spec:
             config:
               secret: ${APP}-extra-config
               key: s3_backups
-      migrations:
-        extraEnv:
-          GITLAB_VALIDATE_DATABASE_CONFIG: "0"
+      # migrations:
+      #   extraEnv:
+      #     GITLAB_VALIDATE_DATABASE_CONFIG: "0"
       sidekiq:
         resources:
           requests:

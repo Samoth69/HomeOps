@@ -8,7 +8,7 @@ metadata:
 spec:
   # This setting is dangerous, ensure you know what you are doing before enabling this
   # databaseReclaimPolicy: delete
-  name: ${APP}
+  name: ${DATABASE_NAME:=${APP}}
   owner: ${OWNER}
   cluster:
     name: postgres
