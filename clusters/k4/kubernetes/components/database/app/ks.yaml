@@ -24,6 +24,7 @@ spec:
     substitute:
       APP: *app
       OWNER: ${DATABASE_OWNER:=${APP}}
+      DATABASE_NAME: ${DATABASE_NAME:=${APP}}
       EXTENSIONS: ${q:='}${DATABASE_EXTENSIONS:=[]}${q:='}
 
       emptyArray: "[]"
