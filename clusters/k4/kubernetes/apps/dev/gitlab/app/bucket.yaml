@@ -6,3 +6,11 @@ metadata:
 spec:
   bucketName: gitlab-artifacts
   storageClassName: ceph-bucket
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: ${APP}-s3-bucket-backups
+spec:
+  bucketName: gitlab-backups
+  storageClassName: ceph-bucket

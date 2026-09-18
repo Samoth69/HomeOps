@@ -124,11 +124,6 @@ spec:
         gitTimeout: 3600 # 1 hour
         lfs:
           enabled: false
-        # required otherwise the toolbox deployment doesn't work
-        object_store:
-          connection:
-            secret: ${APP}-extra-config
-            key: s3_artifacts
         omniauth:
           enabled: true
           allowSingleSignOn:
@@ -175,6 +170,11 @@ spec:
           size: 5Gi
       toolbox:
         enabled: true
+        backups:
+          objectStorage:
+            config:
+              secret: ${APP}-extra-config
+              key: s3_backups
       migrations:
         extraEnv:
           GITLAB_VALIDATE_DATABASE_CONFIG: "0"
