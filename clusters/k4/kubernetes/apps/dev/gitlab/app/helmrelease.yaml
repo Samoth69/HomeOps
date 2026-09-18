@@ -123,6 +123,8 @@ spec:
         gitTimeout: 3600 # 1 hour
         lfs:
           enabled: false
+        object_store:
+          enabled: true
         omniauth:
           enabled: true
           allowSingleSignOn:
