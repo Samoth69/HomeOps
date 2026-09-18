@@ -70,8 +70,8 @@ spec:
       psql:
         host: pooler-transaction-rw.database.svc.cluster.local
         port: 5432
-        database: gitlab
-        username: gitlabhq_production
+        username: gitlab
+        database: gitlabhq_production
         preparedStatements: false
         databaseTasks: true
         password:
