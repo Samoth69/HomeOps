@@ -71,13 +71,17 @@ spec:
         host: pooler-transaction-rw.database.svc.cluster.local
         port: 5432
         username: gitlab
-        database: gitlabhq_production
+        database: gitlab
         preparedStatements: false
-        databaseTasks: true
         password:
           useSecret: true
           secret: postgres-user-gitlab
           key: password
+        main:
+          databaseTasks: true
+        ci:
+          databaseTasks: false
+
 
       redis:
         host: mymaster
