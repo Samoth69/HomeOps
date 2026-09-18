@@ -147,10 +147,6 @@ spec:
           enabled: false
         uploads:
           enabled: false
-        
-        initialDefaults:
-          signupEnabled: false
-          gitlabProductUsageData: false
 
     # end of global
 
