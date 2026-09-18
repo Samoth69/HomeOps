@@ -124,6 +124,11 @@ spec:
         gitTimeout: 3600 # 1 hour
         lfs:
           enabled: false
+        # required otherwise the toolbox deployment doesn't work
+        object_store:
+          connection:
+            secret: ${APP}-extra-config
+            key: s3_artifacts
         omniauth:
           enabled: true
           allowSingleSignOn:
