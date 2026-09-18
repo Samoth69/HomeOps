@@ -1,7 +1,8 @@
+---
 apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
-  name: gitlab-s3-bucket
+  name: ${APP}-s3-bucket-artifacts
 spec:
-  bucketName: gitlab
+  bucketName: gitlab-artifacts
   storageClassName: ceph-bucket

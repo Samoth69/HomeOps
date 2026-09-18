@@ -111,6 +111,11 @@ spec:
             - default
 
       appConfig:
+        artifacts:
+          bucket: gitlab-artifacts
+          connection:
+            secret: ${APP}-extra-config
+            key: s3_artifacts
         contentSecurityPolicy:
           enabled: true
           report_only: false
@@ -118,12 +123,6 @@ spec:
         gitTimeout: 3600 # 1 hour
         lfs:
           enabled: false
-        object_store:
-          enabled: true
-          bucket: gitlab
-          connection:
-            secret: ${APP}-extra-config
-            key: s3_connection
         omniauth:
           enabled: true
           allowSingleSignOn:
@@ -143,6 +142,10 @@ spec:
           enabled: false
         uploads:
           enabled: false
+        
+        initialDefaults:
+          signupEnabled: false
+          gitlabProductUsageData: false
 
     # end of global
 
