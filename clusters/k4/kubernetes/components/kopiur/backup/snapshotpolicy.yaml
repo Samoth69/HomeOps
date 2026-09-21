@@ -10,6 +10,7 @@ spec:
   copyMethod: Snapshot
   mover:
     podSecurityContext:
+      supplementalGroups: [1000]
       fsGroup: ${KOPIUR_PGID:=1000}
       runAsGroup: ${KOPIUR_PGID:=1000}
       runAsUser: ${KOPIUR_PUID:=1000}
