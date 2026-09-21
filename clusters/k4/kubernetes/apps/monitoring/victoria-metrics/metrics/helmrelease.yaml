@@ -57,6 +57,7 @@ spec:
             - receiver: webhook
               matchers:
                 - severity="critical"
+                - alertgroup=~"kopiur.rules|alertmanager.rules"
         inhibit_rules:
           - source_matchers:
               - severity = "critical"
