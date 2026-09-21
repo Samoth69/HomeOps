@@ -28,4 +28,6 @@ spec:
       APP: *app
       NAMESPACE: *namespace
       KOPIUR_CAPACITY: 20Gi
+      KOPIUR_PGID: "2000"
+      KOPIUR_PUID: "2000"
       KANIDM_REDIRECT_PATH: /accounts/oidc/kanidm/login/callback/
