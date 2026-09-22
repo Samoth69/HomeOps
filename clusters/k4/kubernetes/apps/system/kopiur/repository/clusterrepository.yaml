@@ -15,7 +15,7 @@ spec:
           namespace: system
       bucket: k4-kopiur
       endpoint: ${SECRET_GARAGE_ENDPOINT}
-      region: us-east-1
+      region: garage
   encryption:
     passwordSecretRef:
       name: kopiur-garage-secret
