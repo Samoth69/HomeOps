@@ -16,5 +16,7 @@ spec:
         - ${SECRET_LB_POOL_IPV6}
       toPorts:
         - ports:
+            - port: "80"
+              protocol: ANY
             - port: "443"
               protocol: ANY
