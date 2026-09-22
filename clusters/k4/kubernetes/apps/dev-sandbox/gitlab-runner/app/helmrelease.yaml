@@ -60,8 +60,11 @@ spec:
     runners:
       config: |
         [[runners]]
+          environment = ["FF_USE_ADVANCED_POD_SPEC_CONFIGURATION=true"]
           [runners.kubernetes]
             namespace = "{{ default .Release.Namespace .Values.runners.jobNamespace }}"
             image = "alpine"
+            [runners.kubernetes.pod_labels]
+              "egress.samoth.eu/envoy-internal" = "allow"
 
       secret: ${APP}
