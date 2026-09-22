@@ -44,7 +44,7 @@ spec:
   healthChecks:
     - apiVersion: kopiur.home-operations.com/v1alpha1
       kind: ClusterRepository
-      name: truenas
+      name: garage
   healthCheckExprs:
     - apiVersion: kopiur.home-operations.com/v1alpha1
       kind: ClusterRepository
