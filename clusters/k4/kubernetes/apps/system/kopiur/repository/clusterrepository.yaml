@@ -3,20 +3,22 @@
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: ClusterRepository
 metadata:
-  name: truenas
+  name: garage
 spec:
   allowedNamespaces:
     all: true
   backend:
-    filesystem:
-      path: /mnt/repository
-      volume:
-        nfs:
-          path: /mnt/ThePool/Apps/K4-Volsync
-          server: ${SECRET_TRUENAS_IP}
+    s3:
+      auth:
+        secretRef:
+          name: kopiur-garage-secret
+          namespace: system
+      bucket: k4-kopiur
+      endpoint: ${SECRET_GARAGE_ENDPOINT}
+      region: us-east-1
   encryption:
     passwordSecretRef:
-      name: kopiur-truenas-secret
+      name: kopiur-garage-secret
       namespace: system
       key: KOPIA_PASSWORD
   maintenance:
@@ -46,6 +48,7 @@ spec:
       # mover need kubeapi access to work
       ingress.samoth.eu/kube-apiserver: allow
       egress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/truenas-https: allow
     cache:
       # Every cache PVC is 5Gi or larger (KOPIUR_CAPACITY default). Kopia's own
       # defaults are 5000 MiB per budget, larger than the whole PVC, so the

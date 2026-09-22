@@ -20,6 +20,7 @@ resources:
   - ./labelled-allow-egress-kube-apiserver.yaml
   - ./labelled-allow-egress-lan.yaml
   - ./labelled-allow-egress-talos-api.yaml
+  - ./labelled-allow-egress-truenas-https.yaml
   - ./labelled-allow-egress-truenas-nfs.yaml
   - ./labelled-allow-egress-victoria-metrics.yaml
   - ./labelled-deny-egress.yaml
