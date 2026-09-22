@@ -32,6 +32,13 @@ spec:
       egress.samoth.eu/envoy-internal: allow
       egress.samoth.eu/kube-apiserver: allow
 
+    startupProbe:
+      httpGet:
+        path: /health/ready
+        port: 9252
+      periodSeconds: 5
+      failureThreshold: 30
+
     metrics:
       enabled: true
       podMonitor:
@@ -43,7 +50,7 @@ spec:
         - resources: ["events"]
           verbs: ["list", "watch"]
         - resources: ["pods"]
-          verbs: ["create","delete","get"]
+          verbs: ["list","watch","create","delete","get"]
         - apiGroups: [""]
           resources: ["pods/attach","pods/exec"]
           verbs: ["get","create","patch","delete"]
@@ -60,10 +67,12 @@ spec:
     runners:
       config: |
         [[runners]]
-          environment = ["FF_USE_ADVANCED_POD_SPEC_CONFIGURATION=true"]
           [runners.kubernetes]
-            namespace = "{{ default .Release.Namespace .Values.runners.jobNamespace }}"
+            allow_privilege_escalation = false
+            cap_drop = ["all"]
             image = "alpine"
+            namespace = "{{ default .Release.Namespace .Values.runners.jobNamespace }}"
+            pull_policy = ["always", "if-not-present"]
             [runners.kubernetes.pod_labels]
               "egress.samoth.eu/envoy-internal" = "allow"
 
