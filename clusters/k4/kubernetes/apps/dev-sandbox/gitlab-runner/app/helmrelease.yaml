@@ -70,6 +70,11 @@ spec:
           [runners.kubernetes]
             allow_privilege_escalation = false
             cap_drop = ["all"]
+            environment = [
+              "FF_PRINT_POD_EVENTS=true",
+              "FF_KUBERNETES_HONOR_ENTRYPOINT=true",
+              "FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY=false"
+            ]
             image = "alpine"
             namespace = "{{ default .Release.Namespace .Values.runners.jobNamespace }}"
             pull_policy = ["always", "if-not-present"]
