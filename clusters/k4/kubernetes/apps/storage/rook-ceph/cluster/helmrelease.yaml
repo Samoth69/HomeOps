@@ -259,6 +259,8 @@ spec:
             hostNetwork: false
             port: 80
             instances: 2
+            labels:
+              ingress.samoth.eu/envoy-internal: allow
             placement:
               podAntiAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
