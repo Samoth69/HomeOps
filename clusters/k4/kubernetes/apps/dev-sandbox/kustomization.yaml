@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: dev-sandbox
 
 components:
-  - ../../components/namespace
+  - ../../components/namespace-isolated
   - ../../components/sops
 
 resources:
