@@ -37,7 +37,7 @@ spec:
         resources:
           requests:
             cpu: 10m
-            memory: 128Mi
+            memory: 200Mi
           limits:
             memory: 1024Mi
     backgroundController:
@@ -48,7 +48,7 @@ spec:
       resources:
         requests:
           cpu: 10m
-          memory: 64Mi
+          memory: 200Mi
         limits:
           memory: 512Mi
     cleanupController:
@@ -61,7 +61,7 @@ spec:
       resources:
         requests:
           cpu: 10m
-          memory: 64Mi
+          memory: 150Mi
         limits:
           memory: 512Mi
     reportsController:
@@ -72,7 +72,7 @@ spec:
       resources:
         requests:
           cpu: 10m
-          memory: 64Mi
+          memory: 200Mi
         limits:
           memory: 512Mi
     grafana:

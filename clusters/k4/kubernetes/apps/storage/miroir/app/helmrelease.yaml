@@ -25,3 +25,47 @@ spec:
   interval: 1h
   values:
     replicaCount: 2
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 128Mi
+    
+    sidecars:
+      provisioner:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            memory: 128Mi
+      snapshotter:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            memory: 128Mi
+      resizer:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            memory: 128Mi
+    
+    agent:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 80Mi
+        limits:
+          memory: 128Mi
+      registrar:
+        resources:
+          requests:
+            cpu: 5m
+            memory: 20Mi
+          limits:
+            memory: 64Mi

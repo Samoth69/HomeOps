@@ -41,7 +41,7 @@ spec:
     resources:
       requests:
         cpu: 5m
-        memory: 80Mi
+        memory: 100Mi
       limits:
         memory: 200Mi
     webhook:
@@ -55,6 +55,6 @@ spec:
       resources:
         requests:
           cpu: 5m
-          memory: 32Mi
+          memory: 48Mi
         limits:
           memory: 128Mi
