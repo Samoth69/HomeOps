@@ -19,7 +19,7 @@ spec:
       masquerade: true
       distributedLRU:
         enabled: true
-      policyMapMax: 40960
+      mapDynamicSizeRatio: 0.08
       preallocateMaps: true
     bpfClockProbe: true
     cgroup:
