@@ -1,0 +1,297 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.10/website/content/v1.10/schemas/config.schema.json
+version: v1alpha1
+machine:
+  ca:
+    crt: {{ ENV.TALSECRET_CERTS_OS_CRT }}
+    {% if ENV.IS_CONTROLPLANE %}
+    key: {{ ENV.TALSECRET_CERTS_OS_KEY }}
+    {% endif %}
+  features:
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    rbac: true
+  logging:
+    destinations:
+      - endpoint: "tcp://127.0.0.1:12345/"
+        format: "json_lines"
+        extraTags:
+          source: talos-services
+  token: {{ ENV.TALSECRET_SECRETS_BOOTSTRAPTOKEN }}
+cluster:
+  {% if ENV.IS_CONTROLPLANE %}
+  aggregatorCA:
+    crt: {{ ENV.TALSECRET_CERTS_K8SAGGREGATOR_CRT }}
+    key: {{ ENV.TALSECRET_CERTS_K8SAGGREGATOR_KEY }}
+  clusterName: k4
+  controlPlane:
+    endpoint: https://192.168.0.35:6443
+  etcd:
+    advertisedSubnets:
+      - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV4 }}/32
+      - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV6 }}/128
+      - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV4 }}/32
+      - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV6 }}/128
+      - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV4 }}/32
+      - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV6 }}/128
+    ca:
+      crt: {{ ENV.TALSECRET_CERTS_ETCD_CRT }}
+      key: {{ ENV.TALSECRET_CERTS_ETCD_KEY }}
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+      auto-compaction-mode: periodic
+      auto-compaction-retention: 1h
+  {% endif %}
+  ca:
+    crt: {{ ENV.TALSECRET_CERTS_K8S_CRT }}
+    {% if ENV.IS_CONTROLPLANE %}
+    key: {{ ENV.TALSECRET_CERTS_K8S_KEY }}
+    {% endif %}
+  token: {{ ENV.TALSECRET_SECRETS_BOOTSTRAPTOKEN }}
+  serviceAccount:
+    key: {{ ENV.TALSECRET_CERTS_K8SSERVICEACCOUNT_KEY }}
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+config:
+  crashLoopBackOff:
+    maxContainerRestartPeriod: 60s
+  evictionHard:
+    memory.available: "500Mi"
+  featureGates:
+    UserNamespacesSupport: true
+  imageMaximumGCAge: 168h
+  maxPods: 200
+  serializeImagePulls: false
+  shutdownGracePeriod: 90s
+  shutdownGracePeriodCriticalPods: 60s
+defaultRuntimeSeccompProfileEnabled: true
+image: ghcr.io/siderolabs/kubelet:v1.36.4
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+nodeIP:
+  validSubnets:
+    - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV4 }}/32
+    - {{ ENV.TALSECRET_CUSTOM_TATSUMI_IPV6 }}/128
+    - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV4 }}/32
+    - {{ ENV.TALSECRET_CUSTOM_ENIGMA_IPV6 }}/128
+    - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV4 }}/32
+    - {{ ENV.TALSECRET_CUSTOM_LYNKA_IPV6 }}/128
+---
+apiVersion: v1alpha1
+kind: CRICustomizationConfig
+name: containerd
+content: |
+  [plugins."io.containerd.cri.v1.images"]
+    discard_unpacked_layers = false
+---
+apiVersion: v1alpha1
+kind: EtcFileConfig
+name: nfsmount.conf
+mode: 0o644
+contents: |
+  [ NFSMount_Global_Options ]
+  nfsvers=4
+  hard=True
+  nconnect=16
+  noatime=True
+  rsize=1048576
+  wsize=1048576
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: dm_thin_pool
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+nameservers:
+  - address: "192.168.0.2"
+  - address: "192.168.0.3"
+hostDNS:
+  enabled: true
+  forwardKubeDNSToHost: true # Requires Cilium socketLB features
+  resolveMemberNames: true
+---
+apiVersion: v1alpha1
+kind: SecurityProfileConfig
+workloadIsolation: true
+---
+apiVersion: v1alpha1
+kind: SysctlConfig
+params:
+  # IPv6 requirements (because we don't want SLAAC to assign ips to our nodes)
+  net.ipv6.conf.default.autoconf: 0
+  net.ipv6.conf.default.accept_ra: 0
+  net.ipv6.conf.all.autoconf: 0
+  net.ipv6.conf.all.accept_ra: 0
+  # System requirements
+  fs.inotify.max_user_instances: "8192"
+  fs.inotify.max_user_watches: "1048576"
+  net.core.default_qdisc: fq
+  net.core.rmem_max: "67108864"
+  net.core.wmem_max: "67108864"
+  # Improve network performance
+  net.ipv4.neigh.default.gc_thresh1: "4096"
+  net.ipv4.neigh.default.gc_thresh2: "8192"
+  net.ipv4.neigh.default.gc_thresh3: "16384"
+  net.ipv4.ping_group_range: 0 2147483647
+  net.ipv4.tcp_congestion_control: bbr
+  net.ipv4.tcp_fastopen: "3"
+  net.ipv4.tcp_mtu_probing: "1"
+  net.ipv4.tcp_notsent_lowat: "131072"
+  net.ipv4.tcp_rmem: 4096 87380 33554432
+  net.ipv4.tcp_slow_start_after_idle: "0"
+  net.ipv4.tcp_window_scaling: "1"
+  net.ipv4.tcp_wmem: 4096 65536 33554432
+  sunrpc.tcp_max_slot_table_entries: "128"
+  sunrpc.tcp_slot_table_entries: "128"
+---
+apiVersion: v1alpha1
+kind: DiscoveryServiceConfig
+name: default
+endpoint: https://discovery.talos.dev/
+---
+apiVersion: v1alpha1
+kind: DiscoveryIdentityConfig
+clusterID: {{ ENV.TALSECRET_CLUSTER_ID }}
+clusterSecret: {{ ENV.TALSECRET_CLUSTER_SECRET }}
+---
+apiVersion: v1alpha1
+kind: FilesystemTrimConfig
+interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: FilesystemScrubConfig
+interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m
+---
+apiVersion: v1alpha1
+kind: KubeNetworkConfig
+dnsDomain: cluster.local
+nodeCIDRMaskSizeIPv4: 24
+nodeCIDRMaskSizeIPv6: 112
+podSubnets:
+  - 10.48.0.0/16
+  - fd00:48::/104
+serviceSubnets:
+  - 10.69.0.0/16
+  - fd00:69::/108
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: lo
+up: true
+mtu: 9000
+addresses:
+  - address: 169.254.116.108/32
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: 192.168.0.35
+link: bond0
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 256GiB
+  maxSize: 256GiB
+---
+apiVersion: v1alpha1
+kind: RawVolumeConfig
+name: miroir
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 256GiB
+  maxSize: 256GiB
+---
+apiVersion: v1alpha1
+kind: KubeEtcdEncryptionConfig
+config:
+  resources:
+    - providers:
+        - secretbox:
+            keys:
+              - name: key2
+                secret: {{ ENV.TALSECRET_SECRETS_SECRETBOXENCRYPTIONSECRET }}
+        - identity: {}
+      resources:
+        - secrets
+---
+apiVersion: v1alpha1
+kind: KmsgLogConfig
+name: remote-log
+url: tcp://127.0.0.1:12346/
+---
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: nut-client
+configFiles:
+  - content: |-
+      MONITOR {{ ENV.TALSECRET_CUSTOM_NUTSERVERIP }} 1 monuser secret secondary
+      SHUTDOWNCMD "/sbin/poweroff"
+    mountPath: /usr/local/etc/nut/upsmon.conf
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: code.forgejo.org
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/code-forgejo-io
+    overridePath: true
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: docker.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/docker-io
+    overridePath: true
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: mirror.gcr.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/docker-io
+    overridePath: true
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: ghcr.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/ghcr-io
+    overridePath: true
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: quay.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/quay-io
+    overridePath: true
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: registry.k8s.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/registry-k8s-io
+    overridePath: true
+skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: cr.fluentbit.io
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/cr-fluentbit-io
+    overridePath: true
+skipFallback: false

@@ -1,12 +1,20 @@
 ---
 machine:
   type: controlplane
-  install:
-    image: factory.talos.dev/metal-installer-secureboot/6b2c02d613bc5a13617cb5a2939aaef295eb796d0310644adc2edd818b3d4014:v1.14.1
-    diskSelector:
-      model: INTEL SSDSC2BB96
-  sysfs:
-    devices.system.cpu.cpufreq.boost: "1"
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer-secureboot/6b2c02d613bc5a13617cb5a2939aaef295eb796d0310644adc2edd818b3d4014:v1.14.1
+provisioning:
+  diskSelector:
+    match: disk.model == "INTEL SSDSC2BB96"
+  wipe: false
+---
+apiVersion: v1alpha1
+kind: SysfsConfig
+params:
+  devices.system.cpu.cpufreq.boost: "1"
 ---
 apiVersion: v1alpha1
 kind: BondConfig

@@ -1,10 +1,15 @@
 ---
 machine:
   type: controlplane
-  install:
-    image: factory.talos.dev/metal-installer-secureboot/b52b49f7b95b7deaa514a0f645f243fc2d6ea37715e706fc0d5d0160aaf92593:v1.14.1
-    diskSelector:
-      model: INTEL SSDSC2BB96
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer-secureboot/b52b49f7b95b7deaa514a0f645f243fc2d6ea37715e706fc0d5d0160aaf92593:v1.14.1
+provisioning:
+  diskSelector:
+    match: disk.model == "INTEL SSDSC2BB96"
+  wipe: false
 ---
 apiVersion: v1alpha1
 kind: BondConfig

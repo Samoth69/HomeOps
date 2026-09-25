@@ -31,7 +31,9 @@ render-config node:
     sops decrypt "{{ talos_dir }}/talsecrets.sops.yaml" | yq '.. | select((tag == "!!map" or tag == "!!seq") | not) | "TALSECRET_" + (path | join("_") | upcase) + "=" + .' | while read p; do \
       export $p; \
     done; \
-    talosctl machineconfig patch <(just template "{{ talos_dir }}/machineconfig.yaml.j2") \
+    [[ "$IS_CONTROLPLANE" = true ]] && role="controlplane" || role="workers"; \
+    talosctl machineconfig patch <(just template "{{ talos_dir }}/cluster.yaml.j2") \
+      -p @<(just template "{{ talos_dir }}/${role}.yaml.j2") \
       -p @<(just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2")
 
 [doc('Reboot a node')]

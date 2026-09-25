@@ -1,9 +1,15 @@
 ---
 machine:
   type: controlplane
-  install:
-    image: factory.talos.dev/nocloud-installer-secureboot/0fbb2a01af52235e62e729a660bb149b6bc2e24e4a5afcd7b5f6d00e226cdde7:v1.14.1
-    disk: /dev/sda
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/nocloud-installer-secureboot/0fbb2a01af52235e62e729a660bb149b6bc2e24e4a5afcd7b5f6d00e226cdde7:v1.14.1
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "/dev/sda"
+  wipe: false
 ---
 apiVersion: v1alpha1
 kind: BondConfig
