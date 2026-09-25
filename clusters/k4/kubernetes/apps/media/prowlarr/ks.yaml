@@ -23,15 +23,13 @@ spec:
         kind: Secret
     substitute:
       APP: *app
+      KOPIUR_PGID: "2000"
+      KOPIUR_PUID: "2000"
   prune: true
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: *app
       namespace: media
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
   targetNamespace: media
   wait: false
