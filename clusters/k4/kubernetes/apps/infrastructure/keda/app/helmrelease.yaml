@@ -50,25 +50,28 @@ spec:
     resources:
       # -- Manage [resource request & limits] of KEDA operator pod
       operator:
-        limits:
-          memory: 1000Mi
         requests:
           cpu: 10m
           memory: 150Mi
+        limits:
+          cpu: ~
+          memory: 1000Mi
       # -- Manage [resource request & limits] of KEDA metrics apiserver pod
       metricServer:
-        limits:
-          memory: 1000Mi
         requests:
           cpu: 10m
           memory: 125Mi
+        limits:
+          cpu: ~
+          memory: 1000Mi
       # -- Manage [resource request & limits] of KEDA admission webhooks pod
       webhooks:
-        limits:
-          memory: 1000Mi
         requests:
           cpu: 10m
           memory: 80Mi
+        limits:
+          cpu: ~
+          memory: 1000Mi
     
     certificates:
       certManager:
