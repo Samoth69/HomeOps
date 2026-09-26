@@ -104,5 +104,6 @@ spec:
         cpu: 100m
         memory: 128Mi
       limits:
+        # TODO : doesn't work ??
         cpu: ~
         memory: 128Mi
