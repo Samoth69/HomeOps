@@ -4,6 +4,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./allow-dns.yaml
+  - ./cilium.yaml
   - ./host-firewall.yaml
   - ./hubble.yaml
   - ./egress
