@@ -8,38 +8,40 @@ spec:
     matchLabels:
       node-role.kubernetes.io/control-plane: ""
   ingress:
-  - fromEntities:
-    - cluster
-    - remote-node
-    - health
-  - fromCIDRSet:
-      - cidrGroupRef: group-lan
-    toPorts:
-    - ports:
-      # Cilium health check
-      - port: "4240"
-        protocol: TCP
-      # kubernetes-api-ingress
-      - port: "6443"
-        protocol: TCP
-      # apid-ingress
-      - port: "50000"
-        protocol: TCP
-      # trustd-ingress
-      - port: "50001"
-        protocol: TCP
-  - fromCIDRSet:
-      - cidrGroupRef: group-lan
-    icmps:
-      - fields:
-          - family: IPv4
-            type: 8
-          - family: IPv6
-            type: 8
-          - family: IPv4
-            type: EchoRequest
-          - family: IPv6
-            type: EchoRequest
+    # Cilium requirements
+    - fromEntities:
+        - cluster
+        - remote-node
+        - health
+    - toPorts:
+        - ports:
+            # Cilium health check
+            - port: "4240"
+              protocol: TCP
+    - icmps:
+        - fields:
+            - family: IPv4
+              type: 8
+            - family: IPv6
+              type: 8
+            - family: IPv4
+              type: EchoRequest
+            - family: IPv6
+              type: EchoRequest
+    # Talos
+    - fromCIDRSet:
+        - cidrGroupRef: group-lan
+      toPorts:
+        - ports:
+            # kubernetes-api-ingress
+            - port: "6443"
+              protocol: TCP
+            # apid-ingress
+            - port: "50000"
+              protocol: TCP
+            # trustd-ingress
+            - port: "50001"
+              protocol: TCP
   egress:
     - toEntities:
         - cluster
