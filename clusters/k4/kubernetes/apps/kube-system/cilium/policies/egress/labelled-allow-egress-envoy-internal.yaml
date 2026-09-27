@@ -7,6 +7,11 @@ spec:
   endpointSelector:
     matchLabels:
       egress.samoth.eu/envoy-internal: allow
+  # TODO: why ?
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            gateway.envoyproxy.io/owning-gateway-name: envoy-internal
   egress:
     - toEndpoints:
         - matchLabels:
