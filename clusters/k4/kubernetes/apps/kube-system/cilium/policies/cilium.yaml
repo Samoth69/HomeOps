@@ -16,5 +16,6 @@ spec:
         - matchLabels:
             app.kubernetes.io/part-of: cilium
     - toEntities:
+        - cluster
         - host
         - remote-node
