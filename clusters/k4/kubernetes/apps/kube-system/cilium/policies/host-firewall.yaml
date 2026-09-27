@@ -14,7 +14,7 @@ spec:
       - cidrGroupRef: group-lan
     toPorts:
     - ports:
-      # Cilium datapath
+      # Cilium health check
       - port: "4240"
         protocol: TCP
       # kubernetes-api-ingress
@@ -35,6 +35,8 @@ spec:
           - family: IPv6
             type: 8
           - family: IPv4
+            type: EchoRequest
+          - family: IPv6
             type: EchoRequest
   egress:
     - toEntities:
