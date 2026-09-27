@@ -6,7 +6,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      reserved: health
+      reserved:health: ""
   ingress:
     - fromEntities:
         - cluster
