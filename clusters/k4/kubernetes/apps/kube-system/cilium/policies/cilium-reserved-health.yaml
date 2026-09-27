@@ -2,11 +2,11 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: cilium
+  name: cilium-reserved-health
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/part-of: cilium
+      reserved: health
   ingress:
     - fromEntities:
         - health
@@ -14,11 +14,8 @@ spec:
         - matchLabels:
             app.kubernetes.io/part-of: cilium
   egress:
+    - toEntities:
+        - health
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/part-of: cilium
-    - toEntities:
-        - health
-        - cluster
-        - host
-        - remote-node
