@@ -2,7 +2,7 @@ set positional-arguments := true
 set quiet := true
 set shell := ['zsh', '-cu']
 
-kubernetes_dir := justfile_dir()
+kubernetes_dir := source_directory()
 
 [private]
 default:
@@ -29,3 +29,10 @@ browse-pvc namespace claim:
 [doc('Create a backup of the database')]
 backup-database:
     kubectl cnpg backup -n database postgres --method=plugin --plugin-name=barman-cloud.cloudnative-pg.io
+
+[doc('Push current repo to Garage')]
+garage-sync:
+    sops decrypt "{{ kubernetes_dir }}/rclone.sops.yaml" | yq '.stringData | map(key + "=" + .)[]' | while read p; do \
+      export $p; \
+    done; \
+    rclone sync --fast-list --checksum --s3-env-auth --s3-region garage --s3-force-path-style "{{ kubernetes_dir }}" :s3:k4-fluxcd/clusters/k4/kubernetes

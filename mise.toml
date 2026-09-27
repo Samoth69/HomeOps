@@ -24,3 +24,4 @@ task.monorepo_depth = 3  # Only search 3 levels deep
 "aqua:google/yamlfmt" = "latest"
 cilium-cli = "latest"
 cilium-hubble = "latest"
+rclone = "latest"

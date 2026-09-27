@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: rclone
+stringData:
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:jILTaotQVdN5gwwSbzQhfOfDmQqs3jB7Q68=,iv:cPj4wAb5QKQ8gCZx1BM8yeNlLgvabdXNBaeyM5b5UE4=,tag:AA3e6+xK/eEEjohDG++jyw==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:U4Nt0WRJkaCuUdeh7gt/looBkE8/A0uyWfhZu/p8buiY7avGSPlGFnpkFRkxl2RIYoTlx79gz6Rc58s4eHiAGA==,iv:qMx9l/ikT6XMKczfM/TVD03Wl133lJR2nyqjmgQohK4=,tag:ALlqg8C7uj5nVkF9mk6zAw==,type:str]
+    RCLONE_S3_ENDPOINT: ENC[AES256_GCM,data:uMVfJYgefw9O88ElNZlZ6qA7Qv9pe3r+,iv:T26PxzsHB4H2BQH9uUxqnlRqtcCxg7FdNKFKJPiLWFw=,tag:q2wNbOzZ0fBxInBh0TGKyg==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSNUcwdFVRdWlPZFFOeWVN
+            elZ1UzZ6d1g5VWxBMlZOSmg0T0RpNEFDZHljCm5oSWtKV3FMalpFb0ZvbjE5OVlq
+            MWtkc3hvZUIrelROSjNlNlFYWDMxU3cKLS0tIENZOVhGWXJLY1RHTUFCYm1IdkIv
+            cGtNVjF6TzVsb1ZIOFBXZnA0QUFCUFkKqzs6ch42I1uy8dBBa5qB0fsPbN2bglxC
+            giKE4bd1MBagvqpjMSc7Q/WwAKL4rUa/MWBcqYSmhSRQLWPMR8Gmww==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1emjn2wlxmsgdeu04uwgvlp4s8a8uwtcyg9g89v550z4zjt7jy3gqu6vw93
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-09-27T11:52:02Z"
+    mac: ENC[AES256_GCM,data:wbcWL8gPiSy+9GDw92287thZcKAtbGWepO8hE7o1G76RNYrWRMI9WIx0636rXS+dNP16qRTrOFRU4YVqDgR1JHrAromor8IdH3KHCW/7Sr2/9vq6HJoBej3NcQ6ZbDo7wTLo059FAZ2estBgBAmib+IxeL02Gh6pARo9MyonFBk=,iv:vjmVR9D1W34P0E5DkkA5ZbIVpaNtffplYkktasP40tw=,tag:QLKcCVh30YHbqzPxfnPVQw==,type:str]
+    version: 3.13.3
