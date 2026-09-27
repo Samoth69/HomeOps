@@ -17,4 +17,6 @@ spec:
       toPorts:
         - ports:
             - port: "80"
+            - port: "10080"
             - port: "443"
+            - port: "10443"
