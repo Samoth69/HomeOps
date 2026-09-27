@@ -156,6 +156,8 @@ spec:
         - matchLabels:
             ingress.samoth.eu/envoy-internal: allow
         - matchLabels:
+            egress.samoth.eu/envoy-internal: allow
+        - matchLabels:
             kanidm.kaniop.rs/cluster: kanidm-cluster
             k8s:io.kubernetes.pod.namespace: security
 ---
