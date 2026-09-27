@@ -14,6 +14,9 @@ spec:
       - cidrGroupRef: group-lan
     toPorts:
     - ports:
+      # Cilium datapath
+      - port: "4240"
+        protocol: TCP
       # kubernetes-api-ingress
       - port: "6443"
         protocol: TCP
@@ -27,6 +30,10 @@ spec:
       - cidrGroupRef: group-lan
     icmps:
       - fields:
+          - family: IPv4
+            type: 8
+          - family: IPv6
+            type: 8
           - family: IPv4
             type: EchoRequest
   egress:
