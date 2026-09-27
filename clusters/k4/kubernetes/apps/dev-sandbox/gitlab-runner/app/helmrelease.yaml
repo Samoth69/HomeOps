@@ -78,6 +78,7 @@ spec:
             image = "alpine"
             namespace = "{{ default .Release.Namespace .Values.runners.jobNamespace }}"
             pull_policy = ["always", "if-not-present"]
+            pod_labels_overwrite_allowed = "egress.samoth.eu/(internet|truenas-https)=allow"
             [runners.kubernetes.pod_labels]
               "egress.samoth.eu/envoy-internal" = "allow"
 
