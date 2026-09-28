@@ -28,7 +28,7 @@ spec:
     global:
       hosts:
         domain: ${SECRET_DOMAIN}
-        https: false
+        https: true
         gitlab:
           name: gitlab.${SECRET_DOMAIN}
         pages:
