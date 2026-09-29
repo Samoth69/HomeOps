@@ -9,4 +9,5 @@ components:
   - ../../components/sops
 
 resources:
+  - ./forgejo/ks.yaml
   - ./gitlab/ks.yaml
