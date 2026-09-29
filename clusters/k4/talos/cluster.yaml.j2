@@ -246,7 +246,13 @@ name: code.forgejo.org
 endpoints:
   - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/code-forgejo-io
     overridePath: true
-skipFallback: false
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: git.erwanleboucher.dev
+endpoints:
+  - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/git-erwanleboucher-dev
+    overridePath: true
 ---
 apiVersion: v1alpha1
 kind: RegistryMirrorConfig
@@ -254,7 +260,6 @@ name: docker.io
 endpoints:
   - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/docker-io
     overridePath: true
-skipFallback: false
 ---
 apiVersion: v1alpha1
 kind: RegistryMirrorConfig
@@ -262,7 +267,6 @@ name: mirror.gcr.io
 endpoints:
   - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/docker-io
     overridePath: true
-skipFallback: false
 ---
 apiVersion: v1alpha1
 kind: RegistryMirrorConfig
@@ -270,7 +274,6 @@ name: ghcr.io
 endpoints:
   - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/ghcr-io
     overridePath: true
-skipFallback: false
 ---
 apiVersion: v1alpha1
 kind: RegistryMirrorConfig
@@ -278,7 +281,6 @@ name: quay.io
 endpoints:
   - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/quay-io
     overridePath: true
-skipFallback: false
 ---
 apiVersion: v1alpha1
 kind: RegistryMirrorConfig
@@ -286,7 +288,6 @@ name: registry.k8s.io
 endpoints:
   - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/registry-k8s-io
     overridePath: true
-skipFallback: false
 ---
 apiVersion: v1alpha1
 kind: RegistryMirrorConfig
@@ -294,4 +295,3 @@ name: cr.fluentbit.io
 endpoints:
   - url: https://{{ ENV.TALSECRET_CUSTOM_ZOTHOSTNAME }}/v2/cr-fluentbit-io
     overridePath: true
-skipFallback: false
