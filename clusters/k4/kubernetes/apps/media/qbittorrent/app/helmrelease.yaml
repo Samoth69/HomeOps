@@ -69,6 +69,10 @@ spec:
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.41.3
+            lifecycle:
+              postStart:
+                exec:
+                  command: ["/bin/sh", "-c", "(ip rule del table 51820; ip -6 rule del table 51820) || true"]
             restartPolicy: Always
             env:
               DOT: "off"
