@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 5.2.1
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    controllers:
+      ip-domain-sync:
+        type: cronjob
+        cronjob:
+          backoffLimit: 0
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 1
+          schedule: "*/15 * * * *"
+          timeZone: "Europe/Paris"
+          successfulJobsHistory: 1
+          suspend: false
+        pod:
+          restartPolicy: Never
+          labels:
+            egress.samoth.eu/internet-http: allow
+        containers:
+          app:
+            image:
+              repository: ghcr.io/samoth69/ip-domain-sync
+              tag: v1
+            envFrom:
+              - secretRef:
+                  name: ${APP}-secrets
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
