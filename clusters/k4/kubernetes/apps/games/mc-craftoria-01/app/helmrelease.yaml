@@ -43,20 +43,22 @@ spec:
             env:
               # Fondamentaux
               EULA: true
-              TYPE: FORGE
-              VERSION: 1.20.1
-              FORGE_VERSION: 47.4.0
+              TYPE: NEOFORGE
+              VERSION: 1.21.1
+              NEOFORGE_VERSION: 21.1.249
               SERVER_PORT: *port
 
               # Performance
-              MEMORY: 10240M
+              MEMORY: 5120M
               USE_MEOWICE_FLAGS: true
 
               # Server.properties
-              DIFFICULTY: hard
-              VIEW_DISTANCE: 12
+              DIFFICULTY: normal
+              VIEW_DISTANCE: 16
+              SIMULATION_DISTANCE: 12
+
               MOTD: |
-                Valhelsia 6
+                Craftoria
               PVP: true
               MAX_WORLD_SIZE: 10000000
               ENABLE_COMMAND_BLOCK: true
@@ -103,10 +105,10 @@ spec:
                   timeoutSeconds: 1
             resources:
               requests:
-                cpu: 1000m
-                memory: 12Gi
+                cpu: 500m
+                memory: 6Gi
               limits:
-                memory: 18Gi
+                memory: 10Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow
