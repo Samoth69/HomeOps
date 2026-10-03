@@ -44,20 +44,19 @@ spec:
               # Fondamentaux
               EULA: true
               TYPE: FORGE
-              VERSION: 1.18.2
-              FORGE_VERSION: 40.3.12
+              VERSION: 1.20.1
+              FORGE_VERSION: 47.4.0
               SERVER_PORT: *port
 
               # Performance
-              MEMORY: 8192M
+              MEMORY: 10240M
               USE_MEOWICE_FLAGS: true
 
               # Server.properties
               DIFFICULTY: hard
               VIEW_DISTANCE: 12
               MOTD: |
-                Who lives in a pineapple under the sea ?
-                SpongeBob SquarePants !
+                Valhelsia 6
               PVP: true
               MAX_WORLD_SIZE: 10000000
               ENABLE_COMMAND_BLOCK: true
@@ -70,8 +69,8 @@ spec:
               ENABLE_WHITELIST: true
 
               # Droits
-              OPS: Samoth69,Serenz
-              WHITELIST: Samoth69,Serenz
+              OPS: Samoth69
+              WHITELIST: Samoth69
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -105,9 +104,9 @@ spec:
             resources:
               requests:
                 cpu: 1000m
-                memory: 10Gi
+                memory: 12Gi
               limits:
-                memory: 16Gi
+                memory: 18Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow
