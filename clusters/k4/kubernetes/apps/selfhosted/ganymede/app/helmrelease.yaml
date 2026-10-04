@@ -156,7 +156,7 @@ spec:
         forceRename: ${APP}-tmp
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
-        size: 50Gi
+        size: 150Gi
         advancedMounts:
           ganymede:
             app:
