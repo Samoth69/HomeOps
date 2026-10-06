@@ -28,7 +28,7 @@ spec:
               < (1 * 24 * 3600)
           for: 15m
           labels:
-            severity: warning
+            severity: critical
           annotations:
             description:
               "The domain that this cert covers will be unavailable after
