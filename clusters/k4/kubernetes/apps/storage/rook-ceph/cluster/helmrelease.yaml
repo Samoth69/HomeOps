@@ -121,7 +121,7 @@ spec:
             cpu: 50m
             memory: 1Gi
           limits:
-            memory: 2Gi
+            memory: 4Gi # Monitor may spike a bit
         osd:
           requests:
             cpu: 500m
