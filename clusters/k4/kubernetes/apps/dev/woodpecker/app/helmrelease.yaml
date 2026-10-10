@@ -48,18 +48,19 @@ spec:
                 value: allow
   values:
     agent:
-      replicaCount: 1
+      replicaCount: 2
       env:
         WOODPECKER_SERVER: 'woodpecker-server:9000'
         WOODPECKER_BACKEND: kubernetes
         WOODPECKER_BACKEND_K8S_NAMESPACE: dev
         WOODPECKER_BACKEND_K8S_NAMESPACE_PER_ORGANIZATION: false
-        WOODPECKER_BACKEND_K8S_STORAGE_CLASS: ''
-        WOODPECKER_BACKEND_K8S_VOLUME_SIZE: 10G
-        WOODPECKER_BACKEND_K8S_STORAGE_RWX: true
-        WOODPECKER_BACKEND_K8S_POD_LABELS: ''
-        WOODPECKER_BACKEND_K8S_POD_ANNOTATIONS: ''
+        # WOODPECKER_BACKEND_K8S_STORAGE_CLASS: ''
+        # WOODPECKER_BACKEND_K8S_VOLUME_SIZE: 10G
+        # WOODPECKER_BACKEND_K8S_STORAGE_RWX: true
+        # WOODPECKER_BACKEND_K8S_POD_LABELS: ''
+        # WOODPECKER_BACKEND_K8S_POD_ANNOTATIONS: ''
         WOODPECKER_CONNECT_RETRY_COUNT: '1'
+        WOODPECKER_MAX_WORKFLOWS: 10
       persistence:
         enabled: false
       securityContext: &sc
@@ -69,7 +70,15 @@ spec:
         readOnlyRootFilesystem: true
         runAsNonRoot: true
         runAsUser: 1000
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 512Mi
     server:
+      statefulSet:
+        replicaCount: 2
       env:
         WOODPECKER_ADMIN: 'samoth69'
         WOODPECKER_HOST: https://woodpecker.${SECRET_DOMAIN}
@@ -94,3 +103,9 @@ spec:
       persistentVolume:
         enabled: false
       securityContext: *sc
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 512Mi
