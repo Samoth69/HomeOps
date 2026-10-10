@@ -9,17 +9,32 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: ${APP}
   ingress:
+    # Envoy
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: network
             gateway.networking.k8s.io/gateway-name: envoy-internal
+    # Kube api
     - fromEntities:
         - kube-apiserver
+    # Database
+    - fromEndpoints: &labels
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            cnpg.io/cluster: postgres
+            cnpg.io/podRole: pooler
   egress:
-    - # Envoy
-      toEndpoints:
+    # Envoy
+    - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: network
             gateway.networking.k8s.io/gateway-name: envoy-internal
+    # Kube api
     - toEntities:
         - kube-apiserver
+    # Database
+    - toEndpoints: *labels
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: "TCP"
