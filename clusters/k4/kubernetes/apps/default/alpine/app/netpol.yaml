@@ -12,4 +12,4 @@ spec:
     - toEntities:
         - host
     - toCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan

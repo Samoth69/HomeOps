@@ -9,7 +9,7 @@ spec:
       node-role.kubernetes.io/control-plane: ""
   ingress:
     - fromCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan
       toPorts:
         - ports:
             - port: "139"
@@ -29,7 +29,7 @@ spec:
       app.kubernetes.io/instance: *app
   ingress:
     - fromCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan
       toPorts:
         - ports:
             - port: "139"
@@ -38,4 +38,4 @@ spec:
               protocol: TCP
   egress:
     - toCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan

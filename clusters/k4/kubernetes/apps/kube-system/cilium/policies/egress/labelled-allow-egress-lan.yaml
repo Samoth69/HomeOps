@@ -9,4 +9,4 @@ spec:
       egress.samoth.eu/lan: allow
   egress:
     - toCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan

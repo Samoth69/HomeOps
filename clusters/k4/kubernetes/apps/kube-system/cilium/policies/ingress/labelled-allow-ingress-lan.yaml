@@ -9,4 +9,4 @@ spec:
       ingress.samoth.eu/lan: allow
   ingress:
     - fromCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan

@@ -8,4 +8,5 @@ components:
   - ../../components/sops
 
 resources:
+  - ./forgejo-runner/ks.yaml
   - ./gitlab-runner/ks.yaml

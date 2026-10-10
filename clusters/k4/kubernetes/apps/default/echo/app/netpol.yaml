@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/instance: echo
   ingress:
     - fromCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan
       toPorts:
         - ports:
           - port: "80"

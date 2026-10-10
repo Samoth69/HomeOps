@@ -2,7 +2,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumCIDRGroup
 metadata:
-  name: group-lan
+  name: lan
 spec:
   externalCIDRs:
     - ${SECRET_CIDR_LAN_V4}

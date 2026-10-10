@@ -90,7 +90,8 @@ resources-late:
     sops decrypt "{{ kubernetes_dir }}/components/sops/cluster-secrets.sops.yaml" | yq '.stringData.[] | key + "=" + . ' | while read p; do \
       export $p; \
     done; \
-    yq '(.. | select(tag == "!!str")) |= envsubst' "{{ kubernetes_dir }}/apps/kube-system/cilium/cidr-group/cidr-group-lan.yaml" | kubectl apply -n kube-system -f -
+    yq '(.. | select(tag == "!!str")) |= envsubst' "{{ kubernetes_dir }}/apps/kube-system/cilium/cidr-group/lan.yaml" | kubectl apply -n kube-system -f -
+    yq '(.. | select(tag == "!!str")) |= envsubst' "{{ kubernetes_dir }}/apps/kube-system/cilium/cidr-group/internet.yaml" | kubectl apply -n kube-system -f -
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/allow-dns.yaml"
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/kube-system/cilium/policies/host-firewall.yaml"
     kubectl apply -n flux-system -f "{{ kubernetes_dir }}/apps/flux-system/flux-instance/app/netpol.yaml"

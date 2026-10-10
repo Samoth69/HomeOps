@@ -30,7 +30,7 @@ spec:
               type: EchoRequest
     # Talos
     - fromCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan
       toPorts:
         - ports:
             # kubernetes-api-ingress
@@ -47,4 +47,4 @@ spec:
         - cluster
         - world
     - toCIDRSet:
-        - cidrGroupRef: group-lan
+        - cidrGroupRef: lan

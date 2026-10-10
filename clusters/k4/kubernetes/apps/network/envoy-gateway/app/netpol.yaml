@@ -53,7 +53,7 @@ spec:
       node-role.kubernetes.io/control-plane: ""
   ingress:
   - fromCIDRSet:
-      - cidrGroupRef: group-lan
+      - cidrGroupRef: lan
     toPorts:
       - ports:
         - port: "80"
