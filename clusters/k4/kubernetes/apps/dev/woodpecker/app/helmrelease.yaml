@@ -59,8 +59,7 @@ spec:
         WOODPECKER_BACKEND_K8S_STORAGE_RWX: true
         WOODPECKER_BACKEND_K8S_POD_LABELS: |
           {
-            "egress.samoth.eu/envoy-internal": "allow",
-            "egress.samoth.eu/internet-http": "allow"
+            "egress.samoth.eu/envoy-internal": "allow"
           }
         # WOODPECKER_BACKEND_K8S_POD_ANNOTATIONS: ''
         WOODPECKER_BACKEND_K8S_POD_LABELS_ALLOW_FROM_STEP: true
