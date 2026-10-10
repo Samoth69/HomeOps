@@ -20,3 +20,10 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+  commonMetadata:
+    labels:
+      ingress.samoth.eu/envoy-internal: allow
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/database: allow
+      egress.samoth.eu/envoy-internal: allow
+      egress.samoth.eu/kube-apiserver: allow
