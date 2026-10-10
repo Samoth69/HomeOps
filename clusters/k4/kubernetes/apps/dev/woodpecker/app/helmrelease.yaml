@@ -50,7 +50,7 @@ spec:
     agent:
       replicaCount: 1
       env:
-        WOODPECKER_SERVER: https://woodpecker.${SECRET_DOMAIN}
+        WOODPECKER_SERVER: woodpecker.${SECRET_DOMAIN}
         WOODPECKER_BACKEND: kubernetes
         WOODPECKER_BACKEND_K8S_NAMESPACE: dev
         WOODPECKER_BACKEND_K8S_NAMESPACE_PER_ORGANIZATION: false
