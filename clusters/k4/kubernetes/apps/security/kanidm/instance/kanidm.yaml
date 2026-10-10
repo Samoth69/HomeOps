@@ -60,10 +60,6 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        dataSourceRef:
-          apiGroup: kopiur.home-operations.com
-          kind: Restore
-          name: ${APP}
         resources:
           requests:
             storage: 128Mi
