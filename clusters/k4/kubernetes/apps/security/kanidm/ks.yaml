@@ -19,6 +19,8 @@ kind: Kustomization
 metadata:
   name: &app kanidm-instance
 spec:
+  components:
+    - ../../../../components/kopiur/backup
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
