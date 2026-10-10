@@ -26,7 +26,7 @@ spec:
     agent:
       replicaCount: 1
       env:
-        WOODPECKER_SERVER: https://woodpecker.{SECRET_DOMAIN}
+        WOODPECKER_SERVER: https://woodpecker.${SECRET_DOMAIN}
         WOODPECKER_BACKEND: kubernetes
         WOODPECKER_BACKEND_K8S_NAMESPACE: dev
         WOODPECKER_BACKEND_K8S_NAMESPACE_PER_ORGANIZATION: false
@@ -48,7 +48,7 @@ spec:
     server:
       env:
         WOODPECKER_ADMIN: 'samoth69'
-        WOODPECKER_HOST: https://woodpecker.{SECRET_DOMAIN}
+        WOODPECKER_HOST: https://woodpecker.${SECRET_DOMAIN}
         WOODPECKER_DATABASE_DRIVER: postgres
         WOODPECKER_DATABASE_DATASOURCE:
           valueFrom:
@@ -56,7 +56,7 @@ spec:
               name: postgres-user-${APP}
               key: uri
         WOODPECKER_FORGEJO: true
-        WOODPECKER_FORGEJO_URL: https://forgejo.{SECRET_DOMAIN}
+        WOODPECKER_FORGEJO_URL: https://forgejo.${SECRET_DOMAIN}
         WOODPECKER_FORGEJO_CLIENT:
           valueFrom:
             secretKeyRef:
