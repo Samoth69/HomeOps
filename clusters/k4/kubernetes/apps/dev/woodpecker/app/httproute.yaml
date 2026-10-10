@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1beta1.json
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: ${APP}
+  annotations:
+    gatus.home-operations.com/enabled: "true"
+spec:
+  hostnames:
+    - woodpecker.${SECRET_DOMAIN}
+  parentRefs:
+    - name: envoy-internal
+      namespace: network
+      sectionName: https
+  rules:
+    - backendRefs:
+        - kind: Service
+          name: woodpecker-server
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
