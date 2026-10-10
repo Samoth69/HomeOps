@@ -5,8 +5,9 @@ namespace: dev
 
 components:
   - ../../components/kopiur/secret
-  - ../../components/namespace
+  - ../../components/namespace-isolated
   - ../../components/sops
 
 resources:
   - ./forgejo/ks.yaml
+  - ./woodpecker/ks.yaml

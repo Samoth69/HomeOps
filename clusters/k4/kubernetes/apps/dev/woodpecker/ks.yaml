@@ -3,18 +3,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app forgejo-runner
+  name: &app woodpecker
 spec:
+  components:
+    - ../../../../components/app-network-policy
+    - ../../../../components/database
   dependsOn:
-    - name: forgejo
-      namespace: dev
-  path: ./clusters/k4/kubernetes/apps/dev-sandbox/forgejo-runner/app
-  targetNamespace: &namespace dev-sandbox
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
+    - name: postgres-cnpg
+      namespace: database
+  path: ./clusters/k4/kubernetes/apps/dev/woodpecker/app
+  targetNamespace: &namespace dev
   postBuild:
     substituteFrom:
       - name: cluster-secrets
