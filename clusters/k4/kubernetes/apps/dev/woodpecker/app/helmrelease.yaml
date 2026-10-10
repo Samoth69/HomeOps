@@ -22,14 +22,23 @@ spec:
   chartRef:
     kind: OCIRepository
     name: ${APP}
-  interval: 1h
-  commonMetadata:
-    labels:
-      ingress.samoth.eu/envoy-internal: allow
-      ingress.samoth.eu/kube-apiserver: allow
-      egress.samoth.eu/database: allow
-      egress.samoth.eu/envoy-internal: allow
-      egress.samoth.eu/kube-apiserver: allow
+  interval: 1h      
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              group: app
+              kind: StatefulSet
+            patch: |
+              - op: add
+                path: /spec/template/metadata/labels/-
+                value:
+                  ingress.samoth.eu/envoy-internal: allow
+                  ingress.samoth.eu/kube-apiserver: allow
+                  egress.samoth.eu/database: allow
+                  egress.samoth.eu/envoy-internal: allow
+                  egress.samoth.eu/kube-apiserver: allow
   values:
     agent:
       replicaCount: 1
