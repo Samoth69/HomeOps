@@ -10,4 +10,3 @@ components:
 
 resources:
   - ./forgejo/ks.yaml
-  - ./gitlab/ks.yaml

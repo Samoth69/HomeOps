@@ -12,7 +12,6 @@ spec:
         - 10.48.0.0/16
         - fd00:48::/56
   path:
-    # mandatory for GitLab
     escapedSlashesAction: KeepUnchanged
   http2:
     onInvalidMessage: TerminateStream
