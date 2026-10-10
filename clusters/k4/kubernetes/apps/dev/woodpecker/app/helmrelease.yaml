@@ -28,7 +28,7 @@ spec:
         patches:
           - target:
               version: v1
-              group: app
+              group: apps
               kind: StatefulSet
             patch: |
               - op: add
