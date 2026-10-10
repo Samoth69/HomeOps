@@ -13,6 +13,7 @@ spec:
     tag: 3.7.5
   url: oci://ghcr.io/woodpecker-ci/helm/woodpecker
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -22,6 +23,13 @@ spec:
     kind: OCIRepository
     name: ${APP}
   interval: 1h
+  commonMetadata:
+    labels:
+      ingress.samoth.eu/envoy-internal: allow
+      ingress.samoth.eu/kube-apiserver: allow
+      egress.samoth.eu/database: allow
+      egress.samoth.eu/envoy-internal: allow
+      egress.samoth.eu/kube-apiserver: allow
   values:
     agent:
       replicaCount: 1
