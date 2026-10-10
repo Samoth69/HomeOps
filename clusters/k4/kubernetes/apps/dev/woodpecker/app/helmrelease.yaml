@@ -22,7 +22,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: ${APP}
-  interval: 1h      
+  interval: 1h
   postRenderers:
     - kustomize:
         patches:
@@ -32,13 +32,20 @@ spec:
               kind: StatefulSet
             patch: |
               - op: add
-                path: /spec/template/metadata/labels/-
-                value:
-                  ingress.samoth.eu/envoy-internal: allow
-                  ingress.samoth.eu/kube-apiserver: allow
-                  egress.samoth.eu/database: allow
-                  egress.samoth.eu/envoy-internal: allow
-                  egress.samoth.eu/kube-apiserver: allow
+                path: /spec/template/metadata/labels/ingress.samoth.eu~1envoy-internal
+                value: allow
+              - op: add
+                path: /spec/template/metadata/labels/ingress.samoth.eu~1kube-apiserver
+                value: allow
+              - op: add
+                path: /spec/template/metadata/labels/egress.samoth.eu~1database
+                value: allow
+              - op: add
+                path: /spec/template/metadata/labels/egress.samoth.eu~1envoy-internal
+                value: allow
+              - op: add
+                path: /spec/template/metadata/labels/egress.samoth.eu~1kube-apiserver
+                value: allow
   values:
     agent:
       replicaCount: 1
