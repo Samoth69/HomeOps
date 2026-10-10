@@ -50,7 +50,7 @@ spec:
                 options:
                   namespace: dev-sandbox
                   poll_timeout: 10m
-                  labels: "app.kubernetes.io/name=forgejo-runner,app.kubernetes.io/instance=runner-${ENV_ID},egress.samoth.eu=deny"
+                  labels: "app.kubernetes.io/name=forgejo-runner,app.kubernetes.io/instance=runner-$${ENV_ID},egress.samoth.eu=deny"
                   resources: |
                     requests:
                       cpu: 100m
