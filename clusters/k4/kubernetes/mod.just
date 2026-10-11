@@ -35,4 +35,5 @@ garage-sync:
     sops decrypt "{{ kubernetes_dir }}/rclone.sops.yaml" | yq '.stringData | map(key + "=" + .)[]' | while read p; do \
       export $p; \
     done; \
-    rclone sync --fast-list --checksum --s3-env-auth --s3-region garage --s3-force-path-style "{{ kubernetes_dir }}" :s3:k4-fluxcd/clusters/k4/kubernetes
+    rclone sync --fast-list --checksum --s3-env-auth --s3-region garage --s3-force-path-style "{{ kubernetes_dir }}" :s3:k4-fluxcd/clusters/k4/kubernetes; \
+    curl --fail -m 30 -X POST $FLUX_WEBHOOK_URL

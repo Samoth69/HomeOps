@@ -6,6 +6,7 @@ stringData:
     AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:jILTaotQVdN5gwwSbzQhfOfDmQqs3jB7Q68=,iv:cPj4wAb5QKQ8gCZx1BM8yeNlLgvabdXNBaeyM5b5UE4=,tag:AA3e6+xK/eEEjohDG++jyw==,type:str]
     AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:U4Nt0WRJkaCuUdeh7gt/looBkE8/A0uyWfhZu/p8buiY7avGSPlGFnpkFRkxl2RIYoTlx79gz6Rc58s4eHiAGA==,iv:qMx9l/ikT6XMKczfM/TVD03Wl133lJR2nyqjmgQohK4=,tag:ALlqg8C7uj5nVkF9mk6zAw==,type:str]
     RCLONE_S3_ENDPOINT: ENC[AES256_GCM,data:uMVfJYgefw9O88ElNZlZ6qA7Qv9pe3r+,iv:T26PxzsHB4H2BQH9uUxqnlRqtcCxg7FdNKFKJPiLWFw=,tag:q2wNbOzZ0fBxInBh0TGKyg==,type:str]
+    FLUX_WEBHOOK_URL: ENC[AES256_GCM,data:8KP2LCM+WfYGZhNp81RoVZqx5aor6c+FCcNgluk/VNT8XqV6PSd93/O8qRqPUBwyOH2q54x3oslonzQEKKuPD1eJdr0yqVlD28W/iLuJsYVorVkTHpXkJR3QGQq2vEJr97gI/DfDYQ==,iv:rSRtwWuFTlUHBcpirdZgdXAtT10wX3iSXQx4AEL8ITw=,tag:R2JZi5u4y0H+JOVRAtCDEw==,type:str]
 sops:
     age:
         - enc: |
@@ -18,6 +19,6 @@ sops:
             -----END AGE ENCRYPTED FILE-----
           recipient: age1emjn2wlxmsgdeu04uwgvlp4s8a8uwtcyg9g89v550z4zjt7jy3gqu6vw93
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-09-27T11:52:02Z"
-    mac: ENC[AES256_GCM,data:wbcWL8gPiSy+9GDw92287thZcKAtbGWepO8hE7o1G76RNYrWRMI9WIx0636rXS+dNP16qRTrOFRU4YVqDgR1JHrAromor8IdH3KHCW/7Sr2/9vq6HJoBej3NcQ6ZbDo7wTLo059FAZ2estBgBAmib+IxeL02Gh6pARo9MyonFBk=,iv:vjmVR9D1W34P0E5DkkA5ZbIVpaNtffplYkktasP40tw=,tag:QLKcCVh30YHbqzPxfnPVQw==,type:str]
+    lastmodified: "2026-10-11T12:50:10Z"
+    mac: ENC[AES256_GCM,data:APBqoOAyyttuA8SLisNHfAcinOCiBVr69ti283zp9ur+8AlQyNGB2PvIWx5pSdg12vtbc89eHU8KUevDTKI4/svk+tf24mPZw3dM2TZYpxQXysGhMEg65uYfnodf3vEvZA+k8Bz25szT1R3trcHP+jB/8stdxv5FlULCXGzKjE8=,iv:GpXJjgdibYpi/oMQpPD5t4Q5tex31YBFZV/XiQMZWlY=,tag:uhpV/dIIyfRgc6yd4w1PlA==,type:str]
     version: 3.13.3

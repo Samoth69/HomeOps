@@ -16,3 +16,4 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
+      KANIDM_REDIRECT_PATH: /auth/callback
