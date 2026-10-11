@@ -9,3 +9,15 @@ spec:
     displayname: Samoth
     mail:
       - ${SECRET_EMAIL}
+---
+apiVersion: kaniop.rs/v1beta1
+kind: KanidmPersonAccount
+metadata:
+  name: renovate
+spec:
+  kanidmRef:
+    name: kanidm-cluster
+  personAttributes:
+    displayname: Renovate
+    mail:
+      - renovate@${SECRET_DOMAIN}
