@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/renovate-operator.mogenius.com/renovatejob_v1alpha1.json
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: ${APP}
+spec:
+  discoveryFilters:
+    - Samoth69/HomeOps
+  image: ghcr.io/renovatebot/renovate:44.133.0
+  parallelism: 1
+  extraEnv:
+    - name: TZ
+      value: Europe/Paris
+    - name: RENOVATE_HOST_RULES
+      value: '[{"matchHost":"forgejo.${SECRET_DOMAIN}","allowInternal":true}]'
+  provider:
+    name: forgejo
+    endpoint: https://forgejo.${SECRET_DOMAIN}/api/v1
+  schedule: "0 * * * *"
+  secretRef: ${APP}-secret
