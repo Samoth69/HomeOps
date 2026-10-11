@@ -23,6 +23,9 @@ spec:
     name: ${APP}
   interval: 1h
   values:
+    crd:
+      mode: template
+
     deployment:
       annotations:
         reloader.stakater.com/auto: "true"

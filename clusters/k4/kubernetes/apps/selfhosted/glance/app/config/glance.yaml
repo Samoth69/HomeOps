@@ -71,6 +71,10 @@ pages:
             location: Lyon,	France
             hour-format: 24h
           - type: repository
+            repository: https://forgejo.${SECRET_DOMAIN}/Samoth69/HomeOps.git
+            pull-requests-limit: 5
+            issues-limit: 3
+          - type: repository
             repository: Samoth69/HomeOps
             pull-requests-limit: 5
             issues-limit: 3
