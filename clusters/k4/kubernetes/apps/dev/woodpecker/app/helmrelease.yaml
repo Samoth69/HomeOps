@@ -81,6 +81,8 @@ spec:
     server:
       statefulSet:
         replicaCount: 2
+        annotations:
+          reloader.stakater.com/auto: "true"
       env:
         WOODPECKER_ADMIN: 'samoth69'
         WOODPECKER_HOST: https://woodpecker.${SECRET_DOMAIN}
@@ -89,7 +91,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: postgres-user-${APP}
-              key: uri
+              key: uri-session
         WOODPECKER_FORGEJO: true
         WOODPECKER_FORGEJO_URL: https://forgejo.${SECRET_DOMAIN}
         WOODPECKER_FORGEJO_CLIENT:
