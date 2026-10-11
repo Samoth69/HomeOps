@@ -1,0 +1,24 @@
+when:
+  - event: push
+    branch: main
+
+steps:
+  - name: copy
+    image: rclone/rclone
+    commands:
+      - rclone sync --fast-list --checksum --s3-env-auth --s3-region garage --s3-force-path-style ./clusters/k4/kubernetes :s3:k4-fluxcd/clusters/k4/kubernetes
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: garage_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: garage_access_key_secret
+      RCLONE_S3_ENDPOINT:
+        from_secret: garage_s3_endpoint
+    backend_options:
+      kubernetes:
+        labels:
+          egress.samoth.eu/truenas-https: allow
+  # - name: flux sync
+  #   image: alpine
+  #   commands:
+  #     - curl https://woodpecker.${SECRET_DOMAIN}/hook/
