@@ -74,3 +74,8 @@ spec:
 
     rbac:
       ownNamespaceOnly: true
+    
+    authorization:
+      defaults:
+        adminUsers:
+          - ${SECRET_EMAIL}
