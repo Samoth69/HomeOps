@@ -22,11 +22,6 @@ spec:
         - helm-controller
         - notification-controller
       sync:
-        # kind: Bucket
-        # url: "https://github.com/Samoth69/HomeOps.git"
-        # ref: "refs/heads/main"
-        # path: clusters/k4/kubernetes/flux/cluster
-        # interval: 15m
         kind: Bucket
         url: ${SECRET_GARAGE_ENDPOINT}
         ref: k4-fluxcd
