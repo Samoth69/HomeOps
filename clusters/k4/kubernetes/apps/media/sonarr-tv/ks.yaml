@@ -32,7 +32,7 @@ spec:
       name: *app
       namespace: media
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   targetNamespace: media

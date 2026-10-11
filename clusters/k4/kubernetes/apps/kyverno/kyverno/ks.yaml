@@ -21,7 +21,7 @@ spec:
       name: *app
       namespace: kyverno
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   targetNamespace: kyverno
@@ -43,7 +43,7 @@ spec:
         kind: Secret
   prune: true
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   targetNamespace: kyverno

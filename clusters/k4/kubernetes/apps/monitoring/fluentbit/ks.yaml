@@ -11,7 +11,7 @@ spec:
   path: ./clusters/k4/kubernetes/apps/monitoring/fluentbit/app
   prune: true
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   targetNamespace: monitoring

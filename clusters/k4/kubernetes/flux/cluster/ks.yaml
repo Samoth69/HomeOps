@@ -12,7 +12,7 @@ spec:
   path: ./clusters/k4/kubernetes/apps
   prune: true
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   wait: false
@@ -58,7 +58,7 @@ spec:
               - name: cluster-secrets
                 kind: Secret
           sourceRef:
-            kind: GitRepository
+            kind: Bucket
             name: flux-system
             namespace: flux-system
           wait: false

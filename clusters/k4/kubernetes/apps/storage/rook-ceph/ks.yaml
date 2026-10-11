@@ -18,7 +18,7 @@ spec:
         kind: Secret
   prune: false
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   wait: false
@@ -45,7 +45,7 @@ spec:
   path: ./clusters/k4/kubernetes/apps/storage/rook-ceph/csi-drivers
   prune: false
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   wait: false
@@ -82,7 +82,7 @@ spec:
   path: ./clusters/k4/kubernetes/apps/storage/rook-ceph/cluster
   prune: false
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   wait: false

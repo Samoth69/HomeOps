@@ -23,7 +23,7 @@ spec:
       KOPIUR_SNAPSHOTCLASS: csi-ceph-filesystem
   prune: true
   sourceRef:
-    kind: GitRepository
+    kind: Bucket
     name: flux-system
     namespace: flux-system
   targetNamespace: games
