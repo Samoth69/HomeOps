@@ -80,7 +80,7 @@ spec:
           memory: 512Mi
     server:
       statefulSet:
-        replicaCount: 2
+        replicaCount: 1
         annotations:
           reloader.stakater.com/auto: "true"
       env:
