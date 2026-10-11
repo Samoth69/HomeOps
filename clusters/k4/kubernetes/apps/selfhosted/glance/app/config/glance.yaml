@@ -70,10 +70,12 @@ pages:
             units: metric
             location: Lyon,	France
             hour-format: 24h
-          - type: repository
-            repository: https://forgejo.${SECRET_DOMAIN}/Samoth69/HomeOps.git
-            pull-requests-limit: 5
-            issues-limit: 3
+          - type: rss
+            limit: 10
+            collapse-after: 3
+            cache: 3h
+            feeds:
+              - url: https://forgejo.${SECRET_DOMAIN}/Samoth69/HomeOps.rss
           - type: repository
             repository: Samoth69/HomeOps
             pull-requests-limit: 5
