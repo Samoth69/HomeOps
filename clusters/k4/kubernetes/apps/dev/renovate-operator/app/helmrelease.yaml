@@ -37,6 +37,13 @@ spec:
         egress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/envoy-internal: allow
     
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 512Mi
+
     config:
       podLabelTemplates:
         ingress.samoth.eu/envoy-internal: allow
@@ -63,7 +70,7 @@ spec:
         clientId: ${APP}
         existingSecret: ${APP}-kanidm-oauth2-credentials
         secretKey: CLIENT_SECRET
-        redirectUrl: https://idm.${SECRET_DOMAIN}/auth/callback
+        redirectUrl: https://${APP}.${SECRET_DOMAIN}/auth/callback
 
     rbac:
       ownNamespaceOnly: true
