@@ -23,7 +23,7 @@ steps:
   - name: flux sync
     image: quay.io/curl/curl
     commands:
-      - sh -c 'curl -v -X POST $FLUX_WEBHOOK_URL'
+      - curl --fail -m 30 -X POST $FLUX_WEBHOOK_URL
     environment:
       FLUX_WEBHOOK_URL:
         from_secret: flux_webhook_url
