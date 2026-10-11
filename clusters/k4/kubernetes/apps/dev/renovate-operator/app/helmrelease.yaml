@@ -23,6 +23,8 @@ spec:
     name: ${APP}
   interval: 1h
   values:
+    fullnameOverride: ${APP}
+
     crd:
       mode: template
 
@@ -61,3 +63,7 @@ spec:
         clientId: ${APP}
         existingSecret: ${APP}-kanidm-oauth2-credentials
         secretKey: CLIENT_SECRET
+        redirectUrl: https://idm.${SECRET_DOMAIN}/auth/callback
+
+    rbac:
+      ownNamespaceOnly: true
