@@ -74,5 +74,3 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       mc-glmart-02:
         existingClaim: mc-glmart-02
-      mc-craftoria-01:
-        existingClaim: mc-craftoria-01
