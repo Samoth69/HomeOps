@@ -7,7 +7,7 @@ metadata:
 spec:
   discoveryFilters:
     - Samoth69/HomeOps
-  image: ghcr.io/renovatebot/renovate:44.167.6
+  image: ghcr.io/renovatebot/renovate:44.167.7
   parallelism: 1
   extraEnv:
     - name: TZ
