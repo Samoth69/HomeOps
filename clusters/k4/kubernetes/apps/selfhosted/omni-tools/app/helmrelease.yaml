@@ -32,7 +32,7 @@ spec:
           omni-tools:
             image:
               repository: mirror.gcr.io/iib0011/omni-tools
-              tag: 0.6.0
+              tag: 0.7.0
             command: [ "nginx" ]
             args: [ "-g", "daemon off;" ]
             resources:
