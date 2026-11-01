@@ -32,7 +32,7 @@ spec:
           app:
             image: 
               repository: sknnr/enshrouded-dedicated-server
-              tag: v2.4.0
+              tag: proton-v2.4.0
             ports:
               - containerPort: &port 15639
                 name: gameport
