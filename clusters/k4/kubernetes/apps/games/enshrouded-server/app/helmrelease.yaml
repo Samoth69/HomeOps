@@ -47,10 +47,10 @@ spec:
                   name: ${APP}-secret
             resources:
               requests:
-                cpu: 100m
-                memory: 4Gi
+                cpu: 300m
+                memory: 2Gi
               limits:
-                memory: 16Gi
+                memory: 8Gi
     defaultPodOptions:
       labels:
         ingress.samoth.eu/internet: allow
