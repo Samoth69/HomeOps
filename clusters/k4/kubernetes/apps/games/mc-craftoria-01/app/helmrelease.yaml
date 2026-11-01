@@ -115,7 +115,6 @@ spec:
         ingress.samoth.eu/lan: allow
         ingress.samoth.eu/kube-apiserver: allow
         ingress.samoth.eu/host: allow
-        egress.samoth.eu/dns: allow
         egress.samoth.eu/internet: allow
       securityContext:
         runAsNonRoot: true
