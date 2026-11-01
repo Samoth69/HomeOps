@@ -1,0 +1,93 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/ocirepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 5.3.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    controllers:
+      app:
+        type: statefulset
+        revisionHistoryLimit: 2
+        containers:
+          app:
+            image: 
+              repository: sknnr/enshrouded-dedicated-server
+              tag: v2.4.0
+            ports:
+              - containerPort: &port 15639
+                name: gameport
+                protocol: UDP
+            env:
+              SERVER_NAME: Enshrouded
+              PORT: *port
+              SERVER_SLOTS: 16
+              SERVER_IP: 0.0.0.0
+            envFrom:
+              - secretRef:
+                  name: ${APP}-secret
+            resources:
+              requests:
+                cpu: 100m
+                memory: 4Gi
+              limits:
+                memory: 16Gi
+    defaultPodOptions:
+      labels:
+        ingress.samoth.eu/internet: allow
+        ingress.samoth.eu/lan: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        ingress.samoth.eu/host: allow
+        egress.samoth.eu/internet: allow
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10000
+        runAsGroup: 10000
+        fsGroup: 10000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: "RuntimeDefault" }
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                      - lynka
+    service:
+      main:
+        annotations:
+          lbipam.cilium.io/ips: "${SECRET_LB2_IPV4}"
+          lbipam.cilium.io/sharing-key: "games"
+        controller: app
+        type: LoadBalancer
+        ports:
+          gameport-udp:
+            enabled: true
+            protocol: UDP
+            port: *port
+    persistence:
+      save:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /home/steam/enshrouded/savegame

@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app enshrouded-server
+spec:
+  dependsOn:
+    - name: kopiur-repository
+      namespace: system
+  interval: 1h
+  path: ./clusters/k4/kubernetes/apps/games/enshrouded-server/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+    substitute:
+      APP: *app
+      KOPIUR_STORAGECLASS: ceph-filesystem
+      KOPIUR_CAPACITY: 50Gi
+      KOPIUR_ACCESSMODES: ReadWriteMany
+      KOPIUR_SNAPSHOTCLASS: csi-ceph-filesystem
+  targetNamespace: games
+  components:
+    - ../../../../components/kopiur/backup
