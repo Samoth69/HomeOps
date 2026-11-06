@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app mc-atm10-01
+  name: &app mc-prominence-ii-hasturian-era
   namespace: flux-system
 spec:
   dependsOn:
     - name: kopiur-repository
       namespace: system
   interval: 1h
-  path: ./clusters/k4/kubernetes/apps/games/mc-atm10-01/app
+  path: ./clusters/k4/kubernetes/apps/games/mc-prominence-ii-hasturian-era/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
