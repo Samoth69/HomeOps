@@ -32,7 +32,7 @@ spec:
             image: 
               repository: ghcr.io/itzg/minecraft-server
               pullPolicy: Always
-              tag: java21
+              tag: java17
             ports:
               - containerPort: &port 25566
                 protocol: TCP
