@@ -11,7 +11,7 @@ components:
 
 resources:
   # - ./auto-restart/ks.yaml
-  - ./enshrouded-server/ks.yaml
+  # - ./enshrouded-server/ks.yaml
   - ./mc-prominence-ii-hasturian-era/ks.yaml
   # - ./mc-craftoria-01/ks.yaml
   - ./mc-glmart-02/ks.yaml
