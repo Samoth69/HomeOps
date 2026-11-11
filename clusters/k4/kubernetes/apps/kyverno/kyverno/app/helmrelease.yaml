@@ -84,3 +84,5 @@ spec:
       policyExceptions:
         enabled: true
         namespace: "*"
+    upgrade:
+      acknowledgeLegacyPoliciesNotEnforced: true
