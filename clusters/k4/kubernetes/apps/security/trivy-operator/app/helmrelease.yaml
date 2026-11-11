@@ -9,7 +9,7 @@ spec:
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
-  url: oci://docker pull ghcr.io/home-operations/charts-mirror/trivy-operator
+  url: oci://ghcr.io/home-operations/charts-mirror/trivy-operator
   ref:
     tag: 0.38.1
 ---
