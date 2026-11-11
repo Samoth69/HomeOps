@@ -58,6 +58,9 @@ spec:
       skipResourceByLabels: "app.kubernetes.io/created-by=kopiur"
       scanJobPodTemplateLabels: "egress.samoth.eu/internet=allow"
 
+    nodeCollector:
+      useNodeSelector: false
+
     resources:
       requests:
         cpu: 32m

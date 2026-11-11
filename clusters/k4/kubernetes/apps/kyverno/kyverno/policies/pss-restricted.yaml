@@ -39,7 +39,6 @@ spec:
                 - monitoring
                 - storage
                 - system
-                - vuln-scan
       validate:
         allowExistingViolations: false
         failureAction: Audit
