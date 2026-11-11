@@ -37,7 +37,7 @@ spec:
           version: latest
           exclude:
             - controlName: Host Namespaces
-            
+
             - controlName: HostPath Volumes
               restrictedField: spec.volumes[*].hostPath
               values:
@@ -45,6 +45,7 @@ spec:
                 - /etc/kubernetes
                 - /etc/systemd
                 - /lib/systemd
+                - /var/lib/etcd
                 - /var/lib/kubelet
                 - /var/lib/kube-controller-manager
                 - /var/lib/kube-scheduler
