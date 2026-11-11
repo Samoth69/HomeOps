@@ -25,7 +25,7 @@ spec:
   interval: 1h
   values:
     operator:
-      builtInTrivyServer: false
+      builtInTrivyServer: true
       scanJobsConcurrentLimit: 3
       scanJobTTL: 300s
       scanJobTimeout: 20m
