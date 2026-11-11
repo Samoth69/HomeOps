@@ -12,6 +12,7 @@ metadata:
 spec:
   instances: 3
 
+  # renovate: datasource=docker
   imageName: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie
 
   storage:
