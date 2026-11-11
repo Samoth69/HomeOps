@@ -7,7 +7,6 @@ namespace: kyverno
 components:
   - ../../components/sops
   - ../../components/namespace
-  - ../../components/pss-restricted
 
 resources:
   - ./kyverno/ks.yaml

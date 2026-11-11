@@ -80,3 +80,7 @@ spec:
     crds:
       migration:
         podLabels: *labels
+    features:
+      policyExceptions:
+        enabled: true
+        namespace: "*"

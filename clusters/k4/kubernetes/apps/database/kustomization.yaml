@@ -7,7 +7,6 @@ namespace: database
 components:
   - ../../components/sops
   - ../../components/namespace
-  - ../../components/pss-restricted
 
 resources:
   - ./cnpg/ks.yaml

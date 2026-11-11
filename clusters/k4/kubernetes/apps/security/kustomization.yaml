@@ -7,7 +7,6 @@ namespace: security
 components:
   - ../../components/sops
   - ../../components/namespace-isolated
-  - ../../components/pss-restricted
 
 resources:
   - ./kanidm/ks.yaml
