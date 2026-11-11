@@ -25,6 +25,7 @@ spec:
   interval: 1h
   values:
     operator:
+      builtInTrivyServer: false
       scanJobsConcurrentLimit: 3
       scanJobTTL: 300s
       scanJobTimeout: 20m
@@ -40,11 +41,10 @@ spec:
       enabled: true
     
     trivy:
+      mode: client-server
       slow: true
       ignoreUnfixed: true
       podLabels:
-        ingress.samoth.eu/kube-apiserver: allow
-        egress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/internet: allow
       server:
         resources:
@@ -56,6 +56,7 @@ spec:
 
     trivyOperator:
       skipResourceByLabels: "app.kubernetes.io/created-by=kopiur"
+      scanJobPodTemplateLabels: "egress.samoth.eu/internet: allow"
 
     resources:
       requests:
