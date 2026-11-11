@@ -8,6 +8,9 @@ spec:
   policyRefs:
     - name: disallow-host-path
       kind: ValidatingPolicy
+  matchConditions:
+    - name: namespace
+      expression: "object.metadata.namespace == 'monitoring'"
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/policies.kyverno.io/policyexception_v1.json
 apiVersion: policies.kyverno.io/v1
@@ -18,6 +21,9 @@ spec:
   policyRefs:
     - name: disallow-host-namespaces
       kind: ValidatingPolicy
+  matchConditions:
+    - name: namespace
+      expression: "object.metadata.namespace == 'monitoring'"
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/policies.kyverno.io/policyexception_v1.json
 apiVersion: policies.kyverno.io/v1
@@ -28,6 +34,9 @@ spec:
   policyRefs:
     - name: disallow-host-ports
       kind: ValidatingPolicy
+  matchConditions:
+    - name: namespace
+      expression: "object.metadata.namespace == 'monitoring'"
   images:
     - quay.io/prometheus/node-exporter:*
     - cr.fluentbit.io/fluent/fluent-bit:*
@@ -41,5 +50,8 @@ spec:
   policyRefs:
     - name: disallow-privileged-containers
       kind: ValidatingPolicy
+  matchConditions:
+    - name: namespace
+      expression: "object.metadata.namespace == 'monitoring'"
   images:
     - quay.io/prometheuscommunity/smartctl-exporter:*
