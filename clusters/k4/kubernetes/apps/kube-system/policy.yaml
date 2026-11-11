@@ -3,7 +3,7 @@
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
-  name: exception-hostnamespace-kube-system
+  name: exception-host-namespace
 spec:
   policyRefs:
     - name: disallow-host-namespaces
@@ -13,7 +13,7 @@ spec:
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
-  name: exception-hostports-kube-system
+  name: exception-host-ports
 spec:
   policyRefs:
     - name: disallow-host-ports

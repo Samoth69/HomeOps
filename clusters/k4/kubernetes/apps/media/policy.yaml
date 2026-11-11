@@ -3,7 +3,7 @@
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
-  name: exception-hostpath-media
+  name: exception-hostpath
 spec:
   policyRefs:
     - name: disallow-host-path
@@ -19,7 +19,7 @@ spec:
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
-  name: exception-capabilites-media
+  name: exception-capabilites
 spec:
   policyRefs:
     - name: disallow-capabilities
