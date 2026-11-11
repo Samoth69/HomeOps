@@ -28,7 +28,7 @@ spec:
       scanJobsConcurrentLimit: 3
       scanJobTTL: 300s
       scanJobTimeout: 20m
-      labels:
+      podLabels:
         ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/kube-apiserver: allow
