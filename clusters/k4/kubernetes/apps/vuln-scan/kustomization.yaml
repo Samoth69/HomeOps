@@ -9,4 +9,5 @@ components:
   - ../../components/namespace-isolated
 
 resources:
+  - ./policy.yaml
   - ./trivy-operator/ks.yaml

@@ -34,12 +34,12 @@ spec:
         any:
           - resources:
               namespaces:
-                - dev
                 - kube-system
                 - media
                 - monitoring
                 - storage
                 - system
+                - vuln-scan
       validate:
         allowExistingViolations: false
         failureAction: Audit
