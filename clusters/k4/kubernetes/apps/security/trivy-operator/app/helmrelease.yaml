@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  url: oci://ghcr.io/aquasecurity/helm-charts/trivy-operator
+  ref:
+    tag: 0.36.1
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    operator:
+      scanJobsConcurrentLimit: 3
+      scanJobTTL: 300s
+      scanJobTimeout: 20m
+      labels:
+        ingress.samoth.eu/vmagent: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/internet-github: allow
+      annotations:
+        reloader.stakater.com/auto: "true"
+    
+    serviceMonitor:
+      enabled: true
+    
+    trivy:
+      slow: true
+      ignoreUnfixed: true
+      podLabels:
+        ingress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/kube-apiserver: allow
+        egress.samoth.eu/internet: allow
+      server:
+        resources:
+          requests:
+            cpu: 17m
+            memory: 432Mi
+          limits:
+            memory: 432Mi
+
+    trivyOperator:
+      skipResourceByLabels: "app.kubernetes.io/created-by=kopiur"
+
+    resources:
+      requests:
+        cpu: 32m
+        memory: 1520Mi
+      limits:
+        memory: 1520Mi

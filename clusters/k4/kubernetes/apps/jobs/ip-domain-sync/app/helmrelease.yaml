@@ -33,6 +33,7 @@ spec:
           failedJobsHistory: 1
           schedule: "*/15 * * * *"
           timeZone: "Europe/Paris"
+          ttlSecondsAfterFinished: 3600
           successfulJobsHistory: 1
           suspend: false
         pod:
