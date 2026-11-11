@@ -29,7 +29,7 @@ spec:
     alpnProtocols:
       - h2
       - http/1.1
-    # We do not want envoy to valide the cert provided by cert manager
+    # We do not want envoy to validate the cert provided by cert manager
     clientValidation:
       mode: RequireAny
     minVersion: "1.3"
