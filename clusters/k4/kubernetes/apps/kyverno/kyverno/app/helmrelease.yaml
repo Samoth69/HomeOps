@@ -84,3 +84,6 @@ spec:
       policyExceptions:
         enabled: true
         namespace: "*"
+    # TODO to remove
+    upgrade:
+      acknowledgeLegacyPoliciesNotEnforced: true
