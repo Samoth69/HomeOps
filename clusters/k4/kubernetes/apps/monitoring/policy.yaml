@@ -37,9 +37,9 @@ spec:
   matchConditions:
     - name: namespace
       expression: "object.metadata.namespace == 'monitoring'"
-  images:
-    - quay.io/prometheus/node-exporter:*
-    - cr.fluentbit.io/fluent/fluent-bit:*
+  # images:
+  #   - quay.io/prometheus/node-exporter:*
+  #   - cr.fluentbit.io/fluent/fluent-bit:*
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/policies.kyverno.io/policyexception_v1.json
 apiVersion: policies.kyverno.io/v1
