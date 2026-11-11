@@ -25,22 +25,27 @@ spec:
   interval: 1h
   values:
     operator:
+      annotations:
+        reloader.stakater.com/auto: "true"
       builtInTrivyServer: true
+      vulnerabilityScannerScanOnlyCurrentRevisions: true
+      configAuditScannerScanOnlyCurrentRevisions: true
       scanJobsConcurrentLimit: 3
       scanJobTTL: 300s
       scanJobTimeout: 20m
+      infraAssessmentScannerEnabled: false
+      exposedSecretScannerEnabled: false
       podLabels:
         ingress.samoth.eu/vmagent: allow
         ingress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/kube-apiserver: allow
         egress.samoth.eu/internet: allow
-      annotations:
-        reloader.stakater.com/auto: "true"
     
     serviceMonitor:
       enabled: true
     
     trivy:
+      additionalVulnerabilityReportFields: Links,CVSS,Target,Class,PackagePath,PackageType
       mode: client-server
       slow: true
       ignoreUnfixed: true
