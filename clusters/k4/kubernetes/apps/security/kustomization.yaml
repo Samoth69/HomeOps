@@ -11,5 +11,4 @@ components:
 
 resources:
   - ./kanidm/ks.yaml
-  - ./trivy-operator/ks.yaml
   - ./priorityclass.yaml

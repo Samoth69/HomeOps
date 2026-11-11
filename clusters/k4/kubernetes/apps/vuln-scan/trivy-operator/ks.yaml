@@ -6,11 +6,11 @@ metadata:
 spec:
   components:
     - ../../../../components/app-network-policy
-  path: ./clusters/k4/kubernetes/apps/security/trivy-operator/app
+  path: ./clusters/k4/kubernetes/apps/vuln-scan/trivy-operator/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
     substitute:
       APP: *app
-  targetNamespace: security
+  targetNamespace: vuln-scan
