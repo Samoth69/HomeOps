@@ -46,7 +46,7 @@ spec:
     
     trivy:
       additionalVulnerabilityReportFields: Links,CVSS,Target,Class,PackagePath,PackageType
-      mode: client-server
+      mode: ClientServer
       slow: true
       ignoreUnfixed: true
       podLabels:
