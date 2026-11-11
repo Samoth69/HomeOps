@@ -11,6 +11,7 @@ rules:
       - ""
     resources:
       - serviceaccounts
+      - secrets
     verbs:
       - update
       - view
