@@ -8,8 +8,6 @@ spec:
   policyRefs:
     - name: disallow-host-path
       kind: ValidatingPolicy
-  allowedValues:
-    - /var/mnt/hdd1
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/policies.kyverno.io/policyexception_v1.json
 apiVersion: policies.kyverno.io/v1
@@ -22,5 +20,3 @@ spec:
       kind: ValidatingPolicy
   images:
     - ghcr.io/qdm12/gluetun:*
-  allowedValues:
-    - NET_ADMIN
