@@ -56,7 +56,7 @@ spec:
 
     trivyOperator:
       skipResourceByLabels: "app.kubernetes.io/created-by=kopiur"
-      scanJobPodTemplateLabels: "egress.samoth.eu/internet: allow"
+      scanJobPodTemplateLabels: "egress.samoth.eu/internet=allow"
 
     resources:
       requests:
