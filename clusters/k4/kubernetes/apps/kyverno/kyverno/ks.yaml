@@ -42,6 +42,11 @@ spec:
       - name: cluster-secrets
         kind: Secret
   prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: pss-baseline
+      namespace: kyverno
   sourceRef:
     kind: Bucket
     name: flux-system
