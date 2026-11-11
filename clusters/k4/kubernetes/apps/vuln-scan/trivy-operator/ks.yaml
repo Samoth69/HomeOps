@@ -4,8 +4,6 @@ kind: Kustomization
 metadata:
   name: &app trivy-operator
 spec:
-  components:
-    - ../../../../components/app-network-policy
   path: ./clusters/k4/kubernetes/apps/vuln-scan/trivy-operator/app
   postBuild:
     substituteFrom:

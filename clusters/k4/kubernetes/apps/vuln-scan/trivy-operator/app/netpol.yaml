@@ -1,8 +1,25 @@
+---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: ${APP}
+  name: ${APP}-operator
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: trivy-operator
+      app.kubernetes.io/name: trivy-operator
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: trivy-server
+            app.kubernetes.io/name: trivy-server
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: ${APP}-server
 spec:
   endpointSelector:
     matchLabels:
@@ -12,3 +29,4 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/managed-by: trivy-operator  
+
