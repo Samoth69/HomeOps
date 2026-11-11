@@ -12,7 +12,7 @@ spec:
     - name: match-only-with-host-path
       expression: "has(object.spec.volumes) && object.spec.volumes.exists(v, has(v.hostPath))"
   validations:
-    - expression: object.spec.volumes.filter(v, has(v.hostPath)).all(e, v.path == '/var/mnt/hdd1')
+    - expression: object.spec.volumes.filter(v, has(v.hostPath)).all(e, e.path == '/var/mnt/hdd1')
       message: only /var/mnt/hdd1 is allowed as hostPath path
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/policies.kyverno.io/policyexception_v1.json
