@@ -6,9 +6,23 @@ metadata:
   name: exception-kube-system
 spec:
   policyRefs:
+    - name: disallow-capabilities
+      kind: ValidatingPolicy
     - name: disallow-host-namespaces
       kind: ValidatingPolicy
+    - name: disallow-host-path
+      kind: ValidatingPolicy
+    - name: disallow-host-ports
+      kind: ValidatingPolicy
     - name: disallow-host-probes
+      kind: ValidatingPolicy
+    - name: disallow-privileged-containers
+      kind: ValidatingPolicy
+    - name: disallow-selinux
+      kind: ValidatingPolicy
+    - name: disallow-apparmor-profiles
+      kind: ValidatingPolicy
+    - name: disallow-seccomp
       kind: ValidatingPolicy
   matchConditions:
     - name: namespace
