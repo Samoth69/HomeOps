@@ -3,43 +3,18 @@
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
-  name: exception-host-path
+  name: exception-monitoring
 spec:
   policyRefs:
     - name: disallow-host-path
       kind: ValidatingPolicy
-  matchConditions:
-    - name: namespace
-      expression: "object.metadata.namespace == 'monitoring'"
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/policies.kyverno.io/policyexception_v1.json
-apiVersion: policies.kyverno.io/v1
-kind: PolicyException
-metadata:
-  name: exception-host-namespace
-spec:
-  policyRefs:
     - name: disallow-host-namespaces
       kind: ValidatingPolicy
-  matchConditions:
-    - name: namespace
-      expression: "object.metadata.namespace == 'monitoring'"
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/policies.kyverno.io/policyexception_v1.json
-apiVersion: policies.kyverno.io/v1
-kind: PolicyException
-metadata:
-  name: exception-host-ports
-spec:
-  policyRefs:
     - name: disallow-host-ports
       kind: ValidatingPolicy
   matchConditions:
     - name: namespace
       expression: "object.metadata.namespace == 'monitoring'"
-  # images:
-  #   - quay.io/prometheus/node-exporter:*
-  #   - cr.fluentbit.io/fluent/fluent-bit:*
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/policies.kyverno.io/policyexception_v1.json
 apiVersion: policies.kyverno.io/v1

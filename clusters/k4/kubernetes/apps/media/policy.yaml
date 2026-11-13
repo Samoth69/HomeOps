@@ -9,6 +9,8 @@ spec:
     - name: disallow-host-path
       kind: ValidatingPolicy
   matchConditions:
+    - name: namespace
+      expression: "object.metadata.namespace == 'media'"
     - name: match-only-with-host-path
       expression: "has(object.spec.volumes) && object.spec.volumes.exists(v, has(v.hostPath))"
   validations:
@@ -24,5 +26,8 @@ spec:
   policyRefs:
     - name: disallow-capabilities
       kind: ValidatingPolicy
+  matchConditions:
+    - name: namespace
+      expression: "object.metadata.namespace == 'media'"
   images:
     - ghcr.io/qdm12/gluetun:*

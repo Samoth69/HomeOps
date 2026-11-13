@@ -3,10 +3,12 @@
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
-  name: exception-host-namespace
+  name: exception-kube-system
 spec:
   policyRefs:
     - name: disallow-host-namespaces
+      kind: ValidatingPolicy
+    - name: disallow-host-probes
       kind: ValidatingPolicy
   matchConditions:
     - name: namespace
