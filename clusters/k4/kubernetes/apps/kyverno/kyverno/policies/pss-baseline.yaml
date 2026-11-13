@@ -24,4 +24,4 @@ spec:
     kind: OCIRepository
     name: pss-baseline
   values:
-    validationFailureAction: Audit
+    validationFailureAction: Enforce

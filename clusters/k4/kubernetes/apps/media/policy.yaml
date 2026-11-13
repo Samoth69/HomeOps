@@ -30,4 +30,4 @@ spec:
     - name: namespace
       expression: "object.metadata.namespace == 'media'"
     - name: image
-      expression: "object.spec.containers.all(i, i.image.startsWith('ghcr.io/qdm12/gluetun:'))"
+      expression: "object.spec.containers.exists(i, i.image.startsWith('ghcr.io/qdm12/gluetun:'))"
