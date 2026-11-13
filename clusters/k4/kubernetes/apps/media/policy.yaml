@@ -21,7 +21,7 @@ spec:
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
-  name: exception-capabilites
+  name: exception-gluetun
 spec:
   policyRefs:
     - name: disallow-capabilities
@@ -30,4 +30,4 @@ spec:
     - name: namespace
       expression: "object.metadata.namespace == 'media'"
     - name: image
-      expression: "object.spec.containers.exists(i, i.image.startsWith('ghcr.io/qdm12/gluetun:'))"
+      expression: "object.spec.initContainers.exists(i, i.image.startsWith('ghcr.io/qdm12/gluetun:'))"
