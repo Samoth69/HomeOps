@@ -71,6 +71,6 @@ spec:
     serviceAccount:
       create: false
     
-    valkeyConfig: |
+    extraConfig: |
       # Disable save on disk
       save ""
