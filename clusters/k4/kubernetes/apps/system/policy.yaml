@@ -8,12 +8,6 @@ spec:
   policyRefs:
     - name: disallow-host-path
       kind: ValidatingPolicy
-    - name: disallow-host-namespaces
-      kind: ValidatingPolicy
-    - name: disallow-host-process
-      kind: ValidatingPolicy
-    - name: disallow-privileged-containers
-      kind: ValidatingPolicy
   matchConditions:
     - name: namespace
-      expression: "object.metadata.namespace == 'storage'"
+      expression: "object.metadata.namespace == 'system'"
