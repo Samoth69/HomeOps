@@ -20,9 +20,9 @@ spec:
       kind: ValidatingPolicy
     - name: disallow-selinux
       kind: ValidatingPolicy
-    - name: disallow-apparmor-profiles
+    - name: restrict-apparmor-profiles
       kind: ValidatingPolicy
-    - name: disallow-seccomp
+    - name: restrict-seccomp
       kind: ValidatingPolicy
   matchConditions:
     - name: namespace

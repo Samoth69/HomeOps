@@ -20,7 +20,7 @@ spec:
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
 metadata:
-  name: exception-privileged-containers
+  name: exception-smartctl-exporter
 spec:
   policyRefs:
     - name: disallow-privileged-containers
@@ -28,5 +28,5 @@ spec:
   matchConditions:
     - name: namespace
       expression: "object.metadata.namespace == 'monitoring'"
-  images:
-    - quay.io/prometheuscommunity/smartctl-exporter:*
+    - name: image
+      expression: "object.spec.containers.all(i, i.image.startsWith('quay.io/prometheuscommunity/smartctl-exporter:'))"
