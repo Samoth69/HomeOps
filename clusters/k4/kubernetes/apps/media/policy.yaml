@@ -29,5 +29,5 @@ spec:
   matchConditions:
     - name: namespace
       expression: "object.metadata.namespace == 'media'"
-  images:
-    - ghcr.io/qdm12/gluetun:*
+    - name: image
+      expression: "object.spec.containers.all(i, i.image.startsWith('ghcr.io/qdm12/gluetun:'))"
