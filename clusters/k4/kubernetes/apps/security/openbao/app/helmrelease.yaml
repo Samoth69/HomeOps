@@ -33,7 +33,7 @@ spec:
               name: openbao
             patch: |
               - op: add
-                path: /spec/volumeClaimTemplates/0
+                path: /spec/volumeClaimTemplates/0/spec
                 value:
                   dataSourceRef:
                     apiGroup: kopiur.home-operations.com
