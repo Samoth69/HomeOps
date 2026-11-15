@@ -68,7 +68,7 @@ spec:
               namespace: network
               sectionName: https
       priorityClassName: security
-      updateStrategyType: Recreate
+      updateStrategyType: RollingUpdate
       standalone:
         enabled: true
         config: |
