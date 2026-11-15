@@ -19,5 +19,6 @@ spec:
         kind: Secret
     substitute:
       APP: *app
+      KOPIUR_PVC_NAME: data-openbao-0
       KANIDM_REDIRECT_PATH: /ui/vault/auth/oidc/oidc/callback
   targetNamespace: security
