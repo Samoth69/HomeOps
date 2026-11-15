@@ -19,6 +19,7 @@ spec:
         kind: Secret
     substitute:
       APP: *app
+      KANIDM_REDIRECT_PATH: /identity/oidc/provider/+/authorize
   targetNamespace: security
   patches:
     - target:
