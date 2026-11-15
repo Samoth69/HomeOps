@@ -31,7 +31,10 @@ spec:
     
     workloadAnnotations:
       reloader.stakater.com/auto: "true"
-    
+
+    # TODO: retro compat, to delete on next rebootstrap of cluster    
+    deploymentStrategy: RollingUpdate
+
     podSecurityContext:
       fsGroup: 1000
       runAsUser: 1000
