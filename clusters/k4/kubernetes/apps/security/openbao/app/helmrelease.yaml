@@ -33,12 +33,11 @@ spec:
               name: openbao
             patch: |
               - op: add
-                path: /spec/volumeClaimTemplates/0/spec
+                path: /spec/volumeClaimTemplates/0/spec/dataSourceRef
                 value:
-                  dataSourceRef:
-                    apiGroup: kopiur.home-operations.com
-                    kind: Restore
-                    name: ${APP}
+                  apiGroup: kopiur.home-operations.com
+                  kind: Restore
+                  name: ${APP}
   values:
     global:
       tlsDisable: true
