@@ -13,7 +13,7 @@ spec:
   instances: 3
 
   # renovate: datasource=docker
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.7-standard-trixie
 
   storage:
     storageClass: miroir-local
