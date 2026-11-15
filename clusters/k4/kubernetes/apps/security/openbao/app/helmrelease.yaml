@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  url: oci://ghcr.io/openbao/charts/openbao
+  ref:
+    tag: 0.30.7
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  interval: 1h
+  values:
+    global:
+      tlsDisable: true
+    injector:
+      enabled: false
+    server:
+      configAnnotation: true
+      dataStorage:
+        enabled: true
+        size: 1Gi
+      extraLabels:
+        ingress.samoth.eu/envoy-internal: allow
+        ingress.samoth.eu/kube-apiserver: allow
+        ingress.samoth.eu/vmagent: allow
+        egress.samoth.eu/envoy-internal: allow
+        egress.samoth.eu/kube-apiserver: allow
+      extraSecretEnvironmentVars:
+        - envName: SEAL_KEY_0
+          secretName: ${APP}-secret
+          secretKey: SEAL_KEY_0
+      gateway:
+        httpRoute:
+          enabled: true
+          hosts:
+            - ${APP}.${SECRET_DOMAIN}
+          parentRefs:
+            - name: envoy-internal
+              namespace: network
+              sectionName: https
+      priorityClassName: security
+      standalone:
+        enabled: true
+        config: |
+          ui = true
+
+          listener "tcp" {
+            tls_disable = 1
+            address = "[::]:8200"
+            cluster_address = "[::]:8201"
+            # Enable unauthenticated metrics access (necessary for Prometheus Operator)
+            telemetry {
+             unauthenticated_metrics_access = "true"
+            }
+          }
+          storage "pebbledb" {
+            path = "/openbao/data/pebbledb"
+          }
+
+          seal "static" {
+            current_key_id = "seal-0"
+            current_key = "env://SEAL_KEY_0"
+          }
+
+          # Example configuration for enabling Prometheus metrics in your config.
+          telemetry {
+            prometheus_retention_time = "60s"
+            disable_hostname = true
+          }
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 10m
+        limits:
+          memory: 256Mi

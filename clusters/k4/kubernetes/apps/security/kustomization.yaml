@@ -10,4 +10,5 @@ components:
 
 resources:
   - ./kanidm/ks.yaml
+  - ./openbao/ks.yaml
   - ./priorityclass.yaml
