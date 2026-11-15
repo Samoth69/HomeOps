@@ -7,7 +7,8 @@ metadata:
 spec:
   components:
     - ../../../../components/database
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/backup-config
+    - ../../../../components/kopiur/backup-pvc
   dependsOn:
     - name: kopiur-repository
       namespace: system

@@ -22,4 +22,5 @@ spec:
       KOPIUR_SNAPSHOTCLASS: csi-ceph-filesystem
   targetNamespace: games
   components:
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/backup-config
+    - ../../../../components/kopiur/backup-pvc

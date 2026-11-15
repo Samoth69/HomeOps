@@ -8,7 +8,8 @@ spec:
     - ../../../../components/oauth2
     - ../../../../components/database
     - ../../../../components/external-secrets-kubernetes-store
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/backup-config
+    - ../../../../components/kopiur/backup-pvc
     - ../../../../components/valkey
   dependsOn:
     - name: kopiur-repository

@@ -6,7 +6,8 @@ metadata:
   name: &app qbittorrent
 spec:
   components:
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/backup-config
+    - ../../../../components/kopiur/backup-pvc
   dependsOn:
     - name: kopiur-repository
       namespace: system

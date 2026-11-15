@@ -25,4 +25,5 @@ spec:
   targetNamespace: games
   wait: true
   components:
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur/backup-config
+    - ../../../../components/kopiur/backup-pvc
