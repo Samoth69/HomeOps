@@ -19,19 +19,5 @@ spec:
         kind: Secret
     substitute:
       APP: *app
-      KANIDM_REDIRECT_PATH: /identity/oidc/provider/+/authorize
+      KANIDM_REDIRECT_PATH: /ui/vault/auth/oidc/oidc/callback
   targetNamespace: security
-  patches:
-    - target:
-        kind: StatefulSet
-        group: apps
-        version: v1
-        name: openbao
-      patch: |
-        - op: add
-          path: /spec/volumeClaimTemplates/0
-          value:
-            dataSourceRef:
-              apiGroup: kopiur.home-operations.com
-              kind: Restore
-              name: ${APP}
