@@ -26,6 +26,6 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: *namespace
-      VOLSYNC_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi
       KANIDM_REDIRECT_PATH: /user/oauth2/kanidm/callback
       KANIDM_SECRET_ROTATION: "false"
