@@ -27,7 +27,7 @@ spec:
     image:
       registry: ghcr.io
       repository: valkey-io/valkey
-      tag: 9.1.4-alpine
+      tag: 9.2.0-alpine
       pullPolicy: IfNotPresent
     
     architecture: replication
@@ -78,7 +78,7 @@ spec:
       image:
         registry: ghcr.io
         repository: valkey-io/valkey
-        tag: 9.1.4-alpine
+        tag: 9.2.0-alpine
         pullPolicy: IfNotPresent
       masterName: mymaster
       resources:
