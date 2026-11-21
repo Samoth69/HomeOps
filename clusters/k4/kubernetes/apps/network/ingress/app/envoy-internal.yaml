@@ -33,9 +33,9 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 200Mi
+              memory: 120Mi
             limits:
-              memory: 400Mi
+              memory: 200Mi
         pod:
           labels:
             ingress.samoth.eu/envoy-internal: allow
