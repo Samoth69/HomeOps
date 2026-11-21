@@ -236,55 +236,55 @@ spec:
       name: csi-ceph-filesystem
       isDefault: true
       deletionPolicy: Delete
-    cephObjectStores:
-      - name: ceph-objectstore
-        spec:
-          metadataPool:
-            failureDomain: host
-            replicated:
-              size: 3
-          dataPool:
-            failureDomain: host
-            erasureCoded:
-              dataChunks: 2
-              codingChunks: 1
-            parameters:
-              allow_ec_overwrites: "true"
-              allow_ec_optimizations: "true"
-          allowUsersInNamespaces:
-            - "*"
-          gateway:
-            hostNetwork: false
-            port: 80
-            instances: 2
-            labels:
-              ingress.samoth.eu/envoy-internal: allow
-            placement:
-              podAntiAffinity:
-                requiredDuringSchedulingIgnoredDuringExecution:
-                  - labelSelector:
-                      matchLabels:
-                        app: rook-ceph-rgw
-                    topologyKey: "kubernetes.io/hostname"
-            resources:
-              limits:
-                memory: 2Gi
-              requests:
-                cpu: 10m
-                memory: 256Mi
-        storageClass:
-          enabled: true
-          name: ceph-bucket
-          reclaimPolicy: Delete
-          parameters:
-            region: us-east-1
-        route:
-          enabled: true
-          host:
-            name: "ceph-object-store.${SECRET_DOMAIN}"
-            path: /
-            pathType: PathPrefix
-          parentRefs:
-            - name: envoy-internal
-              namespace: network
-              sectionName: https
+    cephObjectStores: []
+      # - name: ceph-objectstore
+      #   spec:
+      #     metadataPool:
+      #       failureDomain: host
+      #       replicated:
+      #         size: 3
+      #     dataPool:
+      #       failureDomain: host
+      #       erasureCoded:
+      #         dataChunks: 2
+      #         codingChunks: 1
+      #       parameters:
+      #         allow_ec_overwrites: "true"
+      #         allow_ec_optimizations: "true"
+      #     allowUsersInNamespaces:
+      #       - "*"
+      #     gateway:
+      #       hostNetwork: false
+      #       port: 80
+      #       instances: 2
+      #       labels:
+      #         ingress.samoth.eu/envoy-internal: allow
+      #       placement:
+      #         podAntiAffinity:
+      #           requiredDuringSchedulingIgnoredDuringExecution:
+      #             - labelSelector:
+      #                 matchLabels:
+      #                   app: rook-ceph-rgw
+      #               topologyKey: "kubernetes.io/hostname"
+      #       resources:
+      #         limits:
+      #           memory: 2Gi
+      #         requests:
+      #           cpu: 10m
+      #           memory: 256Mi
+      #   storageClass:
+      #     enabled: true
+      #     name: ceph-bucket
+      #     reclaimPolicy: Delete
+      #     parameters:
+      #       region: us-east-1
+      #   route:
+      #     enabled: true
+      #     host:
+      #       name: "ceph-object-store.${SECRET_DOMAIN}"
+      #       path: /
+      #       pathType: PathPrefix
+      #     parentRefs:
+      #       - name: envoy-internal
+      #         namespace: network
+      #         sectionName: https
