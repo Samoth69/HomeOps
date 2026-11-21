@@ -62,6 +62,7 @@ spec:
     trivyOperator:
       skipResourceByLabels: "app.kubernetes.io/created-by=kopiur"
       scanJobPodTemplateLabels: "egress.samoth.eu/internet=allow"
+      scanJobAnnotations: 'fluentbit.io/exclude: "true"'
 
     nodeCollector:
       useNodeSelector: false
