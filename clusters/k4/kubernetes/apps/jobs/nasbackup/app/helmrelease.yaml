@@ -62,9 +62,10 @@ spec:
                   name: nasbackup-secrets
             resources:
               requests:
-                cpu: 500m
+                cpu: 400m
                 memory: 2048Mi
               limits:
+                cpu: 400m # The NFS shares are kinda slow, we are intentionally bridleing the pod
                 memory: 5120Mi
     persistence:
       scripts:
