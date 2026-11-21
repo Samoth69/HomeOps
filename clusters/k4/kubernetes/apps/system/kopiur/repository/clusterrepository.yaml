@@ -30,16 +30,6 @@ spec:
         cron: 0 3 * * *
         jitter: 1h
   moverDefaults:
-    affinity:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - preference:
-              matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - tatsumi
-            weight: 1
     podSecurityContext:
       runAsGroup: 1000
       runAsUser: 1000
