@@ -11,7 +11,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      NAMESPACE: &ns selfhosted
+      NAMESPACE: selfhosted
   prune: true
-  targetNamespace: *ns
+  targetNamespace: network
   wait: false
