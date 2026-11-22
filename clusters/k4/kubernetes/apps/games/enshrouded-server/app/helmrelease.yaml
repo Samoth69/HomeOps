@@ -79,6 +79,8 @@ spec:
         annotations:
           lbipam.cilium.io/ips: "${SECRET_LB2_IPV4}"
           lbipam.cilium.io/sharing-key: "games"
+        labels:
+          pool: l2-pool
         controller: app
         type: LoadBalancer
         ports:

@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/fluxcd.controlplane.io/resourcesetinputprovider_v1.json
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSetInputProvider
+metadata:
+  name: namespace-ingress-${APP}
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "5m"
+  labels:
+    app.kubernetes.io/name: namespace-ingress
+spec:
+  type: Static
+  defaultValues:
+    listeners:
+      ssh: ${LISTENER_SSH}
+      postgres: ${LISTENER_POSTGRES}

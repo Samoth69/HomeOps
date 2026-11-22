@@ -13,3 +13,21 @@ spec:
     - cidr: "${SECRET_LB2_POOL_IPV6}"
     - cidr: "${SECRET_LB3_POOL_IPV4}"
     - cidr: "${SECRET_LB3_POOL_IPV6}"
+  serviceSelector:
+    matchLabels:
+      pool: l2-pool
+---
+# yaml-language-server: $schema=https://datreeio.github.io/CRDs-catalog/cilium.io/ciliumloadbalancerippool_v2alpha1.json
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: l2-dyn-pool
+spec:
+  allowFirstLastIPs: Yes
+  blocks:
+    - start: "${SECRET_LBDYN_START_IPV4}"
+      stop: "${SECRET_LBDYN_STOP_IPV4}"
+  serviceSelector:
+    matchLabels:
+      io.kubernetes.service.namespace: "network"
+      pool: l2-dyn-pool

@@ -1,0 +1,149 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/fluxcd.controlplane.io/resourceset_v1.json
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: ${APP}
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "1h"
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: ${APP}
+  inputsFrom:
+    - kind: ResourceSetInputProvider
+      selector:
+        matchLabels:
+          app.kubernetes.io/name: ${APP}
+  resources:
+    - apiVersion: gateway.envoyproxy.io/v1alpha1
+      kind: EnvoyProxy
+      metadata:
+        name: namespace-ingress-<< inputs.provider.name >>
+      spec:
+        ipFamily: DualStack
+        logging:
+          level:
+            default: warn
+        provider:
+          type: Kubernetes
+          kubernetes:
+            envoyPDB:
+              minAvailable: 1
+            envoyDeployment:
+              replicas: 2
+              container:
+                imageRepository: mirror.gcr.io/envoyproxy/envoy
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                      - ALL
+                  readOnlyRootFilesystem: true
+                  runAsGroup: 65532
+                  runAsNonRoot: true
+                  runAsUser: 65532
+                  seccompProfile:
+                    type: RuntimeDefault
+                resources:
+                  requests:
+                    cpu: 10m
+                    memory: 120Mi
+                  limits:
+                    memory: 200Mi
+              pod:
+                labels:
+                  ingress.samoth.eu/envoy-internal: allow
+                  ingress.samoth.eu/lan: allow
+                  ingress.samoth.eu/vmagent: allow
+                  egress.samoth.eu/envoy-internal: allow
+            envoyService:
+              labels:
+                pool: l2-dyn-pool
+              # Must be cluster when L2 Aware LB are enabled
+              externalTrafficPolicy: Cluster
+        shutdown:
+          drainTimeout: 30s
+        telemetry:
+          metrics:
+            enableRequestResponseSizesStats: true
+            enableVirtualHostStats: true
+            prometheus:
+              compression:
+                type: Gzip
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: https-redirect-<< inputs.provider.name >>
+      spec:
+        parentRefs:
+          - name: namespace-ingress-<< inputs.provider.name >>
+            namespace: network
+            sectionName: http
+        rules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  scheme: https
+                  statusCode: 301
+  resourcesTemplate: |
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: Gateway
+      metadata:
+        name: namespace-ingress-<< inputs.provider.name >>
+      spec:
+        gatewayClassName: envoy
+        infrastructure:
+          parametersRef:
+            group: gateway.envoyproxy.io
+            kind: EnvoyProxy
+            name: namespace-ingress-<< inputs.provider.name >>
+        listeners:
+          <<- if inputs.listeners.ssh >>
+          - name: ssh
+            protocol: TCP
+            port: 22
+            allowedRoutes:
+              namespaces:     
+                from: Selector
+                selector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: << inputs.provider.name >>
+          <<- end >>
+          - name: http
+            protocol: HTTP
+            port: 80
+            allowedRoutes:
+              namespaces:     
+                from: Selector
+                selector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: << inputs.provider.name >>
+          - name: https
+            protocol: HTTPS
+            port: 443
+            allowedRoutes:
+              namespaces:     
+                from: Selector
+                selector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: << inputs.provider.name >>
+            tls:
+              mode: Terminate
+              certificateRefs:
+                - kind: Secret
+                  name: "${SECRET_DOMAIN//./-}-tls"
+          <<- if inputs.listeners.postgres >>
+          - name: postgres
+            protocol: TCP
+            port: 5432
+            allowedRoutes:
+              kinds:
+                - kind: TCPRoute
+              namespaces:
+                from: Selector
+                selector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: << inputs.provider.name >>
+          <<- end >>
