@@ -21,6 +21,10 @@ spec:
       LISTENER_POSTGRES: "false"
   prune: true
   retryInterval: 2m
+  sourceRef:
+    kind: Bucket
+    name: flux-system
+    namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
   wait: false
