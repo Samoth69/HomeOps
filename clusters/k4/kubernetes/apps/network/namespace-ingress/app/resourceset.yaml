@@ -21,6 +21,7 @@ spec:
       kind: EnvoyProxy
       metadata:
         name: namespace-ingress-<< inputs.provider.name >>
+        namespace: network
       spec:
         ipFamily: DualStack
         logging:
@@ -76,6 +77,7 @@ spec:
       kind: HTTPRoute
       metadata:
         name: https-redirect-<< inputs.provider.name >>
+        namespace: network
       spec:
         parentRefs:
           - name: namespace-ingress-<< inputs.provider.name >>
@@ -93,6 +95,7 @@ spec:
     kind: Gateway
     metadata:
       name: namespace-ingress-<< inputs.provider.name >>
+      namespace: network
     spec:
       gatewayClassName: envoy
       infrastructure:
