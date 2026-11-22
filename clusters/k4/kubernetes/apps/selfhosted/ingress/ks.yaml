@@ -6,6 +6,9 @@ metadata:
 spec:
   components:
     - ../../../../components/namespace-ingress
+  dependsOn:
+    - name: namespace-ingress
+      namespace: network
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/selfhosted/ingress/app
   postBuild:

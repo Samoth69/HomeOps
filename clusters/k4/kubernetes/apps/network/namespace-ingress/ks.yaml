@@ -5,6 +5,13 @@ kind: Kustomization
 metadata:
   name: &app namespace-ingress
 spec:
+  dependsOn:
+    - name: envoy-gateway
+      namespace: network
+  healthChecks:
+    - kind: ResourceSet
+      name: *app
+      apiVersion: fluxcd.controlplane.io/v1
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/network/namespace-ingress/app
   postBuild:
@@ -16,6 +23,3 @@ spec:
   prune: true
   targetNamespace: network
   wait: false
-  dependsOn:
-    - name: envoy-gateway
-      namespace: network
