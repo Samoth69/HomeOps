@@ -7,12 +7,12 @@ namespace: selfhosted
 components:
   - ../../components/sops
   - ../../components/namespace-isolated
-  - ../../components/namespace-ingress/standard
   - ../../components/kopiur/secret
 
 resources:
   - ./ganymede/ks.yaml
   - ./glance/ks.yaml
+  - ./ingress/ks.yaml
   - ./karakeep/ks.yaml
   - ./omni-tools/ks.yaml
   - ./paperless/ks.yaml
