@@ -5,7 +5,7 @@ metadata:
   name: &app ingress
 spec:
   components:
-    - ../../../../components/namespace-ingress
+    - ../../../../components/envoy-internal
   dependsOn:
     - name: namespace-ingress
       namespace: network

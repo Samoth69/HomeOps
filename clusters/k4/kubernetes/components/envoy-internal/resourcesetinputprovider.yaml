@@ -3,13 +3,13 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSetInputProvider
 metadata:
-  name: namespace-ingress-${NAMESPACE}
+  name: envoy-internal-${NAMESPACE}
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "5m"
   labels:
-    app.kubernetes.io/name: namespace-ingress
-    app.kubernetes.io/instance: namespace-ingress-${NAMESPACE}
+    app.kubernetes.io/name: envoy-internal
+    app.kubernetes.io/instance: envoy-internal-${NAMESPACE}
 spec:
   type: Static
   defaultValues:
