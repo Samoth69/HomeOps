@@ -8,7 +8,7 @@ metadata:
     fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "5m"
   labels:
-    app.kubernetes.io/name: envoy-internal
+    app.kubernetes.io/name: envoy-internal-namespaced
     app.kubernetes.io/instance: envoy-internal-${NAMESPACE}
 spec:
   type: Static

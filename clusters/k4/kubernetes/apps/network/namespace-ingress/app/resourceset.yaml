@@ -15,7 +15,7 @@ spec:
     - kind: ResourceSetInputProvider
       selector:
         matchLabels:
-          app.kubernetes.io/name: ${APP}
+          app.kubernetes.io/name: envoy-internal-namespaced
   resources:
     - apiVersion: gateway.envoyproxy.io/v1alpha1
       kind: EnvoyProxy
