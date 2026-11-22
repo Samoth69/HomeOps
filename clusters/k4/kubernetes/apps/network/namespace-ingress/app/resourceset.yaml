@@ -89,62 +89,62 @@ spec:
                   statusCode: 301
   resourcesTemplate: |
     ---
-    - apiVersion: gateway.networking.k8s.io/v1
-      kind: Gateway
-      metadata:
-        name: namespace-ingress-<< inputs.provider.name >>
-      spec:
-        gatewayClassName: envoy
-        infrastructure:
-          parametersRef:
-            group: gateway.envoyproxy.io
-            kind: EnvoyProxy
-            name: namespace-ingress-<< inputs.provider.name >>
-        listeners:
-          <<- if inputs.listeners.ssh >>
-          - name: ssh
-            protocol: TCP
-            port: 22
-            allowedRoutes:
-              namespaces:     
-                from: Selector
-                selector:
-                  matchLabels:
-                    kubernetes.io/metadata.name: << inputs.provider.name >>
-          <<- end >>
-          - name: http
-            protocol: HTTP
-            port: 80
-            allowedRoutes:
-              namespaces:     
-                from: Selector
-                selector:
-                  matchLabels:
-                    kubernetes.io/metadata.name: << inputs.provider.name >>
-          - name: https
-            protocol: HTTPS
-            port: 443
-            allowedRoutes:
-              namespaces:     
-                from: Selector
-                selector:
-                  matchLabels:
-                    kubernetes.io/metadata.name: << inputs.provider.name >>
-            tls:
-              mode: Terminate
-              certificateRefs:
-                - kind: Secret
-                  name: "${SECRET_DOMAIN//./-}-tls"
-          <<- if inputs.listeners.postgres >>
-          - name: postgres
-            protocol: TCP
-            port: 5432
-            allowedRoutes:
-              kinds:
-                - kind: TCPRoute
-              namespaces:
-                from: Selector
-                selector:
-                  matchLabels:
-                    kubernetes.io/metadata.name: << inputs.provider.name >>
-          <<- end >>
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: Gateway
+    metadata:
+      name: namespace-ingress-<< inputs.provider.name >>
+    spec:
+      gatewayClassName: envoy
+      infrastructure:
+        parametersRef:
+          group: gateway.envoyproxy.io
+          kind: EnvoyProxy
+          name: namespace-ingress-<< inputs.provider.name >>
+      listeners:
+        <<- if inputs.listeners.ssh >>
+        - name: ssh
+          protocol: TCP
+          port: 22
+          allowedRoutes:
+            namespaces:     
+              from: Selector
+              selector:
+                matchLabels:
+                  kubernetes.io/metadata.name: << inputs.provider.name >>
+        <<- end >>
+        - name: http
+          protocol: HTTP
+          port: 80
+          allowedRoutes:
+            namespaces:     
+              from: Selector
+              selector:
+                matchLabels:
+                  kubernetes.io/metadata.name: << inputs.provider.name >>
+        - name: https
+          protocol: HTTPS
+          port: 443
+          allowedRoutes:
+            namespaces:     
+              from: Selector
+              selector:
+                matchLabels:
+                  kubernetes.io/metadata.name: << inputs.provider.name >>
+          tls:
+            mode: Terminate
+            certificateRefs:
+              - kind: Secret
+                name: "${SECRET_DOMAIN//./-}-tls"
+        <<- if inputs.listeners.postgres >>
+        - name: postgres
+          protocol: TCP
+          port: 5432
+          allowedRoutes:
+            kinds:
+              - kind: TCPRoute
+            namespaces:
+              from: Selector
+              selector:
+                matchLabels:
+                  kubernetes.io/metadata.name: << inputs.provider.name >>
+        <<- end >>
