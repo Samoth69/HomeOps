@@ -68,5 +68,5 @@ spec:
         memory: 42M
     serviceMonitor:
       enabled: true
-    txtOwnerId: main
-    txtPrefix: k8s.main.%{record_type}-
+    # Pihole doesn't support local TXT records
+    registry: crd
