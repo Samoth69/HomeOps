@@ -11,6 +11,7 @@ spec:
   healthChecks:
     - kind: ResourceSet
       name: *app
+      namespace: network
       apiVersion: fluxcd.controlplane.io/v1
   interval: 1h
   path: ./clusters/k4/kubernetes/apps/network/namespace-ingress/app
