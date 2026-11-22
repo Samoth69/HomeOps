@@ -12,6 +12,8 @@ spec:
     substitute:
       APP: *app
       NAMESPACE: selfhosted
+      LISTENER_SSH: "false"
+      LISTENER_POSTGRES: "false"
   prune: true
   targetNamespace: network
   wait: false
