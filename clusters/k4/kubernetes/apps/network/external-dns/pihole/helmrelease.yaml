@@ -65,7 +65,7 @@ spec:
         cpu: 13m
         memory: 42M
       limits:
-        memory: 42M
+        memory: 100M
     serviceMonitor:
       enabled: true
     # Pihole doesn't support local TXT records
