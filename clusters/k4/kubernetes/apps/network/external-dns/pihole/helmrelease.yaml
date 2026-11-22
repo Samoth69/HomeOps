@@ -1,0 +1,72 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: ${APP}
+spec:
+  interval: 1h
+  url: https://kubernetes-sigs.github.io/external-dns
+  timeout: 3m
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chart:
+    spec:
+      chart: external-dns
+      version: 1.24.0
+      interval: 1h
+      sourceRef:
+        kind: HelmRepository
+        name: ${APP}
+  interval: 1h
+  values:
+    fullnameOverride: ${APP}
+    logLevel: info
+    domainFilters:
+      - ${SECRET_DOMAIN}
+    env:
+      - name: EXTERNAL_DNS_PIHOLE_SERVER
+        valueFrom:
+          secretKeyRef:
+            name: ${APP}
+            key: EXTERNAL_DNS_PIHOLE_SERVER
+      - name: EXTERNAL_DNS_PIHOLE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: ${APP}
+            key: EXTERNAL_DNS_PIHOLE_PASSWORD
+      - name: EXTERNAL_DNS_PIHOLE_TLS_SKIP_VERIFY
+        valueFrom:
+          secretKeyRef:
+            name: ${APP}
+            key: EXTERNAL_DNS_PIHOLE_TLS_SKIP_VERIFY
+    extraArgs:
+      - --gateway-namespace=network
+    podLabels:
+      ingress.samoth.eu/kube-apiserver: allow
+      ingress.samoth.eu/vmagent: allow
+      egress.samoth.eu/kube-apiserver: allow
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
+    triggerLoopOnEvent: true
+    sources:
+      - crd
+      - gateway-httproute
+    policy: sync
+    provider:
+      name: pihole
+    resources:
+      requests:
+        cpu: 13m
+        memory: 42M
+      limits:
+        memory: 42M
+    serviceMonitor:
+      enabled: true
+    txtOwnerId: main
+    txtPrefix: k8s.main.%{record_type}-
