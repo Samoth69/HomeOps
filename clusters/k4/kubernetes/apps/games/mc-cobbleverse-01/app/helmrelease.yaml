@@ -71,8 +71,8 @@ spec:
               ENABLE_WHITELIST: true
 
               # Droits
-              OPS: Samoth69,Eternal_Anaos,Asuto_Th
-              WHITELIST: Samoth69,Eternal_Anaos,Asuto_Th
+              OPS: Samoth69,Asuto_Th,sarteckk
+              WHITELIST: Samoth69,Asuto_Th,sarteckk
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
