@@ -34,7 +34,7 @@ spec:
               pullPolicy: Always
               tag: java21
             ports:
-              - containerPort: &port 25566
+              - containerPort: &port 25568
                 protocol: TCP
                 name: gameport-tcp
               - containerPort: *port
@@ -43,13 +43,13 @@ spec:
             env:
               # Fondamentaux
               EULA: true
-              TYPE: NEOFORGE
+              TYPE: FABRIC
               VERSION: 1.21.1
-              NEOFORGE_VERSION: 21.1.249
+              FABRIC_VERSION: 0.19.5
               SERVER_PORT: *port
 
               # Performance
-              MEMORY: 5120M
+              MEMORY: 8192M
               USE_MEOWICE_FLAGS: true
 
               # Server.properties
@@ -58,7 +58,7 @@ spec:
               SIMULATION_DISTANCE: 12
 
               MOTD: |
-                Craftoria
+                cobbleverse
               PVP: true
               MAX_WORLD_SIZE: 10000000
               ENABLE_COMMAND_BLOCK: true
@@ -71,8 +71,8 @@ spec:
               ENABLE_WHITELIST: true
 
               # Droits
-              OPS: Samoth69
-              WHITELIST: Samoth69
+              OPS: Samoth69,Eternal_Anaos,Asuto_Th
+              WHITELIST: Samoth69,Eternal_Anaos,Asuto_Th
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

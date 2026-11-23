@@ -74,7 +74,9 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      mc-prominence-ii-hasturian-era:
-        existingClaim: mc-prominence-ii-hasturian-era
+      mc-cobbleverse-02:
+        existingClaim: mc-cobbleverse-02
       mc-glmart-02:
         existingClaim: mc-glmart-02
+      mc-prominence-ii-hasturian-era:
+        existingClaim: mc-prominence-ii-hasturian-era
