@@ -11,6 +11,11 @@ spec:
   ingress:
     - fromEntities:
         - kube-apiserver
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: vmagent
+            app.kubernetes.io/component: monitoring
+            k8s:io.kubernetes.pod.namespace: monitoring
   egress:
     - toEntities:
         - kube-apiserver
