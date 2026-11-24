@@ -1,10 +1,10 @@
 services:
   dnscrypt:
-    image: gists/dnscrypt-proxy:2.1.5
+    image: klutchell/dnscrypt-proxy:v2.1.21
     restart: unless-stopped
     container_name: dnscrypt
     volumes:
-      - "./dnscrypt-proxy.toml:/etc/dnscrypt-proxy/dnscrypt-proxy.toml:ro"
+      - "./dnscrypt-proxy.toml:/config/dnscrypt-proxy.toml:ro"
     ports:
       - 127.0.0.1:5300:5353/tcp
       - 127.0.0.1:5300:5353/udp
