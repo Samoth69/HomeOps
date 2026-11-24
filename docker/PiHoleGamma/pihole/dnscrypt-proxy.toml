@@ -138,7 +138,7 @@ require_dnssec = false
 require_nolog = true
 require_nofilter = true
 http3 = true
-http3_probe = true
+# http3_probe = true
 
 timeout = 5000
 keepalive = 30
