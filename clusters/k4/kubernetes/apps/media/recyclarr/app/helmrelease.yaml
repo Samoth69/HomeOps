@@ -55,8 +55,6 @@ spec:
             args:
               - recyclarr
               - sync
-              - -c
-              - /recyclarr.yaml
             env:
               RECYCLARR_DATA_DIR: /tmp
               SONARR_ANIME_API_KEY:
@@ -91,7 +89,7 @@ spec:
         type: configMap
         name: recyclarr
         globalMounts:
-          - path: /recyclarr.yaml
+          - path: /config/recyclarr.yaml
             subPath: recyclarr.yaml
             readOnly: true
       tmp:
