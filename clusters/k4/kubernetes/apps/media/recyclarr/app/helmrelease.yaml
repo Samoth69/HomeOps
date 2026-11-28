@@ -53,6 +53,7 @@ spec:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 9.0.0
             args:
+              - recyclarr
               - sync
               - -c
               - /recyclarr.yaml
