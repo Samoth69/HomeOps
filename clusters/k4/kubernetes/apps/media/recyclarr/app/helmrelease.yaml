@@ -57,6 +57,7 @@ spec:
               - sync
             env:
               RECYCLARR_DATA_DIR: /tmp
+              RECYCLARR_SERVER_URL: ~
               SONARR_ANIME_API_KEY:
                 valueFrom:
                   secretKeyRef:
