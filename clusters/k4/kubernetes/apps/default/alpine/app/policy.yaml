@@ -23,5 +23,5 @@ spec:
   matchConditions:
     - name: namespace
       expression: "object.metadata.namespace == 'default'"
-    - name: namespace
+    - name: name
       expression: "object.metadata.name == 'alpine'"
