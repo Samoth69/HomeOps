@@ -17,7 +17,9 @@ spec:
         egress.samoth.eu/cluster: allow
         egress.samoth.eu/envoy-internal: allow
     spec:
-      # dnsPolicy: Default
+      hostIPC: true
+      hostNetwork: true
+      hostPID: true
       containers:
       - name: alpine
         image: alpine
@@ -25,9 +27,17 @@ spec:
         args:
         - sleep
         - infinity
+        volumeMounts:
+          - mountPath: /dev
+            name: dev
+            readOnly: true
         resources:
           requests:
             cpu: 2m
             memory: 20Mi
           limits:
             memory: 1Gi
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev
