@@ -10,6 +10,7 @@ api_bind_addr = '0.0.0.0:3904'
 [s3_api]
 api_bind_addr = '0.0.0.0:3900'
 s3_region = 'garage'
+root_domain = "garage.truenas.samoth.eu"
 public_endpoint = "https://garage.truenas.samoth.eu"
 public_endpoint_path_style = false
 
