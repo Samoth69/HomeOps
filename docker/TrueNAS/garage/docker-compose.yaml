@@ -21,7 +21,7 @@ services:
       traefik.http.routers.garage-ui.entrypoints: websecure
       traefik.http.routers.garage-ui.rule: Host(`garage-ui.truenas.samoth.eu`)
       traefik.http.routers.garage-ui.service: garage-ui
-      traefik.http.services.garage-ui.loadbalancer.server.port: "3902" # WebUI
+      traefik.http.services.garage-ui.loadbalancer.server.port: "3904" # WebUI
     image: dxflrs/garage:v2.6.0
     networks:
       - apps

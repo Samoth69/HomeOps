@@ -13,8 +13,3 @@ s3_region = 'garage'
 root_domain = "garage.truenas.samoth.eu"
 public_endpoint = "https://garage.truenas.samoth.eu"
 public_endpoint_path_style = false
-
-[s3_web]
-bind_addr = "0.0.0.0:3902"
-root_domain = "garage-ui.truenas.samoth.eu"
-index = "index.html"
